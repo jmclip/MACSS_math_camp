@@ -8,7 +8,7 @@
 
 * Meeting day: August 24-September 14, MTWThF
 * Time: 1:00pm-5:00pm
-* Location: (tentative) Social Sciences Rsch Bldg 122
+* Location:  Social Sciences Research Building room 122
 
 
 ## TA TEAM!
