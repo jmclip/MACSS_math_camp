@@ -57,7 +57,7 @@ This course may only be taken for pass/fail (non-credit), not for a letter grade
 
 ### Regrades: 
 
-We have regrading open on Gradescope. You should request a regrade if there is an error in the grading (e.g. something was marked as incorrect but it was actually correct). Regrades are open for approximately one week or 9/16, whichever is sooner. Note that there are required portions that must be tagged (e.g. name and AI/resources statement). Failure to tag them (even if they are there) after PSET 2 will result in a forfeit of those points. 
+We have regrading open on Gradescope. You should request a regrade if there is an error in the grading (e.g. something was marked as incorrect but it was actually correct). Regrades are open for approximately one week or 9/16, whichever is sooner. Note that there are required portions that must be tagged (e.g. name and AI/resources statement). **Failure to tag them (even if they are there) after PSET 2 will result in a forfeit of those points.** 
 
 The regrade space is pretty limited -- you need to be clear, professional, and direct. Note that tone can come across very differently in writing versus in person so please be mindful. I (Jean) will step in as needed if you have questions.  
 
