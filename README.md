@@ -72,7 +72,7 @@ Attendance is not required with the exception of the final day of class, which h
 ## AI Policy
 AI / generative AI / GPT-like tools are not permitted for any of the assessments in this course. You *may* use it to understand logic of non-assignment questions / sample questions. Each assignment requires a statement of the resources you used in the assignment. 
 
-Using these tools constitutes academic dishonesty and will be reported to the Dean of Students, Kelly Pollock. Academic integrity is something we take very seriously: violations are not tolerated. 
+Using these tools constitutes academic dishonesty and will be reported to the Dean of Students, Kelly Pollock. Academic integrity is something we take very seriously: violations are not tolerated. **IF IN DOUBT, PLEASE ASK US!**
 
 ### Exam study guide
 [Submit your practice questions here](https://forms.gle/FGmpjwDpHw5mVyVp6). We will use this to generate the final exam and we will circulate the questions here to all students. Note that not all questions here will be on the exam -- it depends upon the quality and variety of submissions. 
