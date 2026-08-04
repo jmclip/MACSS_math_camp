@@ -9,6 +9,7 @@
 * Meeting day: August 24-September 14, MTWThF
 * Time: 1:00pm-5:00pm
 * Location:  Social Sciences Research Building room 122
+* Office hours: 4-5pm Mon-Thurs, in person or [zoom](https://uchicago.zoom.us/j/7738348343?pwd=bjdOa0ZSczBiVC9GTEpuNTY1SGE4QT09)
 
 
 ## TA TEAM!
