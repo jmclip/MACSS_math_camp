@@ -21,9 +21,9 @@
 |  | In-person | Zoom
 |-|-|-|
 | Monday | | |
-| Tuesday | 12-1 PM (Stanley), 5-7 PM (Gabe) |  7-8 PM ([Stanley](https://uchicago.zoom.us/j/7341771008?pwd=08dicxuFS1VC6gtpx6PMxqYbmV1Jdp.1)) |
+| Tuesday | 12-1 PM (Stanley), 5-7 PM (Yanjing) |  7-8 PM ([Stanley](https://uchicago.zoom.us/j/7341771008?pwd=08dicxuFS1VC6gtpx6PMxqYbmV1Jdp.1)) |
 | Wednesday | 12-1 PM (Shirley & Stanley) | 8-10 PM ([Shirley](https://uchicago.zoom.us/j/3651008105?pwd=bV8LM2XF7KDJRV1Eg7lVJTyYWFFy4a.1&omn=96139174716)) |
-| Thursday | 12-1 PM(Shirley), 5-7 PM (Gabe-9/11 only)|7-8 PM ([Stanley](https://uchicago.zoom.us/j/7341771008?pwd=08dicxuFS1VC6gtpx6PMxqYbmV1Jdp.1)) |
+| Thursday | 12-1 PM(Shirley), 5-7 PM (Yanjing)|7-8 PM ([Stanley](https://uchicago.zoom.us/j/7341771008?pwd=08dicxuFS1VC6gtpx6PMxqYbmV1Jdp.1)) |
 | Friday | |4-6 PM ([Gabe](https://uchicago.zoom.us/j/96214894952?pwd=6jwTx5DF0dGbMtbVTPJ0Xi8BlaNW3n.1)) |
 | Saturday | |9 AM - 12 PM ([Bailey](https://uchicago.zoom.us/j/6363783755?pwd=YynAgxHtitqOxQsWbaiWev3s1acKIe.1)) |
 
