@@ -45,7 +45,7 @@ This course surveys mathematical and statistical tools that are foundational to 
   Students can withdraw at any point in the course without penalty. Only students who pass the course have it on their transcript (no W will appear). 
 
 ## Placement Exams
-There are TWO placement exams: on the first and last days of camp. The exam on the first day of camp is optional. MACSS students may elect to take the placement exam to test out of the math camp requirement. The exam will NOT grant course credit. The final exam is REQUIRED for all students who wish to earn credit for the course. MACSS students MUST be in-person for the final exam if they have not taken the placement exam. Both exams are in-person only. 
+There are TWO placement exams: on the first and last days of camp. The exam on the first day of camp is optional. Please [register here for the pre-test on the first day so I know how many copies to print.](https://docs.google.com/forms/d/e/1FAIpQLSfObsKu-tXI7ooQQmHaXT-jHFkRKaYyTcFrfuQRUhUJRM1Lkw/viewform?usp=dialog) MACSS students may elect to take the placement exam to test out of the math camp requirement. The exam will NOT grant course credit. The final exam is REQUIRED for all students who wish to earn credit for the course. MACSS students MUST be in-person for the final exam if they have not taken the placement exam. Both exams are in-person only. 
 
 
 ### COURSE: CANVAS
