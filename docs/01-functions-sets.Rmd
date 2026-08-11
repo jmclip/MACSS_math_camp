@@ -33,6 +33,8 @@ library(here)
 * Define functions and their properties
 * Define sets
 * Practice root finding
+* Define logarithmic and exponential functions
+* Practice simplifying power, logarithmic, and exponential functions
 
 ---
 
@@ -67,7 +69,7 @@ library(here)
 
 # Computational social science
 
-```{r css-img, out.width="75%", fig.cap="Venn diagram of disciplines"}
+```{r cssvenn-img, out.width="75%", fig.cap="Venn diagram of disciplines"}
 knitr::include_graphics("images/ccsvenn.jpeg")
 ```
 
@@ -153,7 +155,7 @@ knitr::include_graphics("images/ccsvenn.jpeg")
 # Course logistics
 
 * [Course site](https://github.com/math-camp/course)
-* [Canvas course](https://canvas.uchicago.edu/enroll/MWWG9D)
+* [Canvas course](https://canvas.uchicago.edu/enroll/MB3HTY)
 * Gradescope (accessed via Canvas)
 
 --
@@ -161,10 +163,9 @@ knitr::include_graphics("images/ccsvenn.jpeg")
 ## Course staff
 
 * Dr. Jean Clipperton: clipperton@uchicago.edu 
-* Bailey Meche baileymeche@uchicago.edu
-* Gabe Reichman gabereichman@uchicago.edu
-* Shirley Zhang xueyan1220@uchicago.edu
-* Stanley Yi yijiaying@uchicago.edu
+* Saaket Raman
+* Xulan Jiang
+* Yanjing Li
 
 
 ---
@@ -254,7 +255,7 @@ Implication | Formal statement
 ------------|------------------
 If individuals do not get enough benefit from voting, they will abstain | The voter will abstain if $R < 0$.
 Individuals have other things to do on election day (like going to work). If the benefit of voting is not as large as alternative benefits, then individuals will abstain. | The voter may still not vote even if $R > 0$ if there exist other competing activities that produce a higher $R$.
-Most elections have thousands, if not millions, of ballots cast. There is no point to voting since any individual ballot is unlikely to change the outcome of the election. Therefore everyone should abstain. | If $P$ is very small, then it is unlikely that this individual will vote.
+Most elections have thousands, if not millions, of ballots cast. There is no point to voting since any individual ballot is unlikely to change the outcome of the election. Therefore everyone should abstain. | If $P$ is $\approx$ 0, then $PB<C$, so $R<0$ and the voter abstains.
 
 --
 
@@ -281,7 +282,7 @@ $$
 A & = \{1, 2, 3\} \nonumber  \\
 B  & = \{4, 5, 6\}\nonumber  \\
 C  & = \{ \text{First year cohort} \} \\
-D & = \{ \text{U of Chicago Lecturers} \}
+D & = \{ \text{U of Chicago SIPs} \}
 \end{aligned}
 $$
 
@@ -296,7 +297,7 @@ $$
 
 * $1 \in \{ 1, 2, 3\}$
 * $4 \in \{4, 5, 6\}$
-* $\text{Will} \notin \{ \text{First year cohort} \}$
+* $\text{Xulan} \notin \{ \text{First year cohort} \}$
 * $\text{Jean} \in \{ \text{U of Chicago SIPs} \}$
 
 --
@@ -319,7 +320,7 @@ Why do we care about sets?
 
 -----------
 
-* If $A$ and $B$ are sets, then we say that $A \subset B$ is, for all $x \in A$, then $x \in B$
+* If $A$ and $B$ are sets, then we say that $A \subseteq B$ if, for all $x \in A$, then $x \in B$
     * What is the difference between the definitions?
 
 ---
@@ -329,17 +330,17 @@ Why do we care about sets?
 Some famous sets:
 
 * $\mathbb{N} = \{1, 2, 3, \ldots \}$
-* $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots, \}$
-* $\Re = \mbox{Real numbers}$
+* $\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots \}$
+* $\mathbb{R} = \mbox{Real numbers}$
 
 --
 
 Use **set builder notation** to identify subsets:
 
-* $[a, b]  = \{x: x \in \Re \text{ and } a \leq x \leq b \}$
-* $(a, b]  = \{x: x \in \Re \text{ and } a < x \leq b \}$
-* $[a, b)  = \{x: x \in \Re \text{ and } a \leq x <  b \}$
-* $(a, b)  = \{x: x \in \Re \text{ and } a < x < b \}$
+* $[a, b]  = \{x: x \in \mathbb{R} \text{ and } a \leq x \leq b \}$
+* $(a, b]  = \{x: x \in \mathbb{R} \text{ and } a < x \leq b \}$
+* $[a, b)  = \{x: x \in \mathbb{R} \text{ and } a \leq x <  b \}$
+* $(a, b)  = \{x: x \in \mathbb{R} \text{ and } a < x < b \}$
 * $\emptyset$
 
 ---
@@ -354,11 +355,11 @@ Use **set builder notation** to identify subsets:
 --
 
 * $A = \{1, 2, 3\}, B = \{3, 4, 5\}$, then $C = A \cup B  = \{ 1, 2, 3, 4, 5\}$
-* $D  = \{\text{First Year Cohort} \}, E = \{\text{Me} \}$, then $F = D \cup E = \{ \text{First Year Cohort, Me} \}$
+* $D  = \{\text{First year cohort} \}, E = \{\text{Me} \}$, then $F = D \cup E = \{ \text{First year cohort, Me} \}$
 
 --
 
-This of the union as a list of the elements that are present (not an accounting of their number).
+Think of the union as a list of the elements that are present (not an accounting of their number).
 
 ---
 
@@ -371,7 +372,7 @@ This of the union as a list of the elements that are present (not an accounting 
 --
 
 * $A =\{1, 2, 3\}, B = \{3, 4, 5\}$, then, $C = A \cap B = \{3\}$
-* $D = \{\text{First Year Cohort} \}, E = \{\text{Me} \}$, then $F = D \cap E = \emptyset$
+* $D = \{\text{First year cohort} \}, E = \{\text{Me} \}$, then $F = D \cap E = \emptyset$
 
 ---
 
@@ -399,7 +400,7 @@ $$(a, b)$$
   
 Example: $A = \{1, 2\}$ and $B = \{3, 4\}$, then,
 
-$$A \times B = \{ (1, 3); (1, 4); (2, 3); (2, 4) \}$$
+$$A \times B = \{ (1, 3), (1, 4), (2, 3), (2, 4) \}$$
 
 ---
 
@@ -419,7 +420,7 @@ $$A \times B = \{ (1, 3); (1, 4); (2, 3); (2, 4) \}$$
 
 ---
 
-# Relation
+# Functions
 
 ```{r x}
 function_plot +
@@ -432,7 +433,7 @@ function_plot +
 
 ---
 
-# Relation
+# Functions
 
 ```{r x-squared}
 function_plot +
@@ -445,7 +446,7 @@ function_plot +
 
 ---
 
-# Relation
+# Functions
 
 ```{r x-sqrt}
 function_plot +
@@ -462,7 +463,7 @@ function_plot +
 # Relation vs. function
 
 * Mathematical function - a mapping which gives a correspondence from one measure onto exactly one other for that value
-* Mapping from one defined space to another, such as $F \colon \Re \rightarrow \Re$
+* Mapping from one defined space to another, such as $F \colon \mathbb{R} \rightarrow \mathbb{R}$
 
     $$F(x) = x^2 - 1$$
     
@@ -519,14 +520,14 @@ tibble(
 
 ---
 
-# Two major properties of functions
+# Two properties of functions
 
 $$F(x) = y$$
 
 1. A function is **continuous** if it has no gaps in its mapping from $x$ to $y$
 1. A function is **invertible** if its reverse operation exists:
 
-    $$G^{-1}(y) = x, \text{where } G^{-1}(G(x)) = x$$
+    $$F^{-1}(y) = x, \text{where } F^{-1}(F(x)) = x$$
 
 ---
 
@@ -534,7 +535,7 @@ $$F(x) = y$$
 
 $$F(x) = \left\{
         \begin{array}{ll}
-            \frac{1}{x} & \quad x \neq 0 \text{ and } x \text{ is rational}\\
+            \frac{1}{x} & \quad x \neq 0 \\
             0 & \quad \text{otherwise}
         \end{array}
 \right.$$
@@ -769,7 +770,150 @@ function_plot +
   xlim(-5, 5)
 ```
 
-]
+
+
+
+---
+
+# Logarithms and exponential functions
+
+* Important component to many mathematical and statistical methods in social science
+* Exponents
+* Logarithms
+
+---
+
+# Functions with exponents
+
+$$f(x) = x \times x = x^2$$
+
+$$f(x) = x \times x \times x = x^3$$
+
+```{r functions-with-exp}
+{
+  function_plot +
+    stat_function(fun = function(x) x^2) +
+    labs(title = expression(f(x) == x^2))
+} + {
+  function_plot +
+    stat_function(fun = function(x) x^3) +
+    labs(title = expression(f(x) == x^3))
+}
+```
+
+---
+
+# Common rules of exponents
+
+* $x^0 = 1$
+* $x^1 = x$
+* $\left ( \frac{x}{y} \right )^a = \left ( \frac{x^a}{y^a}\right ) = x^a y^{-a}$
+* $(x^a)^b = x^{ab}$
+* $(xy)^a = x^a y^a$
+* $x^a \times x^b = x^{a+b}$
+
+---
+
+# Logarithms
+
+* Class of functions
+* $\log_{b}(x) = a \Leftrightarrow b^a = x$
+* What number $a$ solves $b^a = x$
+
+---
+
+# Base 10
+
+$$\log_{10}(100) = 2 \Rightarrow 10^2 = 100$$
+
+$$\log_{10}(0.1) = -1 \Rightarrow 10^{-1} = 0.1$$
+
+```{r log-base-10}
+function_plot +
+  stat_function(fun = function(x) log(x, base = 10), n = 501) +
+  coord_cartesian(xlim = c(0, 5)) +
+  labs(
+    title = expression(f(x) == log[10](x)),
+    y = expression(f(x))
+  )
+```
+
+---
+
+# Base 2
+
+$$\log_{2}(8) = 3 \Rightarrow 2^3 = 8$$
+
+$$\log_{2}(1) = 0 \Rightarrow 2^0 = 1$$
+
+```{r log-base-2}
+function_plot +
+  stat_function(
+    mapping = aes(color = "10"),
+    fun = function(x) log(x, base = 10), n = 501
+  ) +
+  stat_function(
+    mapping = aes(color = "2"),
+    fun = function(x) log(x, base = 2), n = 501
+  ) +
+  scale_color_brewer(type = "qual", labels = list(
+    bquote(log[10](x)),
+    bquote(log[2](x))
+  )) +
+  coord_cartesian(xlim = c(0, 5)) +
+  labs(
+    y = expression(f(x)),
+    color = NULL
+  )
+```
+
+---
+
+# Base $e$
+
+* Natural logarithm
+
+$$\log_{e}(e) = 1 \Rightarrow e^1 = e$$
+
+```{r log-base-e, fig.height = 5}
+function_plot +
+  stat_function(
+    mapping = aes(color = "10"),
+    fun = function(x) log(x, base = 10), n = 501
+  ) +
+  stat_function(
+    mapping = aes(color = "2"),
+    fun = function(x) log(x, base = 2), n = 501
+  ) +
+  stat_function(
+    mapping = aes(color = "e"),
+    fun = function(x) log(x), n = 501
+  ) +
+  scale_color_brewer(type = "qual", labels = list(
+    bquote(log[10](x)),
+    bquote(log[2](x)),
+    bquote(log[e](x))
+  )) +
+  coord_cartesian(xlim = c(0, 5)) +
+  labs(
+    y = expression(f(x)),
+    color = NULL
+  )
+```
+
+* Natural logarithms are incredibly useful in math
+* Often $\log()$ is assumed to be a natural log (good to assume for homework, too!)
+* Also seen as $\ln()$
+
+---
+
+# Rules of logarithms
+
+* $\log_b(1) = 0$
+* $\log(x \times y) = \log(x) + \log(y)$
+* $\log(\frac{x}{y}) = \log(x) - \log(y)$
+* $\log(x^y) = y \log(x)$
+
 
 
 ---
@@ -778,14 +922,14 @@ class: center, middle, inverse
 
 ---
 
-# Gradescope:
+# Gradescope
 Online system for grading. 
 
 Steps:
 
 * Download assignment (pdf or tex file)
-* Complete assignment by deadilne (due that night)
-* Upload to gradescope (navigate through Canvas)
+* Complete assignment by deadline (due that night)
+* Upload to Gradescope (navigate through Canvas)
 * Label questions
 * Yes, it is annoying and I am sorry! 
 
@@ -817,3 +961,10 @@ Please label or we get stuck with this!!
 ```{r, fig.height=6, out.width = "90%"}
 knitr::include_graphics("images/no_label.png")
 ```
+
+---
+
+# Reminders
+
+* Assignment due TONIGHT
+* LABEL THINGS 
