@@ -97,6 +97,10 @@ Note: solutions posted after grades released
 |-|-|-|-|
 | 24-Aug | OPTIONAL pre-exam | Pre-test to determine if MACSS students need to complete the math camp
 | 25-Aug | Linear equations | [Linear equations, inequalities, and sets and functions](https://jmclip.github.io/MACSS_math_camp/01-functions-sets.html) | [Pset 1 pdf](problem_sets/01-functions-sets.pdf) [.tex file](problem_sets/01-functions-sets.tex) & [answer key](solutions/pset1_answerkey.pdf)
+
+| -- **updating assignments and content below this line!** -- |
+| Date | Topic | Subtopic/Slides | Assignment
+|-|-|-|-|
 | 26-Aug | Linear equations | [Quadratics, logarithms, sequences, and limits](https://jmclip.github.io/MACSS_math_camp/02-sequences-limits.html) and [Differentiation](https://jmclip.github.io/MACSS_math_camp/03-differentiation.html)  | [Pset 2 pdf](problem_sets/02-seq-limits-critical-points.pdf),[.tex file](problem_sets/02-seq-limits-critical-points.tex) & [answer key](solutions/Pset2Solutions.pdf)
 | 27-Aug | Calculus | [Critical points and approximation + Intro Linear Algebra](https://jmclip.github.io/MACSS_math_camp/04-critical-points.html) | [Pset 3 pdf](problem_sets/03-critical-points.pdf),[.tex file](problem_sets/03-critical-points.tex) & [answer key](solutions/pset3_answerkey.pdf)
 | 28-Aug | Matrix algebra | [Matrix algebra](https://jmclip.github.io/MACSS_math_camp/05-matrix-algebra.html) | [NO HOMEWORK!]
