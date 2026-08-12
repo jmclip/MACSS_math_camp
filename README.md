@@ -17,7 +17,7 @@
 * Xulan Jiang
 * Yanjing Li
 
-## Office Hours (STILL BEING UPDATED FOR 2026!)
+## Office Hours
 |  | In-person | Zoom
 |-|-|-|
 | Monday | 5-6 PM (Saaket) | |
