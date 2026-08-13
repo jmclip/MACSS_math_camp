@@ -1,5 +1,5 @@
 ---
-title: "Differentiation"
+title: "Limits and Differentiation"
 author: "[MACS 33000](https://jmclip.github.io/MACSS_math_camp/) <br /> University of Chicago"
 output:
   xaringan::moon_reader:
@@ -24,7 +24,8 @@ library(gganimate)
 ```
 
 # Learning objectives
-
+* Define and evaluate limits
+* Define continuity and relate it to limits
 * Define the slope of a line
 * Summarize tangent lines, rates of change, and derivatives
 * Define derivative rules for common functions
@@ -48,6 +49,402 @@ library(gganimate)
 
 * Given data, what is the most likely value of a parameter(s)?
 * Game theory: given another player's strategy, what is the action that maximizes utility?
+
+---
+
+# Limits
+
+* Sequences $\leadsto$ limits of functions (see Bonus slides/content for refresher on sequences!)
+* Calculus/Real Analysis: study of functions on the **real line**
+* Limit of a function: how does a function behave as it gets close to a particular point?  
+
+--
+
+## Uses of limits
+
+* Derivatives
+* Asymptotics 
+* Game Theory 
+
+<!-- --- -->
+
+<!-- # Limit of a function -->
+
+<!-- ```{r lim-sin-x, out.width="80%"} -->
+<!-- library(tidyverse) -->
+<!-- library(gganimate) -->
+<!-- function_plot <- ggplot( -->
+<!--   data = tibble(x = 0), -->
+<!--   mapping = aes(x = x) -->
+<!-- ) + -->
+<!--   xlim(-5, 5) + -->
+<!--   labs( -->
+<!--     x = expression(x), -->
+<!--     y = expression(f(x)) -->
+<!--   ) -->
+<!-- sin_x <- tibble( -->
+<!--   xmin = seq(from = -1, to = 0, by = 0.025), -->
+<!--   xmax = abs(xmin), -->
+<!--   ymin = sin(xmin), -->
+<!--   ymax = sin(xmax) -->
+<!-- ) %>% -->
+<!--   mutate(id = row_number()) -->
+
+<!-- function_plot + -->
+<!--   stat_function(fun = sin) + -->
+<!--   coord_cartesian(xlim =c(-2, 2)) + -->
+<!--   labs( -->
+<!--     title = expression(f(x) == sin(x)), -->
+<!--     y = expression(f(x)) -->
+<!--   ) + -->
+<!--   geom_segment( -->
+<!--     data = sin_x, -->
+<!--     mapping = aes( -->
+<!--       x = xmin, -->
+<!--       y = -2, -->
+<!--       xend = xmin, -->
+<!--       yend = ymin, -->
+<!--       group = id -->
+<!--     ), -->
+<!--     color = "blue" -->
+<!--   ) + -->
+<!--   geom_segment( -->
+<!--     data = sin_x, -->
+<!--     mapping = aes( -->
+<!--       x = xmax, -->
+<!--       y = -2, -->
+<!--       xend = xmax, -->
+<!--       yend = ymax, -->
+<!--       group = id -->
+<!--     ), -->
+<!--     color = "blue" -->
+<!--   ) #+  -->
+<!--   #transition_states(states, transition_length = 1, state_length = 1, wrap = TRUE) -->
+<!-- ``` -->
+
+---
+
+# Limits
+
+We need to talk about our functions and how they behave. We're going to be interested in talking about what they do, but we need to make sure they are 'predictable' in a way that makes sense for our analysis. 
+
+
+We've seen how things do/not converge, and so we want to have a way to talk about this in the land of functions. 
+
+---
+
+## Limit: Visual
+We can think about our definition as speaking to what a function is doing around any of its points in the domain. For a limit, if we make some bounds around our variable of interest (e.g. in the domain), and similarly 'arbitrarily small' bounds around our corresponding y, then the graph/function/line for y will lie within the bounds of our range of our variable. 
+
+--
+```{r limit-visual-img, out.width="100%"}
+url <- "https://math.libretexts.org/@api/deki/files/9980/CNX_Calc_Figure_02_05_001.jpeg?revision=1"
+knitr::include_graphics(url)
+
+```
+
+source: [math 210](https://math.libretexts.org/Courses/Monroe_Community_College/MTH_210_Calculus_I_%28Professor_Dean%29/Chapter_2_Limits/2.7%3A_The_Precise_Definition_of_a_Limit)
+
+---
+
+# Limits, cont'd
+
+* Limits are about the behavior of functions at **points**. Here $x_{0}$
+* $\epsilon$ defines an **error rate**
+* $\delta$ defines an area around $x_{0}$ where $f(x)$ is going to be within our error rate
+
+---
+
+# Examples of limits
+
+* The function $f(x) = x + 1$ has a limit of $1$ at $x_{0} = 0$
+
+```{r limit-xplus1, out.width="80%"}
+function_plot +
+  stat_function(fun = function(x) x + 1) +
+  coord_cartesian(xlim=c(-2, 2)) +
+  geom_point(data = tibble(
+    x = 0, y = 1
+  ), mapping = aes(x, y)) +
+  labs(
+    title = expression(f(x) == x + 1),
+    y = expression(f(x))
+  )
+```
+
+---
+
+# Proof
+
+* **Without loss of generality** (WLOG) choose $\epsilon >0$
+* Show that there is $\delta_{\epsilon}$ such that
+
+    $$|f(x) - L| < \epsilon \, \text{for all} \, x \, \text{such that} \, 0 < |x - x_0 | < \delta$$
+
+    $$\begin{aligned}|(x + 1) - 1| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x - 0 | < \delta \\|x| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x | < \delta \\\end{aligned}$$
+
+--
+
+* But if $\delta_{\epsilon}  = \epsilon$ then this holds
+
+---
+
+# $f(x_{0} ) \neq L$
+
+* A function can have a limit of $L$ at $x_{0}$ even if $f(x_{0} ) \neq L$
+
+--
+* The function $f(x) = \frac{x^2 - 1}{x - 1}$ has a limit of $2$ at $x_{0} = 1$
+
+```{r limit-discontinuous, out.width="80%"}
+function_plot +
+  stat_function(fun = function(x) (x^2 - 1) / (x - 1)) +
+  coord_cartesian(xlim=c(-2, 2)) +
+  labs(
+    title = expression(f(x) == frac(x^2 - 1, x - 1)),
+    y = expression(f(x))
+  ) +
+  geom_vline(xintercept = 1, linetype = 2, color = "blue", alpha = .5) +
+  geom_hline(yintercept = 2, linetype = 2, color = "blue", alpha = .5)
+```
+
+---
+
+# $f(x_{0} ) \neq L$
+
+* For all $x \neq 1$,
+
+    $$\begin{aligned}\frac{x^2 - 1}{x - 1} & = \frac{(x + 1)(x - 1) }{x - 1} \\													& = x + 1 \end{aligned}$$
+  
+* Choose $\epsilon >0$ and set $x_{0}=1$.  Then, we're looking for $\delta_{\epsilon}$ such that
+
+    $$\begin{aligned}|(x + 1) -2 | < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x - 1 | < \delta \\|x - 1 | < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x - 1 | < \delta \\\end{aligned}$$
+
+* If $\delta_{\epsilon} = \epsilon$, then this is satisfied
+
+---
+
+# Not all functions have limits
+
+Consider $f:(0,1) \rightarrow \mathbb{R}$, $f(x) = \frac{1}{x}$.  $f(x)$ does not have a limit at $x_{0}=0$ as we approach from the right. 
+
+```{r limit-none, out.width="80%"}
+function_plot +
+  stat_function(fun = function(x) 1 / x, n = 1000) +
+  coord_cartesian(xlim = c(0.001, 1)) +  # Use this to zoom safely
+  labs(
+    title = expression(f(x) == frac(1, x)),
+    y = expression(f(x))
+  )
+```
+
+---
+
+# Not all functions have limits (sketch)
+
+* Choose $\epsilon>0$. We need to show that there **does not** exist: 
+
+    $$\begin{aligned}|\frac{1}{x} - L| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x - 0 | < \delta \\|\frac{1}{x} - L| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x| < \delta \\\end{aligned}$$
+
+* But, there is a problem
+
+    $$\begin{aligned}\frac{1}{x} - L & < \epsilon \\\frac{1}{x} & < \epsilon + L \\x & > \frac{1}{L + \epsilon}  \end{aligned}$$
+  
+* This implies that there **can't** be a $\delta$
+
+---
+
+# When there are no limits!
+```{r no-limit-img, out.width="80%"}
+knitr::include_graphics("https://media.giphy.com/media/7JvlHfd7C2GDr7zfZF/giphy.gif")
+```
+--
+
+When there is no limit, this has a lot of implications for us w/r/t (with respect to) how we can expect the function(s) to behave and what we can do with the function(s) mathematically.
+
+---
+
+# Intuitive definition of a limit
+
+$$\lim_{x \rightarrow x_{0}} f(x) = L$$
+
+--
+
+## Right-hand limits
+
+$$\lim_{x \rightarrow x_{0}^{+} } f(x) = L$$
+
+--
+
+## Left-hand limits
+
+$$\lim_{x \rightarrow x_{0}^{-} } f(x) = L$$
+
+---
+
+# Algebra of limits
+
+Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ with limits $A$ and $B$ at $x_{0}$. Then,
+
+$$
+\begin{aligned}
+\text{i.) } \lim_{x \rightarrow x_{0} } (f(x) + g(x) ) & = \lim_{x \rightarrow x_{0}} f(x) + \lim_{x \rightarrow x_{0}} g(x)  = A + B \\
+\text{ii.) }\lim_{x \rightarrow x_{0} } f(x) g(x) & = \lim_{x \rightarrow x_{0}} f(x) \lim_{x\rightarrow x_{0}} g(x)  = A B 
+\end{aligned}
+$$
+
+--
+
+Suppose $g(x) \neq 0$ for all $x \in \mathbb{R}$ and $B \neq 0$ then $\frac{f(x)}{g(x)}$ has a limit at $x_{0}$ and
+
+$$\lim_{x \rightarrow x_{0}} \frac{f(x)}{g(x)} =  \frac{\lim_{x\rightarrow x_{0} } f(x) }{\lim_{x \rightarrow x_{0} } g(x) } = \frac{A}{B}$$
+
+---
+
+# Continuity
+
+```{r continuity, fig.height = 6}
+function_plot +
+  stat_function(fun = function(x) (x^2 - 1) / (x - 1)) +
+  coord_cartesian(xlim=c(-2, 2)) + geom_point(aes(x = 1, y = 2), shape = 21, fill = "white")+
+  labs(
+    title = expression(f(x) == frac(x^2 - 1, x - 1)),
+    y = expression(f(x))
+  )
+```
+
+* Limit exists at 1 
+* But hole in function 
+* Fails the **pencil** test, **discontinuous** at 1
+
+---
+
+# Defining continuity
+
+* Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and consider $x_{0} \in \mathbb{R}$
+* $f$ is continuous at $x_{0}$ if for each $\epsilon>0$ there is a $\delta>0$ such that if,
+
+    $$\begin{aligned}|x - x_{0} | & < \delta \text{ for all  } x \in \mathbb{R} \text{ then } \nonumber \\|f(x) - f(x_{0})| & < \epsilon \nonumber \end{aligned}$$
+
+--
+
+* $L$ is replaced by $f(x_{0})$ 
+* Now: $f(x)$ has to converge on itself at $x_{0}$
+* **Continuity is more restrictive than limit**
+
+---
+
+# Examples of continuity
+
+```{r continuity-abs, out.width="80%"}
+function_plot +
+  stat_function(fun = abs) +
+  labs(
+    title = expression(f(x) == abs(x)),
+    y = expression(f(x))
+  ) +
+  coord_cartesian(xlim=c(-2, 2))
+```
+
+---
+
+# Examples of continuity
+
+```{r continuity-cos, out.width="80%"}
+function_plot +
+  stat_function(fun = cos) +
+  labs(
+    title = expression(f(x) == cos(x)),
+    y = expression(f(x))
+  ) +
+  coord_cartesian(xlim=c(-6, 6))
+```
+
+---
+
+# Examples of continuity
+
+```{r continuity-x-sq, out.width="80%"}
+function_plot +
+  stat_function(fun = function(x) x^2) +
+  labs(
+    title = expression(f(x) == x^2),
+    y = expression(f(x))
+  )
+```
+
+---
+
+# Measuring incumbency advantage
+
+* Incumbency advantage
+* U.S. House of Representatives
+* Win rate of incumbent parties $>90\%$
+* Win rate of incumbent candidates $\approx 90\%$ (conditional on running for election)
+    * $88\%$ probability of running for reelection
+--
+* Runners-up
+    * $3\%$ chance of winning the next election
+    * Only $20\%$ chance of running in the next election
+* Is there an electoral advantage to incumbency?
+* Can this be proven through observational study?
+
+---
+
+# Ideal experiment
+
+* Randomly assign incumbent parties in a district between Democrats and Republicans
+* Keep all other factors constant
+* Corresponding increase in Democratic electoral success in the next election would represent the overall electoral benefit due to being the incumbent party in the district
+* Realistic?
+
+---
+
+# Regression discontinuity design
+
+* Dichotomous treatment is a deterministic function of a single, continuous covariate
+* Treatment is assigned to those individuals whose score crosses a known threshold
+* If you know the score, you can reverse-engineer the treatment assignment
+* Assumes as-if random assignment in the local neighborhood around a probability of $50\%$
+
+---
+
+# RDD + incumbency advantage
+
+```{r rdd-img, out.width="80%"}
+knitr::include_graphics("images/rdd-incumbency-advantage.png")
+```
+
+Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in US House elections. *Journal of Econometrics*, 142(2), 675-697.](https://www.sciencedirect.com/science/article/pii/S0304407607001121)
+
+---
+
+# Continuity and limits
+
+* Let $f: \mathbb{R} \rightarrow \mathbb{R}$ with $x_{0} \in \mathbb{R}$
+* Then $f$ is continuous at $x_{0}$ if and only if $f$ has a limit at $x_{0}$ and that $\lim_{x \rightarrow x_{0} } f(x) = f(x_{0})$
+
+--
+
+* Suppose $f$ is continuous at $x_{0}$
+    * This implies that $0 < |f(x) - f(x_0)| < \epsilon \, \text{for all} \, x \, \text{such that} \, 0<|x - x_0 | < \delta$
+    * Definition of a **limit**, with $L = f(x_{0})$
+--
+
+* Suppose $f$ has a limit at $x_{0}$ and that limit is $f(x_{0})$
+    * This implies that $|f(x) - f(x_0)| < \epsilon \, \text{for all} \, x \, \text{such that} \, |x - x_0 | < \delta$
+    * This is the definition of **continuity**
+
+---
+
+# Algebra of continuous functions
+
+Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and $g:\mathbb{R} \rightarrow \mathbb{R}$ are continuous at $x_{0}$. Then,
+
+1. $f(x) + g(x)$ is continuous at $x_{0}$
+1. $f(x) g(x)$ is continuous at $x_{0}$
+1. If $g(x_0) \neq 0$, then $\frac{f(x) } {g(x) }$ is continuous at $x_{0}$ 
+
 
 ---
 
@@ -167,7 +564,7 @@ $$
 
 # Derivative
 
-Suppose $f:\Re \rightarrow \Re$. Measure rate of change at a point $x_{0}$ with a function $R(x)$,
+Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$. Measure rate of change at a point $x_{0}$ with a function $R(x)$,
 
 $$R(x) = \frac{f(x) - f(x_{0}) }{ x- x_{0} }$$
 
@@ -175,7 +572,7 @@ $$R(x) = \frac{f(x) - f(x_{0}) }{ x- x_{0} }$$
 * A derivative will examine what happens with a small perturbation at $x_{0}$
 
 ---
-class: center, middle inverse
+class: center, middle, inverse
 
 # Derivatives
 You need to know how to calculate a derivative. For our class, we will not ask you to name the theorems we use here. It's only to provide context. 
@@ -184,12 +581,12 @@ You need to know how to calculate a derivative. For our class, we will not ask y
 
 # Derivative
 
-* Let $f:\Re \rightarrow \Re$. If the limit
+* Let $f:\mathbb{R} \rightarrow \mathbb{R}$. If the limit
 
-    $$\begin{aligned} \lim_{x\rightarrow x_{0}} R(x) & = \frac{f(x) - f(x_{0}) }{x - x_{0}} \\ & = f^{'}(x_{0}) \end{aligned}$$
+    $$\begin{aligned} \lim_{x\rightarrow x_{0}} R(x) & = \lim_{x\rightarrow x_{0}} \frac{f(x) - f(x_{0}) }{x - x_{0}} \\ & = f^{'}(x_{0}) \end{aligned}$$
 
     exists then we say that $f$ is **differentiable** at $x_{0}$
-* If $f^{'}(x_{0})$ exists for all $x \in \text{Domain}$, then we say that $f$ is differentiable
+* If $f^{'}(x)$ exists for all $x \in \text{Domain}$, then we say that $f$ is differentiable
 
 ---
 
@@ -239,7 +636,7 @@ gprimex <- function_plot +
 fx + fprimex + gx + gprimex + plot_layout(ncol = 2)
 ```
 
-* If $f'(x)$ exists at a point $x_0$, then $f$ is said to be **differentiable** at $x_0$
+* Reminder: If $f'(x)$ exists at a point $x_0$, then $f$ is said to be **differentiable** at $x_0$
 * Implies continuity of $f(x)$ at $x_0$
 
 ---
@@ -320,7 +717,7 @@ $$
 
 --
 
-Let $f:\Re \rightarrow \Re$ be differentiable at $x_{0}$. Then $f$ is continuous at $x_{0}$.
+Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be differentiable at $x_{0}$. Then $f$ is continuous at $x_{0}$.
 
 ---
 
@@ -328,16 +725,20 @@ Let $f:\Re \rightarrow \Re$ be differentiable at $x_{0}$. Then $f$ is continuous
 
 $$
 \begin{aligned}
-f(x)  & = x^{2} \text{ for all  } x \in \Re \setminus 0 \\
+f(x)  & = x^{2} \text{ for all  } x \in \mathbb{R} \setminus \{0\} \\
 f(x) & = 1000  \text{ for  } x = 0
 \end{aligned}
 $$
 
 * $f'(0)$
 
-    $$\begin{aligned} \lim_{x \rightarrow 0 } R(x) & = \lim_{x \rightarrow 0 } \frac{f(x+h)-h}{ h   } \\ &= \lim_{x \rightarrow 0 }\frac{h^2}{h}\\ &= \lim_{x \rightarrow 0 } h \end{aligned}$$
+    $$\begin{aligned} \lim_{h \rightarrow 0 } f'(x) & = \lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{ h   } \\ 
+    & = \lim_{h \rightarrow 0 } \frac{f(0+h)-f(0)}{ h   } 
+    &= \lim_{h \rightarrow 0 }\frac{f(h)-1000}{h}\\ 
+    &= \lim_{h \rightarrow 0 }\frac{h^2-1000}{h} 
+    \end{aligned}$$
 
-* $\lim_{x \rightarrow 0 } h \neq 1000$, so the limit doesn't exist										
+* Our difference quotient will behave like $\frac{-1000}{h}$, so the limit doesn't exist when we evaluate at $x = 0$. 									
 
 ---
 
@@ -359,8 +760,6 @@ $$
 
 # Derivative rules: WRITE THESE DOWN
 
-Suppose $a$ is some constant, $f(x)$ and $g(x)$ are functions:
-
 $$
 \begin{aligned}
 f(x) &= x & \quad f^{'}(x) &= 1 \\
@@ -381,7 +780,7 @@ $$
 
 ##### Product rule $\left[f(x)g(x)\right]' = f'(x)g(x)+f(x)g'(x)$
 
-##### Quotient rule $\frac{f(x)}{g(x)}' = \frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}, g(x)\neq 0$
+##### Quotient rule $\left[\frac{f(x)}{g(x)}\right]' = \frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}, g(x)\neq 0$
 
 ##### Power rule $\left[x^k\right]' = k x^{k-1}$
 
@@ -419,8 +818,8 @@ Differentiate the following functions:
 
 $$
 \begin{aligned}
-f(x) &= \log x \in (0, \infty) \\
-g(x) &= x^2 \in (-\infty, \infty)
+f(x) &= \log x, x \in (0, \infty) \\
+g(x) &= x^2, x \in (0, \infty)
 \end{aligned}
 $$
 
@@ -440,7 +839,6 @@ $$g[f(x)] = [\log x]^2 \in (0, \infty)$$
     $$\frac{d}{dx} \{ f[g(x)] \} = f'[g(x)] g'(x)$$
 
 * Derivative of the "outside" times the derivative of the "inside"
-The chain rule can be thought of as the derivative of the "outside" times 
 * "Outside" evaluated at the value of the inside function
 
 ---
@@ -611,16 +1009,16 @@ $$
     
   $$(f^{-1})'(x) = \frac{1}{f'(f^{-1}(x))} $$
     
-Let's find the derivative of $log(x)$. We already know the derivative of its inverse, $e^x$ is $e^x$. So, we begin with $f(x) = e^x$ (and $f'(x) = e^x$) and want to know $(f^{-1})'(x)$.
+Let's find the derivative of $\log(x)$. We already know the derivative of its inverse, $e^x$, is $e^x$. So, we begin with $f(x) = e^x$ (and $f'(x) = e^x$) and want to know $(f^{-1})'(x)$.
   
-We know $f'(f^{-1}(x)) = f'(log(x)) = e^{log(x)} = x$
+We know $f'(f^{-1}(x)) = f'(\log(x)) = e^{\log(x)} = x$
   
 --
     
 
 Therefore,
   $$\begin{aligned} (f^{-1})'(x) &= \frac{1}{f'(f^{-1}(x))} \\
-   &= \frac{1}{(e^{log(x)})} \\
+   &= \frac{1}{(e^{\log(x)})} \\
   &= \frac{1}{x} \end{aligned}$$
 
 ---
@@ -660,16 +1058,16 @@ Therefore,
 
 ---
 
-# Rolle's theorem
+# Fermat's interior extremum 
 
-> Suppose $f:[a, b] \rightarrow \Re$.  Suppose $f$ has a relative maxima or minima on $(a,b)$ and call that $c \in (a, b)$.  Then $f'(c) = 0$.
+> Suppose $f:[a, b] \rightarrow \mathbb{R}$.  Suppose $f$ has a relative maxima or minima on $(a,b)$ and call that $c \in (a, b)$.  Then $f'(c) = 0$.
 
 --
 
 ```{r rolles-theorem, fig.height = 7}
 function_plot +
   stat_function(aes(color = "f(x)"), fun = function(x) -1 * (x^2) + 4) +
-  geom_hline(aes(color = "f'(x)", yintercept = 4), linetype = 2) +
+  geom_hline(aes(color = "tangent at max (slope 0)", yintercept = 4), linetype = 2) +
   coord_cartesian(xlim = c(-3,3)) +
   scale_color_brewer(type = "qual", guide = guide_legend(reverse = TRUE)) +
   labs(
@@ -682,11 +1080,11 @@ function_plot +
 
 ---
 
-# Rolle's theorem
+# Fermat's interior extremum
 
-> Suppose $f:[a, b] \rightarrow \Re$.  Suppose $f$ has a relative maxima or minima on $(a,b)$ and call that $c \in (a, b)$.  Then $f'(c) = 0$.
+> Suppose $f:[a, b] \rightarrow \mathbb{R}$.  Suppose $f$ has a relative maxima or minima on $(a,b)$ and call that $c \in (a, b)$.  Then $f'(c) = 0$.
 
-* Consider (without loss of generalization) a relative maximum $c$
+* Consider (without loss of generality) a relative maximum $c$
 * Consider the left-hand and right-hand limits
 
     $$\begin{aligned} \lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x - c } & \geq 0  \\ \lim_{x \rightarrow c^{+}} \frac{f(x) - f(c) } {x - c }  & \leq 0 \end{aligned}$$
@@ -698,22 +1096,25 @@ function_plot +
 
 ---
 
-# Rolle's theorem
+# Fermat's interior extremum and Rolle's theorem
 
 * The only way, then, that we can have something $\geq 0$ equal to $\leq 0$ is if $f^{'}(c) = 0$ :
 $$\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x -c}  = \lim_{x \rightarrow c^{+}} \frac{f(x) - f(c) } {x - c}$$ 
 
+--
+
+* Rolle's theorem adds the additional condition that $f(a) = f(b)$
 ---
 
 # Mean value theorem
 
-* If $f:[a,b] \rightarrow \Re$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there is a $c \in (a,b)$ such that 
+* If $f:[a,b] \rightarrow \mathbb{R}$ is continuous on $[a,b]$ and differentiable on $(a,b)$, then there is a $c \in (a,b)$ such that 
 
     $$f^{'}(c) = \frac{f(b) - f(a) } { b - a}$$
 
 --
 
-* Rolle's theorem is a special case of the MVT, where $f'(c) = 0$
+* Rolle's theorem is a special case of the MVT with the $f(a) = f(b)$ restriction, yielding $f'(c) = 0$
 
 ---
 
@@ -744,8 +1145,7 @@ ggplot(
   mapping = aes(x = x)
 ) +
   stat_function(fun = mvt_fun) +
-  coord_cartesian(xlim = c(-4, 2)) +
-  coord_cartesian(ylim = c(NA, 10)) +
+  coord_cartesian(xlim = c(-4, 2), ylim = c(NA, 10)) +
   geom_abline(intercept = f_c_int, slope = f_c_slope, color = "blue") +
   geom_segment(
     mapping = aes(
@@ -781,11 +1181,11 @@ ggplot(
 
 # Applications of the mean value theorem
 
-Suppose that $f:[a,b] \rightarrow \Re$ is continuous on $[a,b]$ and differentiable on $(a,b).$ Then, 
+Suppose that $f:[a,b] \rightarrow \mathbb{R}$ is continuous on $[a,b]$ and differentiable on $(a,b).$ Then, 
 
 1. If $f^{'}(x) \neq 0$ for all $x \in (a,b)$ then $f$ is 1-1
 1. If $f^{'}(x) = 0$ then $f(x)$ is constant 
-1. If $f^{'}(x)> 0$ for all $x \in (a,b)$ then then $f$ is strictly increasing
+1. If $f^{'}(x)> 0$ for all $x \in (a,b)$ then $f$ is strictly increasing
 1. If $f^{'}(x)<0$ for all $x \in (a,b)$ then $f$ is strictly decreasing
 
 ---
@@ -808,12 +1208,12 @@ Suppose that $f:[a,b] \rightarrow \Re$ is continuous on $[a,b]$ and differentiab
 
 # If $f^{'}(x) \neq 0$ for all $x \in (a,b)$ then $f$ is 1-1
 
-* Suppose that $f$ is not 1-1. Then there is $x, y \in (a,b)$ such that $f(x) = f(y)$. Then, 
+* Suppose that $f$ is not 1-1. Then there are $x, y \in (a,b)$ with $x \neq y$ such that $f(x) = f(y)$. Then, 
 
     $$f'(c) = \frac{f(x) - f(y)}{x- y} = \frac{0}{x -y}  = 0$$
 
-* This means $f' \neq 0$ for all $x$
-* **Contradiction**
+* This means $f'(x) = 0$ for some point, a **contradiction** to our starting assumption that $f'(x) \neq 0$. 
+
 
 ---
 
@@ -860,13 +1260,13 @@ where $f$ and $g$ are continuous functions
 
     $$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \frac{f(a)}{g(a)}$$
 
-* BUT if $f(a) = g(a) = 0$... OH NO! What do we do with an indeterminate form (e.g. $\frac{0}{0}$)?
+* BUT if $f(a) = g(a) = 0$... OH NO! What do we do with an indeterminate form (i.e. $\frac{0}{0}$)?
 
 ---
 
 # New bestie: L'Hôpital's Rule
 
-* Suppose that $f(a) = g(a) = 0$ and $g'(x) \neq 0$ if $x$ is close but not equal to $a$ (also applies for $\frac{\pm\infty}{\infty}$).
+* Suppose that $f(a) = g(a) = 0$ and $g'(x) \neq 0$ if $x$ is close but not equal to $a$ (also applies for $\frac{\pm\infty}{\pm\infty}$).
 * Then
 
     $$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}$$
@@ -901,6 +1301,8 @@ function_plot +
 
 $$
 \begin{aligned}
+f(x) &= (1 + x)^{1/3} - 1 \\
+g(x) &= x - x^2 \\
 f'(x) &= \frac{1}{3} (1 + x)^{-2/3} \\
 f'(0) &= \frac{1}{3} (1)^{-2/3} = \frac{1}{3} (1) = \frac{1}{3} \\
 g'(x) &= 1 - 2x \\
@@ -908,7 +1310,7 @@ g'(0) &= 1 - 2(0) = 1
 \end{aligned}
 $$
 
-$$\lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)} = \frac{1/3}{1} = \frac{1}{3}$$
+$$\lim_{x \rightarrow 0} \frac{f(x)}{g(x)} = \lim_{x \rightarrow 0} \frac{f'(x)}{g'(x)} = \frac{1/3}{1} = \frac{1}{3}$$
 
 ]
 
@@ -967,7 +1369,7 @@ $$
 \begin{aligned}
 f''(x) &= \frac{1}{(1 +x)^{2}} \\
 g''(x) &= 2 \\
-\lim_{x \rightarrow 0} \frac{f''(x)}{g''(x)} &= \frac{(1 + x)^{-2}}{2} = \frac{1^{-2}}{2} = \frac{1}{2}
+\lim_{x \rightarrow 0} \frac{f''(x)}{g''(x)} &= \lim_{x \rightarrow 0}\frac{(1 + x)^{-2}}{2} = \frac{1^{-2}}{2} = \frac{1}{2}
 \end{aligned}
 $$
 
@@ -981,6 +1383,10 @@ class: inverse, center, middle
 ## RECAP:
 
 * Good chunk of calc 1
+* Limits
+  * continuity
+  * what they tell us
+  * how to find them
 * Rate of change
 * Intuition for derivative
 * Mathematical foundation for derivative
@@ -1019,10 +1425,18 @@ $$
 
 ##### Product rule $\left[f(x)g(x)\right]' = f'(x)g(x)+f(x)g'(x)$
 
-##### Quotient rule $\frac{f(x)}{g(x)}' = \frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}, g(x)\neq 0$
+##### Quotient rule $\left[\frac{f(x)}{g(x)}\right]' = \frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}, g(x)\neq 0$
 
 ##### Power rule $\left[x^k\right]' = k x^{k-1}$
 
 ---
+
+### TA TEAM!
+
+* Saaket Raman
+* Xulan Jiang (xulanj@uchicago.edu)
+* Yanjing Li
+
+---
 class: center, middle, inverse
-## Let’s get to know each other a bit more – Name, pronouns, subfield/research area, where you are currently, something fun/interesting about you and/or your hobbies
+## Let's get to know each other a bit more – Name, pronouns, subfield/research area, where you are currently, something fun/interesting about you and/or your hobbies
