@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Logarithms, sequences, and limits</title>
+    <title>Sequences, and limits</title>
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="02-sequences-limits_files/header-attrs/header-attrs.js"></script>
@@ -13,7 +13,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Logarithms, sequences, and limits
+# Sequences, and limits
 ]
 .author[
 ### <a href="https://jmclip.github.io/MACSS_math_camp/">MACS 33000</a> <br /> University of Chicago
@@ -29,93 +29,12 @@ class: center, middle, inverse, title-slide
 
 # Learning objectives
 
-* Define logarithmic and exponential functions
-* Practice simplifying power, logarithmic, and exponential functions
 * Define sequences
 * Distinguish convergence and divergence
 * Define limits
 * Define continuity
 * Calculate limits of sequences and functions
 
----
-
-# Logarithms and exponential functions
-
-* Important component to many mathematical and statistical methods in social science
-* Exponents
-* Logarithms
-
----
-
-# Functions with exponents
-
-`$$f(x) = x \times x = x^2$$`
-
-`$$f(x) = x \times x \times x = x^3$$`
-
-&lt;img src="02-sequences-limits_files/figure-html/functions-with-exp-1.png" width="864" style="display: block; margin: auto;" /&gt;
-
----
-
-# Common rules of exponents
-
-* `\(x^0 = 1\)`
-* `\(x^1 = x\)`
-* `\(\left ( \frac{x}{y} \right )^a = \left ( \frac{x^a}{y^a}\right ) = x^a y^{-a}\)`
-* `\((x^a)^b = x^{ab}\)`
-* `\((xy)^a = x^a y^a\)`
-* `\(x^a \times x^b = x^{a+b}\)`
-
----
-
-# Logarithms
-
-* Class of functions
-* `\(\log_{b}(x) = a \Rightarrow b^a = x\)`
-* What number `\(a\)` solves `\(b^a = x\)`
-
----
-
-# Base 10
-
-`$$\log_{10}(100) = 2 \Rightarrow 10^2 = 100$$`
-
-`$$\log_{10}(0.1) = -1 \Rightarrow 10^{-1} = 0.1$$`
-
-&lt;img src="02-sequences-limits_files/figure-html/log-base-10-1.png" width="864" style="display: block; margin: auto;" /&gt;
-
----
-
-# Base 2
-
-`$$\log_{2}(8) = 3 \Rightarrow 2^3 = 8$$`
-
-`$$\log_{2}(1) = 0 \Rightarrow 2^0 = 1$$`
-
-&lt;img src="02-sequences-limits_files/figure-html/log-base-2-1.png" width="864" style="display: block; margin: auto;" /&gt;
-
----
-
-# Base `\(e\)`
-
-* Natural logarithm
-
-`$$\log_{e}(e) = 1 \Rightarrow e^1 = e$$`
-
-&lt;img src="02-sequences-limits_files/figure-html/log-base-e-1.png" width="864" style="display: block; margin: auto;" /&gt;
-
-* Natural logarithms are incredibly useful in math
-* Often `\(\log()\)` is assumed to be a natural log (good to assume for homework, too!)
-* Also seen as `\(\ln()\)`
-
----
-
-# Rules of logarithms
-
-* `\(\log_b(1) = 0\)`
-* `\(\log(x \times y) = \log(x) + \log(y)\)`
-* `\(\log(\frac{x}{y}) = \log(x) - \log(y)\)`
-* `\(\log(x^y) = y \log(x)\)`
 
 ---
 
@@ -130,7 +49,7 @@ class: center, middle, inverse, title-slide
 
 # Sequence
 
-`$$\left\{\frac{1}{n} \right\} = (1, 1/2, 1/3, 1/4, \ldots, 1/N, \ldots, )$$`
+`$$\left\{\frac{1}{n} \right\} = (1, 1/2, 1/3, 1/4, \ldots, 1/N, \ldots )$$`
 
 &lt;img src="02-sequences-limits_files/figure-html/seq-1-1.gif" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -138,7 +57,7 @@ class: center, middle, inverse, title-slide
 
 # Sequence
 
-`$$\left\{\frac{1}{n^2} \right\} = (1, 1/4, 1/9, 1/16, \ldots, 1/N^2, \ldots, )   \\$$`
+`$$\left\{\frac{1}{n^2} \right\} = (1, 1/4, 1/9, 1/16, \ldots, 1/N^2, \ldots )   \\$$`
 
 &lt;img src="02-sequences-limits_files/figure-html/seq-2-1.gif" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -146,7 +65,7 @@ class: center, middle, inverse, title-slide
 
 # Sequence
 
-`$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots, ) \\$$`
+`$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots ) \\$$`
 
 &lt;img src="02-sequences-limits_files/figure-html/seq-3-1.gif" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -168,7 +87,7 @@ class: center, middle, inverse, title-slide
 
 # Arithmetic progression
 
-&lt;img src="02-sequences-limits_files/figure-html/arithmetric-progression-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-sequences-limits_files/figure-html/arithmetic-progression-1.png" alt="" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -217,7 +136,7 @@ A sequence `\(\left\{u_{n} \right\}_{n=1}^{\infty}\)` converges to a real number
 
 * If a sequence `\(\left\{u_{n} \right\}\)` converges we'll call it **convergent**
 * If it doesn't we'll call it **divergent**
-* If there is some number `\(M\)` such that, for all `\(n\)` `\(|u_{n}|&lt;M\)`, then we'll call it **bounded**
+* If there is some number `\(M\)` such that, for all `\(n\)`, `\(|u_{n}|&lt;M\)`, then we'll call it **bounded**
 
 ---
 
@@ -231,14 +150,14 @@ A sequence `\(\left\{u_{n} \right\}_{n=1}^{\infty}\)` converges to a real number
 
 # A bounded sequence that doesn't converge
 
-`$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots, )$$`
+`$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots )$$`
 
 &lt;img src="02-sequences-limits_files/figure-html/seq-bounded-1.png" width="864" style="display: block; margin: auto;" /&gt;
 
 --
 
 * All convergent sequences are bounded
-* If a sequence is **constant**, `\(\left\{C \right \}\)` it converges to `\(C\)`
+* If a sequence is **constant**, `\(\left\{C \right \}\)`, it converges to `\(C\)`
 
 ---
 
@@ -248,7 +167,7 @@ Suppose `\(\left\{a_{n} \right \}\)` converges to `\(A\)` and `\(\left\{b_{n} \r
 
 * `\(\left\{a_{n} + b_{n} \right\}\)` converges to `\(A + B\)`
 * `\(\left\{a_{n} b_{n} \right\}\)` converges to `\(A \times B\)`
-* Suppose `\(b_{n} \neq 0 \forall n\)` and `\(B \neq 0\)`. Then `\(\left\{\frac{a_{n}}{b_{n}} \right\}\)` converges to `\(\frac{A}{B}\)`
+* Suppose `\(b_{n} \neq 0\)`  `\(\forall\)` `\(n\)` and `\(B \neq 0\)`. Then `\(\left\{\frac{a_{n}}{b_{n}} \right\}\)` converges to `\(\frac{A}{B}\)`
 
 ---
 
@@ -259,7 +178,7 @@ Suppose `\(\left\{a_{n} \right \}\)` converges to `\(A\)` and `\(\left\{b_{n} \r
 
 --
 
-&lt;img src="02-sequences-limits_files/figure-html/converge-similar-denominator-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-sequences-limits_files/figure-html/converge-similar-denominator-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -314,7 +233,7 @@ source: [math 210](https://math.libretexts.org/Courses/Monroe_Community_College/
 
 # Limit of a function: Formal (DO NOT NEED TO KNOW THIS!)
 
-* Suppose `\(f: \Re \rightarrow \Re\)`
+* Suppose `\(f: \mathbb{R} \rightarrow \mathbb{R}\)`
 
 
 --
@@ -328,7 +247,7 @@ $$\forall \, x \backepsilon $$ for all x, such that,
 `$$0 &lt; |x - x_0 | &lt; \delta$$` the difference between x and `\(x_0\)` bounded between 0 and some other delta 
 --
 
-* We say that `\(f\)` has a limit `\(L\)` at `\(x_{0}\)` if, for `\(\epsilon&gt;0\)`, there is a `\(\delta&gt;0\)` such that
+* We say that `\(f\)` has a limit `\(L\)` at `\(x_{0}\)` if, for each `\(\epsilon&gt;0\)`, there is a `\(\delta&gt;0\)` such that
 
     `$$|f(x) - L| &lt; \epsilon \, \forall \,x \backepsilon 0 &lt; |x - x_0 | &lt; \delta$$`
 
@@ -353,7 +272,7 @@ $$\forall \, x \backepsilon $$ for all x, such that,
 
 # Proof
 
-* **Without loss of generalization** (WLOG) choose `\(\epsilon &gt;0\)`
+* **Without loss of generality** (WLOG) choose `\(\epsilon &gt;0\)`
 * Show that there is `\(\delta_{\epsilon}\)` such that
 
     `$$|f(x) - L| &lt; \epsilon \, \text{for all} \, x \, \text{such that} \, 0 &lt; |x - x_0 | &lt; \delta$$`
@@ -393,13 +312,13 @@ $$\forall \, x \backepsilon $$ for all x, such that,
 
 # Not all functions have limits
 
-Consider `\(f:(0,1) \rightarrow \Re\)`, `\(f(x) = \frac{1}{x}\)`.  `\(f(x)\)` does not have a limit at `\(x_{0}=0\)` 
+Consider `\(f:(0,1) \rightarrow \mathbb{R}\)`, `\(f(x) = \frac{1}{x}\)`.  `\(f(x)\)` does not have a limit at `\(x_{0}=0\)` as we approach from the right. 
 
 &lt;img src="02-sequences-limits_files/figure-html/limit-none-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Not all functions have limits
+# Not all functions have limits (sketch)
 
 * Choose `\(\epsilon&gt;0\)`. We need to show that there **does not** exist
 
@@ -412,10 +331,13 @@ Consider `\(f:(0,1) \rightarrow \Re\)`, `\(f(x) = \frac{1}{x}\)`.  `\(f(x)\)` do
 * This implies that there **can't** be a `\(\delta\)`
 
 ---
+
 # When there are no limits!
 &lt;img src="https://media.giphy.com/media/7JvlHfd7C2GDr7zfZF/giphy.gif" width="80%" style="display: block; margin: auto;" /&gt;
 --
+
 When there is no limit, this has a lot of implications for us w/r/t (with respect to) how we can expect the function(s) to behave and what we can do with the function(s) mathematically.
+
 ---
 
 # Intuitive definition of a limit
@@ -438,7 +360,7 @@ When there is no limit, this has a lot of implications for us w/r/t (with respec
 
 # Algebra of limits
 
-Suppose `\(f:\Re \rightarrow \Re\)` and `\(g: \Re \rightarrow \Re\)` with limits `\(A\)` and `\(B\)` at `\(x_{0}\)`. Then,
+Suppose `\(f:\mathbb{R} \rightarrow \mathbb{R}\)` and `\(g: \mathbb{R} \rightarrow \mathbb{R}\)` with limits `\(A\)` and `\(B\)` at `\(x_{0}\)`. Then,
 
 $$
 `\begin{aligned}
@@ -449,7 +371,7 @@ $$
 
 --
 
-Suppose `\(g(x) \neq 0\)` for all `\(x \in \Re\)` and `\(B \neq 0\)` then `\(\frac{f(x)}{g(x)}\)` has a limit at `\(x_{0}\)` and
+Suppose `\(g(x) \neq 0\)` for all `\(x \in \mathbb{R}\)` and `\(B \neq 0\)` then `\(\frac{f(x)}{g(x)}\)` has a limit at `\(x_{0}\)` and
 
 `$$\lim_{x \rightarrow x_{0}} \frac{f(x)}{g(x)} =  \frac{\lim_{x\rightarrow x_{0} } f(x) }{\lim_{x \rightarrow x_{0} } g(x) } = \frac{A}{B}$$`
 
@@ -457,7 +379,7 @@ Suppose `\(g(x) \neq 0\)` for all `\(x \in \Re\)` and `\(B \neq 0\)` then `\(\fr
 
 # Continuity
 
-&lt;img src="02-sequences-limits_files/figure-html/continuity-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="02-sequences-limits_files/figure-html/continuity-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 * Limit exists at 1 
 * But hole in function 
@@ -467,10 +389,10 @@ Suppose `\(g(x) \neq 0\)` for all `\(x \in \Re\)` and `\(B \neq 0\)` then `\(\fr
 
 # Defining continuity
 
-* Suppose `\(f:\Re \rightarrow \Re\)` and consider `\(x_{0} \in \Re\)`
+* Suppose `\(f:\mathbb{R} \rightarrow \mathbb{R}\)` and consider `\(x_{0} \in \mathbb{R}\)`
 * `\(f\)` is continuous at `\(x_{0}\)` if for each `\(\epsilon&gt;0\)` there is a `\(\delta&gt;0\)` such that if,
 
-    `$$\begin{aligned}|x - x_{0} | &amp; &lt; \delta \text{ for all  } x \in \Re \text{ then } \nonumber \\|f(x) - f(x_{0})| &amp; &lt; \epsilon \nonumber \end{aligned}$$`
+    `$$\begin{aligned}|x - x_{0} | &amp; &lt; \delta \text{ for all  } x \in \mathbb{R} \text{ then } \nonumber \\|f(x) - f(x_{0})| &amp; &lt; \epsilon \nonumber \end{aligned}$$`
 
 --
 
@@ -534,7 +456,7 @@ Suppose `\(g(x) \neq 0\)` for all `\(x \in \Re\)` and `\(B \neq 0\)` then `\(\fr
 
 # RDD + incumbency advantage
 
-&lt;img src="images/rdd-incumbency-advantage.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/rdd-incumbency-advantage.png" alt="" width="80%" style="display: block; margin: auto;" /&gt;
 
 Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in US House elections. *Journal of Econometrics*, 142(2), 675-697.](https://www.sciencedirect.com/science/article/pii/S0304407607001121)
 
@@ -542,7 +464,7 @@ Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in 
 
 # Continuity and limits
 
-* Let `\(f: \Re \rightarrow \Re\)` with `\(x_{0} \in \Re\)`
+* Let `\(f: \mathbb{R} \rightarrow \mathbb{R}\)` with `\(x_{0} \in \mathbb{R}\)`
 * Then `\(f\)` is continuous at `\(x_{0}\)` if and only if `\(f\)` has a limit at `\(x_{0}\)` and that `\(\lim_{x \rightarrow x_{0} } f(x) = f(x_{0})\)`
 --
 
@@ -559,7 +481,7 @@ Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in 
 
 # Algebra of continuous functions
 
-Suppose `\(f:\Re \rightarrow \Re\)` and `\(g:\Re \rightarrow \Re\)` are continuous at `\(x_{0}\)`. Then,
+Suppose `\(f:\mathbb{R} \rightarrow \mathbb{R}\)` and `\(g:\mathbb{R} \rightarrow \mathbb{R}\)` are continuous at `\(x_{0}\)`. Then,
 
 1. `\(f(x) + g(x)\)` is continuous at `\(x_{0}\)`
 1. `\(f(x) g(x)\)` is continuous at `\(x_{0}\)`
@@ -578,7 +500,6 @@ class: center, middle, inverse
 * Sequences
   * arithmetic 
   * geometric
-  * logs
   * convergence 
 * Limits
   * continuity
@@ -593,10 +514,11 @@ class: center, middle, inverse
 
 
 ### TA TEAM!
-* Bailey Meche baileymeche@uchicago.edu
-* Gabe Reichman gabereichman@uchicago.edu
-* Shirley Zhang xueyan1220@uchicago.edu
-* Stanley Yi yijiaying@uchicago.edu
+
+* Saaket Raman
+* Xulan Jiang (xulanj@uchicago.edu)
+* Yanjing Li
+
 
 ---
 class: center, middle, inverse

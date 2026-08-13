@@ -1,5 +1,5 @@
 ---
-title: "Logarithms, sequences, and limits"
+title: "Sequences, and limits"
 author: "[MACS 33000](https://jmclip.github.io/MACSS_math_camp/) <br /> University of Chicago"
 output:
   xaringan::moon_reader:
@@ -26,154 +26,12 @@ library(gganimate)
 
 # Learning objectives
 
-* Define logarithmic and exponential functions
-* Practice simplifying power, logarithmic, and exponential functions
 * Define sequences
 * Distinguish convergence and divergence
 * Define limits
 * Define continuity
 * Calculate limits of sequences and functions
 
----
-
-# Logarithms and exponential functions
-
-* Important component to many mathematical and statistical methods in social science
-* Exponents
-* Logarithms
-
----
-
-# Functions with exponents
-
-$$f(x) = x \times x = x^2$$
-
-$$f(x) = x \times x \times x = x^3$$
-
-```{r functions-with-exp}
-{
-  function_plot +
-    stat_function(fun = function(x) x^2) +
-    labs(title = expression(f(x) == x^2))
-} + {
-  function_plot +
-    stat_function(fun = function(x) x^3) +
-    labs(title = expression(f(x) == x^3))
-}
-```
-
----
-
-# Common rules of exponents
-
-* $x^0 = 1$
-* $x^1 = x$
-* $\left ( \frac{x}{y} \right )^a = \left ( \frac{x^a}{y^a}\right ) = x^a y^{-a}$
-* $(x^a)^b = x^{ab}$
-* $(xy)^a = x^a y^a$
-* $x^a \times x^b = x^{a+b}$
-
----
-
-# Logarithms
-
-* Class of functions
-* $\log_{b}(x) = a \Rightarrow b^a = x$
-* What number $a$ solves $b^a = x$
-
----
-
-# Base 10
-
-$$\log_{10}(100) = 2 \Rightarrow 10^2 = 100$$
-
-$$\log_{10}(0.1) = -1 \Rightarrow 10^{-1} = 0.1$$
-
-```{r log-base-10}
-function_plot +
-  stat_function(fun = function(x) log(x, base = 10), n = 501) +
-  coord_cartesian(xlim = c(0, 5)) +
-  labs(
-    title = expression(f(x) == log[10](x)),
-    y = expression(f(x))
-  )
-```
-
----
-
-# Base 2
-
-$$\log_{2}(8) = 3 \Rightarrow 2^3 = 8$$
-
-$$\log_{2}(1) = 0 \Rightarrow 2^0 = 1$$
-
-```{r log-base-2}
-function_plot +
-  stat_function(
-    mapping = aes(color = "10"),
-    fun = function(x) log(x, base = 10), n = 501
-  ) +
-  stat_function(
-    mapping = aes(color = "2"),
-    fun = function(x) log(x, base = 2), n = 501
-  ) +
-  scale_color_brewer(type = "qual", labels = list(
-    bquote(log[10](x)),
-    bquote(log[2](x))
-  )) +
-  coord_cartesian(xlim = c(0, 5)) +
-  labs(
-    y = expression(f(x)),
-    color = NULL
-  )
-```
-
----
-
-# Base $e$
-
-* Natural logarithm
-
-$$\log_{e}(e) = 1 \Rightarrow e^1 = e$$
-
-```{r log-base-e, fig.height = 5}
-function_plot +
-  stat_function(
-    mapping = aes(color = "10"),
-    fun = function(x) log(x, base = 10), n = 501
-  ) +
-  stat_function(
-    mapping = aes(color = "2"),
-    fun = function(x) log(x, base = 2), n = 501
-  ) +
-  stat_function(
-    mapping = aes(color = "e"),
-    fun = function(x) log(x), n = 501
-  ) +
-  scale_color_brewer(type = "qual", labels = list(
-    bquote(log[10](x)),
-    bquote(log[2](x)),
-    bquote(log[e](x))
-  )) +
-  coord_cartesian(xlim = c(0, 5)) +
-  labs(
-    y = expression(f(x)),
-    color = NULL
-  )
-```
-
-* Natural logarithms are incredibly useful in math
-* Often $\log()$ is assumed to be a natural log (good to assume for homework, too!)
-* Also seen as $\ln()$
-
----
-
-# Rules of logarithms
-
-* $\log_b(1) = 0$
-* $\log(x \times y) = \log(x) + \log(y)$
-* $\log(\frac{x}{y}) = \log(x) - \log(y)$
-* $\log(x^y) = y \log(x)$
 
 ---
 
@@ -188,7 +46,7 @@ $$\left\{u_{n} \right\}_{n=1}^{\infty} = (u_{1} , u_{2}, \ldots, u_{N}, \ldots )
 
 # Sequence
 
-$$\left\{\frac{1}{n} \right\} = (1, 1/2, 1/3, 1/4, \ldots, 1/N, \ldots, )$$
+$$\left\{\frac{1}{n} \right\} = (1, 1/2, 1/3, 1/4, \ldots, 1/N, \ldots )$$
 
 ```{r seq-1, out.width="80%"}
 tibble(
@@ -210,7 +68,7 @@ tibble(
 
 # Sequence
 
-$$\left\{\frac{1}{n^2} \right\} = (1, 1/4, 1/9, 1/16, \ldots, 1/N^2, \ldots, )   \\$$
+$$\left\{\frac{1}{n^2} \right\} = (1, 1/4, 1/9, 1/16, \ldots, 1/N^2, \ldots )   \\$$
 
 ```{r seq-2, out.width="80%"}
 tibble(
@@ -232,7 +90,7 @@ tibble(
 
 # Sequence
 
-$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots, ) \\$$
+$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots ) \\$$
 
 ```{r seq-3, out.width="80%"}
 tibble(
@@ -268,7 +126,7 @@ tibble(
 
 # Arithmetic progression
 
-```{r arithmetric-progression, out.width="80%"}
+```{r arithmetic-progression, out.width="80%"}
 {
   tibble(
     x = seq(from = 1, to = 100),
@@ -399,7 +257,7 @@ A sequence $\left\{u_{n} \right\}_{n=1}^{\infty}$ converges to a real number $A$
 
 * If a sequence $\left\{u_{n} \right\}$ converges we'll call it **convergent**
 * If it doesn't we'll call it **divergent**
-* If there is some number $M$ such that, for all $n$ $|u_{n}|<M$, then we'll call it **bounded**
+* If there is some number $M$ such that, for all $n$, $|u_{n}|<M$, then we'll call it **bounded**
 
 ---
 
@@ -425,7 +283,7 @@ tibble(
 
 # A bounded sequence that doesn't converge
 
-$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots, )$$
+$$\left\{\frac{1 + (-1)^n}{2} \right\} = (0, 1, 0, 1, \ldots, 0,1,0,1 \ldots )$$
 
 ```{r seq-bounded, fig.height = 5}
 tibble(
@@ -445,7 +303,7 @@ tibble(
 --
 
 * All convergent sequences are bounded
-* If a sequence is **constant**, $\left\{C \right \}$ it converges to $C$
+* If a sequence is **constant**, $\left\{C \right \}$, it converges to $C$
 
 ---
 
@@ -455,7 +313,7 @@ Suppose $\left\{a_{n} \right \}$ converges to $A$ and $\left\{b_{n} \right\}$ co
 
 * $\left\{a_{n} + b_{n} \right\}$ converges to $A + B$
 * $\left\{a_{n} b_{n} \right\}$ converges to $A \times B$
-* Suppose $b_{n} \neq 0 \forall n$ and $B \neq 0$. Then $\left\{\frac{a_{n}}{b_{n}} \right\}$ converges to $\frac{A}{B}$
+* Suppose $b_{n} \neq 0$  $\forall$ $n$ and $B \neq 0$. Then $\left\{\frac{a_{n}}{b_{n}} \right\}$ converges to $\frac{A}{B}$
 
 ---
 
@@ -478,7 +336,7 @@ function_plot +
     mapping = aes(color = "1 / 2x"),
     geom = "point"
   ) +
-  coord_cartesian(xlim=c(1, 5)) + coord_cartesian(ylim=c(-2, 4)) +
+  coord_cartesian(xlim = c(1, 5), ylim = c(-2, 4))+
   scale_color_brewer(type = "qual", guide = guide_legend(reverse = TRUE)) +
   labs(color = NULL)
 ```
@@ -579,7 +437,7 @@ source: [math 210](https://math.libretexts.org/Courses/Monroe_Community_College/
 
 # Limit of a function: Formal (DO NOT NEED TO KNOW THIS!)
 
-* Suppose $f: \Re \rightarrow \Re$
+* Suppose $f: \mathbb{R} \rightarrow \mathbb{R}$
 
 
 --
@@ -593,7 +451,7 @@ $$\forall \, x \backepsilon $$ for all x, such that,
 $$0 < |x - x_0 | < \delta$$ the difference between x and $x_0$ bounded between 0 and some other delta 
 --
 
-* We say that $f$ has a limit $L$ at $x_{0}$ if, for $\epsilon>0$, there is a $\delta>0$ such that
+* We say that $f$ has a limit $L$ at $x_{0}$ if, for each $\epsilon>0$, there is a $\delta>0$ such that
 
     $$|f(x) - L| < \epsilon \, \forall \,x \backepsilon 0 < |x - x_0 | < \delta$$
 
@@ -629,7 +487,7 @@ function_plot +
 
 # Proof
 
-* **Without loss of generalization** (WLOG) choose $\epsilon >0$
+* **Without loss of generality** (WLOG) choose $\epsilon >0$
 * Show that there is $\delta_{\epsilon}$ such that
 
     $$|f(x) - L| < \epsilon \, \text{for all} \, x \, \text{such that} \, 0 < |x - x_0 | < \delta$$
@@ -679,7 +537,7 @@ function_plot +
 
 # Not all functions have limits
 
-Consider $f:(0,1) \rightarrow \Re$, $f(x) = \frac{1}{x}$.  $f(x)$ does not have a limit at $x_{0}=0$ 
+Consider $f:(0,1) \rightarrow \mathbb{R}$, $f(x) = \frac{1}{x}$.  $f(x)$ does not have a limit at $x_{0}=0$ as we approach from the right. 
 
 ```{r limit-none, out.width="80%"}
 function_plot +
@@ -693,7 +551,7 @@ function_plot +
 
 ---
 
-# Not all functions have limits
+# Not all functions have limits (sketch)
 
 * Choose $\epsilon>0$. We need to show that there **does not** exist
 
@@ -706,12 +564,15 @@ function_plot +
 * This implies that there **can't** be a $\delta$
 
 ---
+
 # When there are no limits!
 ```{r no-limit-img, out.width="80%"}
 knitr::include_graphics("https://media.giphy.com/media/7JvlHfd7C2GDr7zfZF/giphy.gif")
 ```
 --
+
 When there is no limit, this has a lot of implications for us w/r/t (with respect to) how we can expect the function(s) to behave and what we can do with the function(s) mathematically.
+
 ---
 
 # Intuitive definition of a limit
@@ -734,7 +595,7 @@ $$\lim_{x \rightarrow x_{0}^{-} } f(x) = L$$
 
 # Algebra of limits
 
-Suppose $f:\Re \rightarrow \Re$ and $g: \Re \rightarrow \Re$ with limits $A$ and $B$ at $x_{0}$. Then,
+Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and $g: \mathbb{R} \rightarrow \mathbb{R}$ with limits $A$ and $B$ at $x_{0}$. Then,
 
 $$
 \begin{aligned}
@@ -745,7 +606,7 @@ $$
 
 --
 
-Suppose $g(x) \neq 0$ for all $x \in \Re$ and $B \neq 0$ then $\frac{f(x)}{g(x)}$ has a limit at $x_{0}$ and
+Suppose $g(x) \neq 0$ for all $x \in \mathbb{R}$ and $B \neq 0$ then $\frac{f(x)}{g(x)}$ has a limit at $x_{0}$ and
 
 $$\lim_{x \rightarrow x_{0}} \frac{f(x)}{g(x)} =  \frac{\lim_{x\rightarrow x_{0} } f(x) }{\lim_{x \rightarrow x_{0} } g(x) } = \frac{A}{B}$$
 
@@ -756,7 +617,7 @@ $$\lim_{x \rightarrow x_{0}} \frac{f(x)}{g(x)} =  \frac{\lim_{x\rightarrow x_{0}
 ```{r continuity, fig.height = 6}
 function_plot +
   stat_function(fun = function(x) (x^2 - 1) / (x - 1)) +
-  coord_cartesian(xlim=c(-2, 2)) +
+  coord_cartesian(xlim=c(-2, 2)) + geom_point(aes(x = 1, y = 2), shape = 21, fill = "white")+
   labs(
     title = expression(f(x) == frac(x^2 - 1, x - 1)),
     y = expression(f(x))
@@ -771,10 +632,10 @@ function_plot +
 
 # Defining continuity
 
-* Suppose $f:\Re \rightarrow \Re$ and consider $x_{0} \in \Re$
+* Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and consider $x_{0} \in \mathbb{R}$
 * $f$ is continuous at $x_{0}$ if for each $\epsilon>0$ there is a $\delta>0$ such that if,
 
-    $$\begin{aligned}|x - x_{0} | & < \delta \text{ for all  } x \in \Re \text{ then } \nonumber \\|f(x) - f(x_{0})| & < \epsilon \nonumber \end{aligned}$$
+    $$\begin{aligned}|x - x_{0} | & < \delta \text{ for all  } x \in \mathbb{R} \text{ then } \nonumber \\|f(x) - f(x_{0})| & < \epsilon \nonumber \end{aligned}$$
 
 --
 
@@ -861,7 +722,7 @@ function_plot +
 
 # RDD + incumbency advantage
 
-```{r rdd-img", out.width="80%"}
+```{r rdd-img, out.width="80%"}
 knitr::include_graphics("images/rdd-incumbency-advantage.png")
 ```
 
@@ -871,7 +732,7 @@ Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in 
 
 # Continuity and limits
 
-* Let $f: \Re \rightarrow \Re$ with $x_{0} \in \Re$
+* Let $f: \mathbb{R} \rightarrow \mathbb{R}$ with $x_{0} \in \mathbb{R}$
 * Then $f$ is continuous at $x_{0}$ if and only if $f$ has a limit at $x_{0}$ and that $\lim_{x \rightarrow x_{0} } f(x) = f(x_{0})$
 --
 
@@ -888,7 +749,7 @@ Source: [Lee, D. S. (2008). Randomized experiments from non-random selection in 
 
 # Algebra of continuous functions
 
-Suppose $f:\Re \rightarrow \Re$ and $g:\Re \rightarrow \Re$ are continuous at $x_{0}$. Then,
+Suppose $f:\mathbb{R} \rightarrow \mathbb{R}$ and $g:\mathbb{R} \rightarrow \mathbb{R}$ are continuous at $x_{0}$. Then,
 
 1. $f(x) + g(x)$ is continuous at $x_{0}$
 1. $f(x) g(x)$ is continuous at $x_{0}$
@@ -907,7 +768,6 @@ class: center, middle, inverse
 * Sequences
   * arithmetic 
   * geometric
-  * logs
   * convergence 
 * Limits
   * continuity
@@ -922,10 +782,11 @@ class: center, middle, inverse
 
 
 ### TA TEAM!
-* Bailey Meche baileymeche@uchicago.edu
-* Gabe Reichman gabereichman@uchicago.edu
-* Shirley Zhang xueyan1220@uchicago.edu
-* Stanley Yi yijiaying@uchicago.edu
+
+* Saaket Raman
+* Xulan Jiang (xulanj@uchicago.edu)
+* Yanjing Li
+
 
 ---
 class: center, middle, inverse
