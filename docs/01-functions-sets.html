@@ -72,12 +72,11 @@ class: center, middle, inverse, title-slide
 
 ---
 
-# Computational social science
+&lt;!-- # Computational social science --&gt;
 
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="images/ccsvenn.jpeg" alt="Venn diagram of disciplines" width="75%" /&gt;
-&lt;p class="caption"&gt;Venn diagram of disciplines&lt;/p&gt;
-&lt;/div&gt;
+&lt;!-- ```{r cssvenn-img, out.width="75%", fig.cap="Venn diagram of disciplines"} --&gt;
+&lt;!-- knitr::include_graphics("images/ccsvenn.jpeg") --&gt;
+&lt;!-- ``` --&gt;
 
 ---
 
@@ -146,9 +145,9 @@ class: center, middle, inverse, title-slide
 
 # Goals for the math/stats camp
 
-* Computational Math Camp `\(\leadsto\)` Computational Mathematics and Statistics Camp
+&lt;!-- * Computational Math Camp `\(\leadsto\)` Computational Mathematics and Statistics Camp --&gt;
 
---
+&lt;!-- -- --&gt;
 * Survey math and statistical tools that are foundational to CSS
 * Review common mathematical notation
 * Apply math/statistics methods
@@ -517,6 +516,41 @@ Example: `\(A = \{1, 2\}\)` and `\(B = \{3, 4\}\)`, then,
 &lt;img src="01-functions-sets_files/figure-html/restrict-domain-1.png" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
+# Piecewise functions
+
+* Restricting the domain can produce a *piecewise* function: one function built from two or more different rules or equations with non-overlapping domains
+
+--
+
+### Example: `\(|x|\)` is piecewise (on either side of zero)
+
+&lt;img src="01-functions-sets_files/figure-html/abs-x-minus-2-1.png" alt="" width="648" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Function Composition
+
+You can also compose or decompose functions by separating them: 
+
+`$$f(g(x)) = (f \circ g)(x)$$`
+
+* Work from the inside out: first compute `\(g(x)\)`, then feed the result into `\(f\)`
+
+--
+
+Example: `\(f(x) = x + 1\)` and `\(g(x) = x^2\)`
+
+`$$f(g(2)) = f(4) = 5$$`
+
+--
+
+`$$g(f(2)) = g(3) = 9$$`
+
+--
+
+* **Order matters:** `\(f(g(x)) \neq g(f(x))\)` *usually*
+
+---
 
 # Quadratic functions
 
@@ -731,7 +765,7 @@ Steps:
 # Gradescope: labeling
 
 
-&lt;img src="images/labeling1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/labeling1.png" alt="" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -739,7 +773,7 @@ Steps:
 # Gradescope: labeling in action
 How to label: 
 
-&lt;img src="images/labeling_2.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/labeling_2.png" alt="" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -747,7 +781,7 @@ How to label:
 
 Please label or we get stuck with this!!
 
-&lt;img src="images/no_label.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/no_label.png" alt="" width="90%" style="display: block; margin: auto;" /&gt;
 
 ---
 

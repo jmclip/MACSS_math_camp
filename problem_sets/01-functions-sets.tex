@@ -1,134 +1,104 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
+\documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{5}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{enumitem}
 \usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
 \hypersetup{
-  pdftitle={PSET 1: Linear equations, inequalities, sets and functions, quadratics},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+  pdftitle={PSET 1: Notation, sets and functions, quadratics, and logarithms},
+  hidelinks}
 
-\title{PSET 1: Linear equations, inequalities, sets and functions,
-quadratics}
+\title{PSET 1: Notation, sets and functions, quadratics, and logarithms}
 \author{}
 \date{\vspace{-2.5em}}
+
+% Problems are numbered 1-7 across the document.
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
 
 \begin{document}
 \maketitle
 
-\section{Simplify expressions}\label{simplify-expressions}
+\input{assignment-qs}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Simplify the following expressions as much as possible:\footnote{inspired
-    by Gill 1.1}
+\problem{Translate a statement into notation}
+
+A researcher proposes a simple model of protest participation: an
+individual joins a protest when the benefit they expect from the
+protest succeeding, weighted by the chance their participation
+matters, exceeds the personal cost of participating (time, risk of
+arrest, etc.).
+
+\begin{enumerate}[label=\alph*.]
+\item Define notation for each quantity in the model (in the style of
+  \(R = PB - C\) from the rational voter model in class) and write the
+  condition under which an individual participates.
+\item Using your notation, write the formal statement of the following
+  implication: ``in a very large protest movement, any one person's
+  participation is unlikely to matter, so individuals should stay
+  home.''
+\item Suppose the government announces harsher penalties for
+  protesters. Which term in your model changes, in which direction,
+  and what does the model predict about participation?
 \end{enumerate}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  \((-x^2y^3)^3\)
-\item
-  \(9(3^0)\)
-\item
-  \((3^2a^2)^2(6a^4)\)
-\item
-  \(\Big(\dfrac{x^3}{x^4}\Big)^3\)
-\item
-  \((-2)^{(4-9)}\)
-\item
-  \(\left(\dfrac{1}{27b^4}\right)^{1/3}\)
-\item
-  \(y^5y^6y^5y^2\)
-\item
-  \(\dfrac{13a/7b}{13b/2a}\)
+\problem{Work with sets}
+
+Using the sets\footnote{inspired by Grimmer HW1.1}
+\[
+\begin{aligned}
+A &= \left\{ 2, 3, 7, 9, 12, 13 \right\} \\
+B &= \left\{ x : 6 \leq x \leq 10 \ \mbox{and} \ x \ \mbox{is an even integer} \right\} \\
+C &= \left\{ x : 2 < x < 20 \ \mbox{and} \ x \ \mbox{is prime} \right\} \\
+D &= \left\{ 1, 4, 9, 16, 25, \ldots \right\} \\
+E &= \left\{ 1, 4 \right\}
+\end{aligned}
+\]
+identify the following:
+
+\begin{enumerate}[label=\alph*.]
+\item \(A \cup B\)
+\item \((A \cup B) \cap C\)
+\item \(C \cap D\)
+\item \(A \times E\)
 \end{enumerate}
 
-\section{Simplify a (more complex)
-expression}\label{simplify-a-more-complex-expression}
+\problem{Functions vs.\ relations}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\tightlist
-\item
-  Simplify the following expression:\footnote{inspired by Gill 1.2}
+\begin{enumerate}[label=\alph*.]
+\item True or false---explain why: ``All relations are functions, but not all functions are relations.''
+\item For each of the following, state whether \(y\) is a function of
+  \(x\) (Y/N). If it is a function, state its domain. If it is not,
+  state a restriction that would make it one.
+  \begin{enumerate}[label=\roman*.]
+  \item \(y = x^2\)
+  \item \(x = y^2\)
+  \item \(y = x^{1/2}\)
+  \end{enumerate}
+\item Is \(y = x^2\) invertible on all of \(\mathbb{R}\)? If not, give
+  a domain on which it is invertible.
 \end{enumerate}
 
-\[(a+b)^2 + (a-b)^2 + 2(a+b)(a-b) - 3a^2\]
+\problem{Simplify expressions}
 
-\section{Graph sketching}\label{graph-sketching}
+Simplify the following expressions as much as
+possible:\footnote{inspired by Gill 1.1}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\tightlist
-\item
-  Let the functions \(f(x)\) and \(g(x)\) be defined for all
-  \(x \in \Re\) by
+\begin{enumerate}[label=\alph*.]
+\item \((-x^2y^3)^3\)
+\item \((-2)^{(4-9)}\)
+\item \(\left(\dfrac{1}{27b^4}\right)^{1/3}\)
+\item \(\dfrac{13a/7b}{13b/2a}\)
+\item \((a+b)^2 + (a-b)^2 + 2(a+b)(a-b) - 3a^2\)
 \end{enumerate}
 
+\problem{Graph sketching}
+
+Let the functions \(f(x)\) and \(g(x)\) be defined for all
+\(x \in \mathbb{R}\) by\footnote{inspired by Pemberton and Rau problem 3-1}
 \[
 f(x) = \left\{
     \begin{array}{ll}
-        | x -2 | & \quad \mbox{if} \ x < 1 \\
+        | x - 2 | & \quad \mbox{if} \ x < 1 \\
         1 & \quad \mbox{if} \ x \geq 1
     \end{array}
 \right., \quad
@@ -140,128 +110,39 @@ g(x) = \left\{
 \right.
 \]
 
-Sketch the graphs of:\footnote{inspired by Pemberton and Rau problem 3-1}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \(y = f(x)\)
-\item
-  \(y = g(x)\)
-\item
-  \(y = f(g(x))\)
-\item
-  \(y = g(f(x))\)
+\begin{enumerate}[label=\alph*.]
+\item Sketch \(y = f(x)\)
+\item Compute \(f(g(0))\) and \(f(g(3))\)
+\item Sketch \(y = f(g(x))\)
+\item Sketch \(y = g(f(x))\)
 \end{enumerate}
 
-\section{Root finding}\label{root-finding}
+\problem{Root finding}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Find the roots (solutions) to the following quadratic
-  equations.\footnote{Gill 1.25}
-\end{enumerate}
-
-\[x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  \(9x^2 - 3x - 12 = 0\)
-\item
-  \(x^2 - 2x - 16 = 0\)
-\item
-  \(6x^2 - 6x - 6 = 0\)
-\end{enumerate}
-
-\section{Systems of linear equations}\label{systems-of-linear-equations}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{4}
-\tightlist
-\item
-  Solve the following systems of equations for their unknown values. If
-  there is no solution, indicate as such.
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Two unknowns\footnote{inspired by OpenStax Algebra ex 7.1.12}
-
-  \[
-   \begin{aligned}
-   3x - 2y &= 17 \\
-   5x - 10y &= -10
-   \end{aligned}
-   \]
-\item
-  Three unknowns\footnote{inspired by OpenStax Algebra ex 7.2.12}
-
-  \[
-   \begin{aligned}
-   5x - 2y + 3z &= 9 \\
-   2x - 4y - 3z &= -9 \\
-   x + 6y - 8z &= 24
-   \end{aligned}
-   \]
-\item
-  An animal shelter has a total of 124 animals comprised of cats, dogs,
-  and rabbits. If the number of rabbits is 4 less than twice the number
-  of dogs, and there are 76 more cats than dogs, how many of each animal
-  are at the shelter?\footnote{inspired by OpenStax Algebra 7.2.54}
-\end{enumerate}
-
-\section{Work with sets}\label{work-with-sets}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  Using the sets
-\end{enumerate}
-
+Find the roots (solutions) of the following quadratic
+equations.\footnote{Gill 1.25} Recall that for \(ax^2 + bx + c = 0\),
 \[
-\begin{aligned}
-A&=\left\{2,3,7,9,12,13 \right\} \\
-B&=\left\{ x: 6\leq x \leq 12 \  \mbox{and} \ x \ \mbox{is an even integer} \right\} \\
-C&=\left\{ x: 2< x < 25 \  \mbox{and} \  x \  \mbox{is prime}  \right\} \\
-D&=\left\{ 1,4,9,16,25, \ldots  \right\} \\
-\end{aligned}
+x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}
 \]
 
-identify the following:\footnote{inspired by Grimmer HW1.1}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \(A\cup B\)
-\item
-  (\(A\cup B) \cap C\)
-\item
-  \(C \cap D\)
+\begin{enumerate}[label=\alph*.]
+\item \(9x^2 - 3x - 12 = 0\)
+\item \(x^2 - 2x - 16 = 0\)
+\item \(6x^2 - 6x - 6 = 0\)
 \end{enumerate}
 
-\subsection{AI and Resources
-statement}\label{ai-and-resources-statement}
+\problem{Simplify logarithms}
 
-\begin{itemize}
-\tightlist
-\item
-  Please list (in detail) all resources you used for this assignment. If
-  you worked with people, list them here as well. It is not enough to
-  say that you used a resource for help, you need to be specific on the
-  link and \emph{how} it was helpful. W/R/T gen AI tools (including GPT,
-  etc. ) you cannot use them to do work on your behalf -- you cannot put
-  in any of the questions, etc. You can ask for help on logic / sample
-  problems. If you do use GPT or other AI tools, you need to provide a
-  link to your chat transcript. Any suspected academic integrity
-  violations will be immediately reported.
-\end{itemize}
+Express each of the following as a single logarithm:\footnote{Inspired
+  by Grimmer HW1.3. Assume log is natural log unless specified
+  otherwise.}
+
+\begin{enumerate}[label=\alph*.]
+\item \(\log(x) - 2\log(y) + \log(z)\)
+\item \(2 \log(x) + \log(1)\)
+\item \(\log(2x) - 2\)
+\end{enumerate}
+
+\input{ai-statement}
 
 \end{document}

@@ -67,11 +67,11 @@ library(here)
 
 ---
 
-# Computational social science
+<!-- # Computational social science -->
 
-```{r cssvenn-img, out.width="75%", fig.cap="Venn diagram of disciplines"}
-knitr::include_graphics("images/ccsvenn.jpeg")
-```
+<!-- ```{r cssvenn-img, out.width="75%", fig.cap="Venn diagram of disciplines"} -->
+<!-- knitr::include_graphics("images/ccsvenn.jpeg") -->
+<!-- ``` -->
 
 ---
 
@@ -140,9 +140,9 @@ knitr::include_graphics("images/ccsvenn.jpeg")
 
 # Goals for the math/stats camp
 
-* Computational Math Camp $\leadsto$ Computational Mathematics and Statistics Camp
+<!-- * Computational Math Camp $\leadsto$ Computational Mathematics and Statistics Camp -->
 
---
+<!-- -- -->
 * Survey math and statistical tools that are foundational to CSS
 * Review common mathematical notation
 * Apply math/statistics methods
@@ -617,6 +617,53 @@ invertible %>%
     y = expression(x)
   )
 ```
+
+---
+# Piecewise functions
+
+* Restricting the domain can produce a *piecewise* function: one function built from two or more different rules or equations with non-overlapping domains
+
+--
+
+### Example: $|x|$ is piecewise (on either side of zero)
+
+```{r abs-x-minus-2, echo = FALSE, fig.width = 9, fig.height = 5, fig.align = "center"}
+library(ggplot2)
+
+ggplot(data.frame(x = c(-4, 8)), aes(x)) +
+  stat_function(fun = function(x) abs(x - 2), linewidth = 1) +
+  geom_vline(xintercept = 2, linetype = "dashed", alpha = 0.5) +
+  labs(
+    title = expression(f(x) == group("|", x - 2, "|")),
+    x = expression(x),
+    y = expression(f(x))
+  ) +
+  theme_minimal(base_size = 16)
+```
+
+
+---
+# Function Composition
+
+You can also compose or decompose functions by separating them: 
+
+$$f(g(x)) = (f \circ g)(x)$$
+
+* Work from the inside out: first compute `\(g(x)\)`, then feed the result into `\(f\)`
+
+--
+
+Example: `\(f(x) = x + 1\)` and `\(g(x) = x^2\)`
+
+$$f(g(2)) = f(4) = 5$$
+
+--
+
+$$g(f(2)) = g(3) = 9$$
+
+--
+
+* **Order matters:** `\(f(g(x)) \neq g(f(x))\)` *usually*
 
 ---
 
