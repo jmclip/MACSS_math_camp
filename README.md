@@ -15,7 +15,7 @@
 ## TA TEAM!
 * Saaket Raman
 * Xulan Jiang (xulanj@uchicago.edu)
-* Yanjing Li
+* Yanjing Li (yanjingli@uchicago.edu)
 
 ## Office Hours
 |  | In-person | Zoom
