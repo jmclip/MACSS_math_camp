@@ -14,7 +14,7 @@
 
 ## TA TEAM!
 * Saaket Raman
-* Xulan Jiang
+* Xulan Jiang (xulanj@uchicago.edu)
 * Yanjing Li
 
 ## Office Hours
