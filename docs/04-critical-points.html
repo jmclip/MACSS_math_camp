@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Critical points and approximation</title>
+    <title>Critical points, optimization, and matrices</title>
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="04-critical-points_files/header-attrs/header-attrs.js"></script>
@@ -13,7 +13,7 @@
 class: center, middle, inverse, title-slide
 
 .title[
-# Critical points and approximation
+# Critical points, optimization, and matrices
 ]
 .author[
 ### <a href="https://jmclip.github.io/MACSS_math_camp/">MACS 33000</a> <br /> University of Chicago
@@ -31,38 +31,37 @@ class: center, middle, inverse, title-slide
 
 * Gradescope: grading underway -- should be all OK
 * Academic Integrity: workshop upcoming
-* MACSS Orientation 9/22 (expect notices re: schedulng, etc.)
-* No homework tomorrow (!!)
+* MACSS Orientation 9/23 (expect notices re: scheduling, etc.)
+
 
 ---
 # Learning objectives
 
-* Define critical points
-* Calculate critical points via analytical methods
-* Demonstrate optimization using maximum likelihood estimation
-* Identify need for approximation methods for calculating critical points
-* Explain and demonstrate root finding procedures using Newton-Raphson hill climber
-* Demonstrate comptuational optimization using gradient descent
+* Define and calculate critical points and inflection points
+* Calculate higher order derivatives
+* Demonstrate optimization using maximum likelihood estimation and gradient descent
+* Linear vs matrix algebra!!
+* Define vector and matrix
 
 ---
 
-# Rolle's theorem
+# Fermat's interior extremum theorem
 
-* Suppose `\(f:[a, b] \rightarrow \Re\)`
-* Suppose `\(f\)` has a relative maxima or minima on `\((a,b)\)` and call that `\(c \in (a, b)\)`
+* Suppose `\(f:[a, b] \rightarrow \mathbb{R}\)` and is differentiable on c. 
+* Suppose `\(f\)` has a relative maximum or minimum on `\((a,b)\)` and call that `\(c \in (a, b)\)`
 * Then `\(f'(c) = 0\)`
 
 --
 
 .pull-left[
 
-&lt;img src="04-critical-points_files/figure-html/rolles-theorem-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/rolles-theorem-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 .pull-right[
 
-* Rolle's theorem guarantees that, at some point, `\(f^{'}(x) = 0\)`
+* Fermat's theorem guarantees that, at some point, `\(f^{'}(c) = 0\)`
 * Intuition from proof - what happens as we approach from the left? 
 * Intuition from proof - what happens as we approach from the right? 
 
@@ -71,11 +70,11 @@ class: center, middle, inverse, title-slide
 ---
 
 # Higher order derivatives
-Conceptually, we are thinking about changes (get excited for all the *moments* you're going to have in stats later!). The first derivative tells us about the rate of change of our function.  
+Conceptually, we are thinking about changes (get excited for all the *moments* you're going to have in stats later!). The first derivative tells us about the rate of change of our function.
 
 
 --
-**BUT!** we can also explore how fast the function is changing...that is, the rate of change for our rate of change. Here, we can understand the acceleration of change. We can keep going (provided our function is differentiable).
+**BUT!** we can also explore how fast the derivative is changing...that is, the rate of change for our rate of change. Here, we can understand the acceleration of change. We can keep going (provided our function is differentiable).
 
 ---
 
@@ -96,8 +95,8 @@ Conceptually, we are thinking about changes (get excited for all the *moments* y
 
 ---
 
-# Higher order derivatives:
-Example: Suppose we start with a function. `\(x^3\)` -- let's explore the different derivatives we might take. Try it out!    
+# Higher order derivatives
+Example: Suppose we start with a function: `\(x^3\)` -- let's explore the different derivatives we might take. Try it out!    
 
 --
 $$
@@ -110,9 +109,13 @@ f^{\prime\prime\prime\prime}(x) &amp;=0\\
 \end{aligned}`
 $$
 
-* If `\(f(x)\)` is differentiable, also continuous
-* If `\(f'(x)\)` is differentiable, then **continuously differentiable**
-* Optimization requires differentiation
+* If `\(f(x)\)` is differentiable, then it is also continuous
+* If `\(f'(x)\)` is differentiable, then f is also  **continuously differentiable**
+* Note: these run one direction only. 
+  * Continuous does not imply differentiable: `\(|x|\)` at `\(x=0\)` 
+  * Continuously differentiable does not imply `\(f'\)` is differentiable: `\(x|x|\)` at  `\(x=0\)`
+* Analytical optimization requires differentiation
+
 
 
 ---
@@ -120,45 +123,46 @@ $$
 # Inflection point
 Inflection points are where we move from being concave down to concave up (or vice versa). 
 
-&lt;img src="04-critical-points_files/figure-html/concave-inf-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/concave-inf-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Inflection point
 
-&gt; For a given function `\(y = f(x)\)`, a point `\((x^∗, y^∗)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
+&gt; For a given function `\(y = f(x)\)`, a point `\((x^*, y^*)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
 
-&lt;img src="04-critical-points_files/figure-html/inflect-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflect-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Inflection point: example function
 
-&gt; For a given function `\(y = f(x)\)`, a point `\((x^∗, y^∗)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
+&gt; For a given function `\(y = f(x)\)`, a point `\((x^*, y^*)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
 
 Let's start with a basic plot: here, we have a function: `\(\frac{x^3}{15} - x^2 + 4x +2\)`. We can see where we might guess there are the concave up / down points and where the inflection point might be. 
 
-&lt;img src="04-critical-points_files/figure-html/inflect-1-1.png" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflect-1-1.png" alt="" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Inflection point
 
-Let's now consider the same function, but the derivative. We are expecting THE VALUE OF CHANGE (AKA RATE OF CHANGE TO BE ZERO). GREEN: where the derivative (change) is positive or negative. GRAY: point where we don't see any more change (rate of change = 0).
+&lt;!-- Let's now consider the same function, but the derivative. We are expecting THE VALUE OF CHANGE (AKA RATE OF CHANGE TO BE ZERO). GREEN: where the derivative (change) is positive or negative. GRAY: point where we don't see any more change (rate of change = 0). --&gt;
 
-&lt;img src="04-critical-points_files/figure-html/inflect-deriv0-1.png" width="55%" style="display: block; margin: auto;" /&gt;
---
+&lt;img src="04-critical-points_files/figure-html/inflect-deriv0-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+---
 
 ### Derivative of original function: 
+Let's now consider the same function, but the derivative. We are expecting THE VALUE OF CHANGE (AKA RATE OF CHANGE TO BE ZERO). GREEN: where the derivative (change) is positive or negative. GRAY: point where we don't see any more change (rate of change = 0). `\(f'(x)= \frac{x^2}{5}-2x+4\)`, `\(f''(x)= 0.4x-2\)`.
 
-&lt;img src="04-critical-points_files/figure-html/inflect-deriv1-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflect-deriv1-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 # Inflection point
 
-&gt; For a given function `\(y = f(x)\)`, a point `\((x^∗, y^∗)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
+&gt; For a given function `\(y = f(x)\)`, a point `\((x^*, y^*)\)` where the second derivative immediately on one side of the point is signed oppositely to the second derivative immediately on the other side
 
-&lt;img src="04-critical-points_files/figure-html/inflect-all-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflect-all-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -174,17 +178,17 @@ Let's now consider the same function, but the derivative. We are expecting THE V
 
 # Concavity
 
-* Where a function is twice differentiable and concave over some area, then the function is concave down where `\(f''(x) &lt; 0\)` and concave up where `\(f''(x) &gt; 0\)`  
+* Where a function is twice differentiable over some area, then the function is concave down where `\(f''(x) &lt; 0\)` and concave up where `\(f''(x) &gt; 0\)`  
 
 
 What does this mean? 
 --  
 
-* A critical point when f’(x)=0 implie some kind of concavity.
+* A critical point when f'(x)=0 has potential for some kind of concavity (sometimes, but not always! (`\(x^3\)`)).
 
 * We are then moving away from that point and we're either *increasing* (min - concave up) or *decreasing* (max - concave down). 
-  * If we're increasing, the second derivative is positive, `\(f''(x) &gt; 0\)`. 
-  * If we're decreasing, the second derivative is negative, `\(f''(x) &lt; 0\)`.
+  * If we're increasing through the critical point, the second derivative is positive, `\(f''(x) &gt; 0\)`. 
+  * If we're decreasing through the critical point, the second derivative is negative, `\(f''(x) &lt; 0\)`.
 
 ---
 
@@ -192,7 +196,7 @@ What does this mean?
 
 * Where a function is twice differentiable and concave over some area, then the function is concave down where `\(f''(x) &lt; 0\)` and concave up where `\(f''(x) &gt; 0\)`
 
-&lt;img src="04-critical-points_files/figure-html/concave-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/concave-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -200,7 +204,7 @@ What does this mean?
 
 .pull-left[
 
-&lt;img src="04-critical-points_files/figure-html/strict-e-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/strict-e-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -227,7 +231,7 @@ $$
 
 .pull-left[
 
-&lt;img src="04-critical-points_files/figure-html/strict-log-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/strict-log-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -238,14 +242,14 @@ $$
 `\begin{aligned}
 f(x) &amp; =  \ln(x) \\ \\
 f^{'}(x) &amp; =  \frac{1}{x} \\
-&amp; \text{    rate of change (always positive (above 0)*}\\ \\
+&amp; \text{    rate of change (always positive (above 0))*}\\ \\
 f^{''}(x) &amp; =  -\frac{1}{x^2} \\
 &amp; \text{ rate of change of rate of change}
 \end{aligned}`
 $$
 
 &lt;/font&gt;
-\* .tiny[note that `\(ln(x)\)` only defined for `\(x &gt; 0\)`]
+\* .tiny[note that `\(\ln(x)\)` is only defined for `\(x &gt; 0\)`]
 
 ]
 
@@ -254,7 +258,7 @@ $$
 # Types of extreme values
 
 * Maximum or minimum
-* Local or global    
+* Local or global
 
 --
 *You can find these graphically or analytically*
@@ -264,73 +268,73 @@ $$
 # Types of extreme values: Examples
 
 How would we evaluate the extreme values here? 
-&lt;img src="04-critical-points_files/figure-html/endpoints-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/endpoints-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 
 --
 
-* Derivative of the function. `\(f'(x) = 1\)`
+* Derivative of the function: `\(f'(x) = 1\)`
 * Set to zero and solve. (n/a)
 * Options: 
   * Plug in values to original function to find corresponding f(x). (only evaluate at end points (0 and 5))
-  * Find second derivative to see if positive (min) or negative (max)
+  * Find second derivative to see if positive (min) or negative (max) [not informative]
 
 ---
 
-# Types of extreme values: Example           
+# Types of extreme values: Examples
    
 
 Try with a neighbor:    
-&lt;img src="04-critical-points_files/figure-html/max-middle-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/max-middle-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 
 --
 
 
-#### `\(f'(x) = -2x\)`;  zero at `\(x=0\)`, `\(f(x) = 0^2+5=5\)`. 
+#### `\(f'(x) = -2x\)`;  zero at `\(x=0\)`, `\(f(x) = -0^2+5=5\)`. 
 
  
 But is it a max or min?   
 
 --
-Try adjacent point (e.g. -1 or 1). `\((-1^2+5)=4\)` OR take second derivative: `\(-2\)` 
+Try adjacent point (e.g. -1 or 1). `\(f(-1) = (-(-1)^2+5)=4\)` OR take second derivative: `\(-2\)` 
 
 
 --
 
-Since 4 is less than 5, we know this is a max at x = 0, since `\(f(x = 0) &gt; f(x=1)\)`. Similarly, the second derivative is negative, so this also indicates that it is a max (decreasing from this point). 
+Since 4 is less than 5, we know this is a max at x = 0, since `\(f(x = 0) &gt; f(x=1)\)`. Similarly, the second derivative is negative, so this also indicates that it is a max (concave down from this point). 
 
 ---
 
 # Types of extreme values
 
-&lt;img src="04-critical-points_files/figure-html/min-middle-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/min-middle-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Types of extreme values
 
-&lt;img src="04-critical-points_files/figure-html/local-all-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/local-all-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Types of extreme values
 
-&lt;img src="04-critical-points_files/figure-html/inflection-point-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflection-point-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 ### Function and derivative
 
-&lt;img src="04-critical-points_files/figure-html/inflection-point-2-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/inflection-point-2-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 # Framework for analytical optimization
 
 1. Find `\(f'(x)\)`
-1. Set `\(f'(x)=0\)` and solve for `\(x\)`. Call all `\(x_0\)` such that `\(f'(x_0)=0\)` **critical values**
-1. Find `\(f''(x)\)`. Evaluate at each `\(x_0\)`
-    * If `\(f''(x) &gt; 0\)`, concave up, and therefore a local minimum
-    * If `\(f''(x) &lt; 0\)`, concave down, and therefore a local maximum
+1. Set `\(f'(x)=0\)` and solve for `\(x\)`. Call all `\(x_0\)` such that `\(f'(x_0)=0\)` or `\(f'(x_0)\)` does not exist **critical points**
+1. Find `\(f''(x_0)\)`. Evaluate at each `\(x_0\)`
+    * If `\(f''(x_0) &gt; 0\)`, concave up, and therefore a local minimum
+    * If `\(f''(x_0) &lt; 0\)`, concave down, and therefore a local maximum
     * If it's the global maximum/minimum, it will produce the largest/smallest value for `\(f(x)\)`
     * On a closed range along the domain, **check the endpoints as well**
 
@@ -338,20 +342,20 @@ Since 4 is less than 5, we know this is a max at x = 0, since `\(f(x = 0) &gt; f
 
 ### Ex: `\(f(x) = -x^2\)`,  `\(x \in [-3, 3]\)`
 
-&lt;img src="04-critical-points_files/figure-html/ex-1-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/ex-1-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 ### Ex:  `\(f(x) = x^3 - 6x-2\)`, `\(x \in [-3, 3]\)`
 
-&lt;img src="04-critical-points_files/figure-html/ex-2-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/ex-2-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 class: center, middle, inverse
 
 # CSS Application of optimization: MLE
-###You aren't going to have to calculate this, but you need to understand the big picture
+### You aren't going to have to calculate this, but you need to understand the big picture
 
 ---
 
@@ -381,7 +385,7 @@ $$
 # Maximum likelihood estimation
 
 * Log-likelihood
-    * `\(f:\Re \rightarrow (0, \infty)\)`
+    * `\(f:\mathbb{R} \rightarrow (0, \infty)\)`
     * If `\(x_{0}\)` maximizes `\(f\)`, then `\(x_{0}\)` maximizes `\(\log(f(x))\)`
 * Maximize the log-likelihood instead
 
@@ -420,9 +424,9 @@ $$
 
 $$
 `\begin{aligned}
-f^{'}(\mu ) &amp; = -\frac{1}{2} \left( - 2\sum_{i=1}^{N} Y_{i} + 2 N \mu \right) \\
-f^{'}(\mu ) &amp; = \sum_{i=1}^{N} Y_{i} - N \mu \\
-f^{''}(\mu ) &amp; = -N 
+\frac{ \partial \log f(\mu) }{ \partial \mu } &amp; = -\frac{1}{2} \left( - 2\sum_{i=1}^{N} Y_{i} + 2 N \mu \right) \\
+\frac{ \partial \log f(\mu) }{ \partial \mu }&amp; = \sum_{i=1}^{N} Y_{i} - N \mu \\
+\frac{ \partial^2 \log f(\mu) }{ \partial \mu^2 }&amp; = -N 
 \end{aligned}`
 $$
 
@@ -452,167 +456,18 @@ class: inverse, middle, center
 * Analytical approaches can be difficult/impossible
 * Computational approaches simplify the problem
 * Different algorithms available with benefits/drawbacks
-    * Newton-Raphson
+    * Newton-Raphson (not covered)
     * Grid search
     * Gradient descent
 
----
-
-# Newton-Raphson root finding
-
-* Roots of a function where `\(f(x) = 0\)`
-* Analytical method
-* Iterative procedures to approximate `\(x^{*}\)`
-
----
-
-# Tangent lines
-
-In words: `\(y = mx + b\)` where b is our intercept (at `\(x_0\)`) and the slope is `\(f'(x_0)\)` times how far away we want to get `\((x-x_0)\)`
-
-`$$g(x) = f^{'}(x_{0}) (x - x_{0} ) + f(x_{0})$$`
-
-&lt;img src="04-critical-points_files/figure-html/tangent-anim-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
-
----
-
-# Newton-Raphson method
-
-* Initial guess `\(x_{0}\)`
-* Approximate `\(f(x)\)` with the tangent line to generate a new guess:
-
-    `$$\begin{aligned}g(x) &amp; = f^{'}(x_{0})(x - x_{0} ) + f(x_{0} ) \\
-    0 &amp; = f^{'}(x_{0}) (x_{1} - x_{0}) + f(x_{0} ) \\x_{1}
-    &amp; =  x_{0} - \frac{f(x_{0}) }{f^{'}(x_{0})}\end{aligned}$$`
-
-* Great! Now we will use `\(x_1\)` as our next guess!
-* Iterate until updated values are the same
-
----
-
-# Example of Newton-Raphson
-
-.pull-left[
-
-&lt;img src="04-critical-points_files/figure-html/base-plot-1.png" width="65%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-
-$$
-`\begin{aligned}
-y &amp;= -x^2 \\
-\frac{\partial y}{\partial x} &amp;= -2x \\
-\end{aligned}`
-$$
-
-]
-
----
-
-# Example of Newton-Raphson
-
-.pull-left[
-
-&lt;img src="04-critical-points_files/figure-html/optims-1.png" width="65%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-
-$$
-`\begin{aligned}
-y &amp;= -x^2 \\
-\frac{\partial y}{\partial x} &amp;= -2x \\
-\end{aligned}`
-$$
-
-]
-
-
----
-
-# Implementing Newton-Raphson: 
-
-`$$x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}$$`
-
---
-
-`$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$`
-
---
-
-`$$x_{n+1} = x_n - \frac{-x^2}{-2x}$$`
-
-* Stop at `\(x_n\)` if `\(\mid x_n - x_{n-1} \mid &lt; 0.0001\)`
-
----
-
-# Implementing Newton-Raphson
-
-
-
-
-
-&lt;img src="04-critical-points_files/figure-html/first-func-first-guess-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
-
----
-
-# Implementing Newton-Raphson
-
-.pull-left[
-
-&lt;img src="04-critical-points_files/figure-html/base-plot-two-points-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-
-$$
-`\begin{aligned}
-y &amp;= x^3 -6x -2 \\
-\frac{\partial y}{\partial x} &amp;=  3x^2 -6 
-\end{aligned}`
-$$
-
-]
-
----
-
-# Initial guess `\(x_0 = 5\)`
-
-
-
-&lt;img src="04-critical-points_files/figure-html/second-func-first-guess-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
-
----
-
-# Initial guess `\(x_0 = -6\)`
-
-&lt;img src="04-critical-points_files/figure-html/second-func-second-guess-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
----
-
-# Newton Raphson: AND BEYOND!
-
-* Just like we were doing, we can also use it to find max / min. 
-
-* It's similar but different: `$$x_0 - \frac{f^{'}(x_0)}{f^{''}(x_0)}$$`
-
---
-
-Try it: approximate roots of derivative using the above, starting at 2. 
-
---
-Approximation results: 1.625, 1.428, 1.414
 
 ---
 
 # Grid search
 
-*Often used in finetuning hyperparameters (e.g. structure of the model) *
+* Often used in finetuning hyperparameters (e.g. structure of the model)
 * Exhaustive search algorithm
-* Define a specified set of `\(f_i\)`
+* Define a specified set of `\(x_i\)`
 * Calculate `\(f(x_i) \forall i\)`
 * Compare all resulting values
 
@@ -692,7 +547,7 @@ class: inverse, center, middle
 # STARTING THE PARTY: Matrices
 
 ---
-## Example matricies
+## Example matrices
 We have two matrices: X and Y. 
 
 `$$\begin{aligned}\mathbf{X} &amp;= 
@@ -707,7 +562,7 @@ We have two matrices: X and Y.
 \end{array} \right]
 \end{aligned}$$`
 
-X has two rows and three columms, so is `\(2 \times 3\)`. Y has three rows and two columns, so is `\(3 \times 2\)`. 
+X has two rows and three columns, so is `\(2 \times 3\)`. Y has three rows and two columns, so is `\(3 \times 2\)`. 
 
 --
 
@@ -715,18 +570,394 @@ Matrices are incredibly helpful, despite also being a bit challenging to get the
 
 ---
 
+# Linear algebra
+
+* Data stored in **matrices**
+  * Matrix algebra is the study of matrices and finite-dimensional vector spaces
+* Higher dimensional spaces
+    * Flood of big data, stored in many dimensions
+* Linear algebra
+    * Algebra of matrices
+    * Geometry of high dimensional space
+    * Calculus (multivariable) in many dimensions
+* Very important for regression/machine learning/deep learning
+
+---
+
+# Points and vectors
+
+* A point in `\(\mathbb{R}^1\)`
+    * `\(1\)`
+    * `\(\pi\)`
+    * `\(e\)`
+
+--
+* An ordered pair in `\(\mathbb{R}^2 = \mathbb{R} \times \mathbb{R}\)`
+    * `\((1,2)\)`
+    * `\((0,0)\)`
+    * `\((\pi, e)\)`
+
+--
+* An ordered triple in `\(\mathbb{R}^3 = \mathbb{R} \times \mathbb{R} \times \mathbb{R}\)`
+    * `\((3.1, 4.5, 6.1132)\)`
+
+--
+* An ordered `\(n\)`-tuple in `\(\mathbb{R}^n = \mathbb{R} \times \mathbb{R} \times \ldots \times \mathbb{R}\)`
+    * `\((a_{1}, a_{2}, \ldots, a_{n})\)`
+
+---
+
+# One dimensional example
+
+&lt;img src="04-critical-points_files/figure-html/one-d-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two dimensional example
+
+&lt;img src="04-critical-points_files/figure-html/two-d-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two dimensional example
+
+&lt;img src="04-critical-points_files/figure-html/two-d2-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Two dimensional example
+
+&lt;img src="04-critical-points_files/figure-html/two-d3-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Three dimensional example
+
+* (Latitude, Longitude, Elevation)
+* `\((1,2,3)\)`
+* `\((0,1,2)\)`
+
+--
+
+## `\(N\)`-dimensional example
+
+* Individual campaign donation records
+    `$$\mathbf{x} = (1000, 0, 10, 50, 15, 4, 0, 0, 0, \ldots, 24000000)$$`
+* Proportion of county vote for Trump
+    `$$\mathbf{y} = (0.8, 0.5, 0.6, \ldots, 0.2)$$`
+* Run experiment, assess feeling thermometer of elected official
+    `$$\mathbf{t} = (0, 100, 50, 70, 80, \ldots, 100)$$` 
+
+---
+
+# Vectors
+(*source: Gill*)
+* Serial listing of numbers where the order matters
+* Can add and subtract at will if conformable (either by adding / subtracting a constant (*scalar*) or adding / subtracting a second vector )
+* If adding / subtracting vectors, they need to be *conformable* -- otherwise, *nonconformable*
+* Multiplying vectors (not fun): Either dot `\(\cdot\)` or cross product `\(\times\)` (note: difference in these!)
+  * dot product AKA inner product, produces a scalar. (we'll get to this later)
+  * cross product, produces vector
+---
+
+# Vector/scalar addition/multiplication
+
+$$
+`\begin{aligned}
+\mathbf{u} &amp; =  [1, 2, 3, 4, 5]  \\
+\mathbf{v} &amp; =  [1, 1, 1, 1, 1]  \\
+k &amp; =  2
+\end{aligned}`
+$$
+
+--
+
+$$
+`\begin{aligned}
+\mathbf{u}  + \mathbf{v} &amp; = [1 + 1, 2 + 1, 3+ 1, 4 + 1, 5+ 1]  = [2, 3, 4, 5, 6] \\
+k \mathbf{u} &amp; = [2 \times 1, 2 \times 2, 2 \times 3, 2 \times 4, 2 \times 5] = [2, 4, 6, 8, 10]  \\
+k \mathbf{v} &amp; = [2 \times 1,2 \times 1,2 \times 1,2 \times 1,2 \times 1] = [2, 2, 2, 2, 2]
+\end{aligned}`
+$$
+
+---
+
+# Linear combinations
+
+* Linear combinations of vectors `\(\mathbf{a}\)` and `\(\mathbf{b}\)`
+
+    `$$\mathbf{a} + \mathbf{b}$$`
+
+    `$$2\mathbf{a} - 3\mathbf{b}$$`
+
+* Generic form
+
+    `$$\alpha \mathbf{a} + \beta\mathbf{b} + \gamma\mathbf{c} + \delta\mathbf{d} + \ldots$$`
+
+---
+# Linear combinations: (in)dependence
+
+* **Linear independence**: cannot get from one vector to another through linear combination 
+  * Another way to consider is if you have to go *beyond the space (span)* of the set to include an additional vector. 
+  * Can think of as multiplication by a scalar, but technically, combining each NON-ZERO vector, multiplied by a scalar, gives us zero. ( `\(\mathbf{v}_1, \mathbf{v}_2, \ldots \mathbf{v}_k\)` are linearly dependent if and only if there exist scalars `\(\alpha_1, \alpha_2, \ldots, \alpha_k\)` *not all zero* such that `\(\alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \ldots + \alpha_k \mathbf{v}_k = \mathbf{0}\)`)
+* Overall, we may be in a situation where the number of dimensions helps us understand the size of the solution set
+
+
+---
+
+# Linear (in)dependence
+
+`$$\mathbf{a} = \begin{bmatrix}
+3 \\
+1
+\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
+2 \\
+2
+\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
+1 \\
+3
+\end{bmatrix}$$`
+
+Is the set linearly dependent? 
+--
+
+These are (together) linearly dependent.
+
+--
+
+`$$\mathbf{a}-2\times\mathbf{b}+\mathbf{c} =\Big( \begin{matrix} 0 \\ 0 \end{matrix}\Big)$$`
+
+---
+
+# Detecting linear dependence
+
+* `\(\mathbf{v}_1, \mathbf{v}_2, \ldots \mathbf{v}_k\)` are linearly dependent if and only if there exist scalars `\(\alpha_1, \alpha_2, \ldots, \alpha_k\)` *not all zero* such that
+
+    `$$\alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \ldots + \alpha_k \mathbf{v}_k = \mathbf{0}$$`
+
+---
+
+# Example: determining (in)dependence
+
+`$$\mathbf{a} = \begin{bmatrix}
+2 \\
+1 \\
+2
+\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
+4 \\
+1 \\
+3
+\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
+1 \\
+1 \\
+2
+\end{bmatrix}$$`
+
+If we're not sure what to do, we set this up as trying to solve for our variable of choice. So, if we're multiplying scalars, it must be the case, for example, that `\(2\alpha + 4\beta + 1\gamma = 0\)`, and so on. That is, we're trying to solve for `\(\alpha \mathbf{a} + \beta\mathbf{b} + \gamma\mathbf{c} = \mathbf{0}\)`.
+--
+
+* Express as a **system of equations** (note: renaming each line so you can see the transformations more easily on the next slide)
+
+    `$$\begin{aligned}2\alpha &amp;+ 4\beta &amp;+ \gamma  &amp;= 0 \text{ (}\mathbf{h}\text{) }\\
+    \alpha &amp;+ \beta &amp;+ \gamma  &amp;= 0 \text{ (}\mathbf{j}\text{) }\\
+    2\alpha &amp;+ 3\beta &amp;+ 2\gamma &amp;= 0\text{ (}\mathbf{k}\text{) }
+    \end{aligned}$$`
+
+---
+## Aside: solving systems of equations
+
+* Need at least x equations for x unknowns (e.g. 2 unknowns, 2 equations)
+* Multiply/divide each equation and add together 
+* Different approaches, but often try to eliminate or 'kick out' variables to get down to solving for one variable 
+* Once you have one variable, continue!
+
+---
+# Solve the system of equations
+Let's work through an example to evaluate whether our matrices (technically vectors) are linearly independent or dependent. 
+
+* **Step 1:** We re-write our matrices from the previous slide, setting each equal to zero. Note that we've named them to make following along a little easier. 
+
+* **Step 2:** We leave our first equation `\(\mathbf{h}\)` as-is. We then take our second equation and calculate: `\(h-k\)` and replace that result in the third row. We can see from the third row that `\(\beta = \gamma\)`.
+
+
+---
+# Solve the system of equations - example
+Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
+
+* **Step 1: write out equations**
+
+`$$\begin{aligned}
+2\alpha + 4\beta &amp;+ \gamma  &amp;= 0 \text{ (}\mathbf{h}\text{) }\\
+\alpha + \beta &amp;+ \gamma  &amp;= 0 \text{ (}\mathbf{j}\text{) }\\
+2\alpha + 3\beta &amp;+ 2\gamma &amp;= 0\text{ (}\mathbf{k}\text{) }
+\end{aligned}$$`
+
+* **Step 2: Add/subtract**
+
+$$
+`\begin{aligned}
+ 2\alpha + 4\beta + \gamma &amp;= 0 \\
+  \alpha + \beta + \gamma &amp;= 0 \\
+ \beta - \gamma &amp;= 0
+\end{aligned}`
+$$
+
+
+---
+
+# Solve the system of equations
+Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
+
+.pull-left[
+
+* **Step 2: Add/subtract**
+
+$$
+`\begin{aligned}
+ 2\alpha + 4\beta + \gamma &amp;= 0 \\
+  \alpha + \beta + \gamma &amp;= 0 \\
+ \beta - \gamma &amp;= 0
+\end{aligned}`
+$$
+
+* **Step 3: ... Solve ...**
+
+$$ 
+`\begin{aligned}
+ 2\alpha + 5\gamma &amp;= 0 \\
+  \alpha + 2\gamma &amp;= 0 \\
+ -\beta + \gamma &amp;= 0
+\end{aligned}`
+$$
+]
+
+.pull-right[
+
+
+* **Step 3**: Now, we continue to work, trying to solve for any of our three variables (three variables, three equations). We can sub in `\(\gamma\)` for `\(\beta\)` and simplify our middle equation.  
+
+
+]
+
+---
+# Solve the system of equations
+Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
+
+.pull-left[
+
+* **Step 3: ... Solve ...**
+
+$$ 
+`\begin{aligned}
+ 2\alpha + 5\gamma &amp;= 0 \\
+  \alpha + 2\gamma &amp;= 0 \\
+ -\beta + \gamma &amp;= 0
+\end{aligned}`
+$$
+
+* **Step 4: ... continue ...**
+
+$$ 
+`\begin{aligned}
+  \gamma &amp;= 0 \\
+  \alpha + 2\gamma &amp;= 0 \\
+ -\beta + \gamma &amp;= 0
+\end{aligned}`
+$$
+]
+
+.pull-right[
+
+
+* **Step 4**:  We can then take 2 times our middle row (j) from the top row (replacing h) to get `\(\gamma = 0\)`. As `\(\gamma = \beta = 0\)`, we can substitute those into our middle equation. 
+
+
+
+]
+
+---
+
+## So what? Conclusion
+
+
+* **Conclusion**: This means that ... `\(\alpha = 0\)` as well. Therefore, these equations (and matrices) are linearly independent as the only possible solution that satisfies our requirements is for all variables to be zero (trivial). 
+
+
+---
+
+# Example
+Now, let's try this together -- work with a partner. Are these matrices linearly dependent or independent? 
+
+`$$\mathbf{a} = \begin{bmatrix}
+4 \\
+3 \\
+3
+\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
+2 \\
+1 \\
+-1
+\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
+1 \\
+1 \\
+2
+\end{bmatrix}$$`
+
+---
+# Example
+* **Step 1: write out**
+$$
+`\begin{aligned}
+4\alpha + 2\beta + 1\gamma &amp;= 0 \\
+3\alpha + 1\beta + 1\gamma &amp;= 0 \\
+3\alpha - 1\beta + 2\gamma &amp;= 0
+\end{aligned}`
+$$
+
+--
+
+* **Step 2: manipulate**
+$$
+`\begin{aligned}
+4\alpha + 2\beta + 1\gamma &amp;= 0 \\
+ 2\beta - 1\gamma &amp;= 0 \\
+3\alpha - 1\beta + 2\gamma &amp;= 0
+\end{aligned}`
+$$
+
+--
+
+* **Step 3: Solve!!**
+$$
+`\begin{aligned}
+4\alpha + 4\beta &amp;= 0 \\
+ 2\beta &amp;=\gamma  \\
+\end{aligned}`
+$$
+
+--
+
+
+`$$\gamma = 2, \quad \beta = 1, \quad \alpha = -1$$`
+*Is this our only solution?*
+
+--
+
+(no! linearly dependent)
+
+---
+
 class: inverse, middle, center
 
 # RECAP
+
 ---
 
 # SO FAR:
 
-* Critical points
-* Inflection points
-* Root finding
-* Grid search 
-* Gradient descent
+* Critical and inflection points
+* Higher order derivatives
+* Grid search and gradient descent
+* MLE
 * Matrices
 
 ---
