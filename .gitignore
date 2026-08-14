@@ -11,7 +11,12 @@
 *.synctex.gz
 
 *exam*
+*test*
 *_cache*
 *keys*
 *grades*
 *DS_Store*
+*problem_sets/markdown_files_with_answers/*
+
+Math18-master
+admin_planning
