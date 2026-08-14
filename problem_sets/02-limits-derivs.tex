@@ -1,6 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
+\usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{comment}
 \usepackage{bookmark}
@@ -51,12 +52,6 @@ find the limits that exist. If a limit does not exist, explain why.
 \]
 \end{solution}
 
-\item \(\lim_{x \to a} \sqrt[3]{h(x)}\)
-\begin{solution}
-\[
-\lim_{x \to a} \sqrt[3]{h(x)} = \sqrt[3]{8} = 2
-\]
-\end{solution}
 
 \item \(\lim_{x \to a} \dfrac{g(x)}{f(x)}\)
 \begin{solution}
@@ -147,41 +142,7 @@ continuous at \(0\) we would need \(\lim_{x \to 0^+} f(x) = 0\), but
 Find the following finite limits:\footnote{Gill 5.1}
 
 \begin{enumerate}[label=\alph*.]
-\item \(\lim_{x \to 4} x^2 - 6x + 4\)
-\begin{solution}
-\[
-\begin{aligned}
-\lim_{x \to 4} x^2 - 6x + 4 &= 4^2 - 6(4) + 4 \\
-  &= 16 - 24 + 4 \\
-  &= -4
-\end{aligned}
-\]
-\end{solution}
-
 \item \(\lim_{x \to 1} \left[ \dfrac{x^4 - 1}{x - 1} \right]\)
-\begin{solution}
-Factor the numerator, then cancel against the denominator:
-\[
-\begin{aligned}
-\lim_{x \to 1} \left[ \frac{x^4 - 1}{x - 1} \right]
-  &= \lim_{x \to 1} \left[ \frac{(x - 1)(x + 1)(x^2 + 1)}{x - 1} \right] \\
-  &= \lim_{x \to 1} \left[ (x + 1)(x^2 + 1) \right] \\
-  &= (1 + 1)(1^2 + 1) \\
-  &= 4
-\end{aligned}
-\]
-Alternatively, apply L'H\^{o}pital's rule:
-\[
-\begin{aligned}
-\lim_{x \to 1} \left[ \frac{x^4 - 1}{x - 1} \right]
-  &= \lim_{x \to 1} \left[ \frac{4x^3}{1} \right] \\
-  &= \frac{4(1)^3}{1} = 4
-\end{aligned}
-\]
-\end{solution}
-
-% DUPLICATE of Problem 2(a) -- same limit, same solution. Uncomment to restore.
-% \item \(\lim_{x \to -4} \left[ \dfrac{x^2 + 5x + 4}{x^2 + 3x - 4} \right]\)
 \end{enumerate}
 
 \problem{Find infinite limits}
@@ -195,44 +156,11 @@ Hint: use \textbf{L'H\^{o}pital's rule} to switch from
 \end{quote}
 
 \begin{enumerate}[label=\alph*.]
-\item \(\lim_{x \to \infty} \left[ \dfrac{9x^2}{x^2 + 3} \right]\)
-\begin{solution}
-\[
-\begin{aligned}
-\lim_{x \to \infty} \left[ \frac{9x^2}{x^2 + 3} \right]
-  &= \lim_{x \to \infty} \left[ \frac{18x}{2x} \right] \\
-  &= \lim_{x \to \infty} \left[ \frac{18}{2} \right] = 9
-\end{aligned}
-\]
-\end{solution}
 
 \item \(\lim_{x \to \infty} \left[ \dfrac{2^x - 3}{2^x + 1} \right]\)
-\begin{solution}
-Recall that \(\dfrac{d}{dx} n^x = \log(n) \, n^x\):
-\[
-\begin{aligned}
-\lim_{x \to \infty} \left[ \frac{2^x - 3}{2^x + 1} \right]
-  &= \lim_{x \to \infty} \left[ \frac{\log(2) 2^x}{\log(2) 2^x} \right] \\
-  &= 1
-\end{aligned}
-\]
-\end{solution}
+
 
 \item \(\lim_{x \to \infty} \left[ \dfrac{3^x}{x^3} \right]\)
-\begin{solution}
-Differentiate numerator and denominator repeatedly until no \(x\)
-remains in the denominator. Here that takes three rounds, and
-L'H\^{o}pital's rule applies at each one:
-\[
-\begin{aligned}
-\lim_{x \to \infty} \left[ \frac{3^x}{x^3} \right]
-  &= \lim_{x \to \infty} \left[ \frac{\log(3) 3^x}{3x^2} \right] \\
-  &= \lim_{x \to \infty} \left[ \frac{\log^2(3) 3^x}{6x} \right] \\
-  &= \lim_{x \to \infty} \left[ \frac{\log^3(3) 3^x}{6} \right] \\
-  &= \infty
-\end{aligned}
-\]
-\end{solution}
 \end{enumerate}
 
 \problem{Assess continuity and differentiability}
@@ -322,7 +250,6 @@ Compute the derivative of each of the following
 functions:\footnote{Simon and Blume 5.8}
 
 \begin{enumerate}[label=\alph*.]
-\item \(f(x) = x e^{3x}\)
 \item \(f(x) = \dfrac{x}{e^x}\)
 \item \(h(x) = \dfrac{x}{\log(x)}\)
 \end{enumerate}
@@ -358,57 +285,55 @@ A friend shows you the graph of a function \(f(x)\) below.\footnote{Grimmer HW3.
 Which of the following could be a graph of \(f'(x)\)? For each graph,
 explain why it might or might not be the derivative of \(f(x)\).
 
-% \begin{center}
-% \includegraphics[width=0.55\textwidth]{figures/polynomial.pdf}
-% \end{center}
-%
-% \begin{center}
-% \includegraphics[width=0.9\textwidth]{figures/derivatives.pdf}
-% \end{center}
+ \begin{center}
+ \includegraphics[width=0.55\textwidth]{polynomial.png}
+ \end{center}
 
-% ----------------------------------------------------------------------
-% Figures: run in RStudio, save to figures/, then uncomment above.
-%
-% library(tidyverse)
-% library(patchwork)
-%
-% p <- ggplot(data = tibble(x = 0), mapping = aes(x = x)) +
-%   geom_hline(yintercept = 0, linetype = 2) +
-%   xlim(0, 5) +
-%   labs(x = "x", y = expression(f(x))) +
-%   theme_classic() +
-%   theme(axis.text.x = element_blank(),
-%         axis.ticks.x = element_blank())
-%
-% # Graph of f(x)
-% p +
-%   stat_function(fun = function(x) x^2 + 1) +
-%   scale_y_continuous(breaks = 0, labels = "0") +
-%   ggtitle("Graph of f(x)")
-%
-% # Candidate derivatives A-D
-% pa <- p +
-%   geom_hline(yintercept = -3) +
-%   labs(y = expression({f * minute}(x)), tag = "A)") +
-%   scale_y_continuous(limits = c(-5, 3), breaks = 0, labels = "0")
-% pb <- p +
-%   geom_hline(yintercept = 3) +
-%   labs(y = expression({f * minute}(x)), tag = "B)") +
-%   scale_y_continuous(limits = c(-3, 5), breaks = 0, labels = "0")
-% pc <- p +
-%   stat_function(fun = function(x) x) +
-%   labs(y = expression({f * minute}(x)), tag = "C)") +
-%   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
-% pd <- p +
-%   stat_function(fun = function(x) x - 2) +
-%   labs(y = expression({f * minute}(x)), tag = "D)") +
-%   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
-%
-% pa + pb + pc + pd + plot_layout(ncol = 2)
-% ----------------------------------------------------------------------
+ \begin{center}
+ \includegraphics[width=0.9\textwidth]{derivatives.png}
+ \end{center}
 
-% TODO: a standalone "Continuity" problem was stubbed in the previous
-% draft but never written. Add it here if you still want it.
+
+ % 
+ % 
+ % library(tidyverse)
+ % library(patchwork)
+ % 
+ % p <- ggplot(data = tibble(x = 0), mapping = aes(x = x)) +
+ %   geom_hline(yintercept = 0, linetype = 2) +
+ %   xlim(0, 5) +
+ %   labs(x = "x", y = expression(f(x))) +
+ %   theme_classic() +
+ %   theme(axis.text.x = element_blank(),
+ %         axis.ticks.x = element_blank())
+ % 
+ % # Graph of f(x)
+ % p +
+ %   stat_function(fun = function(x) x^2 + 1) +
+ %   scale_y_continuous(breaks = 0, labels = "0") +
+ %   ggtitle("Graph of f(x)")
+ % 
+ % # Candidate derivatives A-D
+ % pa <- p +
+ %   geom_hline(yintercept = -3) +
+ %   labs(y = expression({f * minute}(x)), tag = "A)") +
+ %   scale_y_continuous(limits = c(-5, 3), breaks = 0, labels = "0")
+ % pb <- p +
+ %   geom_hline(yintercept = 3) +
+ %   labs(y = expression({f * minute}(x)), tag = "B)") +
+ %   scale_y_continuous(limits = c(-3, 5), breaks = 0, labels = "0")
+ % pc <- p +
+ %   stat_function(fun = function(x) x) +
+ %   labs(y = expression({f * minute}(x)), tag = "C)") +
+ %   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
+ % pd <- p +
+ %   stat_function(fun = function(x) x - 2) +
+ %   labs(y = expression({f * minute}(x)), tag = "D)") +
+ %   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
+ % 
+ % pa + pb + pc + pd + plot_layout(ncol = 2)
+ % 
+
 
 \input{ai-statement}
 
