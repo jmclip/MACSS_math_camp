@@ -58,7 +58,7 @@ library(gganimate)
 * Calculus/Real Analysis: study of functions on the **real line**
 * Limit of a function: how does a function behave as it gets close to a particular point?  
 
---
+---
 
 ## Uses of limits
 
@@ -66,61 +66,6 @@ library(gganimate)
 * Asymptotics 
 * Game Theory 
 
-<!-- --- -->
-
-<!-- # Limit of a function -->
-
-<!-- ```{r lim-sin-x, out.width="80%"} -->
-<!-- library(tidyverse) -->
-<!-- library(gganimate) -->
-<!-- function_plot <- ggplot( -->
-<!--   data = tibble(x = 0), -->
-<!--   mapping = aes(x = x) -->
-<!-- ) + -->
-<!--   xlim(-5, 5) + -->
-<!--   labs( -->
-<!--     x = expression(x), -->
-<!--     y = expression(f(x)) -->
-<!--   ) -->
-<!-- sin_x <- tibble( -->
-<!--   xmin = seq(from = -1, to = 0, by = 0.025), -->
-<!--   xmax = abs(xmin), -->
-<!--   ymin = sin(xmin), -->
-<!--   ymax = sin(xmax) -->
-<!-- ) %>% -->
-<!--   mutate(id = row_number()) -->
-
-<!-- function_plot + -->
-<!--   stat_function(fun = sin) + -->
-<!--   coord_cartesian(xlim =c(-2, 2)) + -->
-<!--   labs( -->
-<!--     title = expression(f(x) == sin(x)), -->
-<!--     y = expression(f(x)) -->
-<!--   ) + -->
-<!--   geom_segment( -->
-<!--     data = sin_x, -->
-<!--     mapping = aes( -->
-<!--       x = xmin, -->
-<!--       y = -2, -->
-<!--       xend = xmin, -->
-<!--       yend = ymin, -->
-<!--       group = id -->
-<!--     ), -->
-<!--     color = "blue" -->
-<!--   ) + -->
-<!--   geom_segment( -->
-<!--     data = sin_x, -->
-<!--     mapping = aes( -->
-<!--       x = xmax, -->
-<!--       y = -2, -->
-<!--       xend = xmax, -->
-<!--       yend = ymax, -->
-<!--       group = id -->
-<!--     ), -->
-<!--     color = "blue" -->
-<!--   ) #+  -->
-<!--   #transition_states(states, transition_length = 1, state_length = 1, wrap = TRUE) -->
-<!-- ``` -->
 
 ---
 
@@ -133,7 +78,7 @@ We've seen how things do/not converge, and so we want to have a way to talk abou
 
 ---
 
-## Limit: Visual
+# Limit: Visual
 We can think about our definition as speaking to what a function is doing around any of its points in the domain. For a limit, if we make some bounds around our variable of interest (e.g. in the domain), and similarly 'arbitrarily small' bounds around our corresponding y, then the graph/function/line for y will lie within the bounds of our range of our variable. 
 
 --
@@ -575,7 +520,8 @@ $$R(x) = \frac{f(x) - f(x_{0}) }{ x- x_{0} }$$
 class: center, middle, inverse
 
 # Derivatives
-You need to know how to calculate a derivative. For our class, we will not ask you to name the theorems we use here. It's only to provide context. 
+
+## You need to know how to calculate a derivative. For our class, we will not ask you to name the theorems we use here. It's only to provide context. 
 
 ---
 

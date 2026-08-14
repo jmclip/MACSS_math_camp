@@ -1,0 +1,415 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{bookmark}
+\hypersetup{
+  pdftitle={PSET 2: Limits and Derivatives},
+  hidelinks}
+
+\title{PSET 2: Limits and Derivatives}
+\author{}
+\date{\vspace{-2.5em}}
+
+% Problems are numbered 1-12 across the document.
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
+
+% Solutions. \solutionsfalse -> student version; \solutionstrue -> answer key.
+\newif\ifsolutions
+\solutionsfalse
+
+\ifsolutions
+  \newenvironment{solution}
+    {\par\smallskip\noindent\textbf{Solution.}\par\nobreak\smallskip\ignorespaces}
+    {\par\smallskip}
+\else
+  \excludecomment{solution}
+\fi
+
+\begin{document}
+\maketitle
+
+\input{assignment-qs}
+
+\problem{Limits: left, right, and at a point}
+
+Given that\footnote{Grimmer 2012 HW 2.4}
+\[
+\lim_{x \to a} f(x) = -3, \quad
+\lim_{x \to a} g(x) = 0, \quad
+\lim_{x \to a} h(x) = 8
+\]
+find the limits that exist. If a limit does not exist, explain why.
+
+\begin{enumerate}[label=\alph*.]
+\item \(\lim_{x \to a} \left[ f(x) + h(x) \right]\)
+\begin{solution}
+\[
+\lim_{x \to a} \left[ f(x) + h(x) \right] = -3 + 8 = 5
+\]
+\end{solution}
+
+\item \(\lim_{x \to a} \sqrt[3]{h(x)}\)
+\begin{solution}
+\[
+\lim_{x \to a} \sqrt[3]{h(x)} = \sqrt[3]{8} = 2
+\]
+\end{solution}
+
+\item \(\lim_{x \to a} \dfrac{g(x)}{f(x)}\)
+\begin{solution}
+\[
+\lim_{x \to a} \frac{g(x)}{f(x)} = \frac{0}{-3} = 0
+\]
+\end{solution}
+
+\item \(\lim_{x \to a} \dfrac{f(x)}{g(x)}\)
+\begin{solution}
+\[
+\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{-3}{0} \quad \mbox{undefined}
+\]
+The limit does not exist: we cannot divide by \(0\).
+\end{solution}
+
+\item \(\lim_{x \to a} \dfrac{2 f(x)}{h(x) - f(x)}\)
+\begin{solution}
+\[
+\lim_{x \to a} \frac{2 f(x)}{h(x) - f(x)} = \frac{2 (-3)}{8 - (-3)} = -\frac{6}{11}
+\]
+\end{solution}
+\end{enumerate}
+
+\problem{Find even more limits}
+
+Find the following limits:\footnote{Grimmer 2012 HW 2.4(b)}
+
+\begin{enumerate}[label=\alph*.]
+\item \(\lim_{x \to -4} \dfrac{x^2 + 5x + 4}{x^2 + 3x - 4}\)
+\begin{solution}
+\[
+\begin{aligned}
+\lim_{x \to -4} \frac{x^2 + 5x + 4}{x^2 + 3x - 4}
+  &= \lim_{x \to -4} \frac{(x + 4)(x + 1)}{(x + 4)(x - 1)} \\
+  &= \lim_{x \to -4} \frac{x + 1}{x - 1} \\
+  &= \frac{\lim_{x \to -4} (x + 1)}{\lim_{x \to -4} (x - 1)}
+   = \frac{-3}{-5} = \frac{3}{5}
+\end{aligned}
+\]
+\end{solution}
+
+\item \(\lim_{x \to 4^-} \sqrt{16 - x^2}\)
+\begin{solution}
+\[
+\begin{aligned}
+\lim_{x \to 4^-} \sqrt{16 - x^2}
+  &= \lim_{x \to 4^-} \sqrt{(4 + x)(4 - x)} \\
+  &= \lim_{x \to 4^-} \sqrt{4 + x} \, \sqrt{4 - x} \\
+  &= \lim_{x \to 4^-} \sqrt{4 + x} \cdot \lim_{x \to 4^-} \sqrt{4 - x} \\
+  &= \sqrt{8} \cdot \sqrt{0} \\
+  &= 0
+\end{aligned}
+\]
+\end{solution}
+\end{enumerate}
+
+\problem{Check for discontinuities}
+
+Which of the following functions are continuous? If a function is not
+continuous, where are the discontinuities?\footnote{Gill 1.9}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = \dfrac{9x^3 - x}{(x - 1)(x + 1)}\)
+\begin{solution}
+Discontinuous at \(x = -1\) and \(x = 1\): the denominator is \(0\) at
+both points, leaving the fraction undefined.
+\end{solution}
+
+\item \(f(x) = e^{-x^2}\)
+\begin{solution}
+Continuous for all real numbers.
+\end{solution}
+
+\item \(f(x) = \begin{cases}
+  x^3 + 1, & x > 0 \\
+  -x^2, & x \leq 0
+\end{cases}\)
+\begin{solution}
+Discontinuous at \(x = 0\). For this piecewise function to be
+continuous at \(0\) we would need \(\lim_{x \to 0^+} f(x) = 0\), but
+\(\lim_{x \to 0^+} f(x) = 1 \neq 0\).
+\end{solution}
+\end{enumerate}
+
+\problem{Find finite limits}
+
+Find the following finite limits:\footnote{Gill 5.1}
+
+\begin{enumerate}[label=\alph*.]
+\item \(\lim_{x \to 4} x^2 - 6x + 4\)
+\begin{solution}
+\[
+\begin{aligned}
+\lim_{x \to 4} x^2 - 6x + 4 &= 4^2 - 6(4) + 4 \\
+  &= 16 - 24 + 4 \\
+  &= -4
+\end{aligned}
+\]
+\end{solution}
+
+\item \(\lim_{x \to 1} \left[ \dfrac{x^4 - 1}{x - 1} \right]\)
+\begin{solution}
+Factor the numerator, then cancel against the denominator:
+\[
+\begin{aligned}
+\lim_{x \to 1} \left[ \frac{x^4 - 1}{x - 1} \right]
+  &= \lim_{x \to 1} \left[ \frac{(x - 1)(x + 1)(x^2 + 1)}{x - 1} \right] \\
+  &= \lim_{x \to 1} \left[ (x + 1)(x^2 + 1) \right] \\
+  &= (1 + 1)(1^2 + 1) \\
+  &= 4
+\end{aligned}
+\]
+Alternatively, apply L'H\^{o}pital's rule:
+\[
+\begin{aligned}
+\lim_{x \to 1} \left[ \frac{x^4 - 1}{x - 1} \right]
+  &= \lim_{x \to 1} \left[ \frac{4x^3}{1} \right] \\
+  &= \frac{4(1)^3}{1} = 4
+\end{aligned}
+\]
+\end{solution}
+
+% DUPLICATE of Problem 2(a) -- same limit, same solution. Uncomment to restore.
+% \item \(\lim_{x \to -4} \left[ \dfrac{x^2 + 5x + 4}{x^2 + 3x - 4} \right]\)
+\end{enumerate}
+
+\problem{Find infinite limits}
+
+Find the following infinite limits:\footnote{Gill 5.3 and 5.8}
+
+\begin{quote}
+Hint: use \textbf{L'H\^{o}pital's rule} to switch from
+\(\lim_{x \to \infty} \left( \dfrac{f(x)}{g(x)} \right)\) to
+\(\lim_{x \to \infty} \left( \dfrac{f'(x)}{g'(x)} \right)\).
+\end{quote}
+
+\begin{enumerate}[label=\alph*.]
+\item \(\lim_{x \to \infty} \left[ \dfrac{9x^2}{x^2 + 3} \right]\)
+\begin{solution}
+\[
+\begin{aligned}
+\lim_{x \to \infty} \left[ \frac{9x^2}{x^2 + 3} \right]
+  &= \lim_{x \to \infty} \left[ \frac{18x}{2x} \right] \\
+  &= \lim_{x \to \infty} \left[ \frac{18}{2} \right] = 9
+\end{aligned}
+\]
+\end{solution}
+
+\item \(\lim_{x \to \infty} \left[ \dfrac{2^x - 3}{2^x + 1} \right]\)
+\begin{solution}
+Recall that \(\dfrac{d}{dx} n^x = \log(n) \, n^x\):
+\[
+\begin{aligned}
+\lim_{x \to \infty} \left[ \frac{2^x - 3}{2^x + 1} \right]
+  &= \lim_{x \to \infty} \left[ \frac{\log(2) 2^x}{\log(2) 2^x} \right] \\
+  &= 1
+\end{aligned}
+\]
+\end{solution}
+
+\item \(\lim_{x \to \infty} \left[ \dfrac{3^x}{x^3} \right]\)
+\begin{solution}
+Differentiate numerator and denominator repeatedly until no \(x\)
+remains in the denominator. Here that takes three rounds, and
+L'H\^{o}pital's rule applies at each one:
+\[
+\begin{aligned}
+\lim_{x \to \infty} \left[ \frac{3^x}{x^3} \right]
+  &= \lim_{x \to \infty} \left[ \frac{\log(3) 3^x}{3x^2} \right] \\
+  &= \lim_{x \to \infty} \left[ \frac{\log^2(3) 3^x}{6x} \right] \\
+  &= \lim_{x \to \infty} \left[ \frac{\log^3(3) 3^x}{6} \right] \\
+  &= \infty
+\end{aligned}
+\]
+\end{solution}
+\end{enumerate}
+
+\problem{Assess continuity and differentiability}
+
+For each of the following functions, state whether it is continuous
+and/or differentiable at the point where its two formulas
+meet.\footnote{Simon and Blume 2.16}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = \begin{cases}
+  x^2, & x \geq 0 \\
+  -x^2, & x < 0
+\end{cases}\)
+\begin{solution}
+\[
+f'(x) = \begin{cases}
+  2x, & x \geq 0 \\
+  -2x, & x < 0
+\end{cases}
+\]
+As \(x\) converges to \(0\) from both above and below, \(f'(x)\)
+converges to \(0\), so the function is both continuous and
+differentiable at \(0\).
+\end{solution}
+
+\item \(f(x) = \begin{cases}
+  x^3, & x \leq 1 \\
+  x, & x > 1
+\end{cases}\)
+\begin{solution}
+The function is continuous, since \(\lim_{x \to 1} f(x) = 1\) no
+matter how the limit is taken. It is not differentiable, however,
+since
+\[
+f'(x) = \begin{cases}
+  3x^2, & x \leq 1 \\
+  1, & x > 1
+\end{cases}
+\]
+gives \(\lim_{x \to 1^+} f'(x) = 1\) whereas
+\(\lim_{x \to 1^-} f'(x) = 3\). The function is continuous but not
+smooth at \(x = 1\).
+\end{solution}
+\end{enumerate}
+
+\problem{Calculate derivatives}
+
+Recall the differentiation rules:
+\[
+\begin{aligned}
+\left[ k f(x) \right]' &= k f'(x)
+  && \mbox{constant multiple} \\
+\left[ f(x) \pm g(x) \right]' &= f'(x) \pm g'(x)
+  && \mbox{sum} \\
+\left[ f(x) g(x) \right]' &= f'(x) g(x) + f(x) g'(x)
+  && \mbox{product} \\
+\left[ \dfrac{f(x)}{g(x)} \right]'
+  &= \dfrac{f'(x) g(x) - f(x) g'(x)}{\left[ g(x) \right]^2}, \quad g(x) \neq 0
+  && \mbox{quotient} \\
+\left[ x^k \right]' &= k x^{k-1}
+  && \mbox{power}
+\end{aligned}
+\]
+
+Differentiate the following functions:\footnote{Grimmer HW2.3}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = 4x^3 + 2x^2 + 5x + 11\)
+\item \(y = \sqrt{30}\)
+\item \(h(t) = \log(9t + 1)\)
+\item \(f(x) = \log\left(x^2 e^x\right)\)
+\item \(h(y) = \left( \dfrac{1}{y^2} - \dfrac{3}{y^4} \right)\left(y + 5y^3\right)\)
+\item \(g(t) = \dfrac{3t - 1}{2t + 1}\)
+\end{enumerate}
+
+\problem{Use the product and quotient rules}
+
+Differentiate the following function twice---once using the product
+rule, and once using the quotient rule:\footnote{Grimmer HW2.4}
+\[
+f(x) = \frac{x^2 - 2x}{x^4 + 6}
+\]
+
+\problem{Logarithms and exponential functions}
+
+Compute the derivative of each of the following
+functions:\footnote{Simon and Blume 5.8}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = x e^{3x}\)
+\item \(f(x) = \dfrac{x}{e^x}\)
+\item \(h(x) = \dfrac{x}{\log(x)}\)
+\end{enumerate}
+
+\problem{Composite functions}
+
+For each of the following pairs of functions \(g(x)\) and \(h(z)\),
+write out the composite functions \(g(h[z])\) and \(h(g[x])\). In each
+case, describe the domain of the composite
+function.\footnote{Simon and Blume 4.1}
+
+\begin{enumerate}[label=\alph*.]
+\item \(g(x) = x^2 + 4, \quad h(z) = 5z - 1\)
+\item \(g(x) = x^3, \quad h(z) = (z - 1)(z + 1)\)
+\end{enumerate}
+
+\problem{Chain rule}
+
+Use the chain rule to compute the derivative of the composite
+functions in the previous problem from the derivatives of the two
+component functions. Then compute each derivative directly, using your
+expression for the composite function. Simplify and compare your
+answers.\footnote{Simon and Blume 4.3}
+
+\begin{enumerate}[label=\alph*.]
+\item \(g(x) = x^2 + 4, \quad h(z) = 5z - 1\)
+\item \(g(x) = x^3, \quad h(z) = (z - 1)(z + 1)\)
+\end{enumerate}
+
+\problem{Identify a possible derivative}
+
+A friend shows you the graph of a function \(f(x)\) below.\footnote{Grimmer HW3.6}
+Which of the following could be a graph of \(f'(x)\)? For each graph,
+explain why it might or might not be the derivative of \(f(x)\).
+
+% \begin{center}
+% \includegraphics[width=0.55\textwidth]{figures/polynomial.pdf}
+% \end{center}
+%
+% \begin{center}
+% \includegraphics[width=0.9\textwidth]{figures/derivatives.pdf}
+% \end{center}
+
+% ----------------------------------------------------------------------
+% Figures: run in RStudio, save to figures/, then uncomment above.
+%
+% library(tidyverse)
+% library(patchwork)
+%
+% p <- ggplot(data = tibble(x = 0), mapping = aes(x = x)) +
+%   geom_hline(yintercept = 0, linetype = 2) +
+%   xlim(0, 5) +
+%   labs(x = "x", y = expression(f(x))) +
+%   theme_classic() +
+%   theme(axis.text.x = element_blank(),
+%         axis.ticks.x = element_blank())
+%
+% # Graph of f(x)
+% p +
+%   stat_function(fun = function(x) x^2 + 1) +
+%   scale_y_continuous(breaks = 0, labels = "0") +
+%   ggtitle("Graph of f(x)")
+%
+% # Candidate derivatives A-D
+% pa <- p +
+%   geom_hline(yintercept = -3) +
+%   labs(y = expression({f * minute}(x)), tag = "A)") +
+%   scale_y_continuous(limits = c(-5, 3), breaks = 0, labels = "0")
+% pb <- p +
+%   geom_hline(yintercept = 3) +
+%   labs(y = expression({f * minute}(x)), tag = "B)") +
+%   scale_y_continuous(limits = c(-3, 5), breaks = 0, labels = "0")
+% pc <- p +
+%   stat_function(fun = function(x) x) +
+%   labs(y = expression({f * minute}(x)), tag = "C)") +
+%   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
+% pd <- p +
+%   stat_function(fun = function(x) x - 2) +
+%   labs(y = expression({f * minute}(x)), tag = "D)") +
+%   scale_y_continuous(limits = c(-2, 5), breaks = 0, labels = "0")
+%
+% pa + pb + pc + pd + plot_layout(ncol = 2)
+% ----------------------------------------------------------------------
+
+% TODO: a standalone "Continuity" problem was stubbed in the previous
+% draft but never written. Add it here if you still want it.
+
+\input{ai-statement}
+
+\end{document}
