@@ -1,9 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\usepackage{graphicx}
 \usepackage{enumitem}
-\usepackage{comment}
 \usepackage{bookmark}
 \hypersetup{
   pdftitle={PSET 3: Introduction to Matrices and Vectors},
@@ -13,19 +11,167 @@
 \author{}
 \date{\vspace{-2.5em}}
 
-
+% Problems are numbered 1-9 across the document.
 \newcounter{problem}
 \newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
-
-
 
 \begin{document}
 \maketitle
 
 \input{assignment-qs}
 
-\problem{matrix}
+\problem{Sketch a function}
 
+Sketch the graph of a function (any function you like, no need to
+specify a functional form) that is:\footnote{inspired by Grimmer HW3.1}
+
+\begin{enumerate}[label=\alph*.]
+\item Continuous on \([0,3]\) and has the following properties: an
+  absolute maximum at 0, an absolute minimum at 3, a local maximum at 1
+  and a local minimum at 2.
+\item Do the same for another function with the following properties: 4
+  is a \textbf{critical number} (i.e.\ \(f'(x) = 0\) or \(f'(x)\) is
+  undefined), but there is no local minimum and no local maximum.
+\end{enumerate}
+
+\problem{Find critical values}
+
+Find the critical values of these functions:\footnote{inspired by
+  Grimmer HW3.2}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = 5x^{2/3} - 4x\)
+\item \(s(t) = 3t^4 - 4t^3 + 6t^2\)
+\item \(f(r) = \dfrac{r}{r^2 + r + 1}\)
+\item \(h(x) = x \ln(x)\)
+\end{enumerate}
+
+\problem{Find absolute minimum/maximum values}
+
+Find the absolute minimum and absolute maximum values of the functions
+on the given interval:\footnote{inspired by Grimmer HW3.3}
+
+\begin{enumerate}[label=\alph*.]
+\item \(f(x) = 3x^2 - 12x + 5\), \([0,1]\)
+\item \(f(t) = t^2\sqrt{9 - t^2}\), \([-1,4]\)
+\item \(s(x) = x - \ln(x)\), \([1/2, 2]\)
+\end{enumerate}
+
+\problem{Basic matrix arithmetic}
+
+If
+\[
+\mathbf{a} = \begin{bmatrix} 2 \\ 2 \end{bmatrix}
+\quad \mbox{and} \quad
+\mathbf{b} = \begin{bmatrix} 3 \\ 1 \end{bmatrix}
+\]
+find:\footnote{inspired by Pemberton and Rau 11.1.2}
+
+\begin{enumerate}[label=\alph*.]
+\item \(\mathbf{a} - \mathbf{b}\)
+\item \(-4 \mathbf{b}\)
+\item \(3 \mathbf{a} + 3 \mathbf{b}\)
+\end{enumerate}
+
+\problem{More complex matrix arithmetic}
+
+Suppose
+\[
+\mathbf{x} = \begin{bmatrix} 3 \\ 2q \\ 4 \end{bmatrix}
+\quad \mbox{and} \quad
+\mathbf{y} = \begin{bmatrix} p + 2 \\ -5 \\ 3r \end{bmatrix}
+\]
+If \(\mathbf{x} = 2 \mathbf{y}\), find \(p, q, r\).\footnote{inspired by
+  Pemberton and Rau 11.1.3}
+
+\problem{Check for linear dependence}
+
+Which of the following sets of vectors are linearly
+dependent?\footnote{inspired by Pemberton and Rau 11.1.4} In each part,
+you can denote each vector as \(\mathbf{a}, \mathbf{b}, \mathbf{c}\)
+respectively.
+
+\begin{enumerate}[label=\alph*.]
+\item \(\begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}, \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}, \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}\)
+\item \(\begin{bmatrix} 13 \\ 7 \\ 9 \\ 2 \end{bmatrix}, \begin{bmatrix} 0 \\ 0 \\ 0 \\ 0 \end{bmatrix}, \begin{bmatrix} 3 \\ -2 \\ 5 \\ 8 \end{bmatrix}\)
+\item \(\begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix}, \begin{bmatrix} 2 \\ -2 \\ -1 \end{bmatrix}, \begin{bmatrix} 2 \\ 1 \\ 3 \end{bmatrix}\)
+\end{enumerate}
+
+\problem{Vector length}
+
+Find the length of the following vectors:\footnote{inspired by Simon and
+  Blume 10.10}
+
+\begin{enumerate}[label=\alph*.]
+\item \((4, 2)\)
+\item \((2, 2, 2)\)
+\item \((4, 2, 3, 1)\)
+\item \((0, 0, 0, 0, 3)\)
+\end{enumerate}
+
+\problem{Law of cosines}
+
+The \textbf{law of cosines} states:
+\[
+\cos(\theta) = \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \: \|\mathbf{w}\|}
+\]
+where \(\theta\) is the angle from \(\mathbf{w}\) to \(\mathbf{v}\)
+measured in radians. Of importance, \(\arccos()\) is the inverse of
+\(\cos()\):
+\[
+\theta = \arccos \left( \frac{\mathbf{v} \cdot \mathbf{w}}{\|\mathbf{v}\| \: \|\mathbf{w}\|} \right)
+\]
+For each of the following pairs of vectors, calculate the angle between
+them. Report your answers in both radians and degrees. To convert
+between radians and degrees:\footnote{inspired by Simon and Blume 10.12}
+\[
+\text{Degrees} = \text{Radians} \times \dfrac{180^{\circ}}{\pi}
+\]
+
+\begin{enumerate}[label=\alph*.]
+\item \(\mathbf{v} = (1, 0), \quad \mathbf{w} = (2, 2)\)
+\item \(\mathbf{v} = (4, 1), \quad \mathbf{w} = (2, -8)\)
+\item \(\mathbf{v} = (1, 1, 0), \quad \mathbf{w} = (1, 2, 2)\)
+\end{enumerate}
+
+\problem{Matrix algebra}
+
+Using the matrices below, calculate the following. Some may not be
+defined; if that is the case, say so.\footnote{inspired by Grimmer HW5.3}
+\[
+\mathbf{A} = \begin{bmatrix} 3 \\ -2 \\ 9 \end{bmatrix}
+\quad
+\mathbf{B} = \begin{bmatrix} 8 \\ 0 \\ -1 \end{bmatrix}
+\quad
+\mathbf{C} = \begin{bmatrix} 7 & -1 & 5 \\ 0 & 2 & -4 \end{bmatrix}
+\quad
+\mathbf{D} = \begin{bmatrix} 3 & 1 \\ 3 & 4 \\ 3 & -7 \end{bmatrix}
+\quad
+\mathbf{E} = \begin{bmatrix} 5 & 2 & 3 \\ 1 & 0 & -4 \\ -2 & 1 & -6 \end{bmatrix}
+\]
+\[
+\mathbf{F} = \begin{bmatrix} 4 & 1 & -5 \\ 0 & 7 & 7 \\ 2 & -3 & 0 \end{bmatrix}
+\quad
+\mathbf{G} = \begin{bmatrix} 2 & -8 & -5 \\ -3 & 7 & -4 \\ 1 & 0 & 3 \\ 1 & 2 & 6 \end{bmatrix}
+\quad
+\mathbf{K} = \begin{bmatrix} 9 \\ -2 \\ -1 \\ 0 \end{bmatrix}
+\quad
+\mathbf{L} = \begin{bmatrix} 5 & 0 & 3 & 1 \end{bmatrix}
+\quad
+\mathbf{M} = \begin{bmatrix} 1 & -1 \\ -1 & 3 \end{bmatrix}
+\]
+
+\begin{enumerate}[label=\alph*.]
+\item \(\mathbf{A} + \mathbf{B}\)
+\item \(-\mathbf{G}\)
+\item \(\mathbf{D}'\)
+\item \(\mathbf{C} + \mathbf{D}\)
+\item \(\mathbf{A}' \mathbf{B}\)
+\item \(\mathbf{BC}\)
+\item \(\mathbf{FB}\)
+\item \(\mathbf{E} - 5\mathbf{I}_3\)
+\item \(\mathbf{M}^2\)
+\end{enumerate}
 
 \input{ai-statement}
 

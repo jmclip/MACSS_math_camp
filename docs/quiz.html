@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MACSS Math Camp — Quiz Generator</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+  :root {
+    --maroon: #800000;
+    --maroon-dark: #5c0000;
+    --maroon-light: #f7eded;
+    --gray-bg: #f5f4f2;
+    --text: #2b2b2b;
+    --green: #1e7b34;
+    --green-bg: #eaf6ec;
+    --red: #b3261e;
+    --red-bg: #fdeceb;
+    --amber-bg: #fff7e0;
+    --border: #ddd8d3;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Georgia, 'Times New Roman', serif; background: var(--gray-bg); color: var(--text); }
+  header {
+    background: var(--maroon); color: #fff; padding: 16px 24px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+  header h1 { font-size: 1.25rem; margin: 0; font-weight: normal; }
+  header h1 span { opacity: .75; font-size: .95rem; }
+  .toggle-btn {
+    background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.5);
+    padding: 8px 16px; border-radius: 6px; cursor: pointer; font-family: inherit; font-size: .9rem;
+  }
+  .toggle-btn:hover { background: rgba(255,255,255,.28); }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  .card {
+    background: #fff; border: 1px solid var(--border); border-radius: 10px;
+    padding: 20px 24px; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  }
+  .controls { display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: .85rem; color: #555; }
+  select, input[type=text], input[type=password], textarea {
+    font-family: inherit; font-size: 1rem; padding: 8px 10px;
+    border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--text);
+  }
+  textarea { resize: vertical; }
+  .btn {
+    background: var(--maroon); color: #fff; border: none; padding: 10px 22px;
+    border-radius: 6px; font-family: inherit; font-size: 1rem; cursor: pointer;
+  }
+  .btn:hover { background: var(--maroon-dark); }
+  .btn.secondary { background: #fff; color: var(--maroon); border: 1px solid var(--maroon); }
+  .btn.secondary:hover { background: var(--maroon-light); }
+  .btn.small { padding: 5px 12px; font-size: .85rem; }
+  .btn.danger { background: #fff; color: var(--red); border: 1px solid var(--red); }
+  .btn.danger:hover { background: var(--red-bg); }
+  .question-card { position: relative; }
+  .qnum { font-size: .8rem; color: #777; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 6px; }
+  .qtext { font-size: 1.05rem; margin-bottom: 14px; line-height: 1.5; }
+  .choice { display: flex; gap: 10px; align-items: baseline; padding: 8px 10px; border-radius: 6px; cursor: pointer; }
+  .choice:hover { background: var(--gray-bg); }
+  .choice input { cursor: pointer; }
+  .choice.correct-choice { background: var(--green-bg); }
+  .choice.wrong-choice { background: var(--red-bg); }
+  .feedback { margin-top: 12px; padding: 12px 14px; border-radius: 6px; font-size: .95rem; line-height: 1.5; }
+  .feedback.good { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .feedback.bad { background: var(--red-bg); border-left: 4px solid var(--red); }
+  .feedback.none { background: var(--amber-bg); border-left: 4px solid #c79a00; }
+  .score-card { text-align: center; }
+  .score-big { font-size: 2.4rem; color: var(--maroon); margin: 8px 0; }
+  .chip { display: inline-block; font-size: .72rem; padding: 2px 9px; border-radius: 999px; background: var(--maroon-light); color: var(--maroon); margin-left: 8px; vertical-align: middle; }
+  .chip.e { background: #e8f2e9; color: #1e7b34; }
+  .chip.m { background: #fff3d6; color: #8a6d00; }
+  .chip.h { background: #fdeceb; color: var(--red); }
+  .hidden { display: none !important; }
+  /* modal */
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center; z-index: 50; }
+  .modal { background: #fff; border-radius: 10px; padding: 26px 30px; max-width: 360px; width: 92%; }
+  .modal h2 { margin-top: 0; font-size: 1.1rem; }
+  .err { color: var(--red); font-size: .85rem; min-height: 1.2em; margin: 6px 0; }
+  /* instructor */
+  .tabs { display: flex; gap: 4px; margin-bottom: 18px; flex-wrap: wrap; }
+  .tab { padding: 9px 18px; border: 1px solid var(--border); border-bottom: none; border-radius: 8px 8px 0 0; background: #eceae7; cursor: pointer; font-size: .92rem; }
+  .tab.active { background: #fff; font-weight: bold; color: var(--maroon); }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: #666; font-weight: normal; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+  .row-actions { white-space: nowrap; }
+  .banner { background: var(--amber-bg); border: 1px solid #e8d48a; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; font-size: .9rem; }
+  .muted { color: #777; font-size: .85rem; }
+  .choice-edit { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+  .choice-edit input[type=text] { flex: 1; }
+  .form-grid { display: grid; gap: 14px; }
+  @media (min-width: 640px) { .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MACSS Math Camp <span>· Quiz Generator</span></h1>
+  <button class="toggle-btn" id="modeToggle">Instructor login</button>
+</header>
+
+<main>
+  <!-- ============ STUDENT VIEW ============ -->
+  <div id="studentView">
+    <div class="card">
+      <p style="margin-top:0">Choose a topic and difficulty, then generate a quiz. Topic quizzes have 10 questions; the practice test has 25 drawn from all topics.</p>
+      <div class="controls">
+        <div class="field">
+          <label for="topicSel">Topic</label>
+          <select id="topicSel"></select>
+        </div>
+        <div class="field">
+          <label for="diffSel">Difficulty</label>
+          <select id="diffSel">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+        <button class="btn" id="genBtn">Generate quiz</button>
+      </div>
+    </div>
+    <div id="quizArea"></div>
+  </div>
+
+  <!-- ============ INSTRUCTOR VIEW ============ -->
+  <div id="instructorView" class="hidden">
+    <div class="banner" id="unsavedBanner" style="display:none">
+      You have unpublished changes. Go to <b>Export / Import</b>, download <code>quiz-questions.json</code>, and commit it to your repo next to this HTML file to publish them for students.
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="browse">Browse bank</div>
+      <div class="tab" data-tab="edit">Add / edit question</div>
+      <div class="tab" data-tab="preview">Preview quiz</div>
+      <div class="tab" data-tab="io">Export / Import</div>
+    </div>
+
+    <div id="tab-browse" class="tab-panel">
+      <div class="card">
+        <div class="controls" style="margin-bottom:14px">
+          <div class="field"><label>Topic</label><select id="fTopic"><option value="">All topics</option></select></div>
+          <div class="field"><label>Difficulty</label><select id="fDiff">
+            <option value="">All</option><option value="e">Easy</option><option value="m">Medium</option><option value="h">Hard</option>
+          </select></div>
+          <div class="field" style="flex:1;min-width:180px"><label>Search</label><input type="text" id="fSearch" placeholder="Search question text…"></div>
+        </div>
+        <div class="muted" id="bankCount"></div>
+        <div style="overflow-x:auto"><table id="bankTable">
+          <thead><tr><th>Topic</th><th>Diff.</th><th>Question</th><th>Correct answer</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <div id="tab-edit" class="tab-panel hidden">
+      <div class="card">
+        <h3 style="margin-top:0" id="editTitle">Add a new question</h3>
+        <div class="form-grid">
+          <div class="form-2col">
+            <div class="field"><label>Topic</label><select id="eTopic"></select></div>
+            <div class="field"><label>Difficulty</label><select id="eDiff">
+              <option value="e">Easy</option><option value="m">Medium</option><option value="h">Hard</option>
+            </select></div>
+          </div>
+          <div class="field">
+            <label>Question text — use \( … \) for math, e.g. <code>\( x^2 \)</code></label>
+            <textarea id="eQ" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Choices (select the radio button next to the correct answer)</label>
+            <div id="eChoices"></div>
+          </div>
+          <div class="field">
+            <label>Feedback / explanation shown when a student misses this question</label>
+            <textarea id="eFb" rows="2"></textarea>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button class="btn" id="saveQBtn">Save question</button>
+            <button class="btn secondary" id="clearQBtn">Clear form</button>
+          </div>
+          <div class="err" id="editErr"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-preview" class="tab-panel hidden">
+      <div class="card">
+        <p style="margin-top:0" class="muted">Generates a quiz exactly as students would see it, but with the correct answers and feedback visible — useful for review or making paper versions.</p>
+        <div class="controls">
+          <div class="field"><label>Topic</label><select id="pTopic"></select></div>
+          <div class="field"><label>Difficulty</label><select id="pDiff">
+            <option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option>
+          </select></div>
+          <button class="btn" id="previewBtn">Generate preview</button>
+        </div>
+      </div>
+      <div id="previewArea"></div>
+    </div>
+
+    <div id="tab-io" class="tab-panel hidden">
+      <div class="card">
+        <h3 style="margin-top:0">Publish your changes</h3>
+        <p class="muted">This page loads its questions from <code>quiz-questions.json</code> if that file exists next to it in your repo, and otherwise falls back to the bank built into this HTML file. To publish edits: export below, then commit the downloaded file to the same folder as this page (e.g. <code>docs/</code>).</p>
+        <div class="controls">
+          <button class="btn" id="exportBtn">Export quiz-questions.json</button>
+          <div class="field">
+            <label for="importMode">Upload mode</label>
+            <select id="importMode">
+              <option value="replace">Replace entire bank</option>
+              <option value="merge">Merge into current bank</option>
+            </select>
+          </div>
+          <label class="btn secondary" style="display:inline-block">
+            Upload JSON… <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+          </label>
+        </div>
+        <p class="muted">Merge keeps the current bank and adds the uploaded questions; an uploaded question with the same <code>id</code> as an existing one replaces it.</p>
+        <div class="err" id="ioMsg"></div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:20px 0">
+        <h3>Change instructor password</h3>
+        <p class="muted">Enter a new password to get the hash line to paste into this HTML file (search for <code>PASS_HASH</code>). The password is checked in the browser only — it deters students but is not high security.</p>
+        <div class="controls">
+          <div class="field"><label>New password</label><input type="text" id="newPass"></div>
+          <button class="btn secondary" id="hashBtn">Get hash</button>
+        </div>
+        <pre id="hashOut" style="background:var(--gray-bg);padding:10px;border-radius:6px;font-size:.8rem;white-space:pre-wrap;word-break:break-all"></pre>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- password modal -->
+<div class="modal-backdrop hidden" id="pwModal">
+  <div class="modal">
+    <h2>Instructor login</h2>
+    <input type="password" id="pwInput" placeholder="Password" style="width:100%">
+    <div class="err" id="pwErr"></div>
+    <div style="display:flex;gap:10px;justify-content:flex-end">
+      <button class="btn secondary" id="pwCancel">Cancel</button>
+      <button class="btn" id="pwSubmit">Log in</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ================= CONFIG ================= */
+// SHA-256 hash of the instructor password. Default password: macss2026
+// To change it: log in, use "Change instructor password" under Export/Import,
+// and replace the line below with the one it gives you.
+const PASS_HASH = "828120d33beb22d1d9a494a320708bba65a5801833dbaa578fd9529ebe2f1d75";
+
+const TOPICS = {
+  linear: "Linear equations, functions & sets",
+  deriv:  "Differentiation & critical points",
+  linalg: "Matrix & linear algebra",
+  integ:  "Integration & multivariable calculus",
+  prob:   "Probability",
+  stats:  "Statistical inference"
+};
+const DIFF_LABEL = { e: "Easy", m: "Medium", h: "Hard" };
+// Mix of question difficulties for each overall quiz difficulty
+const WEIGHTS = {
+  easy:   { e: 0.50, m: 0.35, h: 0.15 },
+  medium: { e: 0.25, m: 0.50, h: 0.25 },
+  hard:   { e: 0.10, m: 0.40, h: 0.50 }
+};
+const PRACTICE_N = 25, TOPIC_N = 10;
+
+/* ================= QUESTION BANK =================
+   Each question: { id, topic, diff (e|m|h), q, choices[4], ans (index), fb } */
+const EMBEDDED_BANK = [
+// ---- Linear equations, functions & sets ----
+{id:"lin-e-1",topic:"linear",diff:"e",q:"Solve for \\(x\\): \\(3x + 5 = 20\\).",choices:["\\(x = 5\\)","\\(x = 3\\)","\\(x = 15\\)","\\(x = 25/3\\)"],ans:0,fb:"Subtract 5 from both sides to get \\(3x = 15\\), then divide by 3: \\(x = 5\\)."},
+{id:"lin-e-2",topic:"linear",diff:"e",q:"What is the slope of the line through the points \\((1, 2)\\) and \\((3, 8)\\)?",choices:["3","2","6","\\(1/3\\)"],ans:0,fb:"Slope = rise over run: \\((8-2)/(3-1) = 6/2 = 3\\)."},
+{id:"lin-e-3",topic:"linear",diff:"e",q:"If \\(f(x) = 2x - 7\\), what is \\(f(4)\\)?",choices:["1","\\(-1\\)","8","15"],ans:0,fb:"Substitute: \\(f(4) = 2(4) - 7 = 8 - 7 = 1\\)."},
+{id:"lin-e-4",topic:"linear",diff:"e",q:"Let \\(A = \\{1, 2, 3\\}\\) and \\(B = \\{3, 4\\}\\). What is \\(A \\cap B\\)?",choices:["\\(\\{3\\}\\)","\\(\\{1, 2, 3, 4\\}\\)","\\(\\{1, 2\\}\\)","\\(\\emptyset\\)"],ans:0,fb:"The intersection \\(A \\cap B\\) contains elements in both sets. Only 3 appears in both."},
+{id:"lin-e-5",topic:"linear",diff:"e",q:"What is \\(\\log_{10}(1000)\\)?",choices:["3","100","10","\\(1/3\\)"],ans:0,fb:"\\(10^3 = 1000\\), so \\(\\log_{10}(1000) = 3\\)."},
+{id:"lin-e-6",topic:"linear",diff:"e",q:"Solve the inequality \\(2x - 4 < 10\\).",choices:["\\(x < 7\\)","\\(x < 3\\)","\\(x > 7\\)","\\(x < 14\\)"],ans:0,fb:"Add 4 to both sides: \\(2x < 14\\), then divide by 2: \\(x < 7\\). The inequality direction does not flip because we divided by a positive number."},
+{id:"lin-e-7",topic:"linear",diff:"e",q:"What is the \\(y\\)-intercept of the line \\(y = 4x - 9\\)?",choices:["\\((0, -9)\\)","\\((0, 4)\\)","\\((9, 0)\\)","\\((0, 9)\\)"],ans:0,fb:"The \\(y\\)-intercept occurs where \\(x = 0\\): \\(y = 4(0) - 9 = -9\\), giving the point \\((0, -9)\\)."},
+{id:"lin-e-8",topic:"linear",diff:"e",q:"What is the slope of the line \\(y = -2x + 3\\)?",choices:["\\(-2\\)","3","2","\\(-3\\)"],ans:0,fb:"In slope-intercept form \\(y = mx + b\\), the coefficient on \\(x\\) is the slope, so \\(m = -2\\)."},
+{id:"lin-m-1",topic:"linear",diff:"m",q:"What are the roots of \\(x^2 - 5x + 6 = 0\\)?",choices:["\\(x = 2\\) and \\(x = 3\\)","\\(x = -2\\) and \\(x = -3\\)","\\(x = 1\\) and \\(x = 6\\)","\\(x = -1\\) and \\(x = 6\\)"],ans:0,fb:"Factor: \\(x^2 - 5x + 6 = (x-2)(x-3)\\), so the roots are \\(x = 2\\) and \\(x = 3\\). Check: \\(2 \\cdot 3 = 6\\) and \\(2 + 3 = 5\\)."},
+{id:"lin-m-2",topic:"linear",diff:"m",q:"Evaluate \\(\\lim_{x \\to 2} \\dfrac{x^2 - 4}{x - 2}\\).",choices:["4","0","2","The limit does not exist"],ans:0,fb:"Factor the numerator: \\(x^2 - 4 = (x-2)(x+2)\\). Cancel \\((x-2)\\) to get \\(x + 2\\), which approaches 4 as \\(x \\to 2\\)."},
+{id:"lin-m-3",topic:"linear",diff:"m",q:"What is \\(\\log_2(32)\\)?",choices:["5","16","4","6"],ans:0,fb:"\\(2^5 = 32\\), so \\(\\log_2(32) = 5\\)."},
+{id:"lin-m-4",topic:"linear",diff:"m",q:"Solve the system: \\(x + y = 10\\) and \\(x - y = 4\\).",choices:["\\(x = 7,\\; y = 3\\)","\\(x = 3,\\; y = 7\\)","\\(x = 6,\\; y = 4\\)","\\(x = 5,\\; y = 5\\)"],ans:0,fb:"Add the two equations: \\(2x = 14\\), so \\(x = 7\\). Then \\(y = 10 - 7 = 3\\)."},
+{id:"lin-m-5",topic:"linear",diff:"m",q:"What is the sum of the infinite geometric series \\(1 + \\tfrac{1}{2} + \\tfrac{1}{4} + \\tfrac{1}{8} + \\cdots\\)?",choices:["2","1.5","It diverges","\\(e\\)"],ans:0,fb:"For \\(|r| < 1\\), the sum is \\(\\frac{a}{1-r} = \\frac{1}{1 - 1/2} = 2\\)."},
+{id:"lin-m-6",topic:"linear",diff:"m",q:"If \\(\\ln(x) = 2\\), then \\(x =\\) ?",choices:["\\(e^2\\)","\\(2e\\)","\\(\\ln(2)\\)","100"],ans:0,fb:"\\(\\ln\\) is the logarithm base \\(e\\), so \\(\\ln(x) = 2\\) means \\(x = e^2 \\approx 7.39\\)."},
+{id:"lin-m-7",topic:"linear",diff:"m",q:"If \\(|A| = 3\\) and \\(|B| = 4\\), how many elements are in the Cartesian product \\(A \\times B\\)?",choices:["12","7","64","81"],ans:0,fb:"The Cartesian product pairs every element of \\(A\\) with every element of \\(B\\): \\(3 \\times 4 = 12\\) ordered pairs."},
+{id:"lin-m-8",topic:"linear",diff:"m",q:"An arithmetic sequence starts \\(3, 7, 11, 15, \\ldots\\) What is its \\(n\\)th term?",choices:["\\(a_n = 4n - 1\\)","\\(a_n = 3n + 4\\)","\\(a_n = 4n + 3\\)","\\(a_n = 3 + n\\)"],ans:0,fb:"The common difference is 4 and the first term is 3, so \\(a_n = 3 + 4(n-1) = 4n - 1\\). Check: \\(n=1\\) gives 3, \\(n=2\\) gives 7."},
+{id:"lin-h-1",topic:"linear",diff:"h",q:"Evaluate \\(\\lim_{x \\to \\infty} \\dfrac{3x^2 + 2x}{5x^2 - 1}\\).",choices:["\\(3/5\\)","0","\\(\\infty\\)","\\(3/2\\)"],ans:0,fb:"When numerator and denominator have the same degree, the limit is the ratio of the leading coefficients: \\(3/5\\)."},
+{id:"lin-h-2",topic:"linear",diff:"h",q:"Solve for \\(x\\): \\(e^{2x} = 5\\).",choices:["\\(x = \\ln(5)/2\\)","\\(x = \\ln(5/2)\\)","\\(x = 2\\ln(5)\\)","\\(x = 5/(2e)\\)"],ans:0,fb:"Take the natural log of both sides: \\(2x = \\ln(5)\\), so \\(x = \\ln(5)/2\\)."},
+{id:"lin-h-3",topic:"linear",diff:"h",q:"How many real roots does \\(x^2 + 4x + 5 = 0\\) have?",choices:["0","1","2","Infinitely many"],ans:0,fb:"The discriminant is \\(b^2 - 4ac = 16 - 20 = -4 < 0\\), so there are no real roots (the two roots are complex)."},
+{id:"lin-h-4",topic:"linear",diff:"h",q:"Evaluate \\(\\lim_{x \\to 0} \\dfrac{\\sin(x)}{x}\\).",choices:["1","0","\\(\\infty\\)","The limit does not exist"],ans:0,fb:"This is a classic limit: as \\(x \\to 0\\), \\(\\sin(x) \\approx x\\), so the ratio approaches 1."},
+{id:"lin-h-5",topic:"linear",diff:"h",q:"What is the inverse of the function \\(f(x) = \\dfrac{2x + 1}{3}\\)?",choices:["\\(f^{-1}(x) = \\dfrac{3x - 1}{2}\\)","\\(f^{-1}(x) = \\dfrac{3}{2x + 1}\\)","\\(f^{-1}(x) = \\dfrac{2x - 1}{3}\\)","\\(f^{-1}(x) = \\dfrac{x - 1}{6}\\)"],ans:0,fb:"Set \\(y = (2x+1)/3\\) and solve for \\(x\\): \\(3y = 2x + 1\\), so \\(x = (3y - 1)/2\\). Swap variables: \\(f^{-1}(x) = (3x-1)/2\\)."},
+{id:"lin-h-6",topic:"linear",diff:"h",q:"What is the sum \\(1 + 2 + 3 + \\cdots + 100\\)?",choices:["5050","5000","10100","4950"],ans:0,fb:"Use \\(\\sum_{k=1}^{n} k = \\frac{n(n+1)}{2} = \\frac{100 \\cdot 101}{2} = 5050\\)."},
+{id:"lin-h-7",topic:"linear",diff:"h",q:"Evaluate \\(\\lim_{x \\to 3} \\dfrac{x^2 - 9}{x^2 - x - 6}\\).",choices:["\\(6/5\\)","1","\\(3/2\\)","The limit does not exist"],ans:0,fb:"Factor: \\(\\frac{(x-3)(x+3)}{(x-3)(x+2)}\\). Cancel \\((x-3)\\) and substitute \\(x = 3\\): \\(\\frac{6}{5}\\)."},
+{id:"lin-h-8",topic:"linear",diff:"h",q:"Solve for \\(x\\): \\(2^{x+1} = 16\\).",choices:["\\(x = 3\\)","\\(x = 4\\)","\\(x = 7\\)","\\(x = 8\\)"],ans:0,fb:"Write \\(16 = 2^4\\). Then \\(x + 1 = 4\\), so \\(x = 3\\)."},
+
+// ---- Differentiation & critical points ----
+{id:"der-e-1",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\, x^3\\)?",choices:["\\(3x^2\\)","\\(x^2\\)","\\(3x\\)","\\(\\frac{x^4}{4}\\)"],ans:0,fb:"Power rule: \\(\\frac{d}{dx} x^n = n x^{n-1}\\), so the derivative is \\(3x^2\\)."},
+{id:"der-e-2",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\,(5x)\\)?",choices:["5","\\(5x\\)","0","\\(x\\)"],ans:0,fb:"The derivative of a linear function \\(cx\\) is just the constant \\(c\\), here 5."},
+{id:"der-e-3",topic:"deriv",diff:"e",q:"What is the derivative of a constant, e.g. \\(f(x) = 12\\)?",choices:["0","12","\\(x\\)","1"],ans:0,fb:"A constant function does not change, so its rate of change (derivative) is 0."},
+{id:"der-e-4",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\,(x^2 + 3x)\\)?",choices:["\\(2x + 3\\)","\\(x + 3\\)","\\(2x\\)","\\(2x + 3x\\)"],ans:0,fb:"Differentiate term by term: \\(\\frac{d}{dx}x^2 = 2x\\) and \\(\\frac{d}{dx}3x = 3\\)."},
+{id:"der-e-5",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\, e^x\\)?",choices:["\\(e^x\\)","\\(x e^{x-1}\\)","\\(e\\)","\\(\\ln(x)\\)"],ans:0,fb:"\\(e^x\\) is its own derivative — this is the defining property of the exponential function."},
+{id:"der-e-6",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\, \\ln(x)\\) for \\(x > 0\\)?",choices:["\\(1/x\\)","\\(\\ln(x)\\)","\\(x\\)","\\(e^x\\)"],ans:0,fb:"The derivative of the natural log is \\(\\frac{1}{x}\\)."},
+{id:"der-e-7",topic:"deriv",diff:"e",q:"If \\(f(x) = x^2\\), what is the slope of the tangent line at \\(x = 3\\)?",choices:["6","9","3","2"],ans:0,fb:"\\(f'(x) = 2x\\), so at \\(x = 3\\) the slope is \\(2(3) = 6\\)."},
+{id:"der-e-8",topic:"deriv",diff:"e",q:"What is \\(\\dfrac{d}{dx}\\, \\sin(x)\\)?",choices:["\\(\\cos(x)\\)","\\(-\\cos(x)\\)","\\(-\\sin(x)\\)","\\(\\tan(x)\\)"],ans:0,fb:"The derivative of \\(\\sin(x)\\) is \\(\\cos(x)\\)."},
+{id:"der-m-1",topic:"deriv",diff:"m",q:"Using the product rule, what is \\(\\dfrac{d}{dx}\\,\\big(x^2 e^x\\big)\\)?",choices:["\\(e^x(x^2 + 2x)\\)","\\(2x e^x\\)","\\(x^2 e^x\\)","\\(2x e^{x-1}\\)"],ans:0,fb:"Product rule: \\((uv)' = u'v + uv' = 2x e^x + x^2 e^x = e^x(x^2 + 2x)\\)."},
+{id:"der-m-2",topic:"deriv",diff:"m",q:"Using the chain rule, what is \\(\\dfrac{d}{dx}\\,(3x^2 + 1)^5\\)?",choices:["\\(30x(3x^2+1)^4\\)","\\(5(3x^2+1)^4\\)","\\(6x(3x^2+1)^5\\)","\\(15x(3x^2+1)^4\\)"],ans:0,fb:"Chain rule: \\(5(3x^2+1)^4 \\cdot 6x = 30x(3x^2+1)^4\\). Don't forget the derivative of the inside function."},
+{id:"der-m-3",topic:"deriv",diff:"m",q:"What are the critical points of \\(f(x) = x^3 - 3x\\)?",choices:["\\(x = -1\\) and \\(x = 1\\)","\\(x = 0\\) only","\\(x = \\pm\\sqrt{3}\\)","\\(x = 3\\) only"],ans:0,fb:"Set \\(f'(x) = 3x^2 - 3 = 0\\), so \\(x^2 = 1\\), giving \\(x = \\pm 1\\)."},
+{id:"der-m-4",topic:"deriv",diff:"m",q:"What is \\(\\dfrac{d}{dx}\\, \\ln(x^2)\\) for \\(x > 0\\)?",choices:["\\(2/x\\)","\\(1/x^2\\)","\\(2x\\)","\\(2\\ln(x) \\cdot x\\)"],ans:0,fb:"Write \\(\\ln(x^2) = 2\\ln(x)\\), whose derivative is \\(2/x\\). (Or use the chain rule: \\(\\frac{2x}{x^2}\\).)"},
+{id:"der-m-5",topic:"deriv",diff:"m",q:"Using the quotient rule, what is \\(\\dfrac{d}{dx}\\left(\\dfrac{x}{x+1}\\right)\\)?",choices:["\\(\\dfrac{1}{(x+1)^2}\\)","\\(\\dfrac{-1}{(x+1)^2}\\)","1","\\(\\dfrac{2x+1}{(x+1)^2}\\)"],ans:0,fb:"Quotient rule: \\(\\frac{(x+1)(1) - x(1)}{(x+1)^2} = \\frac{1}{(x+1)^2}\\)."},
+{id:"der-m-6",topic:"deriv",diff:"m",q:"What is the second derivative of \\(f(x) = x^4\\)?",choices:["\\(12x^2\\)","\\(4x^3\\)","\\(24x\\)","\\(12x^3\\)"],ans:0,fb:"First derivative: \\(4x^3\\). Differentiate again: \\(12x^2\\)."},
+{id:"der-m-7",topic:"deriv",diff:"m",q:"At what value of \\(x\\) does \\(f(x) = x^2 - 4x + 7\\) reach its minimum?",choices:["\\(x = 2\\)","\\(x = 4\\)","\\(x = -2\\)","\\(x = 7\\)"],ans:0,fb:"Set \\(f'(x) = 2x - 4 = 0\\), so \\(x = 2\\). Since \\(f''(x) = 2 > 0\\), this is a minimum."},
+{id:"der-m-8",topic:"deriv",diff:"m",q:"What is the slope of \\(f(x) = \\sqrt{x}\\) at \\(x = 4\\)?",choices:["\\(1/4\\)","\\(1/2\\)","2","4"],ans:0,fb:"\\(f(x) = x^{1/2}\\), so \\(f'(x) = \\frac{1}{2\\sqrt{x}}\\). At \\(x = 4\\): \\(\\frac{1}{2 \\cdot 2} = \\frac{1}{4}\\)."},
+{id:"der-h-1",topic:"deriv",diff:"h",q:"For \\(f(x) = x^3 - 6x^2 + 9x + 1\\), where is the local maximum?",choices:["\\(x = 1\\)","\\(x = 3\\)","\\(x = 2\\)","\\(x = 0\\)"],ans:0,fb:"\\(f'(x) = 3x^2 - 12x + 9 = 3(x-1)(x-3)\\), so critical points are \\(x = 1, 3\\). \\(f''(x) = 6x - 12\\): \\(f''(1) = -6 < 0\\) (local max), \\(f''(3) = 6 > 0\\) (local min)."},
+{id:"der-h-2",topic:"deriv",diff:"h",q:"What is \\(\\dfrac{d}{dx}\\,\\big(x \\ln x\\big)\\)?",choices:["\\(\\ln(x) + 1\\)","\\(\\ln(x)\\)","\\(1/x\\)","\\(x + \\ln(x)\\)"],ans:0,fb:"Product rule: \\(1 \\cdot \\ln x + x \\cdot \\frac{1}{x} = \\ln x + 1\\)."},
+{id:"der-h-3",topic:"deriv",diff:"h",q:"What is \\(\\dfrac{d}{dx}\\, e^{x^2}\\)?",choices:["\\(2x e^{x^2}\\)","\\(e^{x^2}\\)","\\(x^2 e^{x^2 - 1}\\)","\\(e^{2x}\\)"],ans:0,fb:"Chain rule: derivative of the outer function \\(e^u\\) is \\(e^u\\), times the derivative of \\(u = x^2\\), which is \\(2x\\)."},
+{id:"der-h-4",topic:"deriv",diff:"h",q:"Where is the inflection point of \\(f(x) = x^3 - 6x^2 + 5\\)?",choices:["\\(x = 2\\)","\\(x = 4\\)","\\(x = 0\\)","\\(x = 6\\)"],ans:0,fb:"An inflection point occurs where \\(f''\\) changes sign. \\(f''(x) = 6x - 12 = 0\\) at \\(x = 2\\), and it changes from negative to positive there."},
+{id:"der-h-5",topic:"deriv",diff:"h",q:"If \\(x^2 + y^2 = 25\\), what is \\(\\dfrac{dy}{dx}\\) by implicit differentiation?",choices:["\\(-x/y\\)","\\(x/y\\)","\\(-y/x\\)","\\(2x + 2y\\)"],ans:0,fb:"Differentiate both sides: \\(2x + 2y \\frac{dy}{dx} = 0\\), so \\(\\frac{dy}{dx} = -\\frac{x}{y}\\)."},
+{id:"der-h-6",topic:"deriv",diff:"h",q:"Evaluate \\(\\lim_{x \\to 0} \\dfrac{e^x - 1}{x}\\).",choices:["1","0","\\(e\\)","\\(\\infty\\)"],ans:0,fb:"This is the definition of the derivative of \\(e^x\\) at \\(x = 0\\), which equals \\(e^0 = 1\\). (L'Hôpital's rule gives the same answer.)"},
+{id:"der-h-7",topic:"deriv",diff:"h",q:"For \\(f(x) = x^4 - 4x^3\\), the point \\(x = 3\\) is a critical point. Using the second derivative test, it is a…",choices:["local minimum","local maximum","inflection point","saddle point"],ans:0,fb:"\\(f'(x) = 4x^3 - 12x^2 = 4x^2(x-3)\\), so \\(x=3\\) is critical. \\(f''(x) = 12x^2 - 24x\\), and \\(f''(3) = 108 - 72 = 36 > 0\\), so it's a local minimum."},
+{id:"der-h-8",topic:"deriv",diff:"h",q:"A firm's profit is \\(\\pi(q) = -2q^2 + 40q - 50\\). What quantity \\(q\\) maximizes profit?",choices:["\\(q = 10\\)","\\(q = 20\\)","\\(q = 40\\)","\\(q = 5\\)"],ans:0,fb:"Set \\(\\pi'(q) = -4q + 40 = 0\\), so \\(q = 10\\). Since \\(\\pi''(q) = -4 < 0\\), this is a maximum."},
+
+// ---- Matrix & linear algebra ----
+{id:"mat-e-1",topic:"linalg",diff:"e",q:"If \\(A\\) is a \\(2 \\times 3\\) matrix and \\(B\\) is a \\(3 \\times 4\\) matrix, what are the dimensions of \\(AB\\)?",choices:["\\(2 \\times 4\\)","\\(3 \\times 3\\)","\\(4 \\times 2\\)","\\(AB\\) is not defined"],ans:0,fb:"The inner dimensions (3 and 3) must match, and the product takes the outer dimensions: \\(2 \\times 4\\)."},
+{id:"mat-e-2",topic:"linalg",diff:"e",q:"What is \\(\\begin{pmatrix}1\\\\2\\end{pmatrix} + \\begin{pmatrix}3\\\\4\\end{pmatrix}\\)?",choices:["\\(\\begin{pmatrix}4\\\\6\\end{pmatrix}\\)","\\(\\begin{pmatrix}3\\\\8\\end{pmatrix}\\)","\\(\\begin{pmatrix}4\\\\5\\end{pmatrix}\\)","\\(\\begin{pmatrix}11\\end{pmatrix}\\)"],ans:0,fb:"Vector addition is element-by-element: \\((1+3, 2+4) = (4, 6)\\)."},
+{id:"mat-e-3",topic:"linalg",diff:"e",q:"What is \\(3 \\cdot \\begin{pmatrix}2\\\\-1\\end{pmatrix}\\)?",choices:["\\(\\begin{pmatrix}6\\\\-3\\end{pmatrix}\\)","\\(\\begin{pmatrix}5\\\\2\\end{pmatrix}\\)","\\(\\begin{pmatrix}6\\\\-1\\end{pmatrix}\\)","\\(\\begin{pmatrix}6\\\\3\\end{pmatrix}\\)"],ans:0,fb:"Scalar multiplication multiplies every entry: \\((3 \\cdot 2, 3 \\cdot -1) = (6, -3)\\)."},
+{id:"mat-e-4",topic:"linalg",diff:"e",q:"For any matrix \\(A\\), what is \\(IA\\) where \\(I\\) is the identity matrix (of compatible size)?",choices:["\\(A\\)","\\(I\\)","The zero matrix","\\(A^{-1}\\)"],ans:0,fb:"The identity matrix acts like the number 1 in multiplication: \\(IA = AI = A\\)."},
+{id:"mat-e-5",topic:"linalg",diff:"e",q:"What is the transpose of \\(\\begin{pmatrix}1 & 2\\\\3 & 4\\end{pmatrix}\\)?",choices:["\\(\\begin{pmatrix}1 & 3\\\\2 & 4\\end{pmatrix}\\)","\\(\\begin{pmatrix}4 & 3\\\\2 & 1\\end{pmatrix}\\)","\\(\\begin{pmatrix}2 & 1\\\\4 & 3\\end{pmatrix}\\)","\\(\\begin{pmatrix}1 & 2\\\\3 & 4\\end{pmatrix}\\)"],ans:0,fb:"Transposing swaps rows and columns: row 1 \\((1, 2)\\) becomes column 1."},
+{id:"mat-e-6",topic:"linalg",diff:"e",q:"What is \\(\\det\\begin{pmatrix}2 & 0\\\\0 & 3\\end{pmatrix}\\)?",choices:["6","5","0","\\(-6\\)"],ans:0,fb:"For a diagonal matrix, the determinant is the product of the diagonal entries: \\(2 \\cdot 3 = 6\\)."},
+{id:"mat-e-7",topic:"linalg",diff:"e",q:"What is the dot product \\(\\begin{pmatrix}1\\\\2\\end{pmatrix} \\cdot \\begin{pmatrix}3\\\\4\\end{pmatrix}\\)?",choices:["11","10","\\(\\begin{pmatrix}3\\\\8\\end{pmatrix}\\)","7"],ans:0,fb:"Multiply matching entries and sum: \\(1(3) + 2(4) = 3 + 8 = 11\\)."},
+{id:"mat-e-8",topic:"linalg",diff:"e",q:"Two matrices can be added only if…",choices:["they have the same dimensions","their inner dimensions match","they are both square","one is the identity"],ans:0,fb:"Matrix addition is element-wise, so both matrices must have exactly the same number of rows and columns."},
+{id:"mat-m-1",topic:"linalg",diff:"m",q:"What is \\(\\det\\begin{pmatrix}3 & 1\\\\2 & 4\\end{pmatrix}\\)?",choices:["10","14","12","\\(-10\\)"],ans:0,fb:"For a \\(2\\times2\\) matrix, \\(\\det = ad - bc = 3(4) - 1(2) = 12 - 2 = 10\\)."},
+{id:"mat-m-2",topic:"linalg",diff:"m",q:"Compute \\(AB\\) for \\(A = \\begin{pmatrix}1 & 2\\\\0 & 1\\end{pmatrix}\\), \\(B = \\begin{pmatrix}2 & 0\\\\1 & 3\\end{pmatrix}\\).",choices:["\\(\\begin{pmatrix}4 & 6\\\\1 & 3\\end{pmatrix}\\)","\\(\\begin{pmatrix}2 & 0\\\\1 & 3\\end{pmatrix}\\)","\\(\\begin{pmatrix}2 & 2\\\\1 & 4\\end{pmatrix}\\)","\\(\\begin{pmatrix}4 & 1\\\\6 & 3\\end{pmatrix}\\)"],ans:0,fb:"Row times column: top row \\((1,2)\\): \\(1(2)+2(1)=4\\), \\(1(0)+2(3)=6\\). Bottom row \\((0,1)\\): \\(0(2)+1(1)=1\\), \\(0(0)+1(3)=3\\)."},
+{id:"mat-m-3",topic:"linalg",diff:"m",q:"What is the inverse of \\(\\begin{pmatrix}2 & 0\\\\0 & 4\\end{pmatrix}\\)?",choices:["\\(\\begin{pmatrix}1/2 & 0\\\\0 & 1/4\\end{pmatrix}\\)","\\(\\begin{pmatrix}4 & 0\\\\0 & 2\\end{pmatrix}\\)","\\(\\begin{pmatrix}-2 & 0\\\\0 & -4\\end{pmatrix}\\)","It has no inverse"],ans:0,fb:"For a diagonal matrix with nonzero entries, the inverse just inverts each diagonal entry."},
+{id:"mat-m-4",topic:"linalg",diff:"m",q:"A square matrix fails to have an inverse exactly when…",choices:["its determinant is 0","it has any zero entries","it is not symmetric","its trace is 0"],ans:0,fb:"A square matrix is invertible if and only if its determinant is nonzero. \\(\\det = 0\\) means the matrix is singular."},
+{id:"mat-m-5",topic:"linalg",diff:"m",q:"What is the rank of \\(\\begin{pmatrix}1 & 2\\\\2 & 4\\end{pmatrix}\\)?",choices:["1","2","0","4"],ans:0,fb:"Row 2 is exactly twice row 1, so there is only one linearly independent row: rank 1."},
+{id:"mat-m-6",topic:"linalg",diff:"m",q:"Which vector is orthogonal to \\(\\begin{pmatrix}2\\\\-1\\end{pmatrix}\\)?",choices:["\\(\\begin{pmatrix}1\\\\2\\end{pmatrix}\\)","\\(\\begin{pmatrix}2\\\\1\\end{pmatrix}\\)","\\(\\begin{pmatrix}1\\\\-2\\end{pmatrix}\\)","\\(\\begin{pmatrix}4\\\\-2\\end{pmatrix}\\)"],ans:0,fb:"Orthogonal vectors have dot product 0: \\(2(1) + (-1)(2) = 2 - 2 = 0\\)."},
+{id:"mat-m-7",topic:"linalg",diff:"m",q:"For \\(A = \\begin{pmatrix}a & b\\\\c & d\\end{pmatrix}\\), the determinant is…",choices:["\\(ad - bc\\)","\\(ab - cd\\)","\\(ac - bd\\)","\\(ad + bc\\)"],ans:0,fb:"The \\(2 \\times 2\\) determinant is the product of the main diagonal minus the product of the off-diagonal: \\(ad - bc\\)."},
+{id:"mat-m-8",topic:"linalg",diff:"m",q:"What is the length (Euclidean norm) of the vector \\(\\begin{pmatrix}3\\\\4\\end{pmatrix}\\)?",choices:["5","7","25","\\(3.5\\)"],ans:0,fb:"\\(\\|v\\| = \\sqrt{3^2 + 4^2} = \\sqrt{25} = 5\\)."},
+{id:"mat-h-1",topic:"linalg",diff:"h",q:"What are the eigenvalues of \\(\\begin{pmatrix}2 & 0\\\\0 & 5\\end{pmatrix}\\)?",choices:["2 and 5","7 and 10","0 and 7","2 and 0"],ans:0,fb:"For a diagonal (or triangular) matrix, the eigenvalues are the diagonal entries."},
+{id:"mat-h-2",topic:"linalg",diff:"h",q:"What are the eigenvalues of \\(\\begin{pmatrix}2 & 1\\\\1 & 2\\end{pmatrix}\\)?",choices:["1 and 3","2 and 2","\\(-1\\) and 1","2 and 4"],ans:0,fb:"Solve \\(\\det(A - \\lambda I) = (2-\\lambda)^2 - 1 = 0\\), so \\(2 - \\lambda = \\pm 1\\), giving \\(\\lambda = 1, 3\\). Check: they sum to the trace (4) and multiply to the determinant (3)."},
+{id:"mat-h-3",topic:"linalg",diff:"h",q:"What is \\(\\det\\begin{pmatrix}1 & 2 & 0\\\\0 & 3 & 1\\\\2 & 0 & 1\\end{pmatrix}\\)?",choices:["7","3","\\(-1\\)","5"],ans:0,fb:"Expand along the first row: \\(1(3 \\cdot 1 - 1 \\cdot 0) - 2(0 \\cdot 1 - 1 \\cdot 2) + 0 = 3 + 4 = 7\\)."},
+{id:"mat-h-4",topic:"linalg",diff:"h",q:"Using Cramer's rule (or any method), solve \\(x + y = 5\\), \\(2x - y = 1\\).",choices:["\\(x = 2,\\; y = 3\\)","\\(x = 3,\\; y = 2\\)","\\(x = 1,\\; y = 4\\)","\\(x = 4,\\; y = 1\\)"],ans:0,fb:"Adding the equations: \\(3x = 6\\), so \\(x = 2\\), and \\(y = 5 - 2 = 3\\)."},
+{id:"mat-h-5",topic:"linalg",diff:"h",q:"If \\(A\\) is a \\(2 \\times 2\\) matrix with \\(\\det(A) = 3\\), what is \\(\\det(2A)\\)?",choices:["12","6","3","24"],ans:0,fb:"Scaling an \\(n \\times n\\) matrix by \\(c\\) scales the determinant by \\(c^n\\): \\(2^2 \\cdot 3 = 12\\)."},
+{id:"mat-h-6",topic:"linalg",diff:"h",q:"Are the vectors \\(\\begin{pmatrix}1\\\\2\\end{pmatrix}\\) and \\(\\begin{pmatrix}2\\\\4\\end{pmatrix}\\) linearly independent?",choices:["No — one is a multiple of the other","Yes — they point in different directions","Yes — they are orthogonal","Only if normalized"],ans:0,fb:"\\((2,4) = 2 \\cdot (1,2)\\), so they are linearly dependent: one is a scalar multiple of the other."},
+{id:"mat-h-7",topic:"linalg",diff:"h",q:"The inverse of \\(A = \\begin{pmatrix}1 & 2\\\\3 & 4\\end{pmatrix}\\) has what entry in its top-left position?",choices:["\\(-2\\)","2","1","\\(-1/2\\)"],ans:0,fb:"\\(A^{-1} = \\frac{1}{\\det A}\\begin{pmatrix}d & -b\\\\-c & a\\end{pmatrix} = \\frac{1}{-2}\\begin{pmatrix}4 & -2\\\\-3 & 1\\end{pmatrix}\\), so the top-left entry is \\(4/(-2) = -2\\)."},
+{id:"mat-h-8",topic:"linalg",diff:"h",q:"What are the eigenvalues of \\(\\begin{pmatrix}4 & 1\\\\2 & 3\\end{pmatrix}\\)?",choices:["2 and 5","4 and 3","1 and 6","\\(-2\\) and 5"],ans:0,fb:"Characteristic equation: \\((4-\\lambda)(3-\\lambda) - 2 = \\lambda^2 - 7\\lambda + 10 = 0\\), which factors as \\((\\lambda - 2)(\\lambda - 5)\\)."},
+
+// ---- Integration & multivariable calculus ----
+{id:"int-e-1",topic:"integ",diff:"e",q:"What is \\(\\int 2x \\, dx\\)?",choices:["\\(x^2 + C\\)","\\(2x^2 + C\\)","\\(2 + C\\)","\\(\\frac{x^2}{2} + C\\)"],ans:0,fb:"The antiderivative of \\(2x\\) is \\(x^2\\) (check by differentiating: \\(\\frac{d}{dx}x^2 = 2x\\)). Don't forget \\(+C\\)."},
+{id:"int-e-2",topic:"integ",diff:"e",q:"Evaluate \\(\\int_0^1 3x^2 \\, dx\\).",choices:["1","3","\\(1/3\\)","0"],ans:0,fb:"The antiderivative is \\(x^3\\). Evaluate: \\(1^3 - 0^3 = 1\\)."},
+{id:"int-e-3",topic:"integ",diff:"e",q:"What is \\(\\int e^x \\, dx\\)?",choices:["\\(e^x + C\\)","\\(x e^x + C\\)","\\(\\frac{e^{x+1}}{x+1} + C\\)","\\(\\ln(x) + C\\)"],ans:0,fb:"\\(e^x\\) is its own antiderivative, just as it is its own derivative."},
+{id:"int-e-4",topic:"integ",diff:"e",q:"What is \\(\\dfrac{\\partial}{\\partial x}\\big(x^2 y\\big)\\)?",choices:["\\(2xy\\)","\\(x^2\\)","\\(2x\\)","\\(x^2 + 2xy\\)"],ans:0,fb:"Treat \\(y\\) as a constant when taking a partial derivative with respect to \\(x\\): \\(\\frac{\\partial}{\\partial x} x^2 y = 2xy\\)."},
+{id:"int-e-5",topic:"integ",diff:"e",q:"What is \\(\\int \\dfrac{1}{x} \\, dx\\) for \\(x > 0\\)?",choices:["\\(\\ln(x) + C\\)","\\(-\\dfrac{1}{x^2} + C\\)","\\(\\dfrac{1}{x^2} + C\\)","\\(e^x + C\\)"],ans:0,fb:"The antiderivative of \\(1/x\\) is \\(\\ln|x|\\) — the power rule doesn't apply when the exponent is \\(-1\\)."},
+{id:"int-e-6",topic:"integ",diff:"e",q:"Evaluate \\(\\int_0^2 4 \\, dx\\).",choices:["8","4","2","16"],ans:0,fb:"Integrating a constant gives constant times length of interval: \\(4 \\times (2 - 0) = 8\\). Geometrically, it's the area of a \\(4 \\times 2\\) rectangle."},
+{id:"int-e-7",topic:"integ",diff:"e",q:"What is \\(\\dfrac{\\partial}{\\partial y}\\,(3x + 2y)\\)?",choices:["2","3","5","\\(2y\\)"],ans:0,fb:"Treat \\(x\\) as constant: the derivative of \\(3x\\) is 0 and of \\(2y\\) is 2."},
+{id:"int-e-8",topic:"integ",diff:"e",q:"What is \\(\\int \\cos(x)\\, dx\\)?",choices:["\\(\\sin(x) + C\\)","\\(-\\sin(x) + C\\)","\\(\\cos(x) + C\\)","\\(-\\cos(x) + C\\)"],ans:0,fb:"The antiderivative of \\(\\cos(x)\\) is \\(\\sin(x)\\), since \\(\\frac{d}{dx}\\sin(x) = \\cos(x)\\)."},
+{id:"int-m-1",topic:"integ",diff:"m",q:"Evaluate \\(\\int_0^1 (2x + 1) \\, dx\\).",choices:["2","1","3","\\(3/2\\)"],ans:0,fb:"Antiderivative: \\(x^2 + x\\). Evaluate at the endpoints: \\((1 + 1) - 0 = 2\\)."},
+{id:"int-m-2",topic:"integ",diff:"m",q:"Evaluate \\(\\int_1^e \\dfrac{1}{x} \\, dx\\).",choices:["1","\\(e\\)","\\(e - 1\\)","0"],ans:0,fb:"\\(\\ln(e) - \\ln(1) = 1 - 0 = 1\\)."},
+{id:"int-m-3",topic:"integ",diff:"m",q:"For \\(f(x, y) = x^2 y^3\\), what is the cross-partial \\(\\dfrac{\\partial^2 f}{\\partial x \\, \\partial y}\\)?",choices:["\\(6xy^2\\)","\\(2xy^3\\)","\\(3x^2y^2\\)","\\(6y^2\\)"],ans:0,fb:"First \\(\\frac{\\partial f}{\\partial y} = 3x^2y^2\\), then differentiate with respect to \\(x\\): \\(6xy^2\\). (Young's theorem: order doesn't matter.)"},
+{id:"int-m-4",topic:"integ",diff:"m",q:"Evaluate \\(\\int_0^{\\infty} e^{-x} \\, dx\\).",choices:["1","\\(\\infty\\)","0","\\(e\\)"],ans:0,fb:"The antiderivative is \\(-e^{-x}\\); as \\(x \\to \\infty\\), \\(e^{-x} \\to 0\\), so the integral is \\(0 - (-1) = 1\\)."},
+{id:"int-m-5",topic:"integ",diff:"m",q:"What is the area under \\(y = x\\) from \\(x = 0\\) to \\(x = 4\\)?",choices:["8","16","4","2"],ans:0,fb:"\\(\\int_0^4 x \\, dx = \\frac{x^2}{2}\\Big|_0^4 = 8\\). Geometrically: a triangle with base 4 and height 4 has area \\(\\frac{1}{2}(4)(4) = 8\\)."},
+{id:"int-m-6",topic:"integ",diff:"m",q:"What is the gradient \\(\\nabla f\\) of \\(f(x,y) = x^2 + y^2\\) at the point \\((1, 2)\\)?",choices:["\\((2, 4)\\)","\\((1, 2)\\)","\\((2, 2)\\)","\\((4, 2)\\)"],ans:0,fb:"\\(\\nabla f = (2x, 2y)\\). At \\((1,2)\\): \\((2, 4)\\)."},
+{id:"int-m-7",topic:"integ",diff:"m",q:"Using substitution, what is \\(\\int 2x (x^2 + 1)^3 \\, dx\\)?",choices:["\\(\\dfrac{(x^2+1)^4}{4} + C\\)","\\((x^2+1)^4 + C\\)","\\(\\dfrac{(x^2+1)^2}{2} + C\\)","\\(2x(x^2+1)^4 + C\\)"],ans:0,fb:"Let \\(u = x^2 + 1\\), so \\(du = 2x\\,dx\\). The integral becomes \\(\\int u^3 du = \\frac{u^4}{4} + C\\)."},
+{id:"int-m-8",topic:"integ",diff:"m",q:"Evaluate \\(\\int_1^2 (3x^2 - 2x) \\, dx\\).",choices:["4","3","5","6"],ans:0,fb:"Antiderivative: \\(x^3 - x^2\\). Evaluate: \\((8 - 4) - (1 - 1) = 4\\)."},
+{id:"int-h-1",topic:"integ",diff:"h",q:"Evaluate \\(\\int_0^1 x e^{x^2} \\, dx\\).",choices:["\\(\\dfrac{e - 1}{2}\\)","\\(e - 1\\)","\\(\\dfrac{e}{2}\\)","\\(\\dfrac{1}{2}\\)"],ans:0,fb:"Substitute \\(u = x^2\\), \\(du = 2x\\,dx\\): \\(\\frac{1}{2}\\int_0^1 e^u du = \\frac{1}{2}(e - 1)\\)."},
+{id:"int-h-2",topic:"integ",diff:"h",q:"Find the critical point of \\(f(x, y) = x^2 + y^2 - 4x + 6y\\).",choices:["\\((2, -3)\\)","\\((-2, 3)\\)","\\((4, -6)\\)","\\((0, 0)\\)"],ans:0,fb:"Set both partials to zero: \\(f_x = 2x - 4 = 0\\) gives \\(x = 2\\); \\(f_y = 2y + 6 = 0\\) gives \\(y = -3\\)."},
+{id:"int-h-3",topic:"integ",diff:"h",q:"Evaluate \\(\\int_0^{\\pi} \\sin(x) \\, dx\\).",choices:["2","0","1","\\(\\pi\\)"],ans:0,fb:"Antiderivative: \\(-\\cos(x)\\). Evaluate: \\(-\\cos(\\pi) - (-\\cos(0)) = 1 + 1 = 2\\)."},
+{id:"int-h-4",topic:"integ",diff:"h",q:"Evaluate the double integral \\(\\int_0^1 \\int_0^1 xy \\, dy \\, dx\\).",choices:["\\(1/4\\)","\\(1/2\\)","1","\\(1/8\\)"],ans:0,fb:"Inner integral: \\(\\int_0^1 xy\\,dy = \\frac{x}{2}\\). Outer: \\(\\int_0^1 \\frac{x}{2}dx = \\frac{1}{4}\\)."},
+{id:"int-h-5",topic:"integ",diff:"h",q:"The function \\(f(x,y) = x^2 + 3y^2\\) has a critical point at the origin. It is a…",choices:["local minimum","local maximum","saddle point","point of inflection"],ans:0,fb:"The Hessian is \\(\\begin{pmatrix}2 & 0\\\\0 & 6\\end{pmatrix}\\), which is positive definite (both eigenvalues positive), so the origin is a local (in fact global) minimum."},
+{id:"int-h-6",topic:"integ",diff:"h",q:"Using integration by parts, what is \\(\\int x e^x \\, dx\\)?",choices:["\\((x - 1)e^x + C\\)","\\(x e^x + C\\)","\\(\\dfrac{x^2}{2} e^x + C\\)","\\((x + 1)e^x + C\\)"],ans:0,fb:"By parts with \\(u = x\\), \\(dv = e^x dx\\): \\(x e^x - \\int e^x dx = x e^x - e^x = (x-1)e^x + C\\)."},
+{id:"int-h-7",topic:"integ",diff:"h",q:"Maximize \\(xy\\) subject to \\(x + y = 10\\) (with \\(x, y \\ge 0\\)). What is the maximum value?",choices:["25","24","50","100"],ans:0,fb:"Substitute \\(y = 10 - x\\): maximize \\(x(10-x)\\). The derivative \\(10 - 2x = 0\\) gives \\(x = 5\\), \\(y = 5\\), so \\(xy = 25\\)."},
+{id:"int-h-8",topic:"integ",diff:"h",q:"What is \\(\\dfrac{\\partial}{\\partial x}\\, e^{xy}\\)?",choices:["\\(y e^{xy}\\)","\\(x e^{xy}\\)","\\(e^{xy}\\)","\\(xy e^{xy - 1}\\)"],ans:0,fb:"Chain rule, treating \\(y\\) as a constant: the derivative of \\(xy\\) with respect to \\(x\\) is \\(y\\), so we get \\(y e^{xy}\\)."},
+
+// ---- Probability ----
+{id:"prb-e-1",topic:"prob",diff:"e",q:"What is the probability of rolling a 4 on a fair six-sided die?",choices:["\\(1/6\\)","\\(1/4\\)","\\(1/2\\)","\\(4/6\\)"],ans:0,fb:"There are 6 equally likely outcomes and one of them is a 4, so the probability is \\(1/6\\)."},
+{id:"prb-e-2",topic:"prob",diff:"e",q:"A fair coin is flipped twice. What is the probability of getting heads both times?",choices:["\\(1/4\\)","\\(1/2\\)","\\(1/3\\)","\\(3/4\\)"],ans:0,fb:"The flips are independent: \\(P(HH) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}\\)."},
+{id:"prb-e-3",topic:"prob",diff:"e",q:"If \\(P(A) = 0.3\\), what is \\(P(A^c)\\), the probability of the complement of \\(A\\)?",choices:["0.7","0.3","0","1.3"],ans:0,fb:"Complement rule: \\(P(A^c) = 1 - P(A) = 1 - 0.3 = 0.7\\)."},
+{id:"prb-e-4",topic:"prob",diff:"e",q:"The probabilities of all outcomes in a sample space must sum to…",choices:["1","0","0.5","any positive number"],ans:0,fb:"This is one of the axioms of probability: the total probability of the sample space is 1."},
+{id:"prb-e-5",topic:"prob",diff:"e",q:"What is the probability of drawing a heart from a standard 52-card deck?",choices:["\\(1/4\\)","\\(1/13\\)","\\(1/52\\)","\\(1/2\\)"],ans:0,fb:"There are 13 hearts out of 52 cards: \\(13/52 = 1/4\\)."},
+{id:"prb-e-6",topic:"prob",diff:"e",q:"What is the probability of rolling an even number on a fair six-sided die?",choices:["\\(1/2\\)","\\(1/3\\)","\\(1/6\\)","\\(2/3\\)"],ans:0,fb:"The even outcomes are 2, 4, 6 — three of six equally likely outcomes: \\(3/6 = 1/2\\)."},
+{id:"prb-e-7",topic:"prob",diff:"e",q:"A valid probability must always be…",choices:["between 0 and 1 inclusive","greater than 0","less than 1","a fraction with denominator 100"],ans:0,fb:"Probabilities range from 0 (impossible) to 1 (certain), inclusive."},
+{id:"prb-e-8",topic:"prob",diff:"e",q:"If \\(A\\) and \\(B\\) are independent events, then \\(P(A \\cap B) =\\) ?",choices:["\\(P(A)\\,P(B)\\)","\\(P(A) + P(B)\\)","\\(P(A) - P(B)\\)","0"],ans:0,fb:"Independence means the probability that both occur is the product of the individual probabilities."},
+{id:"prb-m-1",topic:"prob",diff:"m",q:"Two fair dice are rolled. What is the probability that the sum is 7?",choices:["\\(1/6\\)","\\(1/12\\)","\\(7/36\\)","\\(1/9\\)"],ans:0,fb:"Of the 36 equally likely outcomes, six sum to 7: (1,6),(2,5),(3,4),(4,3),(5,2),(6,1). So \\(6/36 = 1/6\\)."},
+{id:"prb-m-2",topic:"prob",diff:"m",q:"What is the expected value of one roll of a fair six-sided die?",choices:["3.5","3","4","3.6"],ans:0,fb:"\\(E[X] = \\frac{1+2+3+4+5+6}{6} = \\frac{21}{6} = 3.5\\)."},
+{id:"prb-m-3",topic:"prob",diff:"m",q:"If \\(P(A) = 0.5\\), \\(P(B) = 0.3\\), and \\(P(A \\cap B) = 0.2\\), what is \\(P(A \\cup B)\\)?",choices:["0.6","0.8","0.15","1.0"],ans:0,fb:"Inclusion–exclusion: \\(P(A \\cup B) = P(A) + P(B) - P(A \\cap B) = 0.5 + 0.3 - 0.2 = 0.6\\)."},
+{id:"prb-m-4",topic:"prob",diff:"m",q:"A fair coin is flipped 3 times. What is the probability of exactly 2 heads?",choices:["\\(3/8\\)","\\(1/4\\)","\\(1/2\\)","\\(2/3\\)"],ans:0,fb:"There are \\(\\binom{3}{2} = 3\\) sequences with exactly 2 heads (HHT, HTH, THH) out of \\(2^3 = 8\\)."},
+{id:"prb-m-5",topic:"prob",diff:"m",q:"If \\(P(A \\cap B) = 0.2\\) and \\(P(B) = 0.5\\), what is the conditional probability \\(P(A \\mid B)\\)?",choices:["0.4","0.1","0.7","0.25"],ans:0,fb:"\\(P(A \\mid B) = \\dfrac{P(A \\cap B)}{P(B)} = \\dfrac{0.2}{0.5} = 0.4\\)."},
+{id:"prb-m-6",topic:"prob",diff:"m",q:"A discrete random variable takes values 1, 2, 3 with probabilities 0.2, 0.5, 0.3. What is \\(E[X]\\)?",choices:["2.1","2.0","2.3","1.9"],ans:0,fb:"\\(E[X] = 1(0.2) + 2(0.5) + 3(0.3) = 0.2 + 1.0 + 0.9 = 2.1\\)."},
+{id:"prb-m-7",topic:"prob",diff:"m",q:"Which formula gives the variance of a random variable \\(X\\)?",choices:["\\(E[X^2] - (E[X])^2\\)","\\((E[X])^2 - E[X^2]\\)","\\(E[X] - E[X^2]\\)","\\(\\sqrt{E[X^2]}\\)"],ans:0,fb:"\\(\\text{Var}(X) = E[(X - \\mu)^2] = E[X^2] - (E[X])^2\\)."},
+{id:"prb-m-8",topic:"prob",diff:"m",q:"A bag has 3 red and 2 blue marbles. Two are drawn without replacement. What is \\(P(\\text{both red})\\)?",choices:["\\(3/10\\)","\\(9/25\\)","\\(2/5\\)","\\(1/2\\)"],ans:0,fb:"\\(P = \\frac{3}{5} \\times \\frac{2}{4} = \\frac{6}{20} = \\frac{3}{10}\\). The second draw's probability changes because the first marble is not replaced."},
+{id:"prb-h-1",topic:"prob",diff:"h",q:"A disease affects 1% of a population. A test has 90% sensitivity (true positive rate) and a 5% false positive rate. If someone tests positive, what is the approximate probability they have the disease?",choices:["About 15%","About 90%","About 85%","About 50%"],ans:0,fb:"Bayes' rule: \\(P(D\\mid +) = \\frac{0.01 \\times 0.9}{0.01 \\times 0.9 + 0.99 \\times 0.05} = \\frac{0.009}{0.0585} \\approx 0.154\\). Base rates matter enormously."},
+{id:"prb-h-2",topic:"prob",diff:"h",q:"Two cards are drawn without replacement from a standard deck. What is \\(P(\\text{both aces})\\)?",choices:["\\(1/221\\)","\\(1/169\\)","\\(1/26\\)","\\(2/52\\)"],ans:0,fb:"\\(P = \\frac{4}{52} \\times \\frac{3}{51} = \\frac{12}{2652} = \\frac{1}{221}\\)."},
+{id:"prb-h-3",topic:"prob",diff:"h",q:"If \\(X \\sim \\text{Uniform}(0, 10)\\), what is \\(P(X > 7)\\)?",choices:["0.3","0.7","0.07","\\(3/7\\)"],ans:0,fb:"For a uniform distribution, probability is proportional to interval length: \\(\\frac{10 - 7}{10 - 0} = 0.3\\)."},
+{id:"prb-h-4",topic:"prob",diff:"h",q:"If \\(X\\) is normally distributed with mean \\(\\mu\\) and variance \\(\\sigma^2\\), what is \\(P(X < \\mu)\\)?",choices:["0.5","It depends on \\(\\sigma\\)","0.68","0.95"],ans:0,fb:"The normal distribution is symmetric about its mean, so exactly half the probability lies below \\(\\mu\\), regardless of \\(\\sigma\\)."},
+{id:"prb-h-5",topic:"prob",diff:"h",q:"If \\(X \\sim \\text{Poisson}(\\lambda = 2)\\), what is \\(P(X = 0)\\)?",choices:["\\(e^{-2}\\)","\\(2e^{-2}\\)","0","\\(1 - e^{-2}\\)"],ans:0,fb:"\\(P(X = k) = \\frac{\\lambda^k e^{-\\lambda}}{k!}\\). With \\(k = 0\\): \\(\\frac{2^0 e^{-2}}{0!} = e^{-2} \\approx 0.135\\)."},
+{id:"prb-h-6",topic:"prob",diff:"h",q:"What is the variance of one roll of a fair six-sided die?",choices:["\\(35/12 \\approx 2.92\\)","3.5","\\(91/6\\)","2.5"],ans:0,fb:"\\(E[X^2] = \\frac{1+4+9+16+25+36}{6} = \\frac{91}{6}\\); \\(\\text{Var} = \\frac{91}{6} - (3.5)^2 = \\frac{91}{6} - \\frac{49}{4} = \\frac{35}{12}\\)."},
+{id:"prb-h-7",topic:"prob",diff:"h",q:"A fair die is rolled 3 times. What is the probability of getting at least one six?",choices:["\\(91/216\\)","\\(1/2\\)","\\(125/216\\)","\\(3/6\\)"],ans:0,fb:"Use the complement: \\(P(\\text{no six}) = (5/6)^3 = 125/216\\), so \\(P(\\text{at least one}) = 1 - 125/216 = 91/216 \\approx 0.42\\)."},
+{id:"prb-h-8",topic:"prob",diff:"h",q:"Which statement about covariance and independence is TRUE?",choices:["Independence implies zero covariance, but zero covariance does not imply independence","Zero covariance implies independence","Independent variables always have positive covariance","Covariance and independence are unrelated"],ans:0,fb:"If \\(X\\) and \\(Y\\) are independent, \\(\\text{Cov}(X,Y) = 0\\). The converse fails: e.g., \\(Y = X^2\\) with \\(X\\) symmetric about 0 has zero covariance but is clearly dependent."},
+
+// ---- Statistical inference ----
+{id:"sta-e-1",topic:"stats",diff:"e",q:"What is the mean of the values 2, 4, 6, 8?",choices:["5","4","6","20"],ans:0,fb:"Sum divided by count: \\((2+4+6+8)/4 = 20/4 = 5\\)."},
+{id:"sta-e-2",topic:"stats",diff:"e",q:"What is the median of 1, 3, 5, 7, 9?",choices:["5","3","7","4.5"],ans:0,fb:"The median is the middle value when the data are ordered — here the third of five values, which is 5."},
+{id:"sta-e-3",topic:"stats",diff:"e",q:"As the sample size \\(n\\) increases, the standard error of the sample mean…",choices:["decreases","increases","stays the same","becomes negative"],ans:0,fb:"SE \\(= \\sigma/\\sqrt{n}\\): larger samples give more precise estimates, so the standard error shrinks."},
+{id:"sta-e-4",topic:"stats",diff:"e",q:"In hypothesis testing, the null hypothesis typically represents…",choices:["no effect or no difference","the researcher's preferred theory","a proven fact","the sample mean"],ans:0,fb:"The null hypothesis \\(H_0\\) is the default claim of no effect/difference, which the data may or may not give us reason to reject."},
+{id:"sta-e-5",topic:"stats",diff:"e",q:"What is the mode of the data 2, 2, 3, 4?",choices:["2","3","2.75","4"],ans:0,fb:"The mode is the most frequent value; 2 appears twice."},
+{id:"sta-e-6",topic:"stats",diff:"e",q:"A p-value of 0.03 with significance level \\(\\alpha = 0.05\\) means we…",choices:["reject the null hypothesis","accept the null hypothesis as true","need a larger sample","made a Type II error"],ans:0,fb:"Since \\(p = 0.03 < \\alpha = 0.05\\), the result is statistically significant and we reject \\(H_0\\). (Note: this doesn't prove the alternative is true.)"},
+{id:"sta-e-7",topic:"stats",diff:"e",q:"A number that summarizes a sample (like \\(\\bar{x}\\)) is called a ______, while a number describing a population (like \\(\\mu\\)) is a ______.",choices:["statistic; parameter","parameter; statistic","variable; constant","estimate; error"],ans:0,fb:"Statistics describe samples; parameters describe populations. We use statistics to estimate parameters."},
+{id:"sta-e-8",topic:"stats",diff:"e",q:"The standard deviation is…",choices:["the square root of the variance","the square of the variance","the same as the mean","always larger than the variance"],ans:0,fb:"\\(\\sigma = \\sqrt{\\text{Var}(X)}\\). It has the same units as the data, which makes it easier to interpret than variance."},
+{id:"sta-m-1",topic:"stats",diff:"m",q:"If \\(\\sigma = 10\\) and \\(n = 25\\), what is the standard error of the sample mean?",choices:["2","0.4","10","2.5"],ans:0,fb:"SE \\(= \\sigma/\\sqrt{n} = 10/\\sqrt{25} = 10/5 = 2\\)."},
+{id:"sta-m-2",topic:"stats",diff:"m",q:"A 95% confidence interval for a mean (with known \\(\\sigma\\), large \\(n\\)) uses which critical value?",choices:["\\(z \\approx 1.96\\)","\\(z \\approx 1.64\\)","\\(z = 2.58\\)","\\(z = 1\\)"],ans:0,fb:"95% of the standard normal distribution lies within \\(\\pm 1.96\\) standard deviations of 0."},
+{id:"sta-m-3",topic:"stats",diff:"m",q:"A Type I error occurs when we…",choices:["reject a true null hypothesis","fail to reject a false null hypothesis","use the wrong test statistic","choose too small a sample"],ans:0,fb:"Type I = false positive: rejecting \\(H_0\\) when it is actually true. Its probability is the significance level \\(\\alpha\\)."},
+{id:"sta-m-4",topic:"stats",diff:"m",q:"The Central Limit Theorem says that as \\(n\\) grows, the sampling distribution of the sample mean approaches…",choices:["a normal distribution","the population distribution","a uniform distribution","a t-distribution"],ans:0,fb:"Regardless of the population's shape (with finite variance), the distribution of \\(\\bar{X}\\) becomes approximately normal as \\(n\\) increases."},
+{id:"sta-m-5",topic:"stats",diff:"m",q:"A sample mean is 50 with standard error 2. What is the approximate 95% confidence interval?",choices:["\\((46.1,\\; 53.9)\\)","\\((48,\\; 52)\\)","\\((44,\\; 56)\\)","\\((49,\\; 51)\\)"],ans:0,fb:"CI \\(= 50 \\pm 1.96 \\times 2 = 50 \\pm 3.92\\), i.e. about \\((46.1, 53.9)\\)."},
+{id:"sta-m-6",topic:"stats",diff:"m",q:"The p-value is the probability of…",choices:["observing data at least as extreme as ours, assuming the null hypothesis is true","the null hypothesis being true","the alternative hypothesis being true","making a Type II error"],ans:0,fb:"The p-value conditions on \\(H_0\\) being true — it is NOT the probability that \\(H_0\\) is true. This is one of the most common misinterpretations in statistics."},
+{id:"sta-m-7",topic:"stats",diff:"m",q:"What is the sample variance (using \\(n - 1\\)) of the data 2, 4, 6?",choices:["4","8/3","2","16"],ans:0,fb:"Mean = 4. Squared deviations: \\(4 + 0 + 4 = 8\\). Divide by \\(n - 1 = 2\\): variance = 4."},
+{id:"sta-m-8",topic:"stats",diff:"m",q:"An estimator is unbiased when…",choices:["its expected value equals the true parameter","it always equals the true parameter","its variance is zero","it comes from a large sample"],ans:0,fb:"Unbiasedness means \\(E[\\hat{\\theta}] = \\theta\\): on average across samples, the estimator hits the true value."},
+{id:"sta-h-1",topic:"stats",diff:"h",q:"A sample of \\(n = 36\\) has mean \\(\\bar{x} = 105\\). Under \\(H_0: \\mu = 100\\) with \\(\\sigma = 15\\), what is the z-statistic?",choices:["2","0.33","5","1.5"],ans:0,fb:"\\(z = \\dfrac{\\bar{x} - \\mu_0}{\\sigma/\\sqrt{n}} = \\dfrac{105 - 100}{15/6} = \\dfrac{5}{2.5} = 2\\)."},
+{id:"sta-h-2",topic:"stats",diff:"h",q:"The power of a hypothesis test is…",choices:["the probability of rejecting the null when it is false","the probability of a Type I error","\\(1 - \\alpha\\)","the p-value"],ans:0,fb:"Power \\(= 1 - \\beta\\), where \\(\\beta\\) is the probability of a Type II error (failing to reject a false null)."},
+{id:"sta-h-3",topic:"stats",diff:"h",q:"When should you use a t-distribution instead of the standard normal for inference about a mean?",choices:["When the population standard deviation is unknown, especially with small samples","When the sample is very large","When the data are skewed","Whenever the mean is negative"],ans:0,fb:"The t-distribution accounts for the extra uncertainty from estimating \\(\\sigma\\) with \\(s\\). With large \\(n\\), t and z are nearly identical."},
+{id:"sta-h-4",topic:"stats",diff:"h",q:"For i.i.d. Bernoulli(\\(p\\)) data, the maximum likelihood estimator of \\(p\\) is…",choices:["the sample proportion of successes","always 0.5","the sample variance","\\(1/n\\)"],ans:0,fb:"Maximizing the Bernoulli likelihood \\(p^{\\sum x_i}(1-p)^{n - \\sum x_i}\\) gives \\(\\hat{p} = \\frac{1}{n}\\sum x_i\\), the sample proportion."},
+{id:"sta-h-5",topic:"stats",diff:"h",q:"Which is the correct interpretation of a 95% confidence interval?",choices:["If we repeated the sampling procedure many times, about 95% of the intervals built this way would contain the true parameter","There is a 95% probability the true parameter is in this particular interval","95% of the data fall inside the interval","The sample mean is in the interval 95% of the time"],ans:0,fb:"The confidence level describes the long-run performance of the procedure. Once computed, a particular (frequentist) interval either contains the parameter or it doesn't."},
+{id:"sta-h-6",topic:"stats",diff:"h",q:"In Bayesian inference, the posterior distribution is proportional to…",choices:["the likelihood times the prior","the prior divided by the likelihood","the p-value times the prior","the likelihood alone"],ans:0,fb:"Bayes' theorem: \\(p(\\theta \\mid x) \\propto p(x \\mid \\theta)\\, p(\\theta)\\) — posterior \\(\\propto\\) likelihood \\(\\times\\) prior."},
+{id:"sta-h-7",topic:"stats",diff:"h",q:"With \\(\\sigma = 10\\), roughly what sample size is needed so a 95% confidence interval for the mean has margin of error 2?",choices:["About 97","About 25","About 10","About 385"],ans:0,fb:"Solve \\(1.96\\,\\sigma/\\sqrt{n} = 2\\): \\(\\sqrt{n} = 1.96(10)/2 = 9.8\\), so \\(n = 96.04\\) — round up to 97."},
+{id:"sta-h-8",topic:"stats",diff:"h",q:"A Type II error occurs when we…",choices:["fail to reject a null hypothesis that is actually false","reject a null hypothesis that is actually true","compute the wrong p-value","use a one-sided test"],ans:0,fb:"Type II = false negative: the effect is real but the test misses it. Its probability is \\(\\beta\\), and power \\(= 1 - \\beta\\)."},
+
+];
+
+/* ================= STATE ================= */
+let BANK = EMBEDDED_BANK.slice();
+let currentQuiz = null;   // [{q, order[], correctPos}]
+let submitted = false;
+let editingId = null;
+let dirty = false;
+
+/* ================= UTILITIES ================= */
+const $ = id => document.getElementById(id);
+function shuffle(a) {
+  a = a.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+function typeset(el) {
+  if (window.renderMathInElement) {
+    try {
+      renderMathInElement(el, { delimiters: [
+        { left: "\\(", right: "\\)", display: false },
+        { left: "$$", right: "$$", display: true }
+      ], throwOnError: false });
+    } catch (e) {}
+  }
+}
+async function sha256(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+/* ================= QUIZ GENERATION ================= */
+// Largest-remainder allocation of n questions across e/m/h according to weights
+function allocate(n, weights) {
+  const keys = ["e", "m", "h"];
+  const raw = keys.map(k => n * weights[k]);
+  const counts = raw.map(Math.floor);
+  let left = n - counts.reduce((a, b) => a + b, 0);
+  const order = keys.map((k, i) => [raw[i] - counts[i], i]).sort((a, b) => b[0] - a[0]);
+  for (let i = 0; left > 0; i = (i + 1) % 3) { counts[order[i][1]]++; left--; }
+  return { e: counts[0], m: counts[1], h: counts[2] };
+}
+
+// Pick `need` questions of one difficulty from pool; round-robin across topics
+// so practice tests cover all areas.
+function pickFromBucket(pool, need) {
+  const byTopic = {};
+  pool.forEach(q => { (byTopic[q.topic] = byTopic[q.topic] || []).push(q); });
+  const topicLists = shuffle(Object.values(byTopic)).map(shuffle);
+  const picked = [];
+  let added = true;
+  while (picked.length < need && added) {
+    added = false;
+    for (const list of topicLists) {
+      if (picked.length >= need) break;
+      if (list.length) { picked.push(list.pop()); added = true; }
+    }
+  }
+  return picked;
+}
+
+function generateQuestions(topic, difficulty) {
+  const n = topic === "practice" ? PRACTICE_N : TOPIC_N;
+  const pool = topic === "practice" ? BANK.slice() : BANK.filter(q => q.topic === topic);
+  const want = allocate(n, WEIGHTS[difficulty]);
+  let picked = [];
+  const leftovers = [];
+  for (const d of ["e", "m", "h"]) {
+    const bucket = pool.filter(q => q.diff === d);
+    const got = pickFromBucket(bucket, want[d]);
+    picked = picked.concat(got);
+    const gotIds = new Set(got.map(q => q.id));
+    bucket.forEach(q => { if (!gotIds.has(q.id)) leftovers.push(q); });
+  }
+  // top up from leftovers if some bucket ran short
+  const extra = shuffle(leftovers);
+  while (picked.length < n && extra.length) picked.push(extra.pop());
+  return shuffle(picked).map(q => {
+    const order = shuffle([0, 1, 2, 3].slice(0, q.choices.length));
+    return { q, order, correctPos: order.indexOf(q.ans), selected: null };
+  });
+}
+
+/* ================= STUDENT VIEW ================= */
+function fillTopicSelect(sel, includePractice) {
+  sel.innerHTML = "";
+  if (includePractice) {
+    const o = document.createElement("option");
+    o.value = "practice"; o.textContent = "Practice test (25 questions, all topics)";
+    sel.appendChild(o);
+  }
+  for (const [k, label] of Object.entries(TOPICS)) {
+    const o = document.createElement("option");
+    o.value = k; o.textContent = label + " (10 questions)";
+    sel.appendChild(o);
+  }
+}
+
+function renderQuiz() {
+  const area = $("quizArea");
+  area.innerHTML = "";
+  submitted = false;
+  currentQuiz.forEach((item, qi) => {
+    const card = document.createElement("div");
+    card.className = "card question-card";
+    let html = `<div class="qnum">Question ${qi + 1} of ${currentQuiz.length}` +
+      (item.showTopic ? `<span class="chip">${esc(TOPICS[item.q.topic])}</span>` : "") + `</div>` +
+      `<div class="qtext">${item.q.q}</div>`;
+    item.order.forEach((choiceIdx, pos) => {
+      html += `<label class="choice" data-q="${qi}" data-pos="${pos}">
+        <input type="radio" name="q${qi}" value="${pos}">
+        <span>${item.q.choices[choiceIdx]}</span></label>`;
+    });
+    html += `<div class="fb-slot"></div>`;
+    card.innerHTML = html;
+    area.appendChild(card);
+  });
+  const submitCard = document.createElement("div");
+  submitCard.className = "card";
+  submitCard.style.textAlign = "center";
+  submitCard.innerHTML = `<button class="btn" id="submitBtn">Submit answers</button>`;
+  area.appendChild(submitCard);
+  $("submitBtn").addEventListener("click", grade);
+  typeset(area);
+  try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (e) {}
+}
+
+function grade() {
+  if (submitted) return;
+  currentQuiz.forEach((item, qi) => {
+    const sel = document.querySelector(`input[name=q${qi}]:checked`);
+    item.selected = sel ? parseInt(sel.value, 10) : null;
+  });
+  const unanswered = currentQuiz.filter(i => i.selected === null).length;
+  if (unanswered > 0 && !confirm(`You left ${unanswered} question(s) unanswered. Submit anyway?`)) return;
+  submitted = true;
+  let score = 0;
+  const area = $("quizArea");
+  const cards = area.querySelectorAll(".question-card");
+  currentQuiz.forEach((item, qi) => {
+    const card = cards[qi];
+    const right = item.selected === item.correctPos;
+    if (right) score++;
+    card.querySelectorAll(".choice").forEach((lab, pos) => {
+      const input = lab.querySelector("input");
+      input.disabled = true;
+      if (pos === item.correctPos) lab.classList.add("correct-choice");
+      else if (pos === item.selected) lab.classList.add("wrong-choice");
+    });
+    const slot = card.querySelector(".fb-slot");
+    if (right) {
+      slot.innerHTML = `<div class="feedback good">✓ Correct.</div>`;
+    } else {
+      const correctText = item.q.choices[item.q.ans];
+      const picked = item.selected === null
+        ? `<b>No answer selected.</b>`
+        : `Your answer was incorrect.`;
+      slot.innerHTML = `<div class="feedback ${item.selected === null ? "none" : "bad"}">
+        ${picked} The correct answer is <b>${correctText}</b>.<br>${item.q.fb}</div>`;
+    }
+  });
+  const pct = Math.round(100 * score / currentQuiz.length);
+  const msg = pct >= 90 ? "Excellent — you're in great shape on this material."
+    : pct >= 70 ? "Solid work — review the feedback below to close the gaps."
+    : pct >= 50 ? "A good start — work back through the explanations below and try another quiz."
+    : "This topic needs more review — read the feedback below, revisit the course notes, and try again.";
+  const scoreCard = document.createElement("div");
+  scoreCard.className = "card score-card";
+  scoreCard.innerHTML = `<div class="qnum">Your result</div>
+    <div class="score-big">${score} / ${currentQuiz.length} (${pct}%)</div>
+    <p>${msg}</p>
+    <button class="btn secondary" id="retryBtn">Generate another quiz</button>`;
+  area.prepend(scoreCard);
+  $("retryBtn").addEventListener("click", () => {
+    currentQuiz = generateQuestions($("topicSel").value, $("diffSel").value);
+    renderQuiz();
+  });
+  typeset(scoreCard);
+  if (scoreCard.scrollIntoView) scoreCard.scrollIntoView({ behavior: "smooth" });
+}
+
+/* ================= INSTRUCTOR: browse ================= */
+function renderBank() {
+  const t = $("fTopic").value, d = $("fDiff").value, s = $("fSearch").value.toLowerCase();
+  const rows = BANK.filter(q =>
+    (!t || q.topic === t) && (!d || q.diff === d) &&
+    (!s || q.q.toLowerCase().includes(s) || q.choices.some(c => String(c).toLowerCase().includes(s))));
+  $("bankCount").textContent = `${rows.length} of ${BANK.length} questions shown`;
+  const tb = $("bankTable").querySelector("tbody");
+  tb.innerHTML = "";
+  rows.forEach(q => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${esc(TOPICS[q.topic] || q.topic)}</td>
+      <td><span class="chip ${q.diff}">${DIFF_LABEL[q.diff]}</span></td>
+      <td>${q.q}</td><td>${q.choices[q.ans]}</td>
+      <td class="row-actions">
+        <button class="btn small secondary" data-edit="${esc(q.id)}">Edit</button>
+        <button class="btn small danger" data-del="${esc(q.id)}">Delete</button></td>`;
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => startEdit(b.dataset.edit)));
+  tb.querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => {
+    if (confirm("Delete this question?")) {
+      BANK = BANK.filter(q => q.id !== b.dataset.del);
+      markDirty(); renderBank();
+    }
+  }));
+  typeset(tb);
+}
+
+/* ================= INSTRUCTOR: add/edit ================= */
+function buildChoiceInputs() {
+  const wrap = $("eChoices");
+  wrap.innerHTML = "";
+  for (let i = 0; i < 4; i++) {
+    const div = document.createElement("div");
+    div.className = "choice-edit";
+    div.innerHTML = `<input type="radio" name="eCorrect" value="${i}" ${i === 0 ? "checked" : ""}>
+      <input type="text" id="eChoice${i}" placeholder="Choice ${i + 1}">`;
+    wrap.appendChild(div);
+  }
+}
+function startEdit(id) {
+  const q = BANK.find(x => x.id === id);
+  if (!q) return;
+  editingId = id;
+  $("editTitle").textContent = "Edit question";
+  $("eTopic").value = q.topic;
+  $("eDiff").value = q.diff;
+  $("eQ").value = q.q;
+  for (let i = 0; i < 4; i++) $("eChoice" + i).value = q.choices[i] || "";
+  document.querySelector(`input[name=eCorrect][value="${q.ans}"]`).checked = true;
+  $("eFb").value = q.fb;
+  switchTab("edit");
+}
+function clearEditForm() {
+  editingId = null;
+  $("editTitle").textContent = "Add a new question";
+  $("eQ").value = ""; $("eFb").value = ""; $("editErr").textContent = "";
+  for (let i = 0; i < 4; i++) $("eChoice" + i).value = "";
+  document.querySelector('input[name=eCorrect][value="0"]').checked = true;
+}
+function saveQuestion() {
+  const qText = $("eQ").value.trim();
+  const choices = [0, 1, 2, 3].map(i => $("eChoice" + i).value.trim());
+  const fb = $("eFb").value.trim();
+  const ans = parseInt(document.querySelector("input[name=eCorrect]:checked").value, 10);
+  if (!qText) { $("editErr").textContent = "Question text is required."; return; }
+  if (choices.some(c => !c)) { $("editErr").textContent = "All four choices are required."; return; }
+  const obj = {
+    id: editingId || ($("eTopic").value + "-x-" + Date.now().toString(36)),
+    topic: $("eTopic").value, diff: $("eDiff").value,
+    q: qText, choices, ans, fb: fb || "Review this topic in the course notes."
+  };
+  if (editingId) {
+    const i = BANK.findIndex(x => x.id === editingId);
+    BANK[i] = obj;
+  } else {
+    BANK.push(obj);
+  }
+  markDirty(); clearEditForm(); renderBank(); switchTab("browse");
+}
+
+/* ================= INSTRUCTOR: preview ================= */
+function renderPreview() {
+  const items = generateQuestions($("pTopic").value, $("pDiff").value);
+  const area = $("previewArea");
+  area.innerHTML = "";
+  items.forEach((item, qi) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    let html = `<div class="qnum">Question ${qi + 1}
+      <span class="chip">${esc(TOPICS[item.q.topic])}</span>
+      <span class="chip ${item.q.diff}">${DIFF_LABEL[item.q.diff]}</span></div>
+      <div class="qtext">${item.q.q}</div><ol type="a" style="margin:0 0 10px">`;
+    item.order.forEach(ci => {
+      const correct = ci === item.q.ans;
+      html += `<li style="margin:4px 0;${correct ? "color:var(--green);font-weight:bold" : ""}">
+        ${item.q.choices[ci]}${correct ? " ✓" : ""}</li>`;
+    });
+    html += `</ol><div class="feedback good">${item.q.fb}</div>`;
+    card.innerHTML = html;
+    area.appendChild(card);
+  });
+  typeset(area);
+}
+
+/* ================= INSTRUCTOR: export/import ================= */
+function markDirty() { dirty = true; $("unsavedBanner").style.display = "block"; }
+function exportBank() {
+  const blob = new Blob([JSON.stringify(BANK, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "quiz-questions.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  $("ioMsg").textContent = "Exported. Commit quiz-questions.json to the same folder as this page to publish.";
+}
+function importBank(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      const err = validateBank(data);
+      if (err) { $("ioMsg").textContent = "Upload failed: " + err; return; }
+      if ($("importMode").value === "merge") {
+        const byId = new Map(BANK.map(q => [q.id, q]));
+        let added = 0, replaced = 0;
+        data.forEach(q => { byId.has(q.id) ? replaced++ : added++; byId.set(q.id, q); });
+        BANK = Array.from(byId.values());
+        $("ioMsg").textContent = `Merged: ${added} added, ${replaced} replaced. Bank now has ${BANK.length} questions.`;
+      } else {
+        BANK = data;
+        $("ioMsg").textContent = `Bank replaced with ${data.length} uploaded questions.`;
+      }
+      markDirty(); renderBank();
+    } catch (e) {
+      $("ioMsg").textContent = "Upload failed: not valid JSON.";
+    }
+  };
+  reader.readAsText(file);
+}
+function validateBank(data) {
+  if (!Array.isArray(data) || !data.length) return "expected a non-empty array.";
+  for (const q of data) {
+    if (!q.id || !TOPICS[q.topic] || !["e", "m", "h"].includes(q.diff)) return "bad topic/diff/id on a question.";
+    if (!q.q || !Array.isArray(q.choices) || q.choices.length !== 4) return "each question needs text and 4 choices.";
+    if (typeof q.ans !== "number" || q.ans < 0 || q.ans > 3) return "bad answer index on a question.";
+  }
+  return null;
+}
+
+/* ================= MODE TOGGLE / LOGIN ================= */
+let instructorMode = false;
+function setMode(instructor) {
+  instructorMode = instructor;
+  $("studentView").classList.toggle("hidden", instructor);
+  $("instructorView").classList.toggle("hidden", !instructor);
+  $("modeToggle").textContent = instructor ? "Back to student view" : "Instructor login";
+  if (instructor) renderBank();
+}
+$("modeToggle").addEventListener("click", () => {
+  if (instructorMode) { setMode(false); return; }
+  if (sessionStorage.getItem("macss_quiz_instr") === "1") { setMode(true); return; }
+  $("pwErr").textContent = ""; $("pwInput").value = "";
+  $("pwModal").classList.remove("hidden");
+  $("pwInput").focus();
+});
+async function tryLogin() {
+  const h = await sha256($("pwInput").value);
+  if (h === PASS_HASH) {
+    sessionStorage.setItem("macss_quiz_instr", "1");
+    $("pwModal").classList.add("hidden");
+    setMode(true);
+  } else {
+    $("pwErr").textContent = "Incorrect password.";
+  }
+}
+$("pwSubmit").addEventListener("click", tryLogin);
+$("pwInput").addEventListener("keydown", e => { if (e.key === "Enter") tryLogin(); });
+$("pwCancel").addEventListener("click", () => $("pwModal").classList.add("hidden"));
+
+/* ================= TABS ================= */
+function switchTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("hidden", p.id !== "tab-" + name));
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => switchTab(t.dataset.tab)));
+
+/* ================= INIT ================= */
+function init() {
+  fillTopicSelect($("topicSel"), true);
+  fillTopicSelect($("pTopic"), true);
+  const eSel = $("eTopic"), fSel = $("fTopic");
+  for (const [k, label] of Object.entries(TOPICS)) {
+    eSel.appendChild(new Option(label, k));
+    fSel.appendChild(new Option(label, k));
+  }
+  buildChoiceInputs();
+  $("genBtn").addEventListener("click", () => {
+    currentQuiz = generateQuestions($("topicSel").value, $("diffSel").value);
+    const isPractice = $("topicSel").value === "practice";
+    currentQuiz.forEach(i => i.showTopic = isPractice);
+    renderQuiz();
+  });
+  ["fTopic", "fDiff"].forEach(id => $(id).addEventListener("change", renderBank));
+  $("fSearch").addEventListener("input", renderBank);
+  $("saveQBtn").addEventListener("click", saveQuestion);
+  $("clearQBtn").addEventListener("click", clearEditForm);
+  $("previewBtn").addEventListener("click", renderPreview);
+  $("exportBtn").addEventListener("click", exportBank);
+  $("importFile").addEventListener("change", e => { if (e.target.files[0]) importBank(e.target.files[0]); e.target.value = ""; });
+  $("hashBtn").addEventListener("click", async () => {
+    const p = $("newPass").value;
+    if (!p) return;
+    const h = await sha256(p);
+    $("hashOut").textContent = `const PASS_HASH = "${h}";`;
+  });
+  // Load published question bank if present (falls back to embedded bank)
+  fetch("quiz-questions.json", { cache: "no-store" })
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => { if (!validateBank(data)) BANK = data; })
+    .catch(() => {});
+}
+init();
+</script>
+</body>
+</html>

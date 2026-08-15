@@ -53,6 +53,9 @@ There are TWO placement exams: on the first and last days of camp. The exam on t
 ### COURSE: CANVAS
 [Join our canvas classroom by clicking this link](https://canvas.uchicago.edu/enroll/MB3HTY) This code should enable anyone to join. For assignments, please be sure to upload a CLEAR AND READABLE DOCUMENT that is labeled with the assignment name and your name. 
 
+## Assignments
+There are regular course assignments. Please be sure to tag all questions in your submission. Note that there are two tex files to import for each assignment: the [name/difficulty](problem_sets/assignment-qs.tex) portion and the [AI statement](ai-statement.tex). These are two separate files and should be in the same folder as your problem set to get it to render correctly. 
+
 ## Grades
 
 This course may only be taken for pass/fail (non-credit), not for a letter grade or audit. Assignments are comprised of daily problem sets. You are encouraged to work in groups, and the instructional staff is available for consultation during class hours. We expect most students should be able to finish the problem sets during class hours. Grades will be based upon performance on the problem sets and on the final exam.
@@ -78,6 +81,8 @@ Using these tools constitutes academic dishonesty and will be reported to the De
 
 ### Exam study guide
 [Submit your practice questions here](https://forms.gle/FGmpjwDpHw5mVyVp6). We will use this to generate the final exam and we will circulate the questions here to all students. Note that not all questions here will be on the exam -- it depends upon the quality and variety of submissions. 
+
+We also have a practice portal! You can [try out practice quizzes here.](https://jmclip.github.io/MACSS_math_camp/quiz.html). Note, these are here to help you practice and the content is intended to be similar to that tested in the exam, but it is in multiple choice format to make things easier from a feedback perspective. 
 
 ## Disability services
 
