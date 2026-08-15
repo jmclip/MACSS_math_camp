@@ -34,482 +34,9 @@ library(gganimate)
 
 # Learning objectives
 
-* Linear vs matrix algebra!!
-* Define vector and matrix
 * Visualize vectors in multiple dimensions
 * Demonstrate applicability of linear algebra to text analysis and cosine similarity
 * Perform basic algebraic operations on vectors and matricies
-
----
-
-# Linear algebra
-
-* Data stored in **matricies**
-  * Matrix algebra study of matrices and finite dimensions
-* Higher dimensional spaces
-    * Flood of big data, stored in many dimensions
-* Linear algebra
-    * Algebra of matricies
-    * Geometry of high dimensional space
-    * Calculus (multivariable) in many dimensions
-* Very important for regression/machine learning/deep learning
-
----
-
-# Points and vectors
-
-* A point in $\Re^1$
-    * $1$
-    * $\pi$
-    * $e$
-
---
-* An ordered pair in $\Re^2 = \Re \times \Re$
-    * $(1,2)$
-    * $(0,0)$
-    * $(\pi, e)$
-
---
-* An ordered triple in $\Re^3 = \Re \times \Re \times \Re$
-    * $(3.1, 4.5, 6.1132)$
-
---
-* An ordered $n$-tuple in $R^n = \Re \times \Re \times \ldots \times \Re$
-    * $(a_{1}, a_{2}, \ldots, a_{n})$
-
----
-
-# One dimensional example
-
-```{r one-d, fig.asp = .65, fig.width=8, fig.height=6, out.width="85%"}
-vector_one <- function(df) {
-  ggplot(data = df,
-         aes(x = x1, y = y1, xend = x2, yend = y2)) +
-    geom_hline(yintercept = 0,
-               alpha = .2) +
-    geom_segment(arrow = arrow(length = unit(0.07, "npc"))) +
-    xlim(-1, 1) +
-    theme(
-      axis.title = element_blank(),
-      axis.text.y = element_blank(),
-      axis.ticks.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.minor.x = element_blank()
-    )
-}
-
-{tibble(
-  x1 = 0,
-  x2 = 0.5,
-  y1 = 0,
-  y2 = 0
-) %>%
-  vector_one +
-  labs(title = expression((0.5)))} +
-  {
-
-tibble(
-  x1 = 0,
-  x2 = -0.5,
-  y1 = 0,
-  y2 = 0
-) %>%
-  vector_one +
-  labs(title = expression((-0.5)))} +{
-
-tibble(
-  x1 = 0,
-  x2 = -0.25,
-  y1 = 0,
-  y2 = 0
-) %>%
-  vector_one +
-  labs(title = expression((-0.25)))} +
-  plot_layout(ncol = 1)
-```
-
----
-
-# Two dimensional example
-
-```{r two-d, fig.width=8, fig.height=6, out.width="85%"}
-vector_two <- function(df) {
-  ggplot(data = df,
-         aes(x = x1, y = y1, xend = x2, yend = y2)) +
-    geom_hline(yintercept = 0,
-               alpha = .2) +
-    geom_vline(xintercept = 0,
-               alpha = .2) +
-    geom_segment(arrow = arrow(length = unit(0.03, "npc"))) +
-    xlim(-1, 1) +
-    ylim(-1, 1) +
-  theme_classic() + #base_size = rcfss::base_size) +
-    theme(
-      axis.title = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.minor.x = element_blank()
-    )
-}
-
-tibble(
-  x1 = 0,
-  x2 = .5,
-  y1 = 0,
-  y2 = .5
-) %>%
-  vector_two +
-  labs(title = expression(paste("(", 0.5, ", ", 0.5, ")")))
-```
-
----
-
-# Two dimensional example
-
-```{r two-d2, dependson = "two-d", fig.width=8, fig.height=6, out.width="85%"}
-tibble(
-  x1 = 0,
-  x2 = -.5,
-  y1 = 0,
-  y2 = .5
-) %>%
-  vector_two +
-  labs(title = expression(paste("(", -0.5, ", ", 0.5, ")")))
-```
-
----
-
-# Two dimensional example
-
-```{r two-d3, dependson = "two-d",fig.width=8, fig.height=6, out.width="85%"}
-tibble(
-  x1 = 0,
-  x2 = 0,
-  y1 = 0,
-  y2 = -.5
-) %>%
-  vector_two +
-  labs(title = expression(paste("(", 0, ", ", -0.5, ")")))
-```
-
----
-
-# Three dimensional example
-
-* (Latitude, Longitude, Elevation)
-* $(1,2,3)$
-* $(0,1,2)$
-
---
-
-## $N$-dimensional example
-
-* Individual campaign donation records
-    $$\mathbf{x} = (1000, 0, 10, 50, 15, 4, 0, 0, 0, \ldots, 2400000000)$$
-* Counties have proportion of vote for Trump
-    $$\mathbf{y} = (0.8, 0.5, 0.6, \ldots, 0.2)$$
-* Run experiment, assess feeling thermometer of elected official
-    $$\mathbf{t} = (0, 100, 50, 70, 80, \ldots, 100)$$ 
-
----
-
-# Vectors
-(*source: Gill*)
-* Serial listing of numbers where the order matters
-* Can add and subtract at will (either by adding / subtracting a constant (*scalar*) or adding / subtracting a second vector )
-* If adding / subtracting vectors, they need to be *conformable* -- otherwise, *nonconformable*
-* Multiplying vectors (not fun): Either dot $\cdot$ or cross product $\times$ (note: difference in these!)
-  * dot product AKA inner product, produces a scalar. (we'll get to this later)
-  * cross product, produces vector
----
-
-# Vector/scalar addition/multiplication
-
-$$
-\begin{aligned}
-\mathbf{u} & =  [1, 2, 3, 4, 5]  \\
-\mathbf{v} & =  [1, 1, 1, 1, 1]  \\
-k & =  2
-\end{aligned}
-$$
-
---
-
-$$
-\begin{aligned}
-\mathbf{u}  + \mathbf{v} & = [1 + 1, 2 + 1, 3+ 1, 4 + 1, 5+ 1]  = [2, 3, 4, 5, 6] \\
-k \mathbf{u} & = [2 \times 1, 2 \times 2, 2 \times 3, 2 \times 4, 2 \times 5] = [2, 4, 6, 8, 10]  \\
-k \mathbf{v} & = [2 \times 1,2 \times 1,2 \times 1,2 \times 1,2 \times 1] = [2, 2, 2, 2, 2]
-\end{aligned}
-$$
-
----
-
-# Linear combinations:  
-
-* Linear combinations of vectors $\mathbf{a}$ and $\mathbf{b}$
-
-    $$\mathbf{a} + \mathbf{b}$$
-
-    $$2\mathbf{a} - 3\mathbf{b}$$
-
-* Generic form
-
-    $$\alpha \mathbf{a} + \beta\mathbf{b} + \gamma\mathbf{c} + \delta\mathbf{d} + \ldots$$
-
----
-# Linear combinations: (in)dependence
-
-* **Linear independence**: cannot get from one vector to another through transformation. 
-  * Another way to consider is if you have to go *beyond the space (span)* of the set to include an additional vector. 
-  * Can think of as multiplication by a scalar, but technically, combining each NON-ZERO vector, multiplied by a scalar, gives us zero. (e.g. $\alpha_1*\mathbf{v_1} + \alpha_2*\mathbf{v_2} + ... + \alpha_n*\mathbf{v_n}=\mathbf{0}$ where at least one scalar is non-zero)
-* Overall, we may be in a situation where the number of dimensions helps us understand the size of the solution set
-
-
----
-
-# Linear (in)dependence
-
-$$\mathbf{a} = \begin{bmatrix}
-3 \\
-1
-\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
-2 \\
-2
-\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
-1 \\
-3
-\end{bmatrix}$$
-
-Are any of these linearly dependent? 
---
-
-These are (together) linearly dependent.
-
---
-
-$$\mathbf{a}-2*\mathbf{b}+\mathbf{c} =\Big( \begin{matrix} 0 \\ 0 \end{matrix}\Big)$$
-
----
-
-# Detecting linear dependence
-
-* $\mathbf{v}^1, \mathbf{v}^2, \ldots \mathbf{v}^k$ are linearly dependent if and only if there exist scalars $\alpha_1, \alpha_2, \ldots, \alpha_k$ *not all zero* such that
-
-    $$\alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \ldots + \alpha_k \mathbf{v}_k = \mathbf{0}$$
-
----
-
-# Example: determining (independence)
-
-$$\mathbf{a} = \begin{bmatrix}
-2 \\
-1 \\
-2
-\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
-4 \\
-1 \\
-3
-\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
-1 \\
-1 \\
-2
-\end{bmatrix}$$
-
-If we're not sure what to do, we set this up as trying to solve for our variable of choice. so, if we're multiplying scalars, it must be the case, for example, that $2\alpha + 4\beta + 1\gamma = 0$, and so on. That is, we're trying to solve for $\alpha \mathbf{a} + \beta\mathbf{b} + \gamma\mathbf{c} = \mathbf{0}$.
---
-
-* Express as a **system of equations** (note: renaming each line so you can see the transformations more easily on the next slide)
-
-    $$\begin{aligned}2\alpha &+ 4\beta &+ \gamma  &= 0 \text{ (}\mathbf{h}\text{) }\\
-    \alpha &+ \beta &+ \gamma  &= 0 \text{ (}\mathbf{j}\text{) }\\
-    2\alpha &+ 3\beta &+ 2\gamma &= 0\text{ (}\mathbf{k}\text{) }
-    \end{aligned}$$
-
----
-## Aside: solving systems of equations
-
-* Need at least x equations for x unknowns (e.g. 2 unknowns, 2 equations)
-* Multiply/divide each equation and add together 
-* Different approaches, but often try to eliminate or 'kick out' variables to get down to solving for one variable 
-* Once you have one variable, continue!
-
----
-# Solve the system of equations
-Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
-
-* **Step 1:** We re-write our matrices from the previous slide, setting each equal to zero. Note that we've named them to make following along a little easier. 
-
-* **Step 2:** We leave our first equation $\mathbf{h}$ as-is. We then take our second equation and calculate: $h-k$ and replace that result in the third row. We can see from the third row that $\beta = \gamma$.
-
-
----
-# Solve the system of equations - example
-Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
-
-.pull-left[
-* **Step 1: write out equations**
-
-$$\begin{aligned}
-2\alpha + 4\beta &+ \gamma  &= 0 \text{ (}\mathbf{h}\text{) }\\
-\alpha + \beta &+ \gamma  &= 0 \text{ (}\mathbf{j}\text{) }\\
-2\alpha + 3\beta &+ 2\gamma &= 0\text{ (}\mathbf{k}\text{) }
-\end{aligned}$$
-
-* **Step 2: Add/subtract**
-
-$$
-\begin{aligned}
- 2\alpha + 4\beta + \gamma &= 0 \\
-  \alpha + \beta + \gamma &= 0 \\
- -\beta + \gamma &= 0
-\end{aligned}
-$$
-
-]
-
-.pull-right[
-
-
-]
----
-
-# Solve the system of equations
-Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
-
-.pull-left[
-
-* **Step 2: Add/subtract**
-
-$$
-\begin{aligned}
- 2\alpha + 4\beta + \gamma &= 0 \\
-  \alpha + \beta + \gamma &= 0 \\
- -\beta + \gamma &= 0
-\end{aligned}
-$$
-
-* **Step 3: ... Solve ...**
-
-$$ 
-\begin{aligned}
- 2\alpha + 5\gamma &= 0 \\
-  \alpha + 2\gamma &= 0 \\
- -\beta + \gamma &= 0
-\end{aligned}
-$$
-]
-
-.pull-right[
-
-
-* **Step 3**: Now, we continue to work, trying to solve for any of our three variables (three variables, three functions). We can sub in $\gamma$ for $\beta$ and simplify our middle equation.  
-
-
-]
-
----
-# Solve the system of equations
-Let's work through an example to evaluate whether our matrices are linearly independent or dependent. 
-
-.pull-left[
-
-* **Step 3: ... Solve ...**
-
-$$ 
-\begin{aligned}
- 2\alpha + 5\gamma &= 0 \\
-  \alpha + 2\gamma &= 0 \\
- -\beta + \gamma &= 0
-\end{aligned}
-$$
-
-* **Step 4: ... continue ...**
-
-$$ 
-\begin{aligned}
-  \gamma &= 0 \\
-  \alpha + 2\gamma &= 0 \\
- -\beta + \gamma &= 0
-\end{aligned}
-$$
-]
-
-.pull-right[
-
-
-* **Step 4**:  We can then take 2 times our middle row (j) from the top row (replacing h) to get $\gamma = 0$. As $\gamma = \beta = 0$, we can substitute those in to our middle equation. 
-
-
-
-]
-
----
-
-## So what? Conclusion
-
-
-* **Conclusion**: This means that ... $\alpha = 0$ as well. Therefore, these equations (and matrices) are linearly independent as the only possible solution that satisfies our requirements is for all variables to be zero (trivial). 
-
-
----
-
-# Example
-Now, let's try this together -- work with a partner. Are these matrices linearly dependent or independent? 
-
-$$\mathbf{a} = \begin{bmatrix}
-4 \\
-3 \\
-3
-\end{bmatrix}, \quad \mathbf{b} = \begin{bmatrix}
-2 \\
-1 \\
--1
-\end{bmatrix}, \quad \mathbf{c} = \begin{bmatrix}
-1 \\
-1 \\
-2
-\end{bmatrix}$$
-
----
-# Example
-* **Step 1: write out**
-$$
-\begin{aligned}
-4\alpha + 2\beta + 1\gamma &= 0 \\
-3\alpha + 1\beta + 1\gamma &= 0 \\
-3\alpha - 1\beta + 2\gamma &= 0
-\end{aligned}
-$$
-
---
-
-* **Step 2: manipulate**
-$$
-\begin{aligned}
-4\alpha + 2\beta + 1\gamma &= 0 \\
- 2\beta - 1\gamma &= 0 \\
-3\alpha - 1\beta + 2\gamma &= 0
-\end{aligned}
-$$
-
---
-
-* **Step 3: Solve!!**
-$$
-\begin{aligned}
-4\alpha + 4\beta &= 0 \\
- 2\beta &=\gamma  \\
-\end{aligned}
-$$
-
---
-
-
-$$\gamma = 2, \quad \beta = 1, \quad \alpha = -1$$
-*Is this our only solution?*
 
 ---
 class: center, middle, inverse
@@ -599,7 +126,7 @@ $$
 \begin{aligned}
 \text{Doc1} & = (1, 1, 3, \ldots, 5) \\
 \text{Doc2} & = (2, 0, 0, \ldots, 1) \\
-\textbf{Doc1}, \textbf{Doc2} & \in \Re^{M}
+\textbf{Doc1}, \textbf{Doc2} & \in \mathbb{R}^{M}
 \end{aligned}
 $$
 
@@ -669,8 +196,8 @@ tribble(
              color = notorig)) +
   geom_segment(arrow = arrow(length = unit(0.03, "npc"))) +
   scale_color_brewer(type = "qual", guide = FALSE) +
-  labs(x = "Doc1",
-       y = "Doc2") +
+  labs(x = "Word1",
+       y = "Word2") +
   xlim(0, 4) +
   coord_fixed()
 ```
@@ -692,8 +219,8 @@ tribble(
              color = notorig)) +
   geom_segment(arrow = arrow(length = unit(0.03, "npc"))) +
   scale_color_brewer(type = "qual", guide = FALSE) +
-  labs(x = "Doc1",
-       y = "Doc2") +
+  labs(x = "Word1",
+       y = "Word2") +
   xlim(0, 4) +
   coord_fixed()
 ```
@@ -705,6 +232,7 @@ Allows us to look at the angle between them instead
 
 ```{r cosine-sim, fig.width=8, fig.height=6, out.width="85%"}
 # hacky way to create angle visual
+
 circleFun <- function(center = c(0,0), diameter = 1, npoints = 1000){
   r = diameter / 2
   tt <- seq(0,2*pi,length.out = npoints)
@@ -729,8 +257,8 @@ tribble(
   scale_color_brewer(type = "qual", guide = FALSE) +
   annotate("text", x = .8, y = .95, label = "theta", parse = TRUE, size = 7) +
   xlim(0, 4) +
-  labs(x = "Doc1",
-       y = "Doc2") +
+  labs(x = "Word1",
+       y = "Word2") +
   coord_fixed()
 ```
 
@@ -823,8 +351,8 @@ tribble(
   scale_color_brewer(type = "qual", guide = FALSE) +
   annotate("text", x = .8, y = .95, label = "theta", parse = TRUE, size = 7) +
   xlim(0, 4) +
-  labs(x = "Doc1",
-       y = "Doc2") +
+  labs(x = "Word1",
+       y = "Word2") +
   coord_fixed()
 ```
 ]
@@ -854,8 +382,8 @@ tribble(
   scale_color_brewer(type = "qual", guide = FALSE) +
   annotate("text", x = .45, y = 1.3, label = "theta", parse = TRUE, size = 7) +
   xlim(0, 4) +
-  labs(x = "Doc1",
-       y = "Doc3") +
+  labs(x = "Word1",
+       y = "Word3") +
   coord_fixed()
 ```
 
@@ -902,7 +430,7 @@ a_{m1} & a_{m2} & \ldots & a_{mn} \\
   * **Diagonal matrix** (only numbers on diagonal; zero elsewhere)
     * **Identity** (only 1s on diagonal; zero elsewhere -- special case of diagonal -- called $I$)
   * **Square** (n rows = n columns)
-  * **Triangular matri**x (half of matrix has zeros -- see below for lower/upper distinction)
+  * **Triangular matrix** (half of matrix has zeros -- see below for lower/upper distinction)
     * **lower triangular** (numbers in lower half (diagonal down) and zeros above diagonal)
     * **upper triangular** (numbers in upper half (diagonal up) and zeros below diagonal)
   * **Zero matrix** (all zeros!)
@@ -937,7 +465,7 @@ $$\begin{aligned} \mathbf{X} + \mathbf{Y} & =  \begin{pmatrix} x_{11} & x_{12} &
 # Scalar Multiplication
 You can just multiply the constant (scalar) through the matrix. 
 
-* $\mathbf{X}$ is an $m \times n$ matrix and $k \in \Re$
+* $\mathbf{X}$ is an $m \times n$ matrix and $k \in \mathbb{R}$
 
 $$k \mathbf{X} = \begin{pmatrix} 
 k x_{11} & k x_{12} & \ldots &  k x_{1n} \\
@@ -1156,7 +684,7 @@ $$\begin{aligned}
   14 & 26 & 18 & 24 \\
 	26 & 59 & 32 & 45\\
 	18 & 32 & 26 & 34 \\
-	24 & 45 & 34 & 45 \end{pmatrix}}  \\
+	24 & 45 & 34 & 45 \end{pmatrix}  \\
 	\end{aligned}$$
 	
 ---
@@ -1210,7 +738,7 @@ knitr::include_graphics(path = "https://macs40700.netlify.app/slides/13-visualiz
   * Additive distributive property: $(\mathbf{X} + \mathbf{Y})\mathbf{Z} = \mathbf{XZ} + \mathbf{YZ}$
   * Zero property: $\mathbf{X0} = 0$
   * Identity matrix: $\mathbf{IX} = \mathbf{X}$
-  * Order matters: $\mathbf{XY} \neq \mathbf{YX}$
+  * Order matters: $\mathbf{XY} \neq \mathbf{YX}$ (in general)
     * Different from scalar multiplication: $xy = yx$
 * Order of matrix: sometimes you'll see subscripts referring to a matrix's order -- this is particularly true for square matrices. E.g:
   * $\mathbf{I_2}$ is an identity matrix (and therefore a square matrix) with two rows and two columns
@@ -1222,13 +750,13 @@ knitr::include_graphics(path = "https://macs40700.netlify.app/slides/13-visualiz
 
 * Dimensionality matters
 * Diagonal from upper left to lower right matters 
-  * Sometimes the opposite diagonal is referred to by a name, but this varies
+  * Sometimes the opposite diagonal is referred to by a name, but varies
 * Matrices referred to by their overall properties (elements) and/or behavior of the diagonal 
 * Special names for *special* matrices:
     * **Diagonal matrix** (only numbers on diagonal; zero elsewhere)
-    * Identity** (only 1s on diagonal; zero elsewhere -- special case of diagonal -- called $I$)
+    * **Identity** (only 1s on diagonal; zero elsewhere -- special case of diagonal -- called $I$)
   * **Square** (n rows = n columns)
-  * **Triangular matri**x (half of matrix has zeros -- see below for lower/upper distinction)
+  * **Triangular matrix** (half of matrix has zeros -- see below for lower/upper distinction)
     * **lower triangular** (numbers in lower half (diagonal down) and zeros above diagonal)
     * **upper triangular** (numbers in upper half (diagonal up) and zeros below diagonal)
   * **Zero matrix** (all zeros!)

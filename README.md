@@ -101,12 +101,12 @@ Note: solutions posted after grades released
 | 25-Aug | Sets and Functions | [Sets and functions](https://jmclip.github.io/MACSS_math_camp/01-functions-sets.html) | [Pset 1 pdf](problem_sets/01-functions-sets.pdf) [.tex file](problem_sets/01-functions-sets.tex) & [answer key](solutions/pset1_answerkey.pdf)
 | 26-Aug | Limits and Differentiation | [Limits and Differentiation](https://jmclip.github.io/MACSS_math_camp/03-differentiation.html)  | [Pset 2 pdf](problem_sets/02-limits-derivs.pdf),[.tex file](problem_sets/02-limits-derivs.tex) & [answer key](solutions/Pset2Solutions.pdf)
 | 27-Aug | Calculus | [Critical points and approximation + Intro Linear Algebra](https://jmclip.github.io/MACSS_math_camp/04-critical-points.html) | [NO HOMEWORK!]
+| 28-Aug | Linear Algebra | [Matrix algebra: multiplication and products](https://jmclip.github.io/MACSS_math_camp/05-matrix-algebra.html) |  [Pset 3 pdf](problem_sets/03-matrices-intro.pdf),[.tex file](problem_sets/03-matrices-intro.tex) & [answer key](solutions/pset3_answerkey.pdf)
 
 | -- **updating assignments and content below this line!** -- |
 | Date | Topic | Subtopic/Slides | Assignment
 |-|-|-|-|
-| 28-Aug | Matrix algebra | [Matrix algebra](https://jmclip.github.io/MACSS_math_camp/05-matrix-algebra.html) |  [Pset 3 pdf](problem_sets/03-critical-points.pdf),[.tex file](problem_sets/03-critical-points.tex) & [answer key](solutions/pset3_answerkey.pdf)
-| 31-Aug | Linear algebra  |  [Systems of linear equations and determinants](https://jmclip.github.io/MACSS_math_camp/06-matrix-inversion-decomposition.html) | [Pset 4](problem_sets/04-linear-algebra.pdf) & [answer key](solutions/pset4_answerkey.pdf)
+| 31-Aug | Linear algebra  |  [Determinants and eigenvalues](https://jmclip.github.io/MACSS_math_camp/06-matrix-inversion-decomposition.html) | [Pset 4](problem_sets/04-linear-algebra.pdf) & [answer key](solutions/pset4_answerkey.pdf)
 | 1-Sep | Calculus |[Functions of several variables and optimization with several variables](https://jmclip.github.io/MACSS_math_camp/07-multivariable-differentiation.html)| [NO HOMEWORK!]
 | 2-Sep | Calculus | [Integration and integral calculus](https://jmclip.github.io/MACSS_math_camp/08-integration.html) | [Pset 5 pdf](problem_sets/05-diff-integration.pdf),  [tex](problem_sets/05-diff-integration.tex) & [answer key](solutions/pset5_answerkey.pdf)
 | 3-Sep | Calculus |  [Sample space and probability](https://jmclip.github.io/MACSS_math_camp/09-sample-space-probability.html)| [NO HOMEWORK!  ] [Survey](https://forms.gle/8qmgAjFTzWRVRPh29) 

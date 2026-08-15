@@ -13,21 +13,8 @@
 \author{}
 \date{\vspace{-2.5em}}
 
-% Problems are numbered 1-12 across the document.
 \newcounter{problem}
 \newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
-
-% Solutions. \solutionsfalse -> student version; \solutionstrue -> answer key.
-\newif\ifsolutions
-\solutionsfalse
-
-\ifsolutions
-  \newenvironment{solution}
-    {\par\smallskip\noindent\textbf{Solution.}\par\nobreak\smallskip\ignorespaces}
-    {\par\smallskip}
-\else
-  \excludecomment{solution}
-\fi
 
 \begin{document}
 \maketitle
@@ -46,34 +33,17 @@ find the limits that exist. If a limit does not exist, explain why.
 
 \begin{enumerate}[label=\alph*.]
 \item \(\lim_{x \to a} \left[ f(x) + h(x) \right]\)
-\begin{solution}
-\[
-\lim_{x \to a} \left[ f(x) + h(x) \right] = -3 + 8 = 5
-\]
-\end{solution}
+
 
 
 \item \(\lim_{x \to a} \dfrac{g(x)}{f(x)}\)
-\begin{solution}
-\[
-\lim_{x \to a} \frac{g(x)}{f(x)} = \frac{0}{-3} = 0
-\]
-\end{solution}
+
 
 \item \(\lim_{x \to a} \dfrac{f(x)}{g(x)}\)
-\begin{solution}
-\[
-\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{-3}{0} \quad \mbox{undefined}
-\]
-The limit does not exist: we cannot divide by \(0\).
-\end{solution}
+
 
 \item \(\lim_{x \to a} \dfrac{2 f(x)}{h(x) - f(x)}\)
-\begin{solution}
-\[
-\lim_{x \to a} \frac{2 f(x)}{h(x) - f(x)} = \frac{2 (-3)}{8 - (-3)} = -\frac{6}{11}
-\]
-\end{solution}
+
 \end{enumerate}
 
 \problem{Find even more limits}
@@ -82,31 +52,10 @@ Find the following limits:\footnote{Grimmer 2012 HW 2.4(b)}
 
 \begin{enumerate}[label=\alph*.]
 \item \(\lim_{x \to -4} \dfrac{x^2 + 5x + 4}{x^2 + 3x - 4}\)
-\begin{solution}
-\[
-\begin{aligned}
-\lim_{x \to -4} \frac{x^2 + 5x + 4}{x^2 + 3x - 4}
-  &= \lim_{x \to -4} \frac{(x + 4)(x + 1)}{(x + 4)(x - 1)} \\
-  &= \lim_{x \to -4} \frac{x + 1}{x - 1} \\
-  &= \frac{\lim_{x \to -4} (x + 1)}{\lim_{x \to -4} (x - 1)}
-   = \frac{-3}{-5} = \frac{3}{5}
-\end{aligned}
-\]
-\end{solution}
+
 
 \item \(\lim_{x \to 4^-} \sqrt{16 - x^2}\)
-\begin{solution}
-\[
-\begin{aligned}
-\lim_{x \to 4^-} \sqrt{16 - x^2}
-  &= \lim_{x \to 4^-} \sqrt{(4 + x)(4 - x)} \\
-  &= \lim_{x \to 4^-} \sqrt{4 + x} \, \sqrt{4 - x} \\
-  &= \lim_{x \to 4^-} \sqrt{4 + x} \cdot \lim_{x \to 4^-} \sqrt{4 - x} \\
-  &= \sqrt{8} \cdot \sqrt{0} \\
-  &= 0
-\end{aligned}
-\]
-\end{solution}
+
 \end{enumerate}
 
 \problem{Check for discontinuities}
@@ -116,25 +65,16 @@ continuous, where are the discontinuities?\footnote{Gill 1.9}
 
 \begin{enumerate}[label=\alph*.]
 \item \(f(x) = \dfrac{9x^3 - x}{(x - 1)(x + 1)}\)
-\begin{solution}
-Discontinuous at \(x = -1\) and \(x = 1\): the denominator is \(0\) at
-both points, leaving the fraction undefined.
-\end{solution}
+
 
 \item \(f(x) = e^{-x^2}\)
-\begin{solution}
-Continuous for all real numbers.
-\end{solution}
+
 
 \item \(f(x) = \begin{cases}
   x^3 + 1, & x > 0 \\
   -x^2, & x \leq 0
 \end{cases}\)
-\begin{solution}
-Discontinuous at \(x = 0\). For this piecewise function to be
-continuous at \(0\) we would need \(\lim_{x \to 0^+} f(x) = 0\), but
-\(\lim_{x \to 0^+} f(x) = 1 \neq 0\).
-\end{solution}
+
 \end{enumerate}
 
 \problem{Find finite limits}
@@ -174,36 +114,13 @@ meet.\footnote{Simon and Blume 2.16}
   x^2, & x \geq 0 \\
   -x^2, & x < 0
 \end{cases}\)
-\begin{solution}
-\[
-f'(x) = \begin{cases}
-  2x, & x \geq 0 \\
-  -2x, & x < 0
-\end{cases}
-\]
-As \(x\) converges to \(0\) from both above and below, \(f'(x)\)
-converges to \(0\), so the function is both continuous and
-differentiable at \(0\).
-\end{solution}
+
 
 \item \(f(x) = \begin{cases}
   x^3, & x \leq 1 \\
   x, & x > 1
 \end{cases}\)
-\begin{solution}
-The function is continuous, since \(\lim_{x \to 1} f(x) = 1\) no
-matter how the limit is taken. It is not differentiable, however,
-since
-\[
-f'(x) = \begin{cases}
-  3x^2, & x \leq 1 \\
-  1, & x > 1
-\end{cases}
-\]
-gives \(\lim_{x \to 1^+} f'(x) = 1\) whereas
-\(\lim_{x \to 1^-} f'(x) = 3\). The function is continuous but not
-smooth at \(x = 1\).
-\end{solution}
+
 \end{enumerate}
 
 \problem{Calculate derivatives}
