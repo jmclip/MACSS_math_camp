@@ -121,7 +121,7 @@ Note: solutions posted after grades released
 | 9-Sep | Probability | [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)  | [Pset 8 pdf](problem_sets/08-multivariate-pdf.pdf), [tex](problem_sets/08-multivariate-pdf.tex) & [answer key](solutions/pset8_answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | 10-Sep | Statistical inference  | [Classical statistical inference](https://jmclip.github.io/MACSS_math_camp/13-frequentist-inference.html)| [Pset 9 pdf](problem_sets/09-frequentist-inference.pdf), [tex](problem_sets/09-frequentist-inference.tex) & [answer key](solutions/pset9_answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | 11-Sep | Statistical inference | [Applied Classical Stats and intro to Bayesian statistical inference](https://jmclip.github.io/MACSS_math_camp/14-classical-applied.html) | [Review questions (student submissions)](https://docs.google.com/spreadsheets/d/1GB8BQoK4pZgne3_kgWOgYHYH_ScUGQ4awsMSUsIPO3k/edit?usp=sharing)  and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
-| 14-Sep | Placement exam |  | Placement exam
+| 14-Sep | Placement exam |  | Placement exam and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 
 Bonus Content!
 
