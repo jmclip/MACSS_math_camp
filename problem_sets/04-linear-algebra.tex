@@ -1,186 +1,146 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
+\documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{5}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{enumitem}
 \usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
 \hypersetup{
   pdftitle={PSET 4: Linear algebra},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+  hidelinks}
 
 \title{PSET 4: Linear algebra}
 \author{}
 \date{\vspace{-2.5em}}
 
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
+
 \begin{document}
 \maketitle
 
-\begin{itemize}
-\item
-  Name
-\item
-  How long did this problem set take you?
-\item
-  How difficult was this problem set? very easy 1 2 3 4 5 very
-  challenging
-\end{itemize}
+\input{assignment-qs}
 
+\problem{Matrix inversion}
 
-\section{Matrix inversion}\label{matrix-inversion}
-
-Invert each of the following matricies by hand (you can use a calculator
+Invert each of the following matrices by hand (you can use a calculator
 or computer to check your solution, but be sure to show your work).
-Verify you have the correct inverse by calculating
-\(\mathbf{XX}^{-1} = \mathbf{I}\). Not all of the matricies may be
-invertible - if not, show why.\footnote{inspired by Simon and Blume 8.19}
+Hint: you can verify you have the correct inverse by calculating
+$\mathbf{XX}^{-1} = \mathbf{I}$. Not all of the matrices may be
+invertible---if not, show why.\footnote{inspired by Simon and Blume 8.19}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  \(\left[ \begin{array}{rr} 2 & 1 \\ 1 & 1 \end{array}\right]\)
-\item
-  \(\left[ \begin{array}{rr} 2 & 1 \\ -4 & -2 \end{array}\right]\)
-\item
-  \(\left[ \begin{array}{rrr} 2 & 4 & 0 \\ 4 & 6 & 3 \\ -6 & -10 & 0 \end{array}\right]\)
+\begin{enumerate}[label=\alph*.]
+\item $\begin{bmatrix} 4 & 2 \\ 3 & 1 \end{bmatrix}$
+\item \(\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}\)
 \end{enumerate}
 
-\section{Dummy encoding for categorical
-variables}\label{dummy-encoding-for-categorical-variables}
+\problem{Dummy encoding for categorical variables}
 
 Ordinary least squares regression is a common method for obtaining
 regression parameters relating a set of explanatory variables with a
-continuous outcome of interest. The vector \(\hat{\mathbf{b}}\) that
+continuous outcome of interest. The vector $\hat{\mathbf{b}}$ that
 contains the intercept and the regression slope is calculated by the
-equation:
-
-\[\hat{\mathbf{b}} = (\mathbf{X'X})^{-1}\mathbf{X'y}\]
-
-If an explanatory variable is nominal (i.e.~ordering does not matter)
+equation:\footnote{inspired by Benjamin Soltoff}
+\[
+\hat{\mathbf{b}} = (\mathbf{X'X})^{-1}\mathbf{X'y}
+\]
+If an explanatory variable is nominal (i.e.\ ordering does not matter)
 with more than two classes
-(e.g.~\(\{\text{White}, \text{Black}, \text{Asian}, \text{Mixed}, \text{Other}\}\)),
+(e.g.\ $\{\text{White}, \text{Black}, \text{Asian}, \text{Mixed}, \text{Other}\}$),
 the variable must be modified to include in the regression model. A
 common technique known as \textbf{dummy encoding} converts the column
-into a series of \(n-1\) binary (\(0/1\)) columns where each column
-represents a single class and \(n\) is the total number of unique
+into a series of $n-1$ binary ($0/1$) columns where each column
+represents a single class and $n$ is the total number of unique
 classes in the original column. Explain why this method converts the
-column into \(n-1\) columns, rather than \(n\) columns, in terms of
-linear algebra. \textbf{Reminder: \(\mathbf{X}\) contains both the dummy
-encoded columns as well as a column of \(1\)s representing the
-intercept.}\footnote{inspired by Benjamin Soltoff}
+column into $n-1$ columns, rather than $n$ columns, in terms of
+linear algebra. \textbf{Reminder: $\mathbf{X}$ contains both the dummy
+encoded columns as well as a column of $1$s representing the
+intercept.}
 
-\section{Solve the system of
-equations}\label{solve-the-system-of-equations}
+\problem{Solve the system of equations}
 
-Solve the following systems of equations for \(x, y, z\), either via
-matrix inversion or substitution:\footnote{inspired by Gill 4.19}
+Solve the following systems of equations for $x, y, z$, either via
+matrix inversion or substitution. If a system cannot be solved this way,
+explain why and describe the full set of solutions.\footnote{inspired by Gill 4.19}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  System \#1
-
+\begin{enumerate}[label=\alph*.]
+\item System \#1
   \[
-   \begin{aligned}
-       x +   y + 2z &=  2 \\
-       3x -  2y +  z &= 1 \\
-       y -  z &= 3
-   \end{aligned}
-   \]
-\item
-  System \#2
-
+  \begin{aligned}
+  x + y + 2z &= 2 \\
+  3x - 2y + z &= 1 \\
+  y - z &= 3
+  \end{aligned}
+  \]
+\item System \#2
   \[
-   \begin{aligned}
-   x - y + 2z &= 2 \\
-   4x + y -2z &= 10 \\
-   x + 3y +z &= 0
-   \end{aligned}
-   \]
+  \begin{aligned}
+  y-x &= 1 \\
+  z-2y+x &= 1 \\
+  3z-4x+y &=10
+  \end{aligned}
+  \]
 \end{enumerate}
 
-\section{\texorpdfstring{Multiplying by
-\(\mathbf{0}\)}{Multiplying by \textbackslash mathbf\{0\}}}\label{multiplying-by-mathbf0}
+\problem{Multiplying by $\mathbf{0}$}
 
-When it comes to real numbers, we know that if \(xy = 0\), then either
-\(x=0\) or \(y=0\) or both. One might believe that a similar idea
-applies to matricies, but one would be wrong. Prove that if the matrix
-product \(\mathbf{AB=0}\) (by which we mean a matrix of appropriate
-dimensionality made up entirely of zeroes), then it is not necessarily
-true that either \(\mathbf{A=0}\) or \(\mathbf{B=0}\). Hint: in order to
-prove that something is not always true, simply identify one example
-where \(\mathbf{AB=0}, \: \mathbf{A, B \neq 0}\).\footnote{inspired by
-  Grimmer HW5.5}
+When it comes to real numbers, we know that if $xy = 0$, then either
+$x=0$ or $y=0$ or both. One might believe that a similar idea
+applies to matrices, but one would be wrong. Prove that if the matrix
+product $\mathbf{AB} = \mathbf{0}$ (by which we mean a matrix of
+appropriate dimensionality made up entirely of zeroes), then it is not
+necessarily true that either $\mathbf{A} = \mathbf{0}$ or
+$\mathbf{B} = \mathbf{0}$. Hint: in order to prove that something is
+not always true, simply identify one example where
+$\mathbf{AB} = \mathbf{0}$, $\mathbf{A}, \mathbf{B} \neq
+\mathbf{0}$.\footnote{inspired by Grimmer HW5.5}
 
-\subsection{AI and Resources
-statement}\label{ai-and-resources-statement}
+\problem{Determinants}
+Find the determinants of the following matrices:
+\begin{enumerate}[label=\alph*.]
+\item $\begin{bmatrix} 2 & 1 \\ 1 & 1 \end{bmatrix}$
+\item $\begin{bmatrix} 2 & 1 \\ -4 & -2 \end{bmatrix}$
+\item $\begin{bmatrix} 2 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 1 & 1 \end{bmatrix}$
+\end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Please list (in detail) all resources you used for this assignment. If
-  you worked with people, list them here as well. It is not enough to
-  say that you used a resource for help, you need to be specific on the
-  link and \emph{how} it was helpful. W/R/T gen AI tools (including GPT,
-  etc. ) you cannot use them to do work on your behalf -- you cannot put
-  in any of the questions, etc. You can ask for help on logic / sample
-  problems. If you do use GPT or other AI tools, you need to provide a
-  link to your chat transcript. Any suspected academic integrity
-  violations will be immediately reported.
-\end{itemize}
+\problem{Cofactor expansion}
+Consider the matrix
+\[\mathbf{A} = \begin{bmatrix} 2 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 2 & 1 \end{bmatrix}\]
+
+\begin{enumerate}[label=\alph*.]
+\item Find all nine minors $M_{ij}$ and use them to build the cofactor
+  matrix $\mathbf{C}$.
+\item Use the first row of $\mathbf{C}$ to compute $\det(\mathbf{A})$
+  by cofactor expansion.
+\item Repeat using the second \emph{column} and confirm you get the same answer.
+\item Which calculation was less work, and why?
+\item Use $\mathbf{C}$ to find $\mathbf{A^{-1}}$
+\end{enumerate}
+
+\problem{Eigenvalues and eigenvectors}
+
+Using the same matrix $\mathbf{A}$ from the previous problem:
+\[
+\mathbf{A} = \begin{bmatrix} 2 & 1 & 1 \\ 1 & 0 & 1 \\ 1 & 2 & 1 \end{bmatrix}
+\]
+
+\begin{enumerate}[label=\alph*.]
+\item Find the trace of $\mathbf{A}$
+\item The characteristic equation $\det(\lambda \mathbf{I} - \mathbf{A}) = 0$
+  for this matrix works out to
+  \[
+  \lambda^3 - 3\lambda^2 - 2\lambda + 2 = 0
+  \]
+  Write out $\lambda\mathbf{I} - \mathbf{A}$ and confirm that the
+  $\lambda^2$ and constant terms are what you would expect from the
+  trace and determinant.
+\item Verify that $\lambda = -1$ is a root. Factor it out and use the
+  quadratic formula on what remains to find the other two eigenvalues.
+\item Find an eigenvector for $\lambda = -1$, and verify that
+  $\mathbf{A}\mathbf{v} = -\mathbf{v}$.
+\item Add your three eigenvalues together, then multiply them together.
+  Compare to the trace of $\mathbf{A}$ and to the determinant you found
+  in the previous problem. What do you notice?
+\end{enumerate}
+
+\input{ai-statement}
 
 \end{document}
