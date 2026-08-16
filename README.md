@@ -115,7 +115,7 @@ Note: solutions posted after grades released
 |-|-|-|-|
 | 1-Sep | Calculus |[Functions of several variables and optimization with several variables](https://jmclip.github.io/MACSS_math_camp/07-multivariable-differentiation.html)| [NO HOMEWORK!]
 | 2-Sep | Calculus | [Integration and integral calculus](https://jmclip.github.io/MACSS_math_camp/08-integration.html) | [Pset 5 pdf](problem_sets/05-diff-integration.pdf),  [tex](problem_sets/05-diff-integration.tex) & [answer key](solutions/pset5_answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
-| 3-Sep | Calculus |  [Sample space and probability](https://jmclip.github.io/MACSS_math_camp/09-sample-space-probability.html)| [NO HOMEWORK!  ] [Survey](https://forms.gle/8qmgAjFTzWRVRPh29) 
+| 3-Sep | Probability |  [Sample space and probability](https://jmclip.github.io/MACSS_math_camp/09-sample-space-probability.html)| [NO HOMEWORK!  ] [Survey](https://forms.gle/8qmgAjFTzWRVRPh29) 
 | 4-Sep | Probability | [Discrete random variables](https://jmclip.github.io/MACSS_math_camp/10-discrete-random-vars.html) | [Pset 6 pdf](problem_sets/06-discrete-random-variables.pdf), [tex](problem_sets/06-discrete-random-variables.tex) + & [answer key](solutions/pset6_answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | 7-Sep | No class (Labor Day) |  | 
 | 8-Sep | Probability | [General random variables](https://jmclip.github.io/MACSS_math_camp/11-general-random-vars.html)| [Pset 7 pdf](problem_sets/07-general-random-variables.pdf), [text](problem_sets/07-general-random-variables.tex)  & [answer key](solutions/pset7_answerkey.pdf) & [Exam questions+Calc request](https://forms.gle/sskPerZjthPYPbVt7)
@@ -127,3 +127,4 @@ Note: solutions posted after grades released
 Bonus Content!
 
 * [Quadratics, logarithms, sequences, and limits](https://jmclip.github.io/MACSS_math_camp/02-sequences-limits.html) 
+* [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)
