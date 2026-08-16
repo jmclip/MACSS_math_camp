@@ -131,9 +131,11 @@ x_{41} &amp; x_{42} &amp; x_{43}  \\
 * `$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
   * NOTE: we can add across any one row or column (just be consistent)
 
-* `\(ij\)`th **minor** of `\(\mathbf{X}\)` for `\(x_{ij}\)`, `\(\mid\mathbf{X}_{[ij]}\mid\)`
-    * Determinant of the `\((n - 1) \times (n - 1)\)` submatrix that results from taking the `\(i\)`th row and `\(j\)`th column out
-    * Refer to this resulting submatrix as `\(\mathbf{M_{ij}}\)`
+* `\(ij\)`th **minor** of `\(\mathbf{X}\)` for `\(x_{ij}\)`
+    * The **submatrix** `\(\mathbf{X}_{[ij]}\)` is what remains after deleting the
+      `\(i\)`th row and `\(j\)`th column --- an `\((n-1) \times (n-1)\)` matrix
+    * The **minor** `\(M_{ij} = \mid \mathbf{X}_{[ij]} \mid\)` is its determinant ---
+      a single number
 * **Cofactor** of `\(\mathbf{X}\)`
     * Minor signed as `\((-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid\)`
 * Cycle recursively through columns
@@ -201,7 +203,7 @@ You can also create the cofactor matrix using your work from the determinant wor
 `\(\mathbf{M_{33}} = \left|\begin{bmatrix}  1&amp; 2 \\ 2 &amp; 1 \end{bmatrix}\right|=1-4=-3\)`
 
 ---
-# Answer: `\(3 \times 3 matrix\)`
+# Answer: `\(3 \times 3\)` matrix
 * Create cofactor matrix
 `$$\begin{aligned}\begin{bmatrix}
 1 \mathbf{M_{11}} &amp; -1\mathbf{M_{12}} &amp; 1\mathbf{M_{13}} \\
@@ -220,7 +222,7 @@ You can also create the cofactor matrix using your work from the determinant wor
 \end{bmatrix}\end{aligned}$$`
 ---
 
-# Answer: `\(3 \times 3 matrix\)`
+# Answer: `\(3 \times 3\)` matrix
 
 `$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
 
@@ -613,7 +615,7 @@ Y_{n} &amp; = \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \ldots + \beta_{
 * `\(\mathbf{x}_{i} = (1, x_{i1}, x_{i2}, \ldots, x_{ik})\)`
 
  `\(\mathbf{Y} = \begin{bmatrix}Y_{1} \\ Y_{2} \\  \vdots \\ Y_{n}\end{bmatrix}\)`, 
- `\(\boldsymbol{\beta} = \begin{bmatrix}\boldsymbol{\beta}_{0} \\ \boldsymbol{\beta}_{1} \\ \vdots \\ \boldsymbol{\beta}_{k} \end{bmatrix}\)`,
+ `\(\boldsymbol{\beta} = \begin{bmatrix}{\beta}_{0} \\ {\beta}_{1} \\ \vdots \\ {\beta}_{k} \end{bmatrix}\)`,
  `\(\mathbf{X} = \begin{bmatrix} \mathbf{x}_{1}\\\mathbf{x}_{2}\\ \vdots \\ \mathbf{x}_{n} \end{bmatrix}\)`
 
 ---
@@ -622,7 +624,7 @@ Y_{n} &amp; = \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \ldots + \beta_{
 
 GOAL: find `\(\boldsymbol{\beta}\)`
 `$$\begin{aligned}
-\mathbf{Y} &amp;= \mathbf{X}\mathbf{\beta} \\\end{aligned}$$`
+\mathbf{Y} &amp;= \mathbf{X}\boldsymbol{\beta} \\\end{aligned}$$`
 
 
 * Ok, so, we have an `\(\mathbf{X}\)`. We want to 'undo' it, so we need the inverse. Is it invertible? How do we make sure? 
@@ -632,23 +634,23 @@ GOAL: find `\(\boldsymbol{\beta}\)`
 * Ah, yes, we multiply it by its transpose. It will certainly be square (and likely invertible) then
 
 `$$\begin{aligned}
-\mathbf{X}^{'} \mathbf{Y} &amp;= \mathbf{X}^{'} \mathbf{X} \mathbf{\beta} \\\end{aligned}$$`
+\mathbf{X}^{'} \mathbf{Y} &amp;= \mathbf{X}^{'} \mathbf{X} \boldsymbol{\beta} \\\end{aligned}$$`
 
 --
 * Great! Now, we can 'undo' this (inverse-land)
 --
 `$$\begin{aligned}
 (\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &amp;= 
-(\mathbf{X}^{'}\mathbf{X})^{-1}\mathbf{X}^{'} \mathbf{X} \mathbf{\beta} \\ \end{aligned}$$`
+(\mathbf{X}^{'}\mathbf{X})^{-1}\mathbf{X}^{'} \mathbf{X} \boldsymbol{\beta} \\ \end{aligned}$$`
 --
 
 `$$\begin{aligned}
-(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &amp;=\mathbf{I}\mathbf{\beta} 
+(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &amp;=\mathbf{I}\boldsymbol{\beta} 
 \end{aligned}$$`
 
 --
 `$$\begin{aligned}
-(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &amp;=\mathbf{\beta} 
+(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &amp;=\boldsymbol{\beta} 
 \end{aligned}$$`
 
 ---
@@ -739,7 +741,7 @@ We can start with our eigenvalue (let's begin with `\(\lambda = -2\)`). We then 
 
 --
 
-`\(\begin{pmatrix}\lambda &amp; -4 \\ -1 &amp; \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix\)` becomes `\(-2v_1 - 4v_2 =0\)` and
+`\(\begin{pmatrix}\lambda &amp; -4 \\ -1 &amp; \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix}\)` becomes `\(-2v_1 - 4v_2 =0\)` and
 `\(-v_1 - 2v_2 = 0\)`
 
 --
@@ -883,9 +885,9 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 
 # Calculating the PCA
 
-`$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$`
+`$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$`
 
-* `\(\mathbf{V}^{*}\)` = principal directions (eigenvector)
+* `\(\mathbf{V}^{'}\)` = principal directions (eigenvector)
 * Columns of `\(\mathbf{U} \boldsymbol{\Sigma}\)` = principal components (values along eigenvector)
 * Values of the diagonal elements of `\(\boldsymbol{\Sigma}\)` `\(\approx\)` eigenvalues
 
@@ -943,7 +945,7 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 * Works with any rectangular matrix 
 * `\(\mathbf{M}\)` is an `\(m \times n\)` matrix. There exists a factorization of the form
 
-    `$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$`
+    `$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$`
 
     where
 
@@ -957,117 +959,146 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 
 
 
-
-
----
-
-&lt;!-- # Image compression --&gt;
-
-&lt;!-- ```{r str-lion} --&gt;
-&lt;!-- # first rows and columns of R --&gt;
-&lt;!-- lion[1:5, 1:5] --&gt;
-&lt;!-- ``` --&gt;
+&lt;img src="06-matrix-inversion-decomposition_files/figure-html/read-image-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
-&lt;!-- # Applying SVD --&gt;
+# Image compression
 
-&lt;!-- ```{r svd} --&gt;
-&lt;!-- lion.svd &lt;- svd(lion) --&gt;
-&lt;!-- ``` --&gt;
 
-&lt;!-- ##### `\(\mathbf{U}\)` --&gt;
-
-&lt;!-- ```{r lion-u} --&gt;
-&lt;!-- lion.svd$u[1:3, 1:3] --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ##### `\(\boldsymbol{\Sigma}\)` --&gt;
-
-&lt;!-- ```{r lion-sigma} --&gt;
-&lt;!-- diag(lion.svd$d)[1:3, 1:3] --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ##### `\(\mathbf{V}^{*}\)` --&gt;
-
-&lt;!-- ```{r lion-vstar} --&gt;
-&lt;!-- lion.svd$v[1:3, 1:3] --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- # Recovering the data --&gt;
-
-&lt;!-- * Multiply back together --&gt;
-
-&lt;!--     `$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$` --&gt;
-
-&lt;!-- ```{r svd-recombine} --&gt;
-&lt;!-- svd.rank(lion.svd, j = ncol(lion))[1:5, 1:5] --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- # Data reduction --&gt;
-
-&lt;!-- * `\(\boldsymbol{\Sigma}\)` --&gt;
-
-&lt;!-- ```{r svd-sigma-descend} --&gt;
-&lt;!-- lion.svd$d --&gt;
-&lt;!-- ``` --&gt;
+```
+##       [,1]  [,2]  [,3]  [,4]  [,5]
+## [1,] 0.361 0.369 0.381 0.393 0.403
+## [2,] 0.365 0.373 0.385 0.397 0.407
+## [3,] 0.369 0.377 0.389 0.399 0.411
+## [4,] 0.377 0.385 0.395 0.407 0.420
+## [5,] 0.388 0.391 0.403 0.416 0.424
+```
 
 ---
 
-&lt;!-- # Data reduction --&gt;
+# Applying SVD
 
-&lt;!-- ```{r svd-sigma-prop} --&gt;
-&lt;!-- library(tidyverse) --&gt;
-&lt;!-- tibble( --&gt;
-&lt;!--   sigma2 = lion.svd$d^2, --&gt;
-&lt;!--   prop = sigma2 / sum(sigma2) --&gt;
-&lt;!-- ) %&gt;% --&gt;
-&lt;!--   mutate(row = row_number()) %&gt;% --&gt;
-&lt;!--   ggplot(aes(row, prop)) + --&gt;
-&lt;!--   geom_col() + --&gt;
-&lt;!--   scale_y_continuous(labels = scales::percent) + --&gt;
-&lt;!--   labs( --&gt;
-&lt;!--     x = expression(sigma[i]), --&gt;
-&lt;!--     y = "Percentage of variance explained" --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
 
-&lt;!-- --- --&gt;
 
-&lt;!-- # Draw image using rank 2 --&gt;
+##### `\(\mathbf{U}\)`
 
-&lt;!-- ```{r lions-rank1} --&gt;
-&lt;!-- svd.plot(lion.svd, 2) --&gt;
-&lt;!-- ``` --&gt;
 
-&lt;!-- --- --&gt;
+```
+##         [,1]    [,2]     [,3]
+## [1,] -0.0398 -0.0291 -0.02032
+## [2,] -0.0405 -0.0150 -0.00198
+## [3,] -0.0396 -0.0186 -0.01972
+```
 
-&lt;!-- # Different ranks --&gt;
+##### `\(\boldsymbol{\Sigma}\)`
 
-&lt;!-- ```{r lions-rank-all} --&gt;
-&lt;!-- lion_ranks &lt;- 2^seq(1:8) --&gt;
-&lt;!-- lion_ranks_images &lt;- map(.x = lion_ranks, --&gt;
-&lt;!--     .f = svd.rank, --&gt;
-&lt;!--     svd.out = lion.svd) --&gt;
-&lt;!-- names(lion_ranks_images) &lt;- lion_ranks --&gt;
 
-&lt;!-- map(lion_ranks_images, ~ as_tibble(.x) %&gt;% --&gt;
-&lt;!--         mutate(row = row_number()) %&gt;% --&gt;
-&lt;!--         gather(column, value, -row) %&gt;% --&gt;
-&lt;!--         mutate(column = parse_number(column))) %&gt;% --&gt;
-&lt;!--   bind_rows(.id = "rank") %&gt;% --&gt;
-&lt;!--   mutate(rank = as.numeric(rank)) %&gt;% --&gt;
-&lt;!--   ggplot(aes(row, -column, fill = value)) + --&gt;
-&lt;!--   geom_raster() + --&gt;
-&lt;!--   scale_fill_continuous(high = "white", low = "black", guide = "none") + --&gt;
-&lt;!--   ggtitle("Rank {closest_state}") + --&gt;
-&lt;!--   theme_void() + --&gt;
-&lt;!--   transition_states(states = rank, wrap = FALSE) --&gt;
-&lt;!-- ``` --&gt;
+```
+##      [,1] [,2] [,3]
+## [1,]  193  0.0  0.0
+## [2,]    0 29.2  0.0
+## [3,]    0  0.0 16.2
+```
+
+##### `\(\mathbf{V}^{'}\)`
+
+
+```
+##         [,1]    [,2]   [,3]
+## [1,] -0.0556 0.00838 0.0211
+## [2,] -0.0558 0.00848 0.0179
+## [3,] -0.0560 0.00874 0.0138
+```
+
+---
+
+# Recovering the data
+
+* Multiply back together
+
+    `$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$`
+
+
+```
+##       [,1]  [,2]  [,3]  [,4]  [,5]
+## [1,] 0.361 0.369 0.381 0.393 0.403
+## [2,] 0.365 0.373 0.385 0.397 0.407
+## [3,] 0.369 0.377 0.389 0.399 0.411
+## [4,] 0.377 0.385 0.395 0.407 0.420
+## [5,] 0.388 0.391 0.403 0.416 0.424
+```
+
+---
+
+# Data reduction
+
+* `\(\boldsymbol{\Sigma}\)`
+
+
+```
+##   [1] 193.4417  29.1733  16.1600  14.9806  12.1708  11.3756  10.5788   8.9693
+##   [9]   8.3404   7.6359   7.4752   6.8798   6.1244   5.9575   5.5327   5.3978
+##  [17]   5.1953   4.8511   4.6521   4.6020   4.2501   4.1820   4.0820   4.0382
+##  [25]   3.8938   3.8375   3.7173   3.5563   3.5273   3.4986   3.4396   3.4027
+##  [33]   3.3417   3.2681   3.2025   3.1409   3.0671   3.0221   3.0124   2.9543
+##  [41]   2.8912   2.8365   2.8076   2.7306   2.6768   2.6547   2.6008   2.5562
+##  [49]   2.5353   2.5186   2.4892   2.4669   2.3997   2.3361   2.3274   2.2823
+##  [57]   2.2424   2.2378   2.1923   2.1692   2.1122   2.0840   2.0704   2.0510
+##  [65]   2.0241   2.0196   1.9849   1.9568   1.9305   1.9237   1.9052   1.8737
+##  [73]   1.8433   1.8222   1.8107   1.7891   1.7699   1.7554   1.7195   1.7039
+##  [81]   1.6870   1.6695   1.6453   1.6310   1.6101   1.5815   1.5727   1.5373
+##  [89]   1.5198   1.5105   1.4861   1.4748   1.4609   1.4378   1.4321   1.4016
+##  [97]   1.4001   1.3788   1.3624   1.3386   1.3301   1.3169   1.3057   1.2704
+## [105]   1.2593   1.2419   1.2376   1.2065   1.1922   1.1825   1.1741   1.1584
+## [113]   1.1405   1.1314   1.1157   1.1003   1.0921   1.0705   1.0602   1.0480
+## [121]   1.0406   1.0314   1.0191   0.9983   0.9939   0.9919   0.9634   0.9500
+## [129]   0.9434   0.9337   0.9213   0.9153   0.9044   0.8910   0.8777   0.8528
+## [137]   0.8458   0.8419   0.8246   0.8196   0.8005   0.7967   0.7924   0.7866
+## [145]   0.7734   0.7591   0.7564   0.7469   0.7365   0.7283   0.7198   0.7159
+## [153]   0.7118   0.7009   0.6926   0.6874   0.6817   0.6634   0.6552   0.6517
+## [161]   0.6493   0.6352   0.6184   0.6127   0.6073   0.6039   0.6014   0.5949
+## [169]   0.5915   0.5810   0.5767   0.5627   0.5547   0.5456   0.5381   0.5351
+## [177]   0.5310   0.5247   0.5211   0.5139   0.5025   0.4998   0.4966   0.4808
+## [185]   0.4763   0.4725   0.4613   0.4552   0.4529   0.4471   0.4411   0.4374
+## [193]   0.4326   0.4309   0.4232   0.4178   0.4152   0.4047   0.4005   0.3970
+## [201]   0.3884   0.3795   0.3790   0.3770   0.3705   0.3690   0.3597   0.3535
+## [209]   0.3506   0.3465   0.3434   0.3387   0.3341   0.3243   0.3201   0.3183
+## [217]   0.3099   0.3073   0.3020   0.2980   0.2972   0.2953   0.2911   0.2826
+## [225]   0.2787   0.2738   0.2705   0.2644   0.2584   0.2542   0.2533   0.2472
+## [233]   0.2424   0.2397   0.2356   0.2320   0.2300   0.2268   0.2205   0.2187
+## [241]   0.2160   0.2096   0.2077   0.1980   0.1961   0.1930   0.1895   0.1891
+## [249]   0.1853   0.1814   0.1798   0.1772   0.1720   0.1704   0.1681   0.1658
+## [257]   0.1650   0.1617   0.1539   0.1523   0.1483   0.1457   0.1436   0.1424
+## [265]   0.1367   0.1360   0.1332   0.1304   0.1276   0.1265   0.1259   0.1232
+## [273]   0.1201   0.1158   0.1119   0.1112   0.1079   0.1069   0.1044   0.1010
+## [281]   0.0993   0.0980   0.0934   0.0905   0.0900   0.0878   0.0868   0.0847
+## [289]   0.0838   0.0796   0.0763   0.0744   0.0733   0.0710   0.0682   0.0674
+## [297]   0.0671   0.0637   0.0612   0.0595   0.0570   0.0556   0.0537   0.0501
+## [305]   0.0485   0.0446   0.0435   0.0426   0.0401   0.0361   0.0354   0.0336
+## [313]   0.0311   0.0295   0.0286   0.0257   0.0248   0.0238   0.0235   0.0233
+## [321]   0.0224   0.0221   0.0218   0.0208   0.0203   0.0200   0.0195   0.0191
+## [329]   0.0184   0.0181   0.0175   0.0174   0.0170   0.0162   0.0157   0.0155
+## [337]   0.0152
+```
+
+---
+
+# Data reduction
+
+&lt;img src="06-matrix-inversion-decomposition_files/figure-html/svd-sigma-prop-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Draw image using rank 2
+
+&lt;img src="06-matrix-inversion-decomposition_files/figure-html/lions-rank1-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Different ranks
+
+&lt;img src="06-matrix-inversion-decomposition_files/figure-html/lions-rank-all-1.gif" alt="" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1087,12 +1118,13 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 ---
 # Determinants, minors and cofactors: `\(n \times n\)` matrix
 
-`$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
+* `$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
   * NOTE: we can add across any one row or column (just be consistent)
-
-* `\(ij\)`th **minor** of `\(\mathbf{X}\)` for `\(x_{ij}\)`, `\(\mid\mathbf{X}_{[ij]}\mid\)`
-    * Determinant of the `\((n - 1) \times (n - 1)\)` submatrix that results from taking the `\(i\)`th row and `\(j\)`th column out
-    * Refer to this resulting submatrix at `\(\mathbf{M_{ij}}\)`
+* `\(ij\)`th **minor** of `\(\mathbf{X}\)` for `\(x_{ij}\)`
+    * The **submatrix** `\(\mathbf{X}_{[ij]}\)` is what remains after deleting the
+      `\(i\)`th row and `\(j\)`th column --- an `\((n-1) \times (n-1)\)` matrix
+    * The **minor** `\(M_{ij} = \mid \mathbf{X}_{[ij]} \mid\)` is its determinant ---
+      a single number
 * **Cofactor** of `\(\mathbf{X}\)`
     * Minor signed as `\((-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid\)`
 * Cycle recursively through columns

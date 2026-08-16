@@ -129,9 +129,11 @@ x_{41} & x_{42} & x_{43}  \\
 * $$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
   * NOTE: we can add across any one row or column (just be consistent)
 
-* $ij$th **minor** of $\mathbf{X}$ for $x_{ij}$, $\mid\mathbf{X}_{[ij]}\mid$
-    * Determinant of the $(n - 1) \times (n - 1)$ submatrix that results from taking the $i$th row and $j$th column out
-    * Refer to this resulting submatrix as $\mathbf{M_{ij}}$
+* $ij$th **minor** of $\mathbf{X}$ for $x_{ij}$
+    * The **submatrix** $\mathbf{X}_{[ij]}$ is what remains after deleting the
+      $i$th row and $j$th column --- an $(n-1) \times (n-1)$ matrix
+    * The **minor** $M_{ij} = \mid \mathbf{X}_{[ij]} \mid$ is its determinant ---
+      a single number
 * **Cofactor** of $\mathbf{X}$
     * Minor signed as $(-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid$
 * Cycle recursively through columns
@@ -199,7 +201,7 @@ $\mathbf{M_{32}} = \left|\begin{bmatrix}  1&3  \\ 2 & 3 \end{bmatrix}\right|=3-6
 $\mathbf{M_{33}} = \left|\begin{bmatrix}  1& 2 \\ 2 & 1 \end{bmatrix}\right|=1-4=-3$
 
 ---
-# Answer: $3 \times 3 matrix$
+# Answer: $3 \times 3$ matrix
 * Create cofactor matrix
 $$\begin{aligned}\begin{bmatrix}
 1 \mathbf{M_{11}} & -1\mathbf{M_{12}} & 1\mathbf{M_{13}} \\
@@ -218,7 +220,7 @@ $$\begin{aligned}\begin{bmatrix}
 \end{bmatrix}\end{aligned}$$
 ---
 
-# Answer: $3 \times 3 matrix$
+# Answer: $3 \times 3$ matrix
 
 $$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
 
@@ -613,7 +615,7 @@ Y_{n} & = \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \ldots + \beta_{k} x
 * $\mathbf{x}_{i} = (1, x_{i1}, x_{i2}, \ldots, x_{ik})$
 
  $\mathbf{Y} = \begin{bmatrix}Y_{1} \\ Y_{2} \\  \vdots \\ Y_{n}\end{bmatrix}$, 
- $\boldsymbol{\beta} = \begin{bmatrix}\boldsymbol{\beta}_{0} \\ \boldsymbol{\beta}_{1} \\ \vdots \\ \boldsymbol{\beta}_{k} \end{bmatrix}$,
+ $\boldsymbol{\beta} = \begin{bmatrix}{\beta}_{0} \\ {\beta}_{1} \\ \vdots \\ {\beta}_{k} \end{bmatrix}$,
  $\mathbf{X} = \begin{bmatrix} \mathbf{x}_{1}\\\mathbf{x}_{2}\\ \vdots \\ \mathbf{x}_{n} \end{bmatrix}$
 
 ---
@@ -622,7 +624,7 @@ Y_{n} & = \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \ldots + \beta_{k} x
 
 GOAL: find $\boldsymbol{\beta}$
 $$\begin{aligned}
-\mathbf{Y} &= \mathbf{X}\mathbf{\beta} \\\end{aligned}$$
+\mathbf{Y} &= \mathbf{X}\boldsymbol{\beta} \\\end{aligned}$$
 
 
 * Ok, so, we have an $\mathbf{X}$. We want to 'undo' it, so we need the inverse. Is it invertible? How do we make sure? 
@@ -632,23 +634,23 @@ $$\begin{aligned}
 * Ah, yes, we multiply it by its transpose. It will certainly be square (and likely invertible) then
 
 $$\begin{aligned}
-\mathbf{X}^{'} \mathbf{Y} &= \mathbf{X}^{'} \mathbf{X} \mathbf{\beta} \\\end{aligned}$$
+\mathbf{X}^{'} \mathbf{Y} &= \mathbf{X}^{'} \mathbf{X} \boldsymbol{\beta} \\\end{aligned}$$
 
 --
 * Great! Now, we can 'undo' this (inverse-land)
 --
 $$\begin{aligned}
 (\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &= 
-(\mathbf{X}^{'}\mathbf{X})^{-1}\mathbf{X}^{'} \mathbf{X} \mathbf{\beta} \\ \end{aligned}$$
+(\mathbf{X}^{'}\mathbf{X})^{-1}\mathbf{X}^{'} \mathbf{X} \boldsymbol{\beta} \\ \end{aligned}$$
 --
 
 $$\begin{aligned}
-(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &=\mathbf{I}\mathbf{\beta} 
+(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &=\mathbf{I}\boldsymbol{\beta} 
 \end{aligned}$$
 
 --
 $$\begin{aligned}
-(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &=\mathbf{\beta} 
+(\mathbf{X}^{'}\mathbf{X})^{-1} \mathbf{X}^{'} \mathbf{Y} &=\boldsymbol{\beta} 
 \end{aligned}$$
 
 ---
@@ -739,7 +741,7 @@ We can start with our eigenvalue (let's begin with $\lambda = -2$). We then setu
 
 --
 
-$\begin{pmatrix}\lambda & -4 \\ -1 & \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix$ becomes $-2v_1 - 4v_2 =0$ and
+$\begin{pmatrix}\lambda & -4 \\ -1 & \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix}$ becomes $-2v_1 - 4v_2 =0$ and
 $-v_1 - 2v_2 = 0$
 
 --
@@ -893,9 +895,9 @@ knitr::include_graphics("images/senate_party_means_1879-2015_2nd.png")
 
 # Calculating the PCA
 
-$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$
+$$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$
 
-* $\mathbf{V}^{*}$ = principal directions (eigenvector)
+* $\mathbf{V}^{'}$ = principal directions (eigenvector)
 * Columns of $\mathbf{U} \boldsymbol{\Sigma}$ = principal components (values along eigenvector)
 * Values of the diagonal elements of $\boldsymbol{\Sigma}$ $\approx$ eigenvalues
 
@@ -949,7 +951,7 @@ ggplot(PC, aes(PC1, PC2)) +
   geom_vline(xintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_hline(yintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_point() +
-  ggrepel::geom_text_repel(aes(label = State), linewidth = 5) +
+  ggrepel::geom_text_repel(aes(label = State), size = 5) +
   labs(title = "First two principal components of USArrests",
        x = "First principal component",
        y = "Second principal component")
@@ -968,7 +970,7 @@ ggplot(PC, aes(PC1, PC2)) +
   geom_vline(xintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_hline(yintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_point() +
-  ggrepel::geom_text_repel(aes(label = State), alpha = .25, linewidth = 5) +
+  ggrepel::geom_text_repel(aes(label = State), alpha = .25, size = 5) +
   geom_segment(data = phi_df,
                aes(x = 0, y = 0,
                    xend = PC1,
@@ -978,7 +980,7 @@ ggplot(PC, aes(PC1, PC2)) +
   ggrepel::geom_text_repel(data = phi_df,
                            aes(x = PC1, y = PC2, label = variable),
                            color = "purple",
-                           linewidth = 5) +
+                           size = 5) +
   labs(title = "First two principal components of USArrests",
        x = "First principal component",
        y = "Second principal component")
@@ -1043,7 +1045,7 @@ pixels_pca_plot +
 * Works with any rectangular matrix 
 * $\mathbf{M}$ is an $m \times n$ matrix. There exists a factorization of the form
 
-    $$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$
+    $$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$
 
     where
 
@@ -1113,7 +1115,7 @@ lion.svd$u[1:3, 1:3]
 diag(lion.svd$d)[1:3, 1:3]
 ```
 
-##### $\mathbf{V}^{*}$
+##### $\mathbf{V}^{'}$
 
 ```{r lion-vstar}
 lion.svd$v[1:3, 1:3]
@@ -1125,7 +1127,7 @@ lion.svd$v[1:3, 1:3]
 
 * Multiply back together
 
-    $$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{*}$$
+    $$\mathbf{M} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{'}$$
 
 ```{r svd-recombine}
 svd.rank(lion.svd, j = ncol(lion))[1:5, 1:5]
@@ -1212,12 +1214,13 @@ map(lion_ranks_images, ~ as_tibble(.x) %>%
 ---
 # Determinants, minors and cofactors: $n \times n$ matrix
 
-$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
+* $$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
   * NOTE: we can add across any one row or column (just be consistent)
-
-* $ij$th **minor** of $\mathbf{X}$ for $x_{ij}$, $\mid\mathbf{X}_{[ij]}\mid$
-    * Determinant of the $(n - 1) \times (n - 1)$ submatrix that results from taking the $i$th row and $j$th column out
-    * Refer to this resulting submatrix at $\mathbf{M_{ij}}$
+* $ij$th **minor** of $\mathbf{X}$ for $x_{ij}$
+    * The **submatrix** $\mathbf{X}_{[ij]}$ is what remains after deleting the
+      $i$th row and $j$th column --- an $(n-1) \times (n-1)$ matrix
+    * The **minor** $M_{ij} = \mid \mathbf{X}_{[ij]} \mid$ is its determinant ---
+      a single number
 * **Cofactor** of $\mathbf{X}$
     * Minor signed as $(-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid$
 * Cycle recursively through columns
