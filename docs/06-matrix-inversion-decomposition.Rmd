@@ -29,11 +29,13 @@ library(broom)
 
 * Matrix transposition 
 * Our pal, the diagonal: trace and determinant 
+* Define the determinant of a matrix
 * Define matrix inversion
 * Demonstrate how to solve systems of linear equations using matrix inversion
-* Define the determinant of a matrix
 * Define matrix decomposition
-* Explain singular value decomposition and demonstrate the applicability of matrix algebra to real-world problems
+*   Explain singular value decomposition and demonstrate the applicability of matrix algebra to real-world problems
+* Eigenvalues and eigenvectors
+  * Principal Component Analysis (PCA)
 
 ---
 
@@ -43,18 +45,19 @@ Transposing a matrix means *flipping* it in a sense -- swapping across the diago
 
 $$\mathbf{X} = \begin{pmatrix} x_{11} & x_{12} & \ldots & x_{1n} \\ x_{21} & x_{22} & \ldots & x_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ x_{m1} & x_{m2} & \ldots & x_{mn} \\ \end{pmatrix}$$ 
 
-$$\mathbf{X}' = \begin{pmatrix}  x_{11} & x_{21} & \ldots & x_{m1} \\ x_{12} & x_{22} & \ldots & x_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ x_{1n} & x_{2n} & \ldots & x_{mn}\end{pmatrix}\\$$
+$$\mathbf{X}' = \begin{pmatrix}  x_{11} & x_{21} & \ldots & x_{m1} \\ x_{12} & x_{22} & \ldots & x_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ x_{1n} & x_{2n} & \ldots & x_{mn}\end{pmatrix}$$
 
 ---
 # Diagonal measures: trace and determinant
 
 * **Trace** gives us information about the magnitude of the diagonal of a matrix: you simply add the values along the diagonal. 
-  * For example, the trace of an identity matrix is equal to the number of rows (e.g.: $tr(\mathbf{I}_2)=2$ )
+  * For example, the trace of an identity matrix is equal to the number of rows (e.g.: $\operatorname{tr}(\mathbf{I}_2)=2$ )
 
 * **Determinant**: summarizes structure of entire matrix. Easy for $2\times 2$ matrix but a pain for larger ones.
   * **submatrix**: akin to a subset: smaller matrix from original when deleting a row / column
   * **minor**: determinant of submatrix (relates to deleting particular row/column)
   * **cofactor**: product of minor and signed element removed from the matrix
+
 ---
 
 # Determinant
@@ -62,7 +65,7 @@ $$\mathbf{X}' = \begin{pmatrix}  x_{11} & x_{21} & \ldots & x_{m1} \\ x_{12} & x
 * Single number summary of a square matrix
 * Summary of structure: helps us understand (loosely speaking) how much space our vectors are taking up (more on this soon!)
 * Complicated to calculate: generally, multiply down the diagonal and subtract products along opposite diagonal (examples coming!)
-* Referred to using single bars $|\mathbf{X}|$ or $det(\mathbf{X}$ )
+* Referred to using single bars $|\mathbf{X}|$ or $det(\mathbf{X})$
 
 
 ---
@@ -123,12 +126,12 @@ x_{41} & x_{42} & x_{43}  \\
 
 # $n \times n$ matrix
 
-$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
+* $$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
   * NOTE: we can add across any one row or column (just be consistent)
 
 * $ij$th **minor** of $\mathbf{X}$ for $x_{ij}$, $\mid\mathbf{X}_{[ij]}\mid$
     * Determinant of the $(n - 1) \times (n - 1)$ submatrix that results from taking the $i$th row and $j$th column out
-    * Refer to this resulting submatrix at $\mathbf{M_{ij}}$
+    * Refer to this resulting submatrix as $\mathbf{M_{ij}}$
 * **Cofactor** of $\mathbf{X}$
     * Minor signed as $(-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid$
 * Cycle recursively through columns
@@ -143,13 +146,13 @@ x_{11} & x_{12} & x_{13} \\
 x_{21} & x_{22} & x_{23} \\
 x_{31} & x_{32} & x_{33} \\
 \end{bmatrix} \\
-\det(\mathbf{X}) &= (-1^{1+1})x_{11} \left| \begin{matrix}
+\det(\mathbf{X}) &= ((-1)^{1+1})x_{11} \left| \begin{matrix}
 x_{22} & x_{23} \\
 x_{32} & x_{33} \\
-\end{matrix} \right| +(-1^{1+2})x_{12} \left| \begin{matrix}
+\end{matrix} \right| +((-1)^{1+2})x_{12} \left| \begin{matrix}
 x_{21} & x_{23} \\
 x_{31} & x_{33} \\
-\end{matrix} \right| + (-1^{1+3})x_{13} \left| \begin{matrix}
+\end{matrix} \right| + ((-1)^{1+3})x_{13} \left| \begin{matrix}
 x_{21} & x_{22} \\
 x_{31} & x_{32} \\
 \end{matrix} \right|\end{aligned}}$$
@@ -166,7 +169,7 @@ You can also create the cofactor matrix using your work from the determinant wor
 
 $$\mathbf{C}_{ij}=(-1)^{i+j}\mathbf{M}_{ij}$$
 ---
-# Example: $3 \times 3 matrix$
+# Example: $3 \times 3$ matrix
 
 $$\begin{aligned}\begin{bmatrix}1 & 2 & 3 \\ 
 2 & 1 & 3 \\ 
@@ -179,7 +182,7 @@ $$\begin{aligned}\begin{bmatrix}1 & 2 & 3 \\
 
 ---
 
-# Answer: $3 \times 3 matrix$
+# Answer: $3 \times 3$ matrix
 
 $$\begin{aligned}\begin{bmatrix}1 & 2 & 3 \\ 2 & 1 & 3 \\ 4& 1 & 2\end{bmatrix}\end{aligned}$$
 * Compose into smaller sub-matrices
@@ -210,7 +213,7 @@ $$\begin{aligned}\begin{bmatrix}
 1 (3) & -1(-3)  & 1 (-3)
 \end{bmatrix} = \begin{bmatrix}
 -1 & 8& -2 \\
--1& -10  & -7 \\
+-1& -10  & 7 \\
 3 & 3  & -3
 \end{bmatrix}\end{aligned}$$
 ---
@@ -219,7 +222,7 @@ $$\begin{aligned}\begin{bmatrix}
 
 $$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$
 
-Let's live life on the edge and each compute the determiniant differently. I will show TWO examples: row two and column three (EXCITEMENT!). 
+Let's live life on the edge and each compute the determinant differently. I will show TWO examples: row two and column three (EXCITEMENT!). 
 
 --
 
@@ -291,7 +294,7 @@ class: middle, inverse, center
 
 ---
 
-#Why is this useful? Matrix inversion is necessary to:
+# Why is this useful? Matrix inversion is necessary to:
 
 * Solve systems of equations
 * Perform linear regression
@@ -501,7 +504,7 @@ $$\mathbf{A} = \begin{bmatrix}
 
 $$\left[\begin{array}{rrr|rrr}2 & 1 & 2 & 1 & 0 & 0 \\3 & 1 & 1 & 0 & 1 & 0 \\3 & 1 & 2 & 0 & 0 & 1\end{array}\right]$$
 
-##### Substract $3/2$ times the first row from each of the other rows
+##### Subtract $3/2$ times the first row from each of the other rows
 
 $$\left[\begin{array}{rrr|rrr}2 & 1 & 2 & 1 & 0 & 0 \\0 & -1/2 & -2 & -3/2 & 1 & 0 \\0 & -1/2 & -1 & -3/2 & 0 & 1\end{array}\right]$$
 
@@ -539,7 +542,7 @@ $$\left[\begin{array}{rrr|rrr}2 & 0 & 0 & -2 & 0 & 2 \\0 & -1/2 & 0 & -3/2 & -1 
 --
 
 ##### Norm out the diagonal matrix to be $\mathbf{I}$
-$$\left[\begin{array}{rrr|rrr}1 & 0 & 0 & -1 & 0 & 1 \\0 & 1 & 0 & 3  & -2 & -4 \\0 & 0 & 1 & 0 & -1 & 1\end{array}\right]$$
+$$\left[\begin{array}{rrr|rrr}1 & 0 & 0 & -1 & 0 & 1 \\0 & 1 & 0 & 3  & 2 & -4 \\0 & 0 & 1 & 0 & -1 & 1\end{array}\right]$$
 --
     
 $$\mathbf{A}^{-1} = \begin{bmatrix}-1 & 0 & 1 \\3 & 2 & -4 \\0 & -1 & 1\end{bmatrix}$$
@@ -610,14 +613,14 @@ Y_{n} & = \beta_{0} + \beta_{1} x_{n1} + \beta_{2} x_{n2} + \ldots + \beta_{k} x
 * $\mathbf{x}_{i} = (1, x_{i1}, x_{i2}, \ldots, x_{ik})$
 
  $\mathbf{Y} = \begin{bmatrix}Y_{1} \\ Y_{2} \\  \vdots \\ Y_{n}\end{bmatrix}$, 
- $\boldsymbol{\beta} = \begin{bmatrix}\beta_{0} \\ \beta_{1} \\ \vdots \\ \beta_{k} \end{bmatrix}$,
+ $\boldsymbol{\beta} = \begin{bmatrix}\boldsymbol{\beta}_{0} \\ \boldsymbol{\beta}_{1} \\ \vdots \\ \boldsymbol{\beta}_{k} \end{bmatrix}$,
  $\mathbf{X} = \begin{bmatrix} \mathbf{x}_{1}\\\mathbf{x}_{2}\\ \vdots \\ \mathbf{x}_{n} \end{bmatrix}$
 
 ---
 
 # Solve the system of equations
 
-GOAL: find $\beta$
+GOAL: find $\boldsymbol{\beta}$
 $$\begin{aligned}
 \mathbf{Y} &= \mathbf{X}\mathbf{\beta} \\\end{aligned}$$
 
@@ -671,10 +674,10 @@ class: middle, center, inverse
 ---
 # Eigen-wha?: WHAT ARE THEY?!!
 
-I think about **eigenvectors** as the 'essence' of a vector -- meaning that transformations to an eigenvector don't 'move' it around / shift its direction. All it does is change length.
+I think about **eigenvectors** as the 'essence' of a vector -- meaning that transformations to an eigenvector don't 'move' it around. All it does is change length.
 
 
-The **eigenvalue** is the length the vector changes in its transformation.
+The **eigenvalue** is the factor the vector changes in its transformation.
 
 More formally, suppose we have a matrix $\mathbf{X}$. If we multiply that by our eigenvector $\mathbf{v}$, what we'll get out is simply a rescaled vector $\mathbf{v}$. How much will it be rescaled by? By some scalar amount of our eigenvalue, represented by $\lambda$. 
 
@@ -698,7 +701,7 @@ To find eigenvalues, we can consider our equation, $\mathbf{A}\mathbf{v}= \lambd
 We can move things around to find: $0 = \lambda \mathbf{v}-\mathbf{A}\mathbf{v}$
 We can work in the identity matrix to make things a little nicer: 
 
-$0 = \lambda \mathbf{I} \mathbf{v}-\mathbf{A}\mathbf{v}=(\lambda \mathbf{I} -\mathbf{A})\mathbf{v}$ (note: can also solve $(\mathbf{A}- \lambda \mathbf{I})\mathbf{v}$)
+$0 = \lambda \mathbf{I} \mathbf{v}-\mathbf{A}\mathbf{v}=(\lambda \mathbf{I} -\mathbf{A})\mathbf{v}$ (note: can also solve $(\mathbf{A}- \lambda \mathbf{I})\mathbf{v}=0$)
 
 --
 
@@ -723,7 +726,7 @@ $(\lambda^2-4) = 0$
 --
 
 
-$\lambda \pm 2$
+$\lambda = \pm 2$
 
 --
 
@@ -736,18 +739,33 @@ We can start with our eigenvalue (let's begin with $\lambda = -2$). We then setu
 
 --
 
-$\begin{pmatrix}\lambda & -4 \\ -1 & \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}$ becomes $-2v_1 - 4v_2 =0$ and
+$\begin{pmatrix}\lambda & -4 \\ -1 & \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix$ becomes $-2v_1 - 4v_2 =0$ and
 $-v_1 - 2v_2 = 0$
 
 --
 
-We can rearrange to find that $4v_2 = -2v_1$, simplyfing to $v_1 =-2v_2$. Since these are going to have infinitely many solutions, we can choose an arbitrary value for one of our vectors, suppose $v_2$ is 1 (start small and go from there!). Thus, we end up with $v_1=-2$ and $v_2 = 1$.
+We can rearrange to find that $4v_2 = -2v_1$, simplifying to $v_1 =-2v_2$. Since these are going to have infinitely many solutions, we can choose an arbitrary value for one of our vectors, suppose $v_2$ is 1 (start small and go from there!). Thus, we end up with $v_1=-2$ and $v_2 = 1$.
 
 --
 
 By a similar process, we can substitute to find that $2v_1 - 4v_2 = 0$, arriving at $v_1 = 2v_2$. Again, we suppose $v_2=1$ (for simplicity), and find that $v_1=2$
 
-So, our eigenvectors are $\begin{pmatrix} 2 \\ 1 \end{pmatrix}$ and $\begin{pmatrix}-2 \\ 1\end{pmatrix}$. (How we interpret them depends on what our question is!)
+---
+## Eigenvalues and eigenvectors
+
+So we have two eigenvalue/eigenvector pairs:
+
+$$\lambda_1 = -2, \quad \mathbf{v}_1 = \begin{pmatrix}-2 \\ 1\end{pmatrix}
+\qquad
+\lambda_2 = 2, \quad \mathbf{v}_2 = \begin{pmatrix}2 \\ 1\end{pmatrix}$$
+
+Check: $\mathbf{A}\mathbf{v}_2 = \begin{pmatrix}0 & 4 \\ 1 & 0\end{pmatrix}\begin{pmatrix}2 \\ 1\end{pmatrix} = \begin{pmatrix}4 \\ 2\end{pmatrix} = 2\mathbf{v}_2$, as required.
+
+These aren't the *only* eigenvectors --- any nonzero multiple of either one
+works, so what we've really found is two **directions**. Along
+$\mathbf{v}_2$, $\mathbf{A}$ stretches by a factor of 2. Along
+$\mathbf{v}_1$, it stretches by 2 **and reverses direction** --- that's what
+a negative eigenvalue means.
 
 ---
 # Cool. So what?!
@@ -775,7 +793,7 @@ A way to conceptualize this is we want maximum information for minimum effort. W
 ---
 class: middle, center, inverse
 
-#decomposition and dimension reduction
+# Decomposition and dimension reduction
 
 
 ---
@@ -861,7 +879,7 @@ knitr::include_graphics("images/senate_party_means_1879-2015_2nd.png")
 1. Rescale each column to be mean 0 and standard deviation 1
 1. Compute the covariance matrix $\mathbf{S}$
     $$\mathbf{S} = \dfrac{1}{N} \mathbf{X}' \mathbf{X}$$
-1. Compute the $K$ largest **eigenvectors** of $\mathbf{S}$
+1. Compute the **eigenvectors** for the $K$ largest **eigenvalues** of $\mathbf{S}$
     * Eigenvector - principal directions
     * Values of observations along eigenvector - principal components
     * Eigenvalues - amount of variance along the eigenvector
@@ -928,10 +946,10 @@ PC <- tibble(
 
 ```{r usarrests-pc-scores-plot, dependson = "usarrests-pc-scores"}
 ggplot(PC, aes(PC1, PC2)) + 
-  geom_vline(xintercept = 0, size = 2, color = "black", alpha = .5) +
-  geom_hline(yintercept = 0, size = 2, color = "black", alpha = .5) +
+  geom_vline(xintercept = 0, linewidth = 2, color = "black", alpha = .5) +
+  geom_hline(yintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_point() +
-  ggrepel::geom_text_repel(aes(label = State), size = 5) +
+  ggrepel::geom_text_repel(aes(label = State), linewidth = 5) +
   labs(title = "First two principal components of USArrests",
        x = "First principal component",
        y = "Second principal component")
@@ -947,10 +965,10 @@ phi_df <- (phi * 1.75) %>%
   rownames_to_column(var = "variable")
 
 ggplot(PC, aes(PC1, PC2)) + 
-  geom_vline(xintercept = 0, size = 2, color = "black", alpha = .5) +
-  geom_hline(yintercept = 0, size = 2, color = "black", alpha = .5) +
+  geom_vline(xintercept = 0, linewidth = 2, color = "black", alpha = .5) +
+  geom_hline(yintercept = 0, linewidth = 2, color = "black", alpha = .5) +
   geom_point() +
-  ggrepel::geom_text_repel(aes(label = State), alpha = .25, size = 5) +
+  ggrepel::geom_text_repel(aes(label = State), alpha = .25, linewidth = 5) +
   geom_segment(data = phi_df,
                aes(x = 0, y = 0,
                    xend = PC1,
@@ -960,7 +978,7 @@ ggplot(PC, aes(PC1, PC2)) +
   ggrepel::geom_text_repel(data = phi_df,
                            aes(x = PC1, y = PC2, label = variable),
                            color = "purple",
-                           size = 5) +
+                           linewidth = 5) +
   labs(title = "First two principal components of USArrests",
        x = "First principal component",
        y = "Second principal component")
@@ -1014,7 +1032,7 @@ pixels_pca_plot
 ```{r pixels-pca-pc12-facet, dependson = "pixels-pca", message = FALSE}
 pixels_pca_plot +
   facet_wrap(~ label) +
-  scale_color_brewer(type = "qual", palette = "Paired", guide = FALSE)
+  scale_color_brewer(type = "qual", palette = "Paired", guide = "none")
 ```
 
 ---
@@ -1031,7 +1049,7 @@ pixels_pca_plot +
 
     * $\mathbf{U}$ is an $m \times n$ matrix
     * $\boldsymbol{\Sigma}$ is an $n \times n$ diagonal matrix
-    * $\mathbf{V}^{*}$ is the transpose of an $n \times n$ matrix
+    * $\mathbf{V}^{'}$ is the transpose of an $n \times n$ matrix
 
 ---
 
@@ -1059,11 +1077,11 @@ svd.plot <- function(svd.out, j) {
 ```{r read-image}
 library(imager)
 
-lion <- load.image("images/lion.jpg") %>%
-  grayscale()
+ lion <- load.image("images/lion.jpg") %>%
+   grayscale()
 
-svd.plot(svd(lion), ncol(lion)) +
-  ggtitle(NULL)
+ svd.plot(svd(lion), ncol(lion)) +
+   ggtitle(NULL)
 ```
 
 ---
@@ -1088,7 +1106,7 @@ lion.svd <- svd(lion)
 ```{r lion-u}
 lion.svd$u[1:3, 1:3]
 ```
-    
+
 ##### $\boldsymbol{\Sigma}$
 
 ```{r lion-sigma}
@@ -1117,7 +1135,7 @@ svd.rank(lion.svd, j = ncol(lion))[1:5, 1:5]
 
 # Data reduction
 
-* $\Sigma$
+* $\boldsymbol{\Sigma}$
 
 ```{r svd-sigma-descend}
 lion.svd$d
@@ -1181,10 +1199,10 @@ map(lion_ranks_images, ~ as_tibble(.x) %>%
 
 # Recap:
 
-* Matrix **transposition**: flipping elments across the diagonal (results in switching the row/column numbers for each element -- e.g. $x_{ij}$ becomes $x_{ji}$)
-* Matrix **inversion**: matrix version of division / reversing. General formula is $\frac{1}{det(A)}Adj$ where the adjoint matrix is the transposed cofactor matrix
+* Matrix **transposition**: flipping elements across the diagonal (results in switching the row/column numbers for each element -- e.g. $x_{ij}$ becomes $x_{ji}$)
+* Matrix **inversion**: matrix version of division / reversing. General formula is $\frac{1}{det(A)}\mathrm{Adj}$ where the adjoint matrix is the transposed cofactor matrix
 * **Trace** gives us information about the magnitude of the diagonal of a matrix: you simply add the values along the diagonal. 
-  * For example, the trace of an identity matrix is equal to the number of rows (e.g.: $tr(\mathbf{I}_2)=2$ )
+  * For example, the trace of an identity matrix is equal to the number of rows (e.g.: $\operatorname{tr}(\mathbf{I}_2)=2$ )
 
 * **Determinant**: summarizes structure of entire matrix. Easy for $2\times 2$ matrix but a pain for larger ones.
   * **submatrix**: akin to a subset: smaller matrix from original when deleting a row / column
