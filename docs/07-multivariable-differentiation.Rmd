@@ -23,6 +23,7 @@ library(patchwork)
 library(here)
 library(gganimate)
 library(plotly)
+library(vembedr)
 ```
 
 # Misc
@@ -58,6 +59,7 @@ library(plotly)
 * Derivatives of derivatives
 
 --
+
 * First derivative
 
     $$f'(x),  ~~ y',  ~~ \frac{d}{dx}f(x), ~~ \frac{dy}{dx}$$
@@ -84,6 +86,7 @@ We're trying to get some understanding of the underlying function and see how th
 # Multivariate function: Example
 Suppose we have the following function: 
 $$f(x_{1}, x_{2}) = x_{1}  + x_{2}$$
+
 --
 
 ```{r multivariate-fun1}
@@ -194,6 +197,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z) %>%
 Suppose we have the following function: 
 $$f(x_{1}, x_{2}, x_{3} ) = x_1 + x_2 + x_3$$
 To evaluate it, we would then need to add our three variables up for whichever value we're exploring. We could imagine having $n$ many values of $x$. (to be clear, we're thinking of each x as different variable, akin to $x,y,z$, etc.)
+
 --
 
 $$
@@ -208,12 +212,12 @@ $$
 
 # Multivariate function: definition
 
-* $f:\Re^{n} \rightarrow \Re^{1}$
+* $f:\mathbb{R}^{n} \rightarrow \mathbb{R}^{1}$
 * $f$ is a multivariate function
 
     $$f(\mathbf{x}) = f(x_{1}, x_{2}, x_{3}, \ldots, x_{n} )$$
 
-* $\Re^{n} = \Re \underbrace{\times}_{\text{cartesian}} \Re \times \Re \times \ldots \Re$
+* $\mathbb{R}^{n} = \mathbb{R} \underbrace{\times}_{\text{cartesian}} \mathbb{R} \times \mathbb{R} \times \ldots \mathbb{R}$
 * $n$ inputs
 * $1$ output
 
@@ -238,6 +242,7 @@ $$f(x_{1}, x_{2} ) = x_{1} + x_{2} + x_{1} x_{2}$$
 --
 
 ### Evaluate at $\mathbf{w} = (w_{1}, w_{2} ) = (1, 2)$ 
+
 --
 
 $$\begin{aligned}f(w_{1}, w_{2}) & = w_{1} + w_{2} + w_{1} w_{2}  \\								& = 1  + 2  + 1 \times 2  \\								& = 5  \end{aligned}$$						
@@ -248,14 +253,14 @@ $$\begin{aligned}f(w_{1}, w_{2}) & = w_{1} + w_{2} + w_{1} w_{2}  \\								& = 
 
 * Spatial policy model
 * Policy and political actors
-* Policy is $N$ dimensional - or $\mathbf{x} \in \Re^{N}$
-* Legislator $i$'s utility is $U:\Re^{N} \rightarrow \Re^{1}$
+* Policy is $N$ dimensional - or $\mathbf{x} \in \mathbb{R}^{N}$
+* Legislator $i$'s utility is $U:\mathbb{R}^{N} \rightarrow \mathbb{R}^{1}$
 
     $$\begin{aligned}U(\mathbf{x}) & = U(x_{1}, x_{2}, \ldots, x_{N} )  \\					& = - (x_{1} - \mu_{1} )^2 - (x_{2} - \mu_{2})^2 - \ldots - (x_{N} -\mu_{N})^{2} \\	& = -\sum_{j=1}^{N} (x_{j} - \mu_{j} )^{2}\end{aligned}$$
 
 --
 
-* Suppose: $\mathbf{\mu} = (\mu_{1}, \mu_{2}, \ldots, \mu_{N} ) = (0, 0, \ldots, 0)$
+* Suppose: $\boldsymbol{\mu} = (\mu_{1}, \mu_{2}, \ldots, \mu_{N} ) = (0, 0, \ldots, 0)$
 
 
 ---
@@ -264,9 +269,10 @@ $$\begin{aligned}f(w_{1}, w_{2}) & = w_{1} + w_{2} + w_{1} w_{2}  \\								& = 
 We can take these preferences and put them into our utility function. 
 * Evaluate legislator's utility for a policy proposal of $\mathbf{m} = (1, 1, \ldots, 1)$
 
-    $$\begin{aligned}U(\mathbf{m} ) & = U(1, 1, \ldots, 1) \\						  & = - (1 - 0)^2 - (1- 0) ^2 - \ldots - (1- 0) ^2 \\				& = -\sum_{j=1}^{N} 1 = - N   \\\end{aligned}$$
+    $$\begin{aligned}U(\mathbf{m} ) & = U(1, 1, \ldots, 1) \\						  & = - (1 - 0)^2 - (1- 0) ^2 - \ldots - (1- 0) ^2 \\				& = -\sum_{j=1}^{N} 1 = - N   \end{aligned}$$
 
 ---
+
 # Multivariate function: Policy
 
 $$f(x_{1}, x_{2}) =  -(x-0)^2 - (y-0)^2$$
@@ -314,14 +320,17 @@ plot_ly(x = ~x1, y = ~x2, z = ~z) %>%
     $$\begin{aligned}f(T = 1, x_2) - f(T=0, x_2) & = \beta_{0} + \beta_{1} 1  + \beta_{2} x_{2} - (\beta_{0} + \beta_{1}  0 + \beta_{2} x_{2}) \\& = \beta_{0} - \beta_{0}  + \beta_{1}(1 - 0) + \beta_{2}(x_{2} - x_{2} ) \\	& = \beta_{1} \end{aligned}$$
 
 ---
+
 # NOW WHAT?
 
 We have a function that we can start to sort out re: how it is that these pieces come together. However, we may want or need to figure out how our *outcome* variable may change relative to our input variables. 
 
 --
+
 **INTRODUCING...**
 
 ---
+
 class: middle, center
 
 ## Multivariate derivatives: AKA partial derivatives
@@ -330,7 +339,7 @@ class: middle, center
 
 # Multivariate function: Optimizing
 
-To find or max / min, what would you do (think about realistically and then mathematically).
+To find our max / min, what would you do (think about realistically and then mathematically).
 
 
 
@@ -348,7 +357,8 @@ If you have more than one variable changing simultaneously, you will need to eva
     $$\frac{\partial f}{\partial x_i} (x_1,\ldots,x_n) = \lim\limits_{h\to 0} \frac{f(x_1,\ldots,\mathbf{x_i+h},\ldots,x_n)-f(x_1,\ldots,\mathbf{x_i},\ldots,x_n)}{h}$$
 
 --
-    * NOTICE: only the $i$th variable changes. Same basic concept as derivatives!
+
+* NOTICE: only the $i$th variable changes. Same basic concept as derivatives!
 
 ---
 
@@ -356,13 +366,21 @@ If you have more than one variable changing simultaneously, you will need to eva
 
 $$f(x_1, y) = 2x+3y$$
 --
+
 $$\frac{\partial f}{\partial x} (x,y) = \lim\limits_{h\to 0} \frac{f(x+h,y)-f(x,y)}{h}$$
+
 --
-$$\lim\limits_{h\to 0}\frac{2(x+h) +3y}{h} = \frac{(2x + 2h + 3y)-(2x+3y)}{h}$$ 
+
+$$\lim\limits_{h\to 0} \frac{(2x + 2h + 3y)-(2x+3y)}{h}$$
+
+--
+
+$$ \frac{(2x + 2h + 3y)-2x-3y}{h}=\frac{2h}{h}$$
 
 --
 
 We can simplify: $$\lim\limits_{h\to 0}\frac{2h}{h}=2$$
+
 ---
 
 # Multivariate derivatives: strategy / procedure
@@ -370,27 +388,34 @@ We can simplify: $$\lim\limits_{h\to 0}\frac{2h}{h}=2$$
 To take a derivative when you have a multivariate function, you will focus on ONE variable of interest at a time. You will then take the derivative treating all other elements / variables as CONSTANTS. Finally, you will repeat this for EACH variable present. 
 
 --
+
 $$f(x,y)=x^2+y^2$$
+
 --
 
 Try it out, how many partial derivatives? What are they? 
 
 --
 
-$$\frac{\partial f}{\partial x}(x,y) = 2x \\$$
+$$\frac{\partial f}{\partial x}(x,y) = 2x$$
 
-$$\frac{\partial f}{\partial y}(x,y) = 2y\\$$
+$$\frac{\partial f}{\partial y}(x,y) = 2y$$
+
 ---
+
 ## Second derivatives! 
 Like usual, you can take a second derivative. But wait, there's more! You can also take the derivative with respect to one variable and then the other. e.g. dx then dy. 
 
 
-$$\frac{\partial f}{\partial x}(x,y) = 2x, \text{  } \frac{\partial f}{\partial y}(x,y) = 2y $$
---
-$$\frac{\partial^2 f}{\partial x^2}(x,y) = 2, \text{  } \frac{\partial^2 f}{\partial y^2}(x,y) = 2$$
+$$\frac{\partial f}{\partial x}(x,y) = 2x, \qquad \frac{\partial f}{\partial y}(x,y) = 2y $$
 
 --
-$$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 0 \text{  } \frac{\partial^2 f}{\partial y \partial x}(x,y) = 0$$
+
+$$\frac{\partial^2 f}{\partial x^2}(x,y) = 2, \qquad \frac{\partial^2 f}{\partial y^2}(x,y) = 2$$
+
+--
+
+$$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 0, \qquad \frac{\partial^2 f}{\partial y \partial x}(x,y) = 0$$
 
 
 ---
@@ -400,13 +425,19 @@ $$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 0 \text{  } \frac{\partial^2
 $$ 2xy^2+3x+4y-yx^3$$
 
 Find all first and second partial derivatives. 
---
-$$\frac{\partial f}{\partial x}(x,y) = 2y^2+ 3-3yx^2, \text{  } \frac{\partial f}{\partial y}(x,y) = 4xy+ 4-x^3$$
---
-$$\frac{\partial^2 f}{\partial x^2}(x,y) = -6xy,\text{  } \frac{\partial^2 f}{\partial y^2}(x,y) = 4x$$
 
 --
-$$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 4y-3x^2, \text{  } \frac{\partial^2 f}{\partial y \partial x}(x,y) = 4y-3x^2$$
+
+$$\frac{\partial f}{\partial x}(x,y) = 2y^2+ 3-3yx^2, \qquad \frac{\partial f}{\partial y}(x,y) = 4xy+ 4-x^3$$
+
+--
+
+$$\frac{\partial^2 f}{\partial x^2}(x,y) = -6xy, \qquad \frac{\partial^2 f}{\partial y^2}(x,y) = 4x$$
+
+--
+
+$$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 4y-3x^2, \qquad \frac{\partial^2 f}{\partial y \partial x}(x,y) = 4y-3x^2$$
+
 ---
 
 # Interpretations: Rates of change 
@@ -418,11 +449,14 @@ Think about how things are changing with respect to y, respect to x, x and then 
 # Multivariate derivatives
 
 $$f(x,y)=x^3 y^4 +e^x -\ln y$$
+
 --
 
 $$\frac{\partial f}{\partial x}(x,y) = 3x^2y^4 + e^x$$
 $$\frac{\partial f}{\partial y}(x,y) =4x^3y^3 - \frac{1}{y}$$
+
 --
+
 $$\frac{\partial^2 f}{\partial x^2}(x,y) = 6xy^4 + e^x$$
 $$\frac{\partial^2 f}{\partial x \partial y}(x,y) = 12x^2y^3$$
 
@@ -448,11 +482,11 @@ class: middle
 
 # Optimizing multivariate functions 
 
-* Parameters $\mathbf{\beta} = (\beta_{1}, \beta_{2}, \ldots, \beta_{n} )$ such that $f(\mathbf{\beta}| \mathbf{X}, \mathbf{Y})$ is maximized
-* Policy $\mathbf{x} \in \Re^{n}$ that maximizes $U(\mathbf{x})$
-* Weights $\mathbf{\pi} = (\pi_{1}, \pi_{2}, \ldots, \pi_{K})$ such that a weighted average of forecasts $\mathbf{f}  =  (f_{1} , f_{2}, \ldots, f_{k})$ have minimum loss
+* Parameters $\boldsymbol{\beta} = (\beta_{1}, \beta_{2}, \ldots, \beta_{n} )$ such that $f(\boldsymbol{\beta}| \mathbf{X}, \mathbf{Y})$ is maximized
+* Policy $\mathbf{x} \in \mathbb{R}^{n}$ that maximizes $U(\mathbf{x})$
+* Weights $\boldsymbol{\pi} = (\pi_{1}, \pi_{2}, \ldots, \pi_{K})$ such that a weighted average of forecasts $\mathbf{f}  =  (f_{1} , f_{2}, \ldots, f_{k})$ have minimum loss
 
-    $$\min_{\mathbf{\pi}} = - (\sum_{j=1}^{K} \pi_{j} f_{j}  - y ) ^ 2$$
+    $$\min_{\boldsymbol{\pi}} \left(\sum_{j=1}^{K} \pi_{j} f_{j} - y \right)^{2}$$
 
 --
 
@@ -475,13 +509,15 @@ class: middle
 
 # Neighborhood
 
-* Let $\mathbf{x} \in \Re^{n}$ and let $\delta >0$
+* Let $\mathbf{x} \in \mathbb{R}^{n}$ and let $\delta >0$
+
 --
 
 * Define a **neighborhood** of $\mathbf{x}$, $B(\mathbf{x}, \delta)$, as the set of points such that,
 
-    $$B(\mathbf{x}, \delta) = \{ \mathbf{y} \in \Re^{n} : ||\mathbf{x} - \mathbf{y}||< \delta \}$$
+    $$B(\mathbf{x}, \delta) = \{ \mathbf{y} \in \mathbb{R}^{n} : \lVert\mathbf{x} - \mathbf{y}\lVert< \delta \}$$
 --
+
 * $B(\mathbf{x}, \delta)$ is the set of points where the vector $\mathbf{y}$ is a vector in n-dimensional space such that vector norm of $\mathbf{x} - \mathbf{y}$  is less than $\delta$
 
 --
@@ -492,15 +528,15 @@ class: middle
 
 # Maxima/minima
 
-* $f:X \rightarrow \Re$ with $X \subset \Re^{n}$
-* **Global maximum** - a vector $\mathbf{x}^{*} \in X$ if, for all other $\mathbf{x} \in X$, $f(\mathbf{x}^{*}) > f(\mathbf{x} )$
+* $f:X \rightarrow \mathbb{R}$ with $X \subset \mathbb{R}^{n}$
+* **Global maximum** - a vector $\mathbf{x}^{*} \in X$ if, for all other $\mathbf{x} \in X$, $f(\mathbf{x}^{*}) \geq f(\mathbf{x} )$
 
 * **Local maximum** - a vector $\mathbf{x}^{\text{local}}$ if there is a neighborhood around $\mathbf{x}^{\text{local}}$, $Q \subset X$ such that, for all $x \in Q$, $f(\mathbf{x}^{\text{local} }) > f(\mathbf{x} )$
 
 * Reverse for minima:
   * **Global min**: a vector $\mathbf{x}^{*} \in X$ if, for all other $\mathbf{x} \in X$, $f(\mathbf{x}^{*}) < f(\mathbf{x} )$
   * **Local min**: a vector $\mathbf{x}^{\text{local}}$ if there is a neighborhood around $\mathbf{x}^{\text{local}}$, $Q \subset X$ such that, for all $x \in Q$, $f(\mathbf{x}^{\text{local} }) < f(\mathbf{x} )$
-* Values for $f:X \rightarrow \Re$ on the real number line (in n-dimensional space)
+* Values for $f:X \rightarrow \mathbb{R}$ on the real number line (in n-dimensional space)
 * Fall somewhere along $\mathbf{X}$
 
 ---
@@ -510,7 +546,7 @@ We want to think about how these pieces come together and what they're telling u
 
 --
 
-* **Gradient** $\nabla f$: vector, contains the first derivatives with respect to each of our variables in our function.This is a vector of derivatives, typically of a function.  
+* **Gradient** $\nabla f$: vector, contains the first derivatives with respect to each of our variables in our function. This is a vector of derivatives, typically of a function.  
   * *Jacobian* matrix of derivatives (sometimes you'll see reference to this). It is a matrix of derivatives of a vector. 
 * **Hessian** matrix of second derivatives, *including partials*. This is a matrix of second derivatives, typically of a vector (Hessian may be a Jacobian from a Jacobian!). 
 
@@ -518,7 +554,7 @@ We want to think about how these pieces come together and what they're telling u
 
 # First derivative test: Gradient
 
-* $f:X \rightarrow \Re^{n}$ with $X \subset \Re^{1}$ is a differentiable function
+* $f:X \rightarrow \mathbb{R}^{1}$ with $X \subset \mathbb{R}^{n}$ is a differentiable function
 * Gradient vector of $f$ at $\mathbf{x}_{0}$
 
     $$\nabla f (\mathbf{x}_{0}) = \left(\frac{\partial f (\mathbf{x}_{0}) }{\partial x_{1} }, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{2} }, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{3} }, \ldots, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{n} } \right)$$
@@ -554,28 +590,31 @@ $$
 
 
 ---
+
 # Jacobian
 The Jacobian matrix is a matrix of derivatives (derivative of a vector function) while the gradient is the derivative of a scalar function. If we start with a function, $f$, we can evaluate its gradient. 
 
 --
 
 ### Gradient
-* $f:X \rightarrow \Re^{n}$ with $X \subset \Re^{1}$ is a differentiable function
+* $f:X \rightarrow \mathbb{R}^{1}$ with $X \subset \mathbb{R}^{n}$ is a differentiable function
 * Gradient vector of $f$ at $\mathbf{x}_{0}$
 
     $$\nabla f (\mathbf{x}_{0}) = \left(\frac{\partial f (\mathbf{x}_{0}) }{\partial x_{1} }, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{2} }, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{3} }, \ldots, \frac{\partial f (\mathbf{x}_{0}) }{\partial x_{n} } \right)$$
 In contrast, the Jacobian is the matrix of gradients for a vector. 
-$$\mathbf{J_{ij}} = \begin{bmatrix}\frac{\partial F (\mathbf{x}_{i}) }{\partial x_{j} } \end{bmatrix}$$
+$$\mathbf{J}_{ij} = \begin{bmatrix}\frac{\partial F (\mathbf{x}_{i}) }{\partial x_{j} } \end{bmatrix}$$
 
 --
+
 All this to say, that if we wanted to have a matrix of derivatives of our gradient, the **Jacobian of the gradient vector** is the **Hessian**. 
 
 ---
+
 # Hessian 
 
 The Hessian is a matrix that has all the derivatives of our gradient vector (as we just stated, it's the Jacobian of the gradient). This is second derivatives of our original function. 
 
-$$\mathbf{H_{ij}} = \begin{bmatrix}\frac{\partial f }{\partial x_{i}\partial x_{j} } \end{bmatrix}$$
+$$\mathbf{H}_{ij} = \begin{bmatrix}\frac{\partial^2 f }{\partial x_{i}\partial x_{j} } \end{bmatrix}$$
 
 ---
 
@@ -610,14 +649,14 @@ Like before, we are also interested in where and how our function changes. We wa
 
 # Second derivative test: Hessian
 
-* $f:X \rightarrow \Re^{1}$, $X \subset \Re^{n}$, with $f$ a twice differentiable function
+* $f:X \rightarrow \mathbb{R}^{1}$, $X \subset \mathbb{R}^{n}$, with $f$ a twice differentiable function
   * Aside:  *we are still building on all our prior content re: what differentiable means*
   
 --
 
 * Hessian matrix of second derivatives at $\mathbf{x}^{*} \in X$
 
-    $$\mathbf{H}(f)(\mathbf{x}^{*} ) = \begin{bmatrix} 		\frac{\partial^{2} f }{\partial x_{1} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{1} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{1} \partial x_{n} } (\mathbf{x}^{*} ) \\		\frac{\partial^{2} f }{\partial x_{2} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{2} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{2} \partial x_{n} } (\mathbf{x}^{*} ) \\		\vdots & \vdots & \ddots & \vdots \\		\frac{\partial^{2} f }{\partial x_{n} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{n} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{n} \partial x_{n} } (\mathbf{x}^{*} ) \\\end{bmatrix}$$
+    $$\mathbf{H}(f)(\mathbf{x}^{*} ) = \begin{bmatrix} 		\frac{\partial^{2} f }{\partial x_{1} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{1} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{1} \partial x_{n} } (\mathbf{x}^{*} ) \\		\frac{\partial^{2} f }{\partial x_{2} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{2} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{2} \partial x_{n} } (\mathbf{x}^{*} ) \\		\vdots & \vdots & \ddots & \vdots \\		\frac{\partial^{2} f }{\partial x_{n} \partial x_{1} } (\mathbf{x}^{*} ) & \frac{\partial^{2} f }{\partial x_{n} \partial x_{2} } (\mathbf{x}^{*} ) & \ldots & \frac{\partial^{2} f }{\partial x_{n} \partial x_{n} } (\mathbf{x}^{*} ) \end{bmatrix}$$
 
 --
 
@@ -633,8 +672,10 @@ Start with the below function and identify the gradient and Hessian.
 
 $$f(x,y) = x^2+y^2$$ 
 --
+
 $$\nabla f(x,y) = (2x, \, 2y)$$
 --
+
 $$\mathbf{H}(f)(x,y) = \begin{bmatrix}2 & 0 \\0 & 2\end{bmatrix}$$
 
 ---
@@ -648,16 +689,16 @@ $$\begin{aligned}f(x,y) &= x^3 y^4 +e^x -\log y \\\nabla f(x,y) &= (3x^2 y^4 + e
 ---
 
 # Definiteness of a matrix
-This is important and tells us about the matrix and can give indications regarding how the underlying function is changing. A positive definite matrix has positive eigenvalues (but eigenvalues are a pain to calculate!). We can also approach it y looking at our matrix through multiplication. 
+This is important and tells us about the matrix and can give indications regarding how the underlying function is changing. A positive definite matrix has positive eigenvalues (but eigenvalues are a pain to calculate!). We can also approach it by looking at our matrix through multiplication. 
 
 --
 
 * Consider $n \times n$ matrix $\mathbf{A}$
-* If, for all $\mathbf{x} \in \Re^{n}$ where $\mathbf{x} \neq \mathbf{0}$
+* If, for all $\mathbf{x} \in \mathbb{R}^{n}$ where $\mathbf{x} \neq \mathbf{0}$
 
-$$\begin{aligned}\mathbf{x}^{'} \mathbf{A} \mathbf{x} &> 0, \quad \mathbf{A} \text{ is positive definite} \\ \mathbf{x}^{'} \mathbf{A} \mathbf{x} &< 0, \quad \mathbf{A} \text{ is negative definite } \end{aligned}$$
+$$\begin{aligned}\mathbf{x}' \mathbf{A} \mathbf{x} &> 0, \quad \mathbf{A} \text{ is positive definite} \\ \mathbf{x}' \mathbf{A} \mathbf{x} &< 0, \quad \mathbf{A} \text{ is negative definite } \end{aligned}$$
 
-* If $\mathbf{x}^{'} \mathbf{A} \mathbf{x} >0$ for some $\mathbf{x}$ and $\mathbf{x}^{'} \mathbf{A} \mathbf{x}<0$ for other $\mathbf{x}$, then we say $\mathbf{A}$ is **indefinite**
+* If $\mathbf{x}' \mathbf{A} \mathbf{x} >0$ for some $\mathbf{x}$ and $\mathbf{x}' \mathbf{A} \mathbf{x}<0$ for other $\mathbf{x}$, then we say $\mathbf{A}$ is **indefinite**
 
 ---
 
@@ -673,7 +714,7 @@ $$\begin{aligned}\mathbf{x}^{'} \mathbf{A} \mathbf{x} &> 0, \quad \mathbf{A} \te
 
 * Determinant of the Hessian of $f$ at the critical value $\mathbf{a}$
 
-    $$\mathbf{H}(f)(\mathbf{a}) = \begin{bmatrix} 	A & B \\	B & C \\ \end{bmatrix}$$
+    $$\mathbf{H}(f)(\mathbf{a}) = \begin{bmatrix} 	A & B \\	B & C \end{bmatrix}$$
     
 * Formula for the determinant for a $2 \times 2$ matrix
 
@@ -700,7 +741,7 @@ $$\begin{aligned}\mathbf{x}^{'} \mathbf{A} \mathbf{x} &> 0, \quad \mathbf{A} \te
 
 # A (relatively) simple optimization example
 
-* $f:\Re^{2} \rightarrow \Re$ with 
+* $f:\mathbb{R}^{2} \rightarrow \mathbb{R}$ with 
 
     $$f(x_{1}, x_{2}) = 3(x_1 + 2)^2  + 4(x_{2}  + 4)^2$$
 
@@ -719,7 +760,7 @@ $$x_{1}^{*}  = - 2, \quad x_{2}^{*}  = -4$$
 
 --
 
-$$\textbf{H}(f)(\mathbf{x}^{*}) = \begin{bmatrix} 6 & 0 \\ 0 & 8 \\ \end{bmatrix}$$
+$$\textbf{H}(f)(\mathbf{x}^{*}) = \begin{bmatrix} 6 & 0 \\ 0 & 8  \end{bmatrix}$$
 
 --
 
@@ -759,8 +800,8 @@ $$l(\mu, \sigma^2|\mathbf{Y} ) = -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^
 $$
 \begin{aligned}
 l(\mu, \sigma^2|\mathbf{Y} ) &=  -\sum_{i=1}^{n} \frac{(Y_{i} - \mu)^2}{2\sigma^2} - \frac{n}{2} \log (\sigma^2) \\
-\frac{\partial l(\mu, \sigma^2)|\mathbf{Y} )}{\partial \mu }  &= \sum_{i=1}^{n} \frac{2(Y_{i} - \mu)}{2\sigma^2} \\
-\frac{\partial l(\mu, \sigma^2)|\mathbf{Y})}{\partial \sigma^2} &=  -\frac{n}{2\sigma^2}  + \frac{1}{2\sigma^4} \sum_{i=1}^{n} (Y_{i} - \mu)^2
+\frac{\partial l(\mu, \sigma^2|\mathbf{Y} )}{\partial \mu }  &= \sum_{i=1}^{n} \frac{2(Y_{i} - \mu)}{2\sigma^2} \\
+\frac{\partial l(\mu, \sigma^2|\mathbf{Y})}{\partial \sigma^2} &=  -\frac{n}{2\sigma^2}  + \frac{1}{2\sigma^4} \sum_{i=1}^{n} (Y_{i} - \mu)^2
 \end{aligned}
 $$
 
@@ -768,8 +809,8 @@ $$
 
 $$
 \begin{aligned}
-0 &= -\sum_{i=1}^{n} \frac{2(Y_{i} - \widehat{\mu})}{2\widehat{\sigma}^2} \\
-0 &=  -\frac{n}{2\widehat{\sigma}^2 }  + \frac{1}{2\widehat{\sigma}^4} \sum_{i=1}^{n} (Y_{i} - \mu^{*})^2 
+0 &= \sum_{i=1}^{n} \frac{2(Y_{i} - \widehat{\mu})}{2\widehat{\sigma}^2} \\
+0 &=\frac{n}{2\widehat{\sigma}^2 }  + \frac{1}{2\widehat{\sigma}^4} \sum_{i=1}^{n} (Y_{i} - \mu^{*})^2 
 \end{aligned}
 $$
 
@@ -781,15 +822,16 @@ $$\begin{aligned} \widehat{\mu} &= \frac{\sum_{i=1}^{n} Y_{i} }{n} \\ \widehat{\
 
 --
 
-$$\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)  =  \begin{bmatrix} \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \mu^{2}} & \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \sigma^{2} \partial \mu} \\ \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \sigma^{2} \partial \mu} & \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial^{2} \sigma^{2}} \end{bmatrix}$$
+$$\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)  =  \begin{bmatrix} \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \mu^{2}} & \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \sigma^{2} \partial \mu} \\ \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial \sigma^{2} \partial \mu} & \frac{\partial^{2} l(\mu, \sigma^2|\mathbf{Y} )}{\partial (\sigma^{2})^{2}} \end{bmatrix}$$
 
 --
 
-$$\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2) = \begin{bmatrix} \frac{-n}{\widehat{\sigma}^2} & 0 \\ 0 & \frac{-n}{(\widehat{\sigma}^2)^2}  \\ \end{bmatrix}$$
+$$\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2) = \begin{bmatrix} \frac{-n}{\widehat{\sigma}^2} & 0 \\ 0 & \frac{-n}{(\widehat{\sigma}^2)^2}   \end{bmatrix}$$
 
 --
 
-* $\text{det}(\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)) = \dfrac{n^2}{2(\widehat{\sigma}^2)^3} > 0$ and $A = \dfrac{-n}{\widehat{\sigma}^2} < 0$ $\leadsto$ maximum
+<!-- check this! xxxx -->
+* $\text{det}(\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2)) = \dfrac{n^2}{2(\widehat{\sigma}^2)^3} > 0$ and $A =\dfrac{-n}{\widehat{\sigma}^2} < 0$ $\leadsto$ maximum
 * Determinant is greater than 0 and $A$ is less than zero - local maximum
 
 ---
@@ -806,7 +848,7 @@ $$\textbf{H}(f)(\widehat{\mu}, \widehat{\sigma}^2) = \begin{bmatrix} \frac{-n}{\
 
 # Multivariate Newton-Raphson
 
-* $f:\Re^{n} \rightarrow \Re$
+* $f:\mathbb{R}^{n} \rightarrow \mathbb{R}$
 * Initial guess $\mathbf{x}_{t}$
 
     $$\mathbf{x}_{t+1} = \mathbf{x}_{t} - [\textbf{H}(f)(\mathbf{x}_{t})]^{-1} \nabla f(\mathbf{x}_{t})$$
@@ -839,7 +881,7 @@ x <- rnorm(n = 10000, mean = 0.25, sd = 10)
 
 grid_search_plot <- expand.grid(
   mu = seq(-2, 2, by = .05),
-  sigma2 = seq(8^2, 12^2, by = .1)
+  sigma2 = seq(8^2, 12^2, by = 1)
 ) %>%
   as_tibble() %>%
   mutate(logLik = map2_dbl(mu, sigma2, log.like, y = x)) %>%
@@ -862,6 +904,23 @@ grid_search_plot
 vembedr::embed_url("http://www.youtube.com/watch?v=DpdndQUZKqs")
 ```
 
+---
+
+# Applications from today's content
+
+* Deep learning: Jacobian, Hessian
+* Neural networks: Global extrema, saddle points
+* Backpropagation: Partial derivatives
+* Gradient descent: Gradient, critical values
+* Loss functions: Maximum likelihood estimation
+* Logistic regression / GLMs: Newton-Raphson, Hessian
+* Convex optimization: Definiteness, concavity
+* Model convergence: $\nabla f(\mathbf{a}) = \mathbf{0}$
+* Learning rate: Curvature, second derivatives
+* Hyperparameter tuning: Grid search
+* Standard errors: Inverse Hessian
+* Interpretability (SHAP, partial dependence): Partial derivatives
+* Adversarial examples: Gradient with respect to inputs
 
 ---
 
