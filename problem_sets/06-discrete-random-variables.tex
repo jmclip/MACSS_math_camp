@@ -1,359 +1,144 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
+\documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{5}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{enumitem}
 \usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
+\usepackage{xurl}
 \hypersetup{
   pdftitle={PSET 6: Discrete random variables},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+  hidelinks}
 
 \title{PSET 6: Discrete random variables}
 \author{}
 \date{\vspace{-2.5em}}
 
+% Problems are numbered 1-7 across the document.
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
+
 \begin{document}
 \maketitle
 
-\textbf{SURVEY!!} Please fill this out:
-\url{https://forms.gle/Kn4iPTpUbfqymErG6}
+\input{assignment-qs}
 
-\textbf{Note: all homework uploads should be as a PDF \emph{and} have
-the questions identified}. We'll be giving zero credit for submissions
-that don't follow this protocol as it adds considerable time to grading.
-Thank you!
+\problem{Calculate probabilities in a sample space $S$}
 
-\section{Background info (GRADED -- complete all this
-section)}\label{background-info-graded-complete-all-this-section}
+Events $A$ and $B$ are contained within a sample space $S$. Given that
+$\Pr(A) = 0.65$, $\Pr(B) = 0.3$, and $\Pr(A \cap B) = 0.1$,
+find:\footnote{Inspired by Grimmer HW8.4}
 
-\begin{itemize}
-\item
-  Name
-\item
-  How long did this problem set take you?
-\item
-  How difficult was this problem set? very easy 1 2 3 4 5 very
-  challenging
-\end{itemize}
-
-\section{\texorpdfstring{Calculate probabilities in a sample space
-\(S\)}{Calculate probabilities in a sample space S}}\label{calculate-probabilities-in-a-sample-space-s}
-
-Events \(A\) and \(B\) are contained within a sample space \(S\). Given
-that \(\Pr(A)=0.65\), \(\Pr(B)=0.3\) and \(\Pr(A \cap B) = 0.1\),
-find:\footnote{Inspired by Grimmer HW 8.4}
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  \(\Pr(A \cup B)\)
-
-  \strut \\
-  \strut ~\\
-  \strut ~\\
-  \strut ~\\
-  \strut \\
-\item
-  \(\Pr(A \cap B^c)\)
-
-  \strut \\
-  \strut ~\\
-  \strut ~\\
-  \strut ~\\
-  \strut \\
-\item
-  \(\Pr[(A \cap B^c) \cup (B \cap A^c)]\)
-
-  \strut \\
-  \strut ~\\
-  \strut ~\\
-  \strut ~\\
-  \strut \\
+\begin{enumerate}[label=\alph*.]
+\item $\Pr(A \cup B)$
+\item $\Pr(A \cap B^c)$
+\item $\Pr[(A \cap B^c) \cup (B \cap A^c)]$
 \end{enumerate}
 
-\section{Random variables}\label{random-variables}
+\problem{Random variables}
 
-We have been discussing random variables. Provide the following
-explanations in your own words:
+Provide the following explanations in your own words:
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\tightlist
-\item
-  What is a random variable?
-\item
-  What is the difference between upper case and lower case x? How (if at
-  all) do they matter?
-\item
-  If I'm thinking about something like \(p_X(x_0)\), what do all the
+\begin{enumerate}[label=\alph*.]
+\item What is a random variable?
+\item What is the difference between upper case and lower case $x$? How
+  (if at all) do they matter?
+\item If I'm thinking about something like $p_X(x_0)$, what do all the
   parts/pieces mean?
 \end{enumerate}
 
-\section{Survey Says}\label{survey-says}
+\problem{Survey says}
 
 A survey has 54\% respondents 50 or older and 46\% respondents under 50.
 Within the survey, on a particular question, 9.5\% of the 50-plus
-population agrees strongly while 2.7\% of under 50 respondents agree
+population agrees strongly while 2.7\% of under-50 respondents agree
 strongly.
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  What is the probability someone selected at random is 50 or older? ~
-  ~\\
-  \strut ~\\
-  \strut ~\\
-  \strut \\
-\item
-  The selected individual strongly agrees with the survey question. Now
-  what is the likelihood that person is 50 or older? Explain your
-  reasoning and SHOW ALL YOUR WORK ~ ~\\
-  \strut ~\\
-  \strut ~\\
-\item
-  Are the two answers above the same or different? Explain. ~ ~\\
-  \strut ~\\
-  \strut ~\\
-\item
-  (for fun, no points) What is the survey question?
+\begin{enumerate}[label=\alph*.]
+\item What is the probability someone selected at random is 50 or older?
+\item The selected individual strongly agrees with the survey question.
+  Now what is the likelihood that person is 50 or older? Explain your
+  reasoning and show all your work.
+\item Are the two answers above the same or different? Explain.
+\item (for fun, no points) What is the survey question?
 \end{enumerate}
 
-\section{PMF vs CMF}\label{pmf-vs-cmf}
+\problem{PMF vs.\ CMF}
 
-Consider the following function: \(f(x) = \frac{1}{6}\). Find the pmf
-and cmf of the function and provide them in a table below.
+Consider the following function: $f(x) = \frac{1}{6}$. Find the pmf and
+cmf of the function and provide them in a table below.
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-
-\section{Getting a traffic ticket}\label{getting-a-traffic-ticket}
+\problem{Getting a traffic ticket}
 
 You drive to work 5 days a week for a full year (50 weeks), and with
-probability \(p=0.04\) you get a traffic ticket on any given day,
-independent of other days. Let \(X\) be the total number of tickets you
+probability $p = 0.04$ you get a traffic ticket on any given day,
+independent of other days. Let $X$ be the total number of tickets you
 get in the year.\footnote{Inspired by BT 2.41}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  What is the probability that the number of tickets you get is exactly
-  equal to the expected value of \(X\)?
-\item
-  Calculate approximately the probability in (a) using a Poisson
+\begin{enumerate}[label=\alph*.]
+\item What is the probability that the number of tickets you get is
+  exactly equal to the expected value of $X$?
+\item Calculate approximately the probability in (a) using a Poisson
   approximation.
 \end{enumerate}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\problem{Obtaining requests for information}
 
-\section{Obtaining requests for
-information}\label{obtaining-requests-for-information}
-
-\(X\) is a discrete random variable. It takes the value of the number of
+$X$ is a discrete random variable. It takes the value of the number of
 days required for a governmental agency to respond to a request for
-information. \(X\) is distributed according to the following
+information. $X$ is distributed according to the following
 PMF:\footnote{Inspired by Grimmer HW10.2}
+\[
+f(x) = e^{-6} \dfrac{6^x}{x!} \quad \mbox{for} \ x \in \{0, 1, 2, \ldots\}
+\]
 
-\[f(x) = e^{-6} \dfrac{6^x}{x!} \mbox{ for } X \in \{0,1,2...\}\]
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Given this information, what is the probability of a response from the
-  agency in 5 days or less?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is the probability the agency response takes more than 10 but
+\begin{enumerate}[label=\alph*.]
+\item Given this information, what is the probability of a response from
+  the agency in 5 days or less?
+\item What is the probability the agency response takes more than 10 but
   less than 13 days?
-\item
-  What is the probability the agency response takes more than 5 days?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Suppose using \(X\) you generate a new variable, \textbf{Responsive}.
+\item What is the probability the agency response takes more than 5
+  days?
+\item Suppose using $X$ you generate a new variable, \textbf{Responsive}.
   \textbf{Responsive} equals 1 if an agency responds in 5 days or less
   and 0 otherwise. What is the expected value of \textbf{Responsive}?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is the variance of \textbf{Responsive}?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
+\item What is the variance of \textbf{Responsive}?
 \end{enumerate}
 
-\section{Modeling electoral outcomes}\label{modeling-electoral-outcomes}
+\problem{Modeling electoral outcomes}
 
 Suppose we've developed a model predicting the outcome of the upcoming
 midterm elections in a state with 4 Congressional districts. In each
 district there are two candidates, a Republican and a Democrat. We have
 reason to believe the following PMF describes the distribution of
-potential election results where \(K \in \{0,1,2,3,4\}\) and is the
-number of seats won by Republican candidates in the upcoming election.
-
+potential election results, where $K \in \{0, 1, 2, 3, 4\}$ is the number
+of seats won by Republican candidates in the upcoming election.
 \[
-\Pr(K=k | \theta) = \binom{4}{k} \theta^{k} (1-\theta)^{4-k}
+\Pr(K = k \mid \theta) = \binom{4}{k} \theta^{k} (1-\theta)^{4-k}
 \]
 
-Based on polling information, we think the appropriate value for
-\(\theta\) is 0.423.\footnote{Inspired by Grimmer HW10.3. Data from
-  (\url{https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote})}
+Based on polling information, we think the appropriate value for $\theta$
+is 0.423.\footnote{Inspired by Grimmer HW10.3. Data from
+  \url{https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote}}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  What's the expected number of seats Republicans will win in the
+\begin{enumerate}[label=\alph*.]
+\item What's the expected number of seats Republicans will win in the
   upcoming election?
-\item
-  Given this PMF, what's the probability that no Republican legislators
-  win in the upcoming election?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What's the probability that Republican legislators win a majority of
-  the seats in this state?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  A prominent political pundit declares they are certain that
+\item Given this PMF, what's the probability that no Republican
+  legislators win in the upcoming election?
+\item What's the probability that Republican legislators win a majority
+  of the seats in this state?
+\item A prominent political pundit declares they are certain that
   Republicans will win a majority of seats in the next election and
   offers the following bet. If Republicans win a majority of the seats,
-  we must pay the pundit \$15.00. If Republican's fail to win a majority
-  of states, we will win \$20.00. Based on our model, should we take
-  this bet? \textbf{Hint: Think of the betting outcomes as a random
+  we must pay the pundit \$15.00. If Republicans fail to win a majority
+  of the seats, we will win \$20.00. Based on our model, should we take
+  this bet? \textbf{Hint: think of the betting outcomes as a random
   variable. Find the expected value of this random variable.}
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Suppose we are offered a second bet with a more complicated structure.
-  In this case we'll receive \$100 if the Republicans win a majority,
-  \$50 if neither party wins a majority and we'll have to pay \$200 if
-  the Democrats win a majority. Should we take this bet?
+\item Suppose we are offered a second bet with a more complicated
+  structure. In this case we'll receive \$100 if the Republicans win a
+  majority, \$50 if neither party wins a majority, and we'll have to pay
+  \$200 if the Democrats win a majority. Should we take this bet?
 \end{enumerate}
 
-\section{AI and Resources statement}\label{ai-and-resources-statement}
-
-Please list (in detail) all resources you used for this assignment. If
-you worked with people, list them here as well. It is not enough to say
-that you used a resource for help, you need to be specific on the link
-and \emph{how} it was helpful. W/R/T gen AI tools (including GPT, etc. )
-you cannot use them to do work on your behalf -- you cannot put in any
-of the questions, etc. You can ask for help on logic / sample problems.
-If you do use GPT or other AI tools, you need to provide a link to your
-chat transcript. Any suspected academic integrity violations will be
-immediately reported.
+\input{ai-statement}
 
 \end{document}
