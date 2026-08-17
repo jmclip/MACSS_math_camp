@@ -32,7 +32,7 @@ class: center, middle, inverse, title-slide
 * Gradescope!
 * HMWK due
 * Preceptor meetings
-* CAMP(S)! 
+* CAMP(S)!
 --
 
   * US (MACSS)
@@ -105,7 +105,7 @@ F(x) = \int\limits f(x) \,dx = \frac{x^3}{3}-4x+c$$`
 
 --
 
-&lt;img src="08-integration_files/figure-html/integralc-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-integration_files/figure-html/integralc-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 * Multiple antiderivatives for an arbitrary constant `\(c\)`
 
@@ -119,13 +119,13 @@ F(x) = \int\limits f(x) \,dx = \frac{x^3}{3}-4x+c$$`
 1. Integration of the sum is sum of integrations:  `\(\int [f(x)+g(x)]\,dx=\int f(x)\,dx + \int g(x)\,dx\)`
 --
 
-1. Reverse Power-rule:  `\(\int x^n \,dx = \frac{1}{n+1} x^{n+1} + c\)`
+1. Reverse Power-rule:  `\(\int x^n \,dx = \frac{1}{n+1} x^{n+1} + c\)`, for `\(n \neq -1\)`
 --
 
 1. Euler's `\(e\)` is still itself:  `\(\int e^x \,dx = e^x +c\)`
 --
 
-1. Recall the derivative of (natural) `\(\log(x)\)` is one over `\(x\)`, and so:   `\(\int \frac{1}{x} \,dx = \log x + c\)`
+1. Recall the derivative of (natural) `\(\log(x)\)` is one over `\(x\)`, and so:   `\(\int \frac{1}{x} \,dx = \log \abs(x) + c\)`
 --
 
 1. Reverse chain-rule:  `\(\int e^{f(x)}f^\prime(x)\,dx = e^{f(x)}+c\)`
@@ -153,6 +153,7 @@ Answers:
  `\(\int (2x+1) \,dx = \mathbf{x^2 + x + c}\)`  
  
  `\(\int e^x e^{e^x} \,dx = \mathbf{e^{e^x}+c}\)`
+ 
 ---
 
 # Definite integral
@@ -212,22 +213,20 @@ Answers:
 
     `$$\lim\limits_{\Delta x\to 0} \sum\limits_{i=1}^n f(x_i)\Delta x = \int\limits_a^b f(x) \,dx$$`
 
-* Suppose `\(f:[a,b] \rightarrow \Re\)` is a continuous function. Then `\(f\)` is integrable
-&lt;!-- * Suppose `\(f:[a,b]\rightarrow \Re\)` is a monotonic function.  Then `\(f\)` is integrable --&gt;
+* Suppose `\(f:[a,b] \rightarrow \mathbb{R}\)` is a continuous function. Then `\(f\)` is integrable
+&lt;!-- * Suppose `\(f:[a,b]\rightarrow \mathbb{R}\)` is a monotonic function.  Then `\(f\)` is integrable --&gt;
 
 ---
 
 # Counterexamples
 
-* Suppose `\(f:[0,1]\rightarrow \frac{1}{x}\)`
+* Suppose `\(f:[0,1] \rightarrow \mathbb{R}\)` with `\(f(x) = \frac{1}{x}\)`
 
     `$$\int_{0}^{1} \frac{1}{x} \,dx$$`
 
-* `\(\frac{1}{x}\)` is not integrable on `\([a,b]\)`
+* `\(\frac{1}{x}\)` is not integrable on `\([0,1]\)`
 
 --
-
-----------------------------
 
 `$$\begin{aligned}f(x) &amp;= 1 \text{ if } x \text{ rational}  \\	 &amp;= 0 \text{ if } x \text{ irrational} \end{aligned}$$`
 
@@ -239,7 +238,7 @@ Answers:
 Helps make all the math we're about to do that much easier (!). 
 
 --
-* Riemann sum =&gt; antiderivative
+* Riemann sum `\(\leadsto\)` antiderivative
 --
 
 * Function `\(f\)` bounded on `\([a,b]\)` and continuous on `\((a,b)\)`
@@ -282,7 +281,7 @@ Helps make all the math we're about to do that much easier (!).
 
 # Uniform distribution (continuous)
 
-Suppose `\(f:\Re \rightarrow \Re\)`, with 
+Suppose `\(f:\mathbb{R} \rightarrow \mathbb{R}\)`, with 
 
 $$
 `\begin{aligned}
@@ -297,13 +296,13 @@ What is the area under `\(f(x)\)` from `\([0, 1/2]\)`?
 
 --
 
-`$$\begin{aligned}\int_{0}^{1/2}  f(x)\,dx &amp;= \int_{0}^{1/2} 1 \,dx \\	&amp;= x|_{0}^{1/2}  \\	&amp;= (1/2) - (0 )  \\							&amp;= 1/2 \end{aligned}$$`
+`$$\begin{aligned}\int_{0}^{1/2}  f(x)\,dx &amp;= \int_{0}^{1/2} 1 \,dx \\	&amp;= x\Big|_{0}^{1/2}  \\	&amp;= (1/2) - (0 )  \\							&amp;= 1/2 \end{aligned}$$`
 
 ---
 
 # Area under a line
 
-Suppose `\(f:\Re \rightarrow \Re\)`, with 
+Suppose `\(f:\mathbb{R} \rightarrow \mathbb{R}\)`, with 
 
 `$$f(x) = x$$`
 
@@ -313,7 +312,7 @@ Evaluate the `\(\int_{2}^{t}f(x)\,dx\)`
 
 --
 
-`$$\begin{aligned}\int_{2}^{t}f(x)\,dx &amp;= \int_{2}^{t} x \,dx  \\	&amp;= \frac{x^{2} }{2} |_{2}^{t}   \\		&amp;= \frac{t^2}{2} - \frac{2^2}{2}  \\	&amp;= \frac{t^2}{2} - \frac{4}{2} = \frac{t^2}{2} - 2\end{aligned}$$`
+`$$\begin{aligned}\int_{2}^{t}f(x)\,dx &amp;= \int_{2}^{t} x \,dx  \\	&amp;= \frac{x^{2} }{2} \Big|_{2}^{t}   \\		&amp;= \frac{t^2}{2} - \frac{2^2}{2}  \\	&amp;= \frac{t^2}{2} - \frac{4}{2} = \frac{t^2}{2} - 2\end{aligned}$$`
 
 ---
 
@@ -323,7 +322,7 @@ Solve `\(\int\limits_1^3 3x^2 \,dx\)`
 
 --
 
-`$$f(x)= 3x^2 \\F(x) = x^3 + c$$`
+`$$\begin{aligned} f(x) &amp;= 3x^2 \\ F(x) &amp;= x^3 + c \end{aligned}$$`
 --
 `$$\begin{aligned}\int\limits_1^3 3x^2 \,dx &amp;= F(3) - F(1) \\&amp;= (3^3 + c) - (1^3 + c) \\&amp;= 27 + c - 1 - c \\&amp;= 26\end{aligned}$$`
 
@@ -368,10 +367,10 @@ Solve `\(\int\limits_1^3 3x^2 \,dx\)`
 1. `\({\displaystyle \int\limits_1^1 3x^2 \,dx}\)` `\(\mathbf{0}\)` (area under a point)
 --
 
-1. `\({\displaystyle \int\limits_0^4 (2x+1) \,dx}\)` `\(\mathbf{x^2+x|_0^4=20}\)`
+1. `\({\displaystyle \int\limits_0^4 (2x+1) \,dx}\)` `\(x^2+x\Big|_0^4=\mathbf{20}\)`
 --
 
-1. `\({\displaystyle \int\limits_{-2}^0 e^x e^{e^x} dx + \int\limits_0^2 e^x e^{e^x} \,dx}=\)` `\(\mathbf{e^{e^x}|_{-2}^2} \mathbf{\approx 1617.03}\)`
+1. `\({\displaystyle \int\limits_{-2}^0 e^x e^{e^x} dx + \int\limits_0^2 e^x e^{e^x} \,dx}=\)` `\(e^{e^x}\Big|_{-2}^{2} \approx \mathbf{1617.03}\)`
 
 ---
 class: middle
@@ -423,6 +422,7 @@ Reexpress as
 
 `$$\begin{aligned}u &amp;= x^2 + 1 \\du &amp;= 2x \,dx \end{aligned}$$` 
 `$$\begin{aligned}\int \frac{x}{x^2 + 1} \,dx &amp;= \frac{1}{2} \int \frac{2x}{x^2 + 1} \,dx \\&amp;= \frac{1}{2} \int \frac{1}{u} \,du \\&amp;= \frac{1}{2} \log(u) + c \\&amp;= \frac{1}{2} \log(x^2 + 1) + c \end{aligned}$$`
+
 ---
 
 # Integration by substitution
@@ -436,26 +436,32 @@ Reexpress as
 
 # Example: try it out:
 
-`$$f(x) = \int \frac{x^2+1}{x^3 + 3x} \,dx$$`
+`$$F(x) = \int \frac{x^2+1}{x^3 + 3x} \,dx$$`
+
 --
 Our `\(u\)` in this instance would be the denominator: `\(x^3+3x\)`. 
+
 --
-Then, we would expect `\(du=3x^2+3\)`. BUT! we have: `\({\displaystyle \int \frac{\frac{1}{3}du}{u}}\)`. 
+
+Then, we would expect `\(du=3x^2+3, \dx\)`. BUT! we have: `\({\displaystyle \int \frac{\frac{1}{3}du}{u}}\)`. 
+
 --
+
 Rework it: `\(\frac{1}{3}\int \frac{1}{u} du\)` 
 
 --
+
 We can solve: `\(\frac{1}{3}\, log(u)+c\)` and sub back in our `\(u\)`: `\(\frac{1}{3}log(x^3+3x) + c\)`.
 
 ---
 
 # Additional practice: integration by substitution
 
-Try: `\({\displaystyle{\int (20x^3+20)(x^4+4x)^{-0.5}}}\)` 
+Try: `\({\displaystyle{\int (20x^3+20)(x^4+4x)^{-0.5} \,dx}}\)` 
 
 --
 
-`\(u= x^4+4x, du=4x^3+4\)` 
+`\(u= x^4+4x, du=4x^3+4, \dx\)` 
 
 `\(5{\displaystyle{\int u^{-0.5} \,du}}\)`
 
@@ -507,13 +513,13 @@ Suppose you start with a function:
 
 We can transform this to:
 
-### &lt;span style="color: red;"&gt;u&lt;/span&gt;&lt;span style="color: blue;"&gt;v&lt;/span&gt; - `\(\int\)` &lt;span style="color: darkblue;"&gt;v&lt;/span&gt; &lt;span style="color: pink;"&gt;du&lt;/span&gt;
+### &lt;span style="color: red;"&gt;u&lt;/span&gt;&lt;span style="color: darkblue;"&gt;v&lt;/span&gt; - `\(\int\)` &lt;span style="color: darkblue;"&gt;v&lt;/span&gt; &lt;span style="color: magenta;"&gt;du&lt;/span&gt;
 
 --
 
 ### Alternatively, I think about this as our table of options when we write things out like this:
 ##  &lt;span style="color: red;"&gt;u&lt;/span&gt; `\(\,\)` &lt;span style="color: blue;"&gt;dv&lt;/span&gt;  (start with this row)
-## &lt;span style="color: pink;"&gt;du&lt;/span&gt; `\(\,\)` &lt;span style="color: darkblue;"&gt;v&lt;/span&gt; (subtract this row)
+## &lt;span style="color: magenta;"&gt;du&lt;/span&gt; `\(\,\)` &lt;span style="color: darkblue;"&gt;v&lt;/span&gt; (subtract this row)
 
 ---
 
@@ -547,26 +553,31 @@ $$
 
 # Integration by parts: your turn!
 
-Suppose we have: `\(\int 15x (x+1)^{0.5}\)`. 
+Suppose we have: `\(\int 15x (x+1)^{0.5} \,dx\)`. 
 
 --
+
 We can look at this and see that it's not just taking the derivative of one thing and rescaling it. Then, the question becomes which is `\(u\)` and which is `\(v\)`? Recall that we want to start with `\(\int u \, dv\)`. So, which thing is going to be easier to integrate and which is going to be easier to take the derivative of?  
 
 --
 
-In our situation, suppose we start with `\(u=15x\)`. Then, `\(dv=(x+1)^{0.5}\)`, `\(du=15\)`, and `\(v=\frac{2}{3}(x+1)^{1.5}\)`. 
+In our situation, suppose we start with `\(u=15x\)`. Then, `\(dv=(x+1)^{0.5}, \dx\)`, `\(du=15, \dx\)`, and `\(v=\frac{2}{3}(x+1)^{1.5}\)`. 
+
 --
+
 Using our formula, we get: `\(uv-\int v \, du = (15x)(\frac{2}{3}(x+1)^{1.5})-\int \frac{2}{3}(x+1)^{1.5} \, 15dx\)`. 
 
 
-
 --
+
 Simplifying, we get: `\((10x)((x+1)^{1.5})-10 \int (x+1)^{1.5} \, dx\)` `\(= (10x)((x+1)^{1.5})-10(\frac{2}{5})(x+1)^{2.5}\)`  
 
 --
 
-Reworking this, we get: `\(\mathbf{(10x)((x+1)^{1.5})-4(x+1)^{2.5}}\)`. If we wanted, we could keep simplifying 
+Reworking this, we get: `\(\mathbf{(10x)((x+1)^{1.5})-4(x+1)^{2.5}}+c\)`. If we wanted, we could keep simplifying 
+
 --
+
 *(we don't want...)*. 
 
 
@@ -592,7 +603,7 @@ class: middle
 
 `$$\begin{aligned}
 \int_1^X x^{-2} \,dx &amp;= -\frac{1}{x} |_1^X \\
-&amp;= -\frac{1}{X} - -\frac{1}{1} \\
+&amp;= -\frac{1}{X} &amp;= -\frac{1}{1} \\
 &amp;= -\frac{1}{X} + 1 \\
 &amp;= 1 - X^{-1}
 \end{aligned}$$`
@@ -629,7 +640,7 @@ As `\(X \rightarrow \infty, \frac{1}{X} \rightarrow 0\)`
 
     `$$\int_a^\infty f(x)\,dx = L$$`
 
-    * Indefinite integral **converges**
+    * Improper integral **converges**
 * If `\(\int_a^X f(x)\,dx\)` does not approach a finite limit as `\(X \rightarrow \infty\)`, then infinite integral **diverges**
 
 ---
@@ -640,7 +651,7 @@ As `\(X \rightarrow \infty, \frac{1}{X} \rightarrow 0\)`
 
 --
 
-`$$\begin{aligned}\int_{1}^{\infty} \frac{1}{x} \,dx &amp;= \lim_{t \rightarrow \infty} \int_{1}^{t} \frac{1}{x}  \,dx \\										&amp;= \lim_{t \rightarrow \infty} (\log x)|_{1}^{t} \\										&amp;= \lim_{t \rightarrow \infty} (\log t) - \lim_{t \rightarrow \infty} (\log 1) \end{aligned}$$`
+`$$\begin{aligned}\int_{1}^{\infty} \frac{1}{x} \,dx &amp;= \lim_{t \rightarrow \infty} \int_{1}^{t} \frac{1}{x}  \,dx \\										&amp;= \lim_{t \rightarrow \infty} (\log x)\Big|_{1}^{t} \\										&amp;= \lim_{t \rightarrow \infty} (\log t) - \lim_{t \rightarrow \infty} (\log 1) \end{aligned}$$`
 
 ---
 
@@ -682,7 +693,7 @@ class: middle, center
 
 # Multivariate integration
 
-* Function `\(f:X \rightarrow \Re^{1}\)`, with `\(X \subset \Re^{2}\)`
+* Function `\(f:X \rightarrow \mathbb{R}^{1}\)`, with `\(X \subset \mathbb{R}^{2}\)`
 * Integrate a function over an area
 
 ---
@@ -713,7 +724,7 @@ class: middle, center
 
 # Multivariate integration
 
-* `\(f:X \rightarrow \Re\)` where `\(X \subset \Re^{n}\)`
+* `\(f:X \rightarrow \mathbb{R}\)` where `\(X \subset \mathbb{R}^{n}\)`
 * `\(f\)` is integrable over `\(A \subset X\)` if we are able to calculate its area with refined partitions of `\(A\)`
 * Write the integral `\(I =\int_{A} f(\boldsymbol{x}) d\boldsymbol{A}\)`
 
@@ -722,9 +733,9 @@ class: middle, center
 # Fubini's theorem
 
 * Suppose `\(A = [a_{1}, b_{1}]  \times [a_{2}, b_{2} ] \times \ldots \times [a_{n}, b_{n}]\)`
-* `\(f:A \rightarrow \Re\)` is integrable
+* `\(f:A \rightarrow \mathbb{R}\)` is integrable
 
-    `$$\int_{A} f(\boldsymbol{x}) d\boldsymbol{A} = \int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \ldots \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(\boldsymbol{x})\,dx_{1} \,dx_{2} \ldots \,dx_{n-1} \,dx_{n}$$`
+    `$$\int_{A} f(\boldsymbol{x_1,x_2}) d\boldsymbol{A} = \int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \ldots \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(\boldsymbol{x})\,dx_{1} \,dx_{2} \ldots \,dx_{n-1} \,dx_{n}$$`
 
 * Start with the inside integral `\(x_{1}\)` is the variable, everything else a constant
 * Work inside to out, iterating
@@ -734,18 +745,18 @@ class: middle, center
 
 # Multivariate uniform distribution
 
-* Suppose `\(f:[0,1] \times [0,1] \rightarrow \Re\)` and `\(f(x_{1}, x_{2}) = 1\)` for all `\(x_{1}, x_{2} \in [0,1]\times[0,1]\)`
+* Suppose `\(f:[0,1] \times [0,1] \rightarrow \mathbb{R}\)` and `\(f(x_{1}, x_{2}) = 1\)` for all `\(x_{1}, x_{2} \in [0,1]\times[0,1]\)`
 * What is `\(\int_{0}^{1}\int_{0}^{1} f(x) \,dx_{1} \,dx_{2}\)`?
 
 --
 
-`$$\begin{aligned}\int_{0}^{1}\int_{0}^{1} f(x) \,dx_{1} \,dx_{2} &amp;= \int_{0}^{1} \int_{0}^{1} 1 \,dx_{1} \,dx_{2} \nonumber \\															&amp;= \int_{0}^{1} x_{1}|_{0}^{1} \,dx_{2} \\															&amp;= \int_{0}^{1} (1 - 0) \,dx_{2}  \\															&amp;= \int_{0}^{1} 1 \,dx_{2}  \\															&amp;= x_{2}|_{0}^{1}  \\															&amp;= 1 \end{aligned}$$`
+`$$\begin{aligned}\int_{0}^{1}\int_{0}^{1} f(x) \,dx_{1} \,dx_{2} &amp;= \int_{0}^{1} \int_{0}^{1} 1 \,dx_{1} \,dx_{2} \\															&amp;= \int_{0}^{1} x_{1}|_{0}^{1} \,dx_{2} \\															&amp;= \int_{0}^{1} (1 - 0) \,dx_{2}  \\															&amp;= \int_{0}^{1} 1 \,dx_{2}  \\															&amp;= x_{2}|_{0}^{1}  \\															&amp;= 1 \end{aligned}$$`
 
 ---
 
 # Another example
 
-* Suppose `\(f:[a_{1}, b_{1} ] \times [a_{2}, b_{2} ]  \rightarrow \Re\)` is given by
+* Suppose `\(f:[a_{1}, b_{1} ] \times [a_{2}, b_{2} ]  \rightarrow \mathbb{R}\)` is given by
 
     `$$f(x_{1}, x_{2} ) = x_{1} x_{2}$$`
 
@@ -753,7 +764,7 @@ class: middle, center
 
 --
 
-`$$\begin{aligned}\int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(x_{1}, x_{2} )\,dx_{1} \,dx_{2} &amp;= \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} x_{1} x_{2} \,dx_{1} \,dx_{2} \\ &amp;= \int_{a_{2}}^{b_{2}} \frac{x_{1}^2}{2} x_{2} |_{a_{1}}^{b_{1}} \,dx_{2} \\ &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2}  \int_{a_{2}}^{b_{2}} x_{2} \,dx_{2} \\ &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2} \left( \frac{x_{2}^{2} }{2} |_{a_{2}}^{b_{2}} \right ) \\  &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2} \frac{b_{2}^{2} - a_{2}^{2} }{2}\end{aligned}$$`
+`$$\begin{aligned}\int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(x_{1}, x_{2} )\,dx_{1} \,dx_{2} &amp;= \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} x_{1} x_{2} \,dx_{1} \,dx_{2} \\ &amp;= \int_{a_{2}}^{b_{2}} \frac{x_{1}^2}{2} x_{2} \Big|_{a_{1}}^{b_{1}} \,dx_{2} \\ &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2}  \int_{a_{2}}^{b_{2}} x_{2} \,dx_{2} \\ &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2} \left( \frac{x_{2}^{2} }{2} \Big|_{a_{2}}^{b_{2}} \right ) \\  &amp;= \frac{b_{1}^{2} - a_{1}^{2} }{2} \frac{b_{2}^{2} - a_{2}^{2} }{2}\end{aligned}$$`
 
 ---
 
@@ -765,7 +776,7 @@ class: middle, center
 
 # Example: more complicated region
 
-* Suppose `\(f:[0,1] \times [0,1] \rightarrow \Re\)`, `\(f(x_{1}, x_{2}) = x_{1} + x_{2}\)`. Find area of function where `\(x_{1} &lt; x_{2}\)`.
+* Suppose `\(f:[0,1] \times [0,1] \rightarrow \mathbb{R}\)`, `\(f(x_{1}, x_{2}) = x_{1} + x_{2}\)`. Find area of function where `\(x_{1} &lt; x_{2}\)`.
 
 --
 
@@ -792,7 +803,7 @@ Integrating builds on our work so far. Try to pay attention to things as it can 
 * Indefinite integrals: general integral (remember constant!)
 * Ways to deal with complicated integrals:
     * Integration by substitution `\(\frac{d}{dx} F[u(x)]=f[u(x)]u'(x)\)`
-    * Integration by parts: `\(\int v(x) \, u'(x) (dx)=u(x)v(x) - \int v(x)u'(x)\,dx\)`
+    * Integration by parts: `\(\int u(x) v'(x)\,dx=u(x)v(x) - \int v(x)u'(x)\,dx\)`
 * Infinite integrals: to infinity! (and maybe beyond)
 * Multivariate integrals
   * role of bounds (pay attention!): x vs y for integration
