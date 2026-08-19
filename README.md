@@ -13,7 +13,7 @@
 
 
 ## TA TEAM!
-* Saaket Raman
+* Saaket Raman (saaket@uchicago.edu)
 * Xulan Jiang (xulanj@uchicago.edu)
 * Yanjing Li (yanjingli@uchicago.edu)
 
