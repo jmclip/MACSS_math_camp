@@ -95,7 +95,7 @@ What is the area under the curve under `\(f(x)\)` between `\(.5\)` and `\(2\)`?
 
 # Continuous random variable
 
-`\(X\)` is a **continuous random variable** if there exists a nonnegative function defined for all `\(x \in \Re\)` having the property for any (measurable) set of real numbers `\(B\)`,
+`\(X\)` is a **continuous random variable** if there exists a nonnegative function `\(f_X\)` defined for all `\(x \in \Re\)` having the property for any (measurable) set of real numbers `\(B\)`,
 
 `$$\Pr(X \in B) = \int_{B} f_X(x)\,dx$$`
 
@@ -147,7 +147,7 @@ Compare discrete and continuous variables. Suppose we have a probability functio
 
 `$$\begin{aligned}
 \Pr(X \in [0.2, 0.5]) &amp; = \int_{0.2}^{0.5} 1 \,dx \\
-&amp; = X |^{0.5}_{0.2} = 0.5  - 0.2  \\
+&amp; = x\big|^{0.5}_{0.2} = 0.5  - 0.2  \\
 &amp; = 0.3 
 \end{aligned}$$`
 
@@ -163,7 +163,7 @@ Compare discrete and continuous variables. Suppose we have a probability functio
 
 `$$\begin{aligned}
 \Pr(X \in \{[0, 0.2]\cup[0.5, 1]\}) &amp; = \int_{0}^{0.2} 1\,dx + \int_{0.5}^{1} 1\,dx \\
- &amp; = X_{0}^{0.2} + X_{0.5}^{1}  = 0.2 - 0 + 1 - 0.5 \\
+ &amp; = x\big|_{0}^{0.2} + x\big|_{0.5}^{1}  = 0.2 - 0 + 1 - 0.5 \\
  &amp; = 0.7 
 \end{aligned}$$`
 
@@ -190,10 +190,10 @@ class: middle, center, inverse
 # Moments: what they are and what they tell us
 Moments help us understand the shape of the distribution
 
-1. Shape around the center (mean): `\(E[X]\)`
-1. Width (variance): `\(E[X^2]\)`
-1. Balance of width (skew): `\(E[X^3]\)`
-1. Tail-y-ness (kurtosis): `\(E[X^4]\)`
+1. Center (mean): `\(E[X]\)` -- the 1st raw moment
+1. Width (variance): `\(E[X^2] - (E[X])^2\)` -- built from the 2nd moment
+1. Lopsidedness (skew): `\(E\left[\left(\frac{X-\mu}{\sigma}\right)^3\right]\)` -- the 3rd standardized moment
+1. Tail-y-ness (kurtosis): `\(E\left[\left(\frac{X-\mu}{\sigma}\right)^4\right]\)` -- the 4th standardized moment
 
 ---
 # Great expectations: first moment
@@ -399,7 +399,7 @@ $$
 
 For `\(Y \sim \text{Normal}(\mu, \sigma^2)\)`
 
-`$$\begin{aligned} \E[Y] &amp; = \E[\sigma Z + \mu] \\&amp; = \sigma \E[Z] + \mu \\&amp; = \mu \\\Var(Y) &amp; = \Var(\sigma Z + \mu) \\ &amp; = E((\sigma Z + \mu)^2) - (E(\sigma Z + \mu))^2\\&amp;=\sigma^2 \Var(Z) + \Var(\mu) \\ &amp; = \sigma^2 + 0 \\ &amp; = \sigma^2 \end{aligned}$$`
+`$$\begin{aligned} \E[Y] &amp; = \E[\sigma Z + \mu] \\&amp; = \sigma \E[Z] + \mu \\&amp; = \mu \\\Var(Y) &amp; = \Var(\sigma Z + \mu) \\ &amp; = \E[(\sigma Z + \mu)^2] - \left(\E[\sigma Z + \mu]\right)^2\\&amp;= \sigma^2\E[Z^2] + 2\sigma\mu\E[Z] + \mu^2 - \mu^2 \\ &amp; = \sigma^2 \Var(Z) \\ &amp; = \sigma^2 \end{aligned}$$`
 
 ---
 
@@ -431,7 +431,7 @@ Suppose we are interested in modeling presidential approval
 * Individual responses are independent and identically distributed
 * Average of those individual binary responses
 * `\(N\rightarrow \infty\)`
-* By Central Limit Theorm, `\(Y\)` is normally distributed
+* By Central Limit Theorem, `\(Y\)` is normally distributed
 
 $$
 `\begin{aligned}
@@ -444,7 +444,7 @@ $$
 
 # Central limit theorem
 
-&lt;img src="11-general-random-vars_files/figure-html/clt-1.gif" width="90%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -455,12 +455,12 @@ $$
 
 --
 
-`$$\begin{aligned} \Pr(Y \geq 0.49)  &amp; = 1 - \Pr(Y \leq 0.49 ) \\&amp; = 1 - \Pr(0.05 \leq + 0.44 \leq  0.49) \\&amp; = 1 - \Pr(Z \leq \frac{0.49-0.44 }{0.05} ) \\&amp; = 1 - \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{1} \exp(-z^2/2) \,dz \\&amp; = 1 - F_{Z} (1 ) \\&amp; = 0.159\end{aligned}$$`
+`$$\begin{aligned} \Pr(Y \geq 0.49)  &amp; = 1 - \Pr(Y \leq 0.49 ) \\&amp; = 1 - \Pr\left(Z \leq \frac{0.49-0.44 }{0.05} \right) \\&amp; = 1 - \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{1} \exp(-z^2/2) \,dz \\&amp; = 1 - F_{Z} (1 ) \\&amp; = 0.159\end{aligned}$$`
 
 ---
 # Gamma distribution: def
 
-We use the gamma distribution when we're looking at something that takes on positive values and has is skewed (long right tail). 
+We use the gamma distribution when we're looking at something that takes on positive values and is skewed (long right tail). 
 
 Example: waiting time between events
 
@@ -480,6 +480,34 @@ $$
 --
 
 * `\(\Gamma(\frac{1}{2}) = \sqrt{\pi}\)`
+
+&lt;!-- --- --&gt;
+
+&lt;!-- # Gamma distribution: simplified formula --&gt;
+
+&lt;!-- Suppose we have `\(\Gamma(\alpha)\)` --&gt;
+
+&lt;!-- $$\begin{aligned} --&gt;
+&lt;!-- \frac{\Gamma(\alpha)}{\Gamma(\alpha)} &amp; = \frac{\int_{0}^{\infty} y^{\alpha-1} e^{-y} dy}{\Gamma(\alpha)} \\ --&gt;
+&lt;!-- 1 &amp; = \int_{0}^{\infty} \frac{1}{\Gamma(\alpha)} y^{\alpha-1} e^{-y} \,dy  --&gt;
+&lt;!-- \end{aligned}$$ --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- Set `\(X = Y/\beta\)` --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- $$\begin{aligned} --&gt;
+&lt;!-- F(x) = \Pr(X \leq x) &amp; = \Pr(Y/\beta \leq x ) \\ --&gt;
+&lt;!-- &amp; = \Pr(Y \leq x \beta ) \\ --&gt;
+&lt;!-- &amp; = F_{Y} (x \beta) \\ --&gt;
+&lt;!-- \frac{\partial F_{Y} (x \beta) }{\partial x} &amp; = f_{Y} (x \beta) \beta --&gt;
+&lt;!-- \end{aligned}$$ --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- `$$f(x|\alpha, \beta) = \frac{\beta^{\alpha}}{\Gamma(\alpha)} x^{\alpha - 1} e^{-x\beta}$$` --&gt;
 
 ---
 
@@ -591,7 +619,7 @@ $$
 
 --
 
-If `\(X = \sum_{i=1}^{N} Z^2\)`, `\(X \sim \text{Gamma}(n/2, 1/2)\)`
+If `\(X = \sum_{i=1}^{n} Z_{i}^2\)`, `\(X \sim \text{Gamma}(n/2, 1/2)\)`
 
 ---
 
@@ -637,7 +665,7 @@ $$
 $$
 `\begin{aligned}
 \Var(X) &amp; = \sum_{i=1}^{N} \Var(Z_{i}^2) \\
-&amp; = \sum_{i=1}^{N} \left(\E[Z_{i}^{4} ] - \E[Z_{i}]^{2}  \right) \\
+&amp; = \sum_{i=1}^{N} \left(\E[Z_{i}^{4} ] - \left(\E[Z_{i}^{2}]\right)^{2}  \right) \\
 &amp; = \sum_{i=1}^{N} \left(3 - 1\right ) = 2n 
 \end{aligned}`
 $$
@@ -654,16 +682,16 @@ Suppose `\(Z \sim \text{Normal}(0, 1)\)` and `\(U \sim \chi^2(n)\)`.  Define the
 
 If `\(Z\)` and `\(U\)` are independent then `\(Y \sim t(n)\)`, with PDF 
 
-`$$t(n) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{\pi n } \Gamma(\frac{n}{2})}\left(1 + \frac{x^2}{n}\right)^{-\frac{n+1}{2}}$$`
+`$$f_Y(y) = \frac{\Gamma(\frac{n+1}{2})}{\sqrt{\pi n } \Gamma(\frac{n}{2})}\left(1 + \frac{y^2}{n}\right)^{-\frac{n+1}{2}}$$`
 
 ---
 
 # Differences from the Normal distribution
 
-* Normal distribution always has the same shape
+* Normal distribution always has the same shape once standardized
 * The shape of the student's `\(t\)`-distribution changes depending on the sample size
-* Low `\(n\)`
-* As `\(n \uparrow\)`, the confidence bounds shrink
+* At low `\(n\)` the tails are heavier than the normal's
+* As `\(n \uparrow\)`, the tails thin and the distribution tightens
 * As `\(n \rightarrow \infty\)`, student's `\(t\)`-distribution takes on the same shape as the normal distribution
 
 ---
@@ -679,7 +707,7 @@ If `\(Z\)` and `\(U\)` are independent then `\(Y \sim t(n)\)`, with PDF
 
 In all cases with the continuous random variable, we are going to be using an integral OR a table (it just does the math for you!). 
 
-You can expect to see problems where a probability distribution is given by a function (sometimes explicitly stated as a type of function (and then you need in use it) or just as the function)
+You can expect to see problems where a probability distribution is given by a function (sometimes explicitly stated as a type of function (and then you need to use it) or just as the function)
 
 ---
 
@@ -714,22 +742,18 @@ k &amp;= \frac{4}{625}
 
 * Find the CDF
 * What function is (description of scenario)
-* Does the avarible fall in this range? What are the chances?
+* Does the variable fall in this range? What are the chances?
 
 ---
 
 # Recap:
 
-* Continuous vs discrete
-* Integrals!
-* Distributions and their formal properties
-* Different types of distributions:
-  * Uniform
-  * Exponential
-  * Gamma
-  * Normal
-  * `\(\chi^2\)` 
-  * Student's t
+  * Uniform$(a,b)$: `\(f(x)=\frac{1}{b-a}\)`; mean `\(\frac{a+b}{2}\)`, var `\(\frac{(b-a)^2}{12}\)`
+  * Exponential$(\lambda)$: `\(f(x)=\lambda e^{-\lambda x}\)`; mean `\(\frac{1}{\lambda}\)`, var `\(\frac{1}{\lambda^2}\)`
+  * Gamma$(\alpha,\beta)$: `\(f(x)=\frac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x}\)`; mean `\(\frac{\alpha}{\beta}\)`, var `\(\frac{\alpha}{\beta^2}\)`
+  * Normal$(\mu,\sigma^2)$: `\(f(x)=\frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2/(2\sigma^2)}\)`; mean `\(\mu\)`, var `\(\sigma^2\)`
+  * $\chi^2(n) = $ Gamma$(n/2, 1/2)$; mean `\(n\)`, var `\(2n\)`
+  * Student's `\(t(n)\)`: mean `\(0\)` for `\(n&gt;1\)`, var `\(\frac{n}{n-2}\)` for `\(n&gt;2\)`
 
 
 ---

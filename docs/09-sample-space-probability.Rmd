@@ -84,7 +84,7 @@ Why do we care about sets?
 
 -----------
 
-* If $A$ and $B$ are sets, then we say that $A \subset B$ is, for all $x \in A$, then $x \in B$
+* If $A$ and $B$ are sets, then we say that $A \subset B$ if, for all $x \in A$, then $x \in B$
     * What is the difference between the definitions?
 
 ---
@@ -166,7 +166,7 @@ Use **set builder notation** to identify subsets:
 1. House of Representatives - elections every 2 years
     * One incumbent: $\Omega = \{W, N\}$
     * Two incumbents: $\Omega = \{(W,W), (W,N), (N,W), (N,N)\}$
-    * 435 incumbents: $\Omega = 2^{435}$ possible outcomes (permutations)
+    * 435 incumbents: $|\Omega| = 2^{435}$ possible outcomes
 1. Number of countries signing treaties
     * $\Omega = \{0, 1, 2, \ldots, 194\}$
 1. Duration of cabinets
@@ -196,7 +196,7 @@ The sample space must define all possible realizations
         * All outcomes where Dems retake control of the House - one event
 * $x$ is an **element** of a set $F$: $x \in F$
     
-    $$\{N, N\} \in F$$
+    $$(N, N) \in F$$
 
 ---
 
@@ -204,7 +204,7 @@ The sample space must define all possible realizations
 
 * Perform operations on sets to create new sets
 
-    * $E = \{ (W,W), (W,N), (W,N) \}$
+    * $E = \{ (W,W), (W,N), (N, W) \}$
     * $F  = \{ (N, N) \}$
     * $\Omega = \{(W,W), (W,N), (N,W), (N,N) \}$
 
@@ -252,7 +252,7 @@ The sample space must define all possible realizations
 * $A^{c} = \{(N, W) , (N, N) \}$
 * $B^{c} = \{(N, W) , (W, W) \}$
 * What is $\Omega^{c}$? - an **empty set** $\emptyset$
-* Suppose $A = {W}$, $B = {N}$.  Then  $A \cap B = \emptyset$
+* Suppose $A = \{W\}$, $B = \{N\}$.  Then  $A \cap B = \emptyset$
 
 ---
 
@@ -270,13 +270,13 @@ The sample space must define all possible realizations
 
 ## Mutual exclusivity: Examples
 
-Suppose $S = \{H, T\}$. Further suppose $E = H$ and $F = T$, then $E \cap F = \emptyset$
+Suppose $S = \{H, T\}$. * $E \cap F = \Further suppose $E = \{H\}$ and $F = \{T\}$, then $E \cap F = \emptyset${(H, H)\}$
 
 --
 
 Suppose $S = \{(H, H), (H,T), (T, H), (T,T) \}$.  $E = \{(H,H)\}$,  $F = \{(H, H), (T,H)\}$, and $G = \{(H, T), (T, T) \}$
 
-* $E \cap F = (H, H)$
+* $E \cap F = \{(H, H)\}$
 * $E \cap G = \emptyset$
 * $F \cap G = \emptyset$
 
@@ -292,7 +292,7 @@ Suppose we have events $E_{1}, E_{2}, \ldots, E_{N}$
 
 $$\cup_{i=1}^{N} E_{i} = E_{1} \cup E_{2} \cup E_{3} \cup \ldots \cup E_{N}$$
   
-* $\cup_{i=1}^{N} E_{i}$ is the set of outcomes that occur at least once in $E_{1} , \ldots, E_{N}$
+* $\cup_{i=1}^{N} E_{i}$ is the set of outcomes that occur in at least one of $E_{1} , \ldots, E_{N}$
 
 --
 
@@ -313,7 +313,7 @@ $$\cap_{i=1}^{N} E_{i} = E_{1} \cap E_{2} \cap \ldots \cap E_{N}$$
 # Three axioms of probability
 
 1. **Nonnegativity**: For all events $E$, $0 \leq \Pr(E) \leq 1$
-1. **Normalization**: $\Pr(S) = 1$
+1. **Normalization**: $\Pr(\Omega) = 1$
 1. **Additivity**: For all sequences of **mutually exclusive events** $E_{1}, E_{2}, \ldots,E_{N}$ (where $N$ can go to infinity):
 
     $$\Pr\left(\cup_{i=1}^{N} E_{i}  \right)  = \sum_{i=1}^{N} \Pr(E_{i} )$$
@@ -368,7 +368,7 @@ $$
 
 ---
 
-# Suprising probability facts
+# Surprising probability facts
 
 Helps us to avoid silly reasoning
 
@@ -382,7 +382,7 @@ Helps us to avoid silly reasoning
 
 -----------------------------
 
-"There is no way a candidate has a 80% chance of winning, the forecasted vote share is only 55%" $\leadsto$ confuses different events
+"There is no way a candidate has an 80% chance of winning, the forecasted vote share is only 55%" $\leadsto$ confuses different events
 
 --
 
@@ -436,12 +436,12 @@ tibble(z = 2:366) %>%
 # BIRTHDAY: BUT WHYYYYY?
 
 * Me and you: only two possible birthdays and only one pair: (Me, You)
-* Me and you and you there: three possible birthdays BUT THREE possible pairs (MY, MYT, YYT)
+* Me and you and them: three people BUT THREE possible pairs (Me-You, Me-Them, You-Them)
 * Fifty of us! Then, we have about 97% chance that there's a shared birthday: 1225 pairs (!!!)
 
 --
 
-**To math it even more**, think about it: suppose you have one person's birthday. Now, it has to be the case that each other person does not share thair birthday. When it's you and another person, that means there are only two days that are off limits. However, if you have 50 people, it would have to be the case that you have fifty separate days, which is pretty unlikely (about 3% likelihood). 
+**To math it even more**, think about it: suppose you have one person's birthday. Now, it has to be the case that each other person does not share their birthday. When it's you and another person, that means there are only two days that are off limits. However, if you have 50 people, it would have to be the case that you have fifty separate days, which is pretty unlikely (about 3% likelihood). 
 
 ---
 # Combining Birthdays: Passwords and Committees
@@ -453,12 +453,12 @@ $$n \choose k$$
 
 --
 This becomes: $$\frac{n!}{k!(n-k)!}$$
-In words: we have n groups and we're splitting them into loose groups of k. This is the **committee** version -- you are on the committee or not, so the order of our list is inconsequential. Mathematically, we call this is a **combination**. 
+In words: we have $n$ individuals and we're choosing groups of $k$. This is the **committee** version -- you are on the committee or not, so the order of our list is inconsequential. Mathematically, we call this is a **combination**. 
 
 
 ---
 # Combining Birthdays: Passwords and Committees
-In contrast, suppose you are making a TOP SECRET PASSWORD! Here, it needs to be $k$ letters long, from $n$ possible letters. In this case, ORDER DOES MATTER (hello vs elloh). 
+In contrast, suppose you are making a TOP SECRET PASSWORD! Here, it needs to be $k$ letters long, from $n$ possible letters. Assume no letter repeats. In this case, ORDER DOES MATTER (chair vs chari). 
 
 --
 
@@ -545,7 +545,7 @@ $$\begin{aligned}\Pr(\text{Seeing the Eras tour}| \text{Swiftie}) & = 0.1  \\ \P
 
 # Law of total probability: BAYES relevant
 
-Suppose that we have a set of events $F_{1}, F_{2}, \ldots, F_{N}$ such that the events are mutually exclusive and together comprise the entire sample space $\cup_{i=1}^{N} F_{i} = \Omega$. 
+Suppose that we have a set of events $F_{1}, F_{2}, \ldots, F_{N}$, each with $\Pr(F_{i}) > 0$, such that the events are mutually exclusive and together comprise the entire sample space $\cup_{i=1}^{N} F_{i} = \Omega$. 
 
 --
 
@@ -709,6 +709,8 @@ $$\begin{aligned}\Pr(A| C \text{ revealed} )
 & = \frac{\Pr(A) \Pr(C \text{ revealed} | A)}{ \Pr(C)\Pr(C \text{ revealed} | C) + \Pr(B)\Pr(C \text{ revealed} | B) + \Pr(A) \Pr(C \text{ revealed} | A) } \\
 & = \frac{\Pr(A) \Pr(C \text{ revealed} | A)}{ \Pr(B)\Pr(C \text{ revealed} | B) + \Pr(A) \Pr(C \text{ revealed} | A) } \\
 & = \frac{1/3 \times 1/2}{1/3 \times 1 + 1/3 \times 1/2} = \frac{1}{3} \end{aligned}$$
+
+Note $\Pr(C \text{ revealed} | C) = 0$ -- the host never opens the car -- so that term drops out.  
 
 Key: PROBABILITY is where the car *IS*
 
@@ -1019,7 +1021,7 @@ Consider a process that consists of $r$ stages. Suppose that:
 
 Then, the total number of possible results of the $r$-stage process is
 
-$$n_1, n_2, \cdots, n_r$$
+$$n_1 \times n_2 \times \cdots \times n_r$$
 
 ---
 
@@ -1041,7 +1043,7 @@ $$8 \times 10 \times 10 \times 10 \times 10 \times 10 \times 10 = 8 \times 10^6$
 * Count the number of different ways that we can pick $k$ out of these $n$ objects and arrange them in a sequence
 * $k$**-permutations** - number of distinct $k$-object sequences
 
-    $$\begin{aligned}n(n-1) \cdots (n-k-1) &= \frac{n(n-1) \cdots (n-k+1) (n-k) \cdots 2 \times 1}{(n-k) \cdots 2 \times 1} \\&= \frac{n!}{(n-k)!}\end{aligned}$$
+    $$\begin{aligned}n(n-1) \cdots (n-k+1) &= \frac{n(n-1) \cdots (n-k+1) (n-k) \cdots 2 \times 1}{(n-k) \cdots 2 \times 1} \\&= \frac{n!}{(n-k)!}\end{aligned}$$
 
 ---
 
