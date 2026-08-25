@@ -99,17 +99,17 @@ Why do we care about sets?
 Some famous sets:
 
 * `\(\mathbb{N} = \{1, 2, 3, \ldots \}\)`
-* `\(\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots, \}\)`
-* `\(\Re = \mbox{Real numbers}\)`
+* `\(\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots \}\)`
+* `\(\mathbb{R} = \mbox{Real numbers}\)`
 
 --
 
 Use **set builder notation** to identify subsets:
 
-* `\([a, b]  = \{x: x \in \Re \text{ and } a \leq x \leq b \}\)`
-* `\((a, b]  = \{x: x \in \Re \text{ and } a &lt; x \leq b \}\)`
-* `\([a, b)  = \{x: x \in \Re \text{ and } a \leq x &lt;  b \}\)`
-* `\((a, b)  = \{x: x \in \Re \text{ and } a &lt; x &lt; b \}\)`
+* `\([a, b]  = \{x: x \in \mathbb{R} \text{ and } a \leq x \leq b \}\)`
+* `\((a, b]  = \{x: x \in \mathbb{R} \text{ and } a &lt; x \leq b \}\)`
+* `\([a, b)  = \{x: x \in \mathbb{R} \text{ and } a \leq x &lt;  b \}\)`
+* `\((a, b)  = \{x: x \in \mathbb{R} \text{ and } a &lt; x &lt; b \}\)`
 * `\(\emptyset\)`
 
 ---
@@ -287,7 +287,7 @@ Suppose `\(S = \{(H, H), (H,T), (T, H), (T,T) \}\)`.  `\(E = \{(H,H)\}\)`,  `\(F
 
 --
 
-Suppose `\(S = \Re_{+}\)`.  `\(E = \{x: x&gt; 10\}\)` and `\(F = \{x: x &lt; 5\}\)`.  Then `\(E \cap F = \emptyset\)`.
+Suppose `\(S = \mathbb{R}_{+}\)`.  `\(E = \{x: x&gt; 10\}\)` and `\(F = \{x: x &lt; 5\}\)`.  Then `\(E \cap F = \emptyset\)`.
 
 ---
 
@@ -525,7 +525,7 @@ $$
 
 Type of person who is a Swiftie:
 
-`$$\begin{aligned}\Pr(\text{Seeing the Eras tour}| \text{Swiftie}) &amp; = 0.1  \\\Pr(\text{Swiftie}| \text{Seeing the Eras tour}) &amp; \approx 1\end{aligned}$$`
+`$$\begin{aligned}\Pr(\text{Seeing the Eras tour}| \text{Swiftie}) &amp; = 0.1  \\ \Pr(\text{Swiftie}| \text{Seeing the Eras tour}) &amp; \approx 1\end{aligned}$$`
  
 ---
 
@@ -787,7 +787,7 @@ Consider an experiment involving two successive rolls of a 4-sided die in which 
 --
 What would it mean for two events to be independent? 
 --
- For `\(P(A\cap B) = P(A)*P(B)\)` AND `\(P(A|B)=P(A)\)`
+ For `\(\Pr(A\cap B) = \Pr(A)*\Pr(B)\)` AND `\(\Pr(A|B)=\Pr(A)\)`
  
 ---
 
@@ -808,6 +808,10 @@ $$
 \Pr (B_j) &amp;= \frac{\text{number of elements in } B_j}{\text{total number of possible outcomes}} = \frac{4}{16}
 \end{aligned}`
 $$
+
+--
+
+**YES!**
 
 ---
 
@@ -832,11 +836,11 @@ Are the events below independent?
 &lt;!--Event `\(B\)` consists of the outcomes `\((1,4), (2,3), (3,2), (4,1)\)` --&gt;
 `$$\Pr (B) = \frac{\text{number of elements of } B}{\text{total number of possible outcomes}} = \frac{4}{16}$$`
 
-Test: `\(P(A|B) = P(A)\)`? 
+Test: `\(\Pr(A|B) = \Pr(A)\)`? 
 
 --
 
-`\(P(A|B) = \frac{2}{4}\)`, `\(P(B)=\frac{4}{16}\)`. NOPE! (also `\(P(A\cap B) \neq P(A)*P(B)\)`)
+`\(\Pr(A|B) = \frac{1}{4}\)`, `\(\Pr(B)=\frac{4}{16}\)`. YES! (also `\(\Pr(A\cap B) = \Pr(A)*\Pr(B)\)`)
 
 ---
 
@@ -846,7 +850,7 @@ Are these events independent? `\(A = \{ \text{1st roll is even} \}, \quad B = \{
 
 --
 
-`$$\Pr (A \cap B) = \Pr (\text{the result of the two rolls is } \{(2,2), (2,4), (4,2), (4,4)\} = \frac{4}{16}$$`
+`$$\Pr (A \cap B) = \Pr (\text{the result of the two rolls is } \{(2,2), (2,4), (4,2), (4,4)) \} = \frac{4}{16}$$`
 
 `$$\begin{aligned}\Pr (A) &amp;= \frac{\text{number of elements of } A}{\text{total number of possible outcomes}} \\
 &amp;= \{(2,1), (2,2),(2,3), (2,4), (4,1), (4,2), (4,3), (4,4)\} \\
@@ -858,7 +862,7 @@ Similarly, event `\(B\)` consists of rolling a 2 or 4 for our second roll: `\(\{
 --
 `$$\Pr (B) = \frac{\text{number of elements of } B}{\text{total number of possible outcomes}} = \frac{8}{16}$$`
 
-Test: `\(P(A|B) = P(A)\)`? `\(P(A|B) = \frac{4}{8}\)`, `\(P(B)=\frac{8}{16}\)`. YES!! (also `\(P(A\cap B) = P(A)*P(B)\)`)
+Test: `\(\Pr(A|B) = \Pr(A)\)`? `\(\Pr(A|B) = \frac{4}{8}\)`, `\(\Pr(B)=\frac{8}{16}\)`. YES!! (also `\(\Pr(A\cap B) = \Pr(A)*\Pr(B)\)`)
 
 
 ---
@@ -879,10 +883,10 @@ Are these events independent?
 
 `$$\Pr (A \cap B) = \Pr (\text{the result of the two rolls is } (2,2)) = \frac{1}{16}$$`
 
-`$$\begin{aligned}\Pr (A) &amp;= \frac{\text{number of elements in } A_i}{\text{total number of possible outcomes}} = \frac{3}{16} \\\Pr (B) &amp;= \frac{\text{number of elements in } B_j}{\text{total number of possible outcomes}} = \frac{5}{16}\end{aligned}$$`
+`$$\begin{aligned} \Pr (A) &amp;= \frac{\text{number of elements in } A}{\text{total number of possible outcomes}} = \frac{3}{16} \\ \Pr (B) &amp;= \frac{\text{number of elements in } B}{\text{total number of possible outcomes}} = \frac{5}{16}\end{aligned}$$`
 --
 
-Test: `\(P(A|B) = P(A)\)`? `\(\frac{1}{16} \neq \frac{3}{16}\)` NO
+Test: `\(\Pr(A|B) = \Pr(A)\)`? `\(\frac{1}{5} \neq \frac{3}{16}\)` NO
 
 
 ---
@@ -902,7 +906,7 @@ class: middle, center, inverse
     * Observational studies: observe what we see to make inference 
     * Problem: units select into treatment
         * Simple example: enroll in job training if I think it will help 
-        * `\(\Pr (\text{job} | \text{training in study} \neq \Pr(\text{job} | \text{forced training})\)`
+        * `\(\Pr (\text{job} | \text{training in study}) \neq \Pr(\text{job} | \text{forced training})\)`
     * Background characteristic: difference between treatment and control groups
 * Experiments: make background characteristics and treatment status independent
 
@@ -912,7 +916,7 @@ class: middle, center, inverse
 
 We say that the events `\(A_1, A_2, \ldots, A_n\)` are independent if
 
-`$$\Pr \left( \bigcap_{i \in S} A_i \right) = \prod_{i \in S} \Pr (A_i),\quad \text{for every subset } S \text{ of } \{1,2,\ldots,n \}$$`
+`$$\Pr \left( \bigcap_{i \in S} A_i \right) = \prod_{i \in S} \Pr (A_i),\quad \text{for every subset } S \text{ of } \{1,2,\ldots, n \}$$`
 
 --
 
@@ -934,7 +938,8 @@ $$
 * Sequence of independent trials
 
     
-&lt;img src="images/bernoulli.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/bernoulli.png" alt="" width="35%" style="display: block; margin: auto;" /&gt;
+
 * Bernoulli trials - sequence of independent binary trials
     * Heads or tails
     * Success or fail
@@ -952,7 +957,7 @@ $$
 
 # Binomial probabilities
 
-The binomial function is a series of `\(n\)` independent Bernoulli trials. Each trial has the same possible outcome (success or failure and the probablity of each is constant across the trials). 
+The binomial function is a series of `\(n\)` independent Bernoulli trials. Each trial has the same possible outcome (success or failure and the probability of each is constant across the trials). 
 
 --
 `$$p(k) = \Pr(k \text{ heads come up in an } n \text{-toss sequence})$$`
