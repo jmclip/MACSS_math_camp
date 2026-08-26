@@ -66,7 +66,7 @@ $$\newcommand{\E}{\mathrm{E}} \newcommand{\Var}{\mathrm{Var}} \newcommand{\Cov}{
 
 # Multivariate distribution
 
-$X$ and $Y$ are **jointly continuous** if, for all $x\in\Re$ and $y\in \Re$, there exists a function $f(x,y)$ such that $C \subset \Re^{2}$, 
+$X$ and $Y$ are **jointly continuous** if there exists a function $f(x,y)$ such that, for every set $C \subset \Re^{2}$,
 
 $$\Pr\{(X, Y) \in C \}  = \iint_{(x,y)\in C} f(x,y)\, dx\, dy$$
 
@@ -174,8 +174,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z_mat) %>%
       b = 100,
       t = 0,
       pad = 0
-    ),
-     scale_y_discrete(expand = expansion(mult = .005))
+    )
   )
 ```
 
@@ -198,7 +197,7 @@ ggplot(data = z, mapping = aes(x = x1, y = x2)) +
 
 # Examples of joint pdfs: uniform
 
-$f(x,y) = 1$ if $x \in [0,1], y \in [0,1]$, $f(x,y) = 0$
+$f(x,y) = 1$ if $x \in [0,1], y \in [0,1]$, and $f(x,y) = 0$ otherwise
 
 ```{r joint-pdf-uniform}
 x1 <- seq(from = -0.5, to = 1.5, length.out = 101)
@@ -225,7 +224,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z_mat) %>%
 
 # Examples of joint pdfs: uniform
 
-$f(x,y) = 1$ if $x \in [0,1], y \in [0,1]$, $f(x,y) = 0$
+$f(x,y) = 1$ if $x \in [0,1], y \in [0,1]$, and $f(x,y) = 0$ otherwise
 
 ```{r joint-pdf-uniform-2d, dependson = "joint-pdf-uniform"}
 ggplot(data = z, mapping = aes(x = x1, y = x2)) +
@@ -315,7 +314,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z_mat) %>%
 
 $f(x,y) = x + y$, if $x \in [0,1], y \in [0,1]$
 
-```{r joint-pdf-plus-2d, dependson = "joint-pdf-exp"}
+```{r joint-pdf-plus-2d, dependson = "joint-pdf-plus"}
 ggplot(data = z, mapping = aes(x = x1, y = x2)) +
   geom_raster(mapping = aes(fill = y)) +
   scale_fill_viridis_c() +
@@ -725,10 +724,10 @@ $$f(x) = \int_{0}^{1} f(x|y)f(y)\, dy = 1/2 + x$$
 
 # A simple(-ish) example
 
-Here are all the possible values for f(x), based on what y might be:
+Here is $f(x \mid y)$ -- one curve for each value of $y$:
 
 ```{r joint-pdf-plus-margin}
-marginal_pdf <- function(x, y) {
+conditional_pdf <- function(x, y) {
   (x + y) / (1 / 2 + y)
 }
 
@@ -736,10 +735,10 @@ expand_grid(
   x = seq(from = 0, to = 1, length.out = 101),
   y = seq(from = 0, to = 1, by = .001)
 ) %>%
-  mutate(cond_x = marginal_pdf(x, y)) %>%
+  mutate(cond_x = conditional_pdf(x, y)) %>%
   ggplot(mapping = aes(x, cond_x, color = y, group = y)) +
   geom_line() +
-  scale_color_viridis_c("Marginal \n values y", option = "plasma") +
+  scale_color_viridis_c("Conditioning \n value y", option = "plasma") +
   labs(
     x = expression(x),
     y = expression(f(x ~ "|" ~ y)),
@@ -756,11 +755,11 @@ expand_grid(
   x = seq(from = 0, to = 1, length.out = 101),
   y = seq(from = 0, to = 1, by = .001)
 ) %>%
-  mutate(cond_x = marginal_pdf(x, y)) %>%
+  mutate(cond_x = conditional_pdf(x, y)) %>%
   ggplot(mapping = aes(x, cond_x, color = y, group = y)) +
   geom_line(alpha = .10) +
   geom_abline(intercept = 0.5, slope = 1) +
-  scale_color_viridis_c("Marginal \n values y", option = "plasma") +
+  scale_color_viridis_c("Conditioning \n value y", option = "plasma") +
   labs(
     x = expression(x),
     y = expression(f(x)),
@@ -774,7 +773,7 @@ expand_grid(
 
 Suppose $X$ and $Y$ are jointly distributed with pdf 
 
-$$f(x,y) = 2 \exp(-x) \exp(-2y), \forall \, x>0, y>0)$$
+$$f(x,y) = 2 \exp(-x) \exp(-2y), \forall \, x>0, y>0$$
 
 --
 
@@ -785,7 +784,7 @@ $$f(x,y) = 2 e^{(-x)} e^{(-2y)}, \forall \, x>0, y>0$$
 
 # Verify this is a pdf (e version)
 
-$$\int_{0}^{\infty} \int_{0}^{\infty} f(x, y) = 2\int_{0}^{\infty} \int_{0}^{\infty} e^{(-x)} e^{(-2y)} \, dx\, dy$$
+$$\int_{0}^{\infty} \int_{0}^{\infty} f(x, y) \, dx\, dy = 2\int_{0}^{\infty} \int_{0}^{\infty} e^{(-x)} e^{(-2y)} \, dx\, dy$$
 
 --
 
@@ -800,7 +799,7 @@ $$= 2 \left[  -\frac{1}{2} (-1) * -1 (-1)   \right] = 1$$
 
 # Verify this is a pdf (exp version)
 
-$$\int_{0}^{\infty} \int_{0}^{\infty} f(x, y) = 2\int_{0}^{\infty} \int_{0}^{\infty} \exp(-x) \exp(-2y) \, dx\, dy$$
+$$\int_{0}^{\infty} \int_{0}^{\infty} f(x, y) \, dx\, dy = 2\int_{0}^{\infty} \int_{0}^{\infty} \exp(-x) \exp(-2y) \, dx\, dy$$
 --
 
 $$2\int_{0}^{\infty}\exp(-2y) \, dy \int_{0}^{\infty} \exp(-x) \, dx$$
@@ -815,7 +814,7 @@ $$= 2 \left[  -\frac{1}{2} (-1) * -1 (-1)   \right]= 1$$
 
 # Calculate CDF
 
-$$F(x,y) \equiv \Pr\{X \leq b, Y \leq a\} = 2 \int_{0}^{a} \int_{0}^{b} \exp(-x) \exp(-2y) \, dx\, dy$$
+$$F(b,a) \equiv \Pr\{X \leq b, Y \leq a\} = 2 \int_{0}^{a} \int_{0}^{b} \exp(-x) \exp(-2y) \, dx\, dy$$
 --
 $$= 2 (\int_{0}^{a} \exp(-2y) \, dy) (\int_{0}^{b} \exp(-x) \, dx)$$
 --
@@ -840,7 +839,7 @@ $$\begin{aligned}f_{Y}(y) & = \int_{0}^{\infty} 2 \exp(-x) \exp(-2y) \, dx \\& =
 
 ---
 
-# Conditional distribution
+# Independence
 
 Two random variables $X$ and $Y$ are independent if for any two sets of real numbers $A$ and $B$,  
 
@@ -866,7 +865,7 @@ $$\begin{aligned}f_{X|Y} (x|y) & = \frac{f(x,y)}{f_{Y}(y)} \\& = \frac{f_{X}(x)f
 
 Suppose $X$ and $Y$ are jointly continuous and that
 
-$$\begin{eqnarray}f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \\& = & 0 \text{ , otherwise }  \end{eqnarray}$$
+$$\begin{aligned}f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \\& = & 0 \text{ , otherwise }  \end{eqnarray}$$
 
 --
 
@@ -883,11 +882,11 @@ $$xy  + \frac{y^2}{2} |^{1}_{0} = x + \frac{1}{2}$$
 --
 $$f_{Y}(y) = \int_{0}^{1} \left(x + y \right) \, dx =  \frac{x^2}{2} + xy  |^{1}_{0} = \frac{1}{2} + y$$
 --
-$$\begin{eqnarray}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
+$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
 ---
 # Dependence: deep thoughts
 
-$$\begin{eqnarray}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
+$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
 
 We can think about this as getting additional INFORMATION from y when we know x and vice versa. 
 
@@ -946,9 +945,9 @@ So, yes it appears to satisfy our requirements!
 ---
 
 # Expectation ex with g(x): expectation
- > Suppose you earn revenue equal to $x^3+2$. What is your expected utility? 
+ > Suppose you earn revenue equal to $x^3+2$. What is your expected revenue? 
 
-Well, our function is: $\int_0^2\int_0^1 xy\, \,dx\,dy$, so our expected utility will be: 
+Well, our function is: $\int_0^2\int_0^1 xy\, \,dx\,dy$, so our expected revenue will be: 
 $$\int_0^2\int_0^1 (x^3+2)*xy\, \,dx\,dy$$
 
 We know we can do this because: 
@@ -1027,7 +1026,7 @@ $$\begin{align}F(x,y) &= \int_{1}^{2} \int_{0}^{0.5} (x^2 - \frac{8y}{3}+\frac{1
 &= 1
 \end{align}$$
 --
-PHEW! It's a pdf (also need to verify we don't have negative values for f(x))
+PHEW! It's a pdf (also need to verify we don't have negative values for f(x)) (it is: the minimum over $x \in [1,2], y \in [0,0.5]$ is at $(1, 0.5)$, where $f = 1 - \frac{4}{3} + \frac{1}{3} = 0$.)
 
 
 ---
@@ -1035,7 +1034,7 @@ PHEW! It's a pdf (also need to verify we don't have negative values for f(x))
 
 Let's look at a slice of it:  $\int_{1}^{1.5} \int_{0}^{0.5} (x^2 - \frac{8y}{3}+\frac{1}{3}) \text{ } dy \text{ }dx$
 
-$$\begin{align}F(x,y) &= \int_{1}^{1.5} \int_{0}^{0.5} (x^2 - \frac{8y}{3}+\frac{1}{3}) \text{ } dy \text{ }dx \\ &=\int_{1}^{1.5}(x^2y - \frac{4y^2}{3}+\frac{y}{3}) \text{ } |_0^0.5 \text{ }dx \\
+$$\begin{align}F(x,y) &= \int_{1}^{1.5} \int_{0}^{0.5} (x^2 - \frac{8y}{3}+\frac{1}{3}) \text{ } dy \text{ }dx \\ &=\int_{1}^{1.5}(x^2y - \frac{4y^2}{3}+\frac{y}{3}) \text{ } |_0^{0.5} \text{ }dx \\
 &= \int_{1}^{1.5}(0.5x^2 - \frac{1}{3}+\frac{1}{6}) \text{ } \text{ }dx \\
 &= \int_{1}^{1.5}(0.5x^2 - \frac{1}{6}) \text{ } \text{ }dx \\
 &= (\frac{x^3}{6} - \frac{x}{6}) \text{ }|_1^{1.5} \\
@@ -1075,7 +1074,7 @@ $$\Cor(X,Y) =  \frac{\Cov(X,Y) }{\sqrt{\Var(X) \Var(Y) } }$$
 
 # Variance is covariance with itself
 
-$$\begin{eqnarray}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{eqnarray}$$
+$$\begin{aligned}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{eqnarray}$$
 
 ---
 
@@ -1083,13 +1082,13 @@ $$\begin{eqnarray}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{
 Like covariance, bigger is more, but now we're standardizing relative to variance. 
 Suppose $X = Y$:
 
-$$\begin{eqnarray}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& = & \frac{\Var(X)}{\Var(X)} \\& = & 1\end{eqnarray}$$
+$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& = & \frac{\Var(X)}{\Var(X)} \\& = & 1\end{eqnarray}$$
 
 --
 
 Suppose $X = -Y$:
 
-$$\begin{eqnarray}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& =  & \frac{- \Var(X)}{\Var(X)} \\& = & -1 \end{eqnarray}$$
+$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& =  & \frac{- \Var(X)}{\Var(X)} \\& = & -1 \end{eqnarray}$$
 
 ---
 
@@ -1132,7 +1131,7 @@ $$\E[\sum_{i=1}^{N} X_{i} ] = \sum_{i=1}^{N} \E[X_{i} ]$$
 --
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \E[\sum_{i=1}^{N} X_{i} ] & = &  \E[X_{1} + X_{2} + \ldots + X_{N}] \\
 & = & \int_{-\infty}^{\infty} \cdot \cdot \cdot \iint_{-\infty}^{\infty} (x_{1} + x_{2} + \ldots + x_{N}) f(x_{1}, x_{2}, \ldots, x_{N}) \, dx_{1}\, dx_{2}\ldots \, dx_{N} \\
 & = & \int_{-\infty}^{\infty}x_{1} f_{X_{1}}(x_{1}) \, dx_{1}  + \int_{-\infty}^{\infty}x_{2} f_{X_{2}}(x_{2}) \, dx_{2} + \ldots + \int_{-\infty}^{\infty}x_{N} f_{X_{N}}(x_{N}) \, dx_{N}  \\
@@ -1147,7 +1146,7 @@ $$
 Suppose $X_{i}$ is a sequence of random variables.  Then 
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \Var(\sum_{i=1}^{N} X_{i} ) & = & \sum_{i=1}^{N} \Var(X_{i} )  + 2 \sum_{i<j} \Cov(X_{i}, X_{j} ) 
 \end{eqnarray}
 $$
@@ -1157,7 +1156,7 @@ $$
 Consider two random variables, $X_{1}$ and $X_{2}$.  Then, 
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \Var(X_{1} + X_{2} ) & = & \E[(X_{1} + X_{2})^2] - \left(\E[X_{1}] + \E[X_{2}] \right)^2 \\ 
 & = & \E[X_{1}^2]  + 2 \E[X_{1}X_{2}]  + \E[X_{2}^2]  \\
 && - (\E[X_{1}])^2 - 2 \E[X_{1}] \E[X_{2}]  - 2 \E[X_{2}]^2 \\
@@ -1209,7 +1208,7 @@ $$\boldsymbol{\Sigma} = \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}$$
 
 --
 
-$$\begin{eqnarray}f(x_{1}, x_{2} ) & = & (2\pi)^{-2/2} 1^{-1/2} \exp\left(-\frac{1}{2}\left( (\boldsymbol{x}  - \boldsymbol{0} ) ^{'} \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}(\boldsymbol{x}  - \boldsymbol{0} ) \right) \right) \\& = & \frac{1}{2\pi} \exp\left(-\frac{1}{2} (x_{1}^{2} + x_{2} ^ 2 )     \right) \\& = & \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{1}^{2}}{2}  \right) \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{2}^{2}}{2}  \right)\end{eqnarray}$$
+$$\begin{aligned}f(x_{1}, x_{2} ) & = & (2\pi)^{-2/2} 1^{-1/2} \exp\left(-\frac{1}{2}\left( (\boldsymbol{x}  - \boldsymbol{0} ) ^{'} \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}(\boldsymbol{x}  - \boldsymbol{0} ) \right) \right) \\& = & \frac{1}{2\pi} \exp\left(-\frac{1}{2} (x_{1}^{2} + x_{2} ^ 2 )     \right) \\& = & \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{1}^{2}}{2}  \right) \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{2}^{2}}{2}  \right)\end{eqnarray}$$
 
 --
 
@@ -1232,7 +1231,7 @@ Then we will call $\boldsymbol{Z}$ the standard multivariate normal
 Suppose $\boldsymbol{X} = (X_{1}, X_{2}, \ldots, X_{N} )$
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \E[\boldsymbol{X} ] & = &  \boldsymbol{\mu} \\
 \Cov(\boldsymbol{X} ) & = & \boldsymbol{\Sigma} 
 \end{eqnarray}
@@ -1241,7 +1240,7 @@ $$
 So that, 
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \boldsymbol{\Sigma}  & = & \begin{pmatrix} 
 \Var(X_{1}) & \Cov(X_{1}, X_{2}) & \ldots & \Cov(X_{1}, X_{N}) \\
 \Cov(X_{2}, X_{1}) & \Var(X_{2}) & \ldots & \Cov(X_{2}, X_{N} ) \\
@@ -1267,7 +1266,7 @@ $$\Cov(X, Y) = \E[XY] - \E[X]\E[Y]$$
 --
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \E[XY] & = & \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f(x,y)\, dx\, dy \\
 & =& \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f_{X}(x) f_{Y}(y)\, dx\, dy \\
 & = & \int_{-\infty}^{\infty} x f_{X}(x) \, dx \int_{-\infty}^{\infty} y f_{Y}(y) \, dy \\
@@ -1293,7 +1292,7 @@ Then $\Cov(X,Y) = 0$.
 --
 
 $$
-\begin{eqnarray}
+\begin{aligned}
 \E[XY] & = & \sum_{i \in \{-1, 1\} } \sum_{j \in \{-1, 0, 1\}} i j \Pr(X = i, Y = j) \\
 & = & -1 * 0 *  \Pr(X = -1, Y = 0) + 1 * 1  * \Pr(X = 1, Y = 1)  \\
  && - 1 * 1 * \Pr(X = 1, Y = -1) \\
@@ -1303,6 +1302,10 @@ $$
 \E[Y] & = & 0 
 \end{eqnarray}
 $$
+--
+
+But $Y$ is completely determined by $X$: knowing $X = -1$ tells you $Y = 0$ with certainty. So $\Cov(X,Y) = 0$ while $X$ and $Y$ are **dependent**.
+
 
 ---
 # Independence, matrices, covariance: why might we care?

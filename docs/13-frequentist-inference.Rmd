@@ -68,7 +68,7 @@ class: middle
 # Parametric models
 
 * Statistical model $\xi$
-* Parametric model is a finite set $\xi$
+* Parametric model: a family $\xi$ indexed by a **finite-dimensional** parameter
 * Examples of parametric models
 
     $$\xi \equiv f(x; \mu, \sigma) = \frac{1}{\sigma \sqrt{2 \pi}} \exp \left[ -\frac{1}{2\sigma^2} (x - \mu)^2 \right], \quad \mu \in \Re, \sigma > 0$$
@@ -141,7 +141,7 @@ knitr::include_graphics("https://www.bluey.tv/wp-content/themes/bbc-bluey/assets
 
 ---
 
-# Properties of point estimators: BLUE (OLS)
+# Properties of point estimators: BLUE (a property of OLS)
 --
 
 ## Best
@@ -154,7 +154,7 @@ knitr::include_graphics("https://www.bluey.tv/wp-content/themes/bbc-bluey/assets
 ## Unbiased 
 
 --
-## Estimate 
+## Estimator 
 
 
 ---
@@ -192,7 +192,7 @@ Think of an estimator for WHAT your best will be. Here are some options (below) 
 | Estimator | Unbiased    | Consistent | Efficient |
 |-------    |-------------|-------------|------------|
 | $\bar{x}$  | $\checkmark$ | $\checkmark$  | $\checkmark$ |
-| $x_i$      | $\checkmark$  | $\times$ | $\checkmark$ |
+| $x_i$      | $\checkmark$  | $\times$ | $\times$ |
 | $4$        | $\times$ | $\times$ | $\checkmark$  | 
 | median  (normal dist) | $\checkmark$ | $\checkmark$  | $\times$|
 
@@ -234,7 +234,7 @@ KEY for homework:
 $$E[\bar X] = \frac{1}{n} \sum_{i=1}^n E[X_i]$$
 --
 
-* Translation: *the expected value of an average of a random variable ( $\bar{X}$ ) equals the average of the sum of the expected values for our random variable*
+* Translation: *the expected value of an average of a random variable ( $\bar{X}$ ) equals the average of the expected values for our random variable*
 
 ---
 
@@ -244,7 +244,7 @@ Bernoulli refresher: one-shot event with probability $\pi$ of success.
 
 --
 
-Let $X_1, \ldots, X_n ~ \text{Bernoulli}(\pi)$ and let $\hat{\pi}_n = \frac{1}{n} \sum_{i=1}^n X_i$. Then
+Let $X_1, \ldots, X_n \sim \text{Bernoulli}(\pi)$ and let $\hat{\pi}_n = \frac{1}{n} \sum_{i=1}^n X_i$. Then
 
 $$\E(\hat{\pi}_n) = \frac{1}{n} \sum_{i=1}^n \E(X_i) = \pi$$ 
 
@@ -314,7 +314,7 @@ $\hat{\pi}_n$ is a consistent estimator of $\pi$
 * We need a way to think about / evaluate if they are good or not
 --
 
-* That way is called 'BLUE' (best, linear, unbiased)
+Let $X_1, \ldots, X_n \s* For OLS specifically, that standard is **BLUE**: Best Linear Unbiased Estimatorim \text{Bernoulli}(\pi)$
 --
 
 * Using this is how we decided to use the sample mean as the best guess of the population mean (and other similar decisions)
@@ -365,7 +365,7 @@ $$z_{\frac{\alpha}{2}} = \Phi^{-1} \left(1 - \frac{\alpha}{2} \right)$$
 
 --
 
-$$\Pr (Z > \frac{\alpha}{2}) = \frac{\alpha}{2}$$
+$$\Pr (Z > z_{\frac{\alpha}{2}}) = \frac{\alpha}{2}$$
 and 
 
 $$\Pr (-z_{\frac{\alpha}{2}} \leq Z \leq z_{\frac{\alpha}{2}}) = 1 - \alpha$$
@@ -428,7 +428,7 @@ CI level | $\frac{\alpha}{2}$ | z
 --------|-----------|---------
 90% | 0.05 | 1.645
 95% | 0.025 | 1.96
-99% | 0.025 | 2.58
+99% | 0.005 | 2.58
 
 ---
 # CI: when to use
@@ -451,7 +451,7 @@ CI level | $\frac{\alpha}{2}$ | z
 --------|-----------|---------
 90% | 0.05 | 1.645
 95% | 0.025 | 1.96
-99% | 0.025 | 2.58
+99% | 0.005 | 2.58
 
 $$(\bar x \pm z_{\frac{\alpha}{2}} \widehat{\se})$$
 --
@@ -494,7 +494,7 @@ Let $X$ be a random variable and let $\chi$ be the range of $X$. Test a hypothes
 
 --
 
-If $X \subset R$ we reject the null hypothesis, otherwise we do not reject the null hypothesis
+If $X \in R$ we reject the null hypothesis, otherwise we do not reject the null hypothesis
 
 $$R = \left\{ x: T(x) > c \right\}$$
 
@@ -560,7 +560,7 @@ knitr::include_graphics("img/typei_ii.jpg")
 
 # Power function
 
-Power - probability of correctly rejecting the null hypothesis. Another way to consider this is to imagine you want to know if you COULD reject the null if it were false. You might now have enough POWER (either your sample size is too small and/or your null is slightly wrong). 
+Power - probability of correctly rejecting the null hypothesis. Another way to consider this is to imagine you want to know if you COULD reject the null if it were false. You might not have enough POWER (either your sample size is too small and/or your null is slightly wrong). 
 
 --
 
@@ -609,7 +609,7 @@ Let $X_1, \ldots, X_n \sim N(\mu, \sigma^2)$ where $\sigma$ is known
 
 Test $H_0: \mu \leq 0$ versus $H_1: \mu > 0$
 
-$$\Theta_0 = (-\infty, 0], \quad\Theta_1 = (0, \infty]$$
+$$\Theta_0 = (-\infty, 0], \quad\Theta_1 = (0, \infty)$$
 
 --
 
@@ -652,7 +652,7 @@ tibble(
   h = x > -0
 ) %>%
   ggplot(aes(x, y, color = h)) +
-  geom_line(size = 1.5) +
+  geom_line(linewidth = 1.5) +
   geom_vline(xintercept = 0) +
   scale_color_brewer(type = "qual", labels = expression(H[0], H[1])) +
   annotate(geom = "text", x = -0.25, y = .8, label = expression(beta(mu)), size = 7) +
@@ -705,7 +705,7 @@ $$z=\frac{\bar x - \mu}{\sigma/\sqrt{n}}$$
 
 Note: we have two defaults that you can assume:
 
-$z$ cutoff is 1.96 and $\alpha$ is 0.05. 
+$\alpha$ is 0.05, and the $z$ cutoff is 1.96 **two-sided** (also 1.645 **one-sided**, but *we are going to do two sided*). 
 
 
 ---
@@ -778,7 +778,7 @@ The estimate of $\delta$ is $\hat{\delta} = \bar{X} - \bar{Y}$ with estimated st
 
 $$\widehat{\se} = \sqrt{\frac{s_1^2}{m} + \frac{s_2^2}{n}}$$
 
-where $s_1^2$ and $s_2^2$ are the sample variances
+where $s_1^2$ and $s_2^2$ are the sample variances, $s^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar X)^2$ (the $n-1$ is what makes $s^2$ unbiased for $\sigma^2$)
 
 --
 
@@ -788,7 +788,7 @@ $$W = \frac{\hat{\delta} - 0}{\widehat{\se}} = \frac{\bar{X} - \bar{Y}}{\sqrt{\f
 
 ---
 
-# Illustration: $t$-test
+# Illustration: the $t$ distribution vs the Normal
 
 ```{r t-dist, out.width = "90%"}
 expand.grid(
@@ -799,7 +799,7 @@ expand.grid(
   mutate(y = dt(x, df)) %>%
   ggplot(mapping = aes(x = x, y = y)) +
   geom_line() +
-  stat_function(fun = dnorm, n = 201, color = "blue") +
+  stat_function(fun = dnorm, n = 201, color = "#0B6884") +
   labs(
     title = "Student's t",
     subtitle = "{closest_state} degrees of freedom",
@@ -915,8 +915,8 @@ tibble(
 
 **Sociology Example: Weekly household chores**
 
-- Men ($n_₁$ = 85): $\bar{x}_1 = 14.2$, $s_1 = 4.1$  
-- Women ($n_₂$ = 90): $\bar{x}_2 = 15.0$, $s_2 = 4.3$
+- Men ($n_1$ = 85): $\bar{x}_1 = 14.2$, $s_1 = 4.1$  
+- Women ($n_2$ = 90): $\bar{x}_2 = 15.0$, $s_2 = 4.3$
 
 -- 
 
@@ -948,7 +948,7 @@ $= \frac{-0.8}{0.635} \approx -1.26$
 
 - Observed difference is 1.26 standard errors below 0  
 - Two-tailed test p-value ≈ 0.2077
-- Insufficient evidence to reject the null hypotehsis that women and men do equal chores; not statistically significant at 5%
+- Insufficient evidence to reject the null hypothesis that women and men do equal chores; not statistically significant at 5%
 
 ---
 
@@ -979,13 +979,13 @@ $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}} = \sqrt{\frac{0.06^2}{120} + 
 
 ## Step 3: Test Statistic
 
-$z = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{SE} = \frac{-0.03}{0.0073} \approx -4.125$
+$z = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{SE} = \frac{-0.03}{0.0073} \approx -4.11$
 
 --
 
 ## Interpretation
 
-- Observed difference is 4.125 standard errors below 0  
+- Observed difference is 4.11 standard errors below 0  
 - Two-tailed p-value < 0.0001
 - Significant difference: Urban support is lower than Rural
 
@@ -1007,11 +1007,9 @@ A polling organization is comparing support for a new policy between **Urban** a
 
 $\bar{x}_1 - \bar{x}_2 = 0.48 - 0.52 = -0.04$
 
---
-
-## Step 2: Standard Error
 
 ---
+
 ## Ex, power, cont'd:
 
 ## Step 2: Standard Error
@@ -1021,13 +1019,13 @@ $SE = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}} = \sqrt{\frac{0.06^2}{100} + 
 --
 ## Step 3: Test Statistic
 
-$z = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{SE} = \frac{-0.04}{0.0080} \approx -5$
+$z = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{SE} = \frac{-0.04}{0.0080} \approx -5.1$
 
 --
 
 ## Step 4: Power Illustration
 
-- Suppose the true difference is actually $\delta = 0.03$ (Urban slightly lower)  
+- Suppose the true difference is actually $\delta = -0.03$ (Urban slightly lower)  
 - Power is the probability that $z$ would exceed the critical value in the correct direction  
 
 - Critical $z$ for $\alpha = 0.05$ (two-tailed) is $z_{0.975} = 1.96$  
@@ -1097,11 +1095,10 @@ The **maximum likelihood estimator** $\hat{\theta}_n$ is the value of $\theta$ t
 $$\max (\Lagr_n(\theta)) \equiv \max (\lagr_n(\theta))$$
 
 ---
----
 
 # MLE of the mean of the Normal variable
 
-$$\Pr(X_i = x_i) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[\frac{(X_i - \mu)^2}{2\sigma^2}\right]$$
+$$f(x_i; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(x_i - \mu)^2}{2\sigma^2}\right]$$
 
 ```{r plot-normal, fig.height = 5.5}
 tibble(x = rnorm(1000, 0, 1)) %>%
@@ -1121,8 +1118,8 @@ tibble(x = rnorm(1000, 0, 1)) %>%
 
 $$
 \begin{align}
-\lagr_n(\mu, \sigma^2 | X) &= \log \prod_{i = 1}^{N}{\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[\frac{(X_i - \mu)^2}{2\sigma^2}\right]} \\
-&= \sum_{i=1}^{N}{\log\left(\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[\frac{(X_i - \mu)^2}{2\sigma^2}\right]\right)} \\
+\lagr_n(\mu, \sigma^2 | X) &= \log \prod_{i = 1}^{N}{\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(X_i - \mu)^2}{2\sigma^2}\right]} \\
+&= \sum_{i=1}^{N}{\log\left(\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(X_i - \mu)^2}{2\sigma^2}\right]\right)} \\
 &= -\frac{N}{2} \log(2\pi) - \left[ \sum_{i = 1}^{N} \log{\sigma^2 - \frac{1}{2\sigma^2}} (X_i - \mu)^2 \right]
 \end{align}
 $$
@@ -1267,7 +1264,7 @@ $S(1-\hat{\pi}) =  \hat{\pi}(n - S)$ and $S-S\hat{\pi} =  \hat{\pi}(n - S)$
 We can continue simplifying to get:
 
 --
-$\hat{\pi} n - S \hat{\pi} + S\hat{\pi} = S$ so
+$\hat{\pi} n - S \hat{\pi} + S\hat{\pi} = S$, the $S\hat{\pi}$ terms cancel, leaving $S = \hat{\pi} n$, so
 
 --
 
@@ -1396,6 +1393,6 @@ $$\sqrt{n} (\tilde{\theta}_n - \theta) \leadsto N \left(0, \sigma^2 \frac{\pi}{2
 --
 
 * The MLE has the smallest (asymptotic) variance
-* No other estimator produces smaller variance
+* Among *regular* estimators, none has smaller asymptotic variance
 
 
