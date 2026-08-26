@@ -760,13 +760,12 @@ $$
 * The third line uses $f(h) = h^{2}$, valid because $h \neq 0$ throughout the
   limit — the value $f(0)=1000$ enters only through the $-f(0)$ term.
 
-* Now $h \to 0$, but $-\frac{1000}{h}$ blows up: the same $\frac{1}{h}$
-  failure as before. So $f'(0)$ does not exist.
+* Now $h \to 0$, but $-\frac{1000}{h}$ gets huge. So $f'(0)$ does not exist.
 ---
 
 # Calculating derivatives
 
-* Rarely will we take a limit to calculate derivative
+* Rarely (basically never) will we take a limit to calculate derivative
 * Rather, rely on **rules** and properties of derivatives
 * **Important**: do not forget core intuition
 
@@ -1125,7 +1124,7 @@ $$\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x -c}  = \lim_{x \rightarrow c^
 
 --
 
-* Rolle's theorem adds the additional condition that $f(a) = f(b)$
+* Rolle's theorem adds the additional condition that if $f(a) = f(b)$ then there must be somewhere where $f'(c)=0$. 
 ---
 
 # Mean value theorem
@@ -1137,6 +1136,7 @@ $$\lim_{x \rightarrow c^{-}} \frac{f(x) - f(c) }{x -c}  = \lim_{x \rightarrow c^
 --
 
 * Rolle's theorem is a special case of the MVT with the $f(a) = f(b)$ restriction, yielding $f'(c) = 0$
+* MVT is more general (not requring a value for c)
 
 ---
 
@@ -1247,7 +1247,7 @@ Suppose that $f:[a,b] \rightarrow \mathbb{R}$ is continuous on $[a,b]$ and diffe
 
 ---
 
-# If $f^{'}(x)> 0$ for all $x \in (a,b)$ then $f$ is strictly $\uparrow$
+## If $f^{'}(x)> 0$ for all $x \in (a,b)$ then $f$ is strictly $\uparrow$
 
 * By way of contradiction, suppose that there is $x, y \in (a,b)$ with $y<x$ but $f(y)>f(x)$. But then, 
 
