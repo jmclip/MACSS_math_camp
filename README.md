@@ -21,7 +21,7 @@
 * Zeling Wang (zelingw@uchicago.edu)
 
 ## Office Hours
-|  | In-person | Zoom
+|  | In-person (in classroom) | Zoom
 |-|-|-|
 | Monday | 5-6 PM (Saaket) | |
 |  | 6-7 PM (Xulan) | |
