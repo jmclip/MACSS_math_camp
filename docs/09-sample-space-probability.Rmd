@@ -506,7 +506,7 @@ $$\Pr(E|F) = \frac{\Pr(E\cap F ) } {\Pr(F) }$$
 ### Example 1
 
 * $F = \{\text{All Democrats Win} \}$
-* $E = \{\text{Tammy Duckworth Wins (D-IL} \}$
+* $E = \{\text{Tammy Duckworth Wins (D-IL)} \}$
 * If $F$ occurs then $E$ must occur, $\Pr(E|F) = 1$
 
 --
@@ -950,54 +950,6 @@ $$
 \Pr (A_1 \cap A_2 \cap A_3) &= \Pr (A_1) \Pr (A_2) \Pr (A_3)
 \end{aligned}
 $$
-
----
-
-# Independent trials
-
-* Sequence of independent trials
-
-    
-```{r, out.width="35%"}
-library(here)
-knitr::include_graphics("images/bernoulli.png")
-
-```
-
-* Bernoulli trials - sequence of independent binary trials
-    * Heads or tails
-    * Success or fail
-    * Rains or does not rain
-    
----
-
-# Binomial probabilities
-
-* $n$ independent tosses of a coin
-* Probability of heads is $p$
-* Independence means that the events $A_1, A_2, \ldots, A_n$ are independent where $A_i = i \text{th toss is a heads}$
-
----
-
-# Binomial probabilities
-
-The binomial function is a series of $n$ independent Bernoulli trials. Each trial has the same possible outcome (success or failure and the probability of each is constant across the trials). 
-
---
-$$p(k) = \Pr(k \text{ heads come up in an } n \text{-toss sequence})$$
-
-The probability of any given sequence that contains $k$ heads is $p^k (1-p)^{n-k}$
-
-$$p(k) = \binom{n}{k} p^k (1-p)^{n-k}$$
-
-$$\binom{n}{k} = \text{number of distinct } n \text{-toss sequences that contain } k \text{ heads}$$
-
-$$\binom{n}{k} = \frac{n!}{k! (n-k)!}, \quad k=0,1,\ldots,n$$
-
-$$i! = 1 \times 2 \times \cdots \times (i-1) \times i$$
-
----
-
 ## Binomial formula
 
 $$\sum_{k=0}^n \binom{n}{k} p^k (1-p)^{n-k} = 1$$
@@ -1083,6 +1035,54 @@ $$8 \times 10 \times 10 \times 10 \times 10 \times 10 \times 10 = 8 \times 10^6$
 * General formula
 
     $$\frac{n!}{k!(n-k)!}$$
+
+---
+
+# Independent trials
+
+* Sequence of independent trials
+
+    
+```{r, out.width="35%"}
+library(here)
+knitr::include_graphics("images/bernoulli.png")
+
+```
+
+* Bernoulli trials - sequence of independent binary trials
+    * Heads or tails
+    * Success or fail
+    * Rains or does not rain
+    
+---
+
+# Binomial probabilities
+
+* $n$ independent tosses of a coin
+* Probability of heads is $p$
+* Independence means that the events $A_1, A_2, \ldots, A_n$ are independent where $A_i = i \text{th toss is a heads}$
+
+---
+
+# Binomial probabilities
+
+The binomial function is a series of $n$ independent Bernoulli trials. Each trial has the same possible outcome (success or failure and the probability of each is constant across the trials). 
+
+--
+$$p(k) = \Pr(k \text{ heads come up in an } n \text{-toss sequence})$$
+
+The probability of any given sequence that contains $k$ heads is $p^k (1-p)^{n-k}$
+
+$$p(k) = \binom{n}{k} p^k (1-p)^{n-k}$$
+
+$$\binom{n}{k} = \text{number of distinct } n \text{-toss sequences that contain } k \text{ heads}$$
+
+$$\binom{n}{k} = \frac{n!}{k! (n-k)!}, \quad k=0,1,\ldots,n$$
+
+$$i! = 1 \times 2 \times \cdots \times (i-1) \times i$$
+
+---
+
 
 ---
 

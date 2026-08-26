@@ -38,8 +38,8 @@ library(gganimate)
 # What is calculus?
 
 * Calculus
-* Differential calculus
-* Integral calculus
+*   Differential calculus
+*   Integral calculus
 * Underlies most statistical and computational methods
 * Crucial for **optimization**
 
@@ -94,7 +94,7 @@ source: [math 210](https://math.libretexts.org/Courses/Monroe_Community_College/
 
 # Limits, cont'd
 
-* Limits are about the behavior of functions at **points**. Here $x_{0}$
+* Limits are about the behavior of functions at **points**, here we will often use $x_{0}$
 * $\epsilon$ defines an **error rate**
 * $\delta$ defines an area around $x_{0}$ where $f(x)$ is going to be within our error rate
 
@@ -117,20 +117,30 @@ function_plot +
   )
 ```
 
+---
 
+class: inverse
 
-<!-- # Proof (sketch) for limits (L):  -->
+# How we use limits
 
-<!-- * **Without loss of generality** (WLOG) choose $\epsilon >0$ -->
-<!-- * Show that there is $\delta_{\epsilon}$ such that -->
+* Understand what is happening big picture
+* See how they underpin math later
+* Fall in love with continuity
 
-<!--     $$|f(x) - L| < \epsilon \, \text{for all } \, x \, \text{such that} \, 0 < |x - x_0 | < \delta$$ -->
+---
 
-<!--     $$\begin{aligned}|(x + 1) - 1| < \epsilon \, \text{for all } \, x \, &\text{such that} \, 0 < |x - 0 | < \delta \\|x| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x | < \delta \\\end{aligned}$$ -->
+# Proof (sketch) for limits (L):
 
-<!-- -- -->
+* **Without loss of generality** (WLOG) choose $\epsilon >0$
+* Show that there is $\delta_{\epsilon}$ such that
 
-<!-- * But if $\delta_{\epsilon}  = \epsilon$ then this holds -->
+    $$|f(x) - L| < \epsilon \, \text{for all } \, x \, \text{such that} \, 0 < |x - x_0 | < \delta$$
+
+    $$\begin{aligned}|(x + 1) - 2| < \epsilon \, \text{for all } \, x \, &\text{such that} \, 0 < |x - 0 | < \delta \\|x| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x | < \delta \\\end{aligned}$$
+
+--
+
+* But if $\delta_{\epsilon}  = \epsilon$ then this holds
 
 ---
 
@@ -138,7 +148,9 @@ function_plot +
 
 * A function can have a limit of $L$ at $x_{0}$ even if $f(x_{0} ) \neq L$
 
+
 --
+
 * The function $f(x) = \frac{x^2 - 1}{x - 1}$ has a limit of $2$ at $x_{0} = 1$
 
 ```{r limit-discontinuous, out.width="80%"}
@@ -156,6 +168,8 @@ function_plot +
 ---
 
 # $f(x_{0} ) \neq L$
+
+* Reminder: $$|f(x) - L| < \epsilon \, \text{for all } \, x \, \text{such that} \, 0 < |x - x_0 | < \delta$$
 
 * For all $x \neq 1$,
 
@@ -184,21 +198,63 @@ function_plot +
 ```
 
 ---
+# Not all functions have limits (sketch) [not tested/just giving background]
 
-# Not all functions have limits (sketch)
+* Take $\epsilon = 1$, and suppose some $\delta>0$ worked. Then for every $x$
+  with $0<|x|<\delta$, the triangle inequality gives
 
-* Let $L$ be any real number. Choose $\epsilon>0$. We need to show that there **does not** exist: 
+$$
+\begin{aligned}
+\Big|\frac{1}{x}\Big|
+  &= \Big|\Big(\frac{1}{x}-L\Big) + L\Big| \\
+  &\le \Big|\frac{1}{x}-L\Big| + |L| \\
+  &< 1 + |L|
+\end{aligned}
+$$
 
-    $$\begin{aligned}|\frac{1}{x} - L| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x - 0 | < \delta \\|\frac{1}{x} - L| < \epsilon \, \text{for all} \, x \, &\text{such that} \, 0 < |x| < \delta \\\end{aligned}$$
+* and since both sides are positive we may invert:
 
-* But, there is a problem
-
-    $$\begin{aligned}\frac{1}{x} - L & < \epsilon \\\frac{1}{x} & < \epsilon + L \\x & > \frac{1}{L + \epsilon}  \end{aligned}$$
-  
-* This implies that there **can't** be a $\delta$
+$$|x| > \frac{1}{1+|L|}.$$
 
 ---
 
+# Not all functions have limits (sketch)
+
+* The $\epsilon$-condition forces every $x$ in the punctured interval to stay
+  *away* from $0$, but the $\delta$-condition applies to *all* $x$ with
+  $0<|x|<\delta$ — including points closer to $0$ than $\frac{1}{1+|L|}$.
+
+--
+
+* Let's think about using $\frac{\delta}{2}$ as a possible $x_0$, since it
+  will be less than $\delta$.
+
+--
+
+* But if $\delta$ is large, $\frac{\delta}{2}$ needn't be small enough to
+  break the bound. So take whichever is smaller:
+
+$$x_0 = \min\left(\frac{\delta}{2},\ \frac{1}{1+|L|}\right)$$
+
+* This still satisfies $0<|x_0|<\delta$.
+
+---
+
+## Limits sketch: conclusion
+
+* Since $0<|x_0|<\delta$, the previous slide forces
+  $|x_0| > \frac{1}{1+|L|}$.
+
+* But $|x_0| \le \frac{1}{1+|L|}$, since $\min(a,b)\le b$ always — either
+  $x_0 = \frac{\delta}{2} \le \frac{1}{1+|L|}$, or $x_0 = \frac{1}{1+|L|}$.
+
+* $\le$ and $>$ are exact negations, so both cannot hold. Contradiction.
+
+* Since $\delta>0$ was arbitrary and $x_0$ was built *from* it, no $\delta$
+  works for $\epsilon = 1$. And $L$ was arbitrary, so no real number is the
+  limit. 
+  
+---
 # When there are no limits!
 ```{r no-limit-img, out.width="80%"}
 knitr::include_graphics("https://media.giphy.com/media/7JvlHfd7C2GDr7zfZF/giphy.gif")
@@ -676,16 +732,36 @@ f(x) & = 1000  \text{ for  } x = 0
 \end{aligned}
 $$
 
-* $f'(0)$
+By definition,
 
-    $$\begin{aligned} \lim_{h \rightarrow 0 } f'(x) & = \lim_{h \rightarrow 0 } \frac{f(x+h)-f(x)}{ h   } \\ 
-    & = \lim_{h \rightarrow 0 } \frac{f(0+h)-f(0)}{ h   } 
-    &= \lim_{h \rightarrow 0 }\frac{f(h)-1000}{h}\\ 
-    &= \lim_{h \rightarrow 0 }\frac{h^2-1000}{h} 
-    \end{aligned}$$
+$$
+\begin{aligned}
+f'(0)
+  &= \lim_{h \to 0} \frac{f(0+h)-f(0)}{h} \\
+  &= \lim_{h \to 0} \frac{f(h)-1000}{h} \\
+  &= \lim_{h \to 0} \frac{h^{2}-1000}{h} \\
+  &= \lim_{h \to 0} \left( h - \frac{1000}{h} \right)
+\end{aligned}
+$$
+---
 
-* Our difference quotient will behave like $\frac{-1000}{h}$, so the limit doesn't exist when we evaluate at $x = 0$. 									
+# What goes wrong?
 
+$$
+\begin{aligned}
+f'(0)
+  &= \lim_{h \to 0} \frac{f(0+h)-f(0)}{h} \\
+  &= \lim_{h \to 0} \frac{f(h)-1000}{h} \\
+  &= \lim_{h \to 0} \frac{h^{2}-1000}{h} \\
+  &= \lim_{h \to 0} \left( h - \frac{1000}{h} \right)
+\end{aligned}
+$$
+
+* The third line uses $f(h) = h^{2}$, valid because $h \neq 0$ throughout the
+  limit — the value $f(0)=1000$ enters only through the $-f(0)$ term.
+
+* Now $h \to 0$, but $-\frac{1000}{h}$ blows up: the same $\frac{1}{h}$
+  failure as before. So $f'(0)$ does not exist.
 ---
 
 # Calculating derivatives
