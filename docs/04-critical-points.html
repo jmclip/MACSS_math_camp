@@ -133,6 +133,59 @@ Inflection points are where we move from being concave down to concave up (or vi
 
 &lt;img src="04-critical-points_files/figure-html/inflect-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
+```
+## $ncol
+## [1] 1
+## 
+## $nrow
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $byrow
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $widths
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $heights
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $guides
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $tag_level
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $axes
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $axis_titles
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $design
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## attr(,"class")
+## [1] "plot_layout"
+```
+
 ---
 
 # Inflection point: example function
@@ -482,7 +535,7 @@ class: inverse, middle, center
 
 --
 
-&lt;img src="04-critical-points_files/figure-html/grid-search-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/grid-search-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 &lt;!-- &lt;!-- --&gt;
 &lt;!-- # Analytically optimize --&gt;
@@ -510,7 +563,7 @@ class: inverse, middle, center
 
 # Gradient descent
 
-&lt;img src="04-critical-points_files/figure-html/grad-ex-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/grad-ex-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -533,13 +586,13 @@ class: inverse, middle, center
 
 
 
-&lt;img src="04-critical-points_files/figure-html/grad-descent-learn-rate-6-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/grad-descent-learn-rate-6-1.gif" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # `\(\alpha = 0.1\)`
 
-&lt;img src="04-critical-points_files/figure-html/grad-descent-learn-rate-2-1.gif" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/grad-descent-learn-rate-2-1.gif" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 class: inverse, center, middle
@@ -609,7 +662,7 @@ Matrices are incredibly helpful, despite also being a bit challenging to get the
 
 # One dimensional example
 
-&lt;img src="04-critical-points_files/figure-html/one-d-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="04-critical-points_files/figure-html/one-d-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;&lt;img src="04-critical-points_files/figure-html/one-d-2.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;&lt;img src="04-critical-points_files/figure-html/one-d-3.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -702,6 +755,9 @@ $$
   * Can think of as multiplication by a scalar, but technically, combining each NON-ZERO vector, multiplied by a scalar, gives us zero. ( `\(\mathbf{v}_1, \mathbf{v}_2, \ldots \mathbf{v}_k\)` are linearly dependent if and only if there exist scalars `\(\alpha_1, \alpha_2, \ldots, \alpha_k\)` *not all zero* such that `\(\alpha_1 \mathbf{v}_1 + \alpha_2 \mathbf{v}_2 + \ldots + \alpha_k \mathbf{v}_k = \mathbf{0}\)`)
 * Overall, we may be in a situation where the number of dimensions helps us understand the size of the solution set
 
+--
+
+* **Question** Do you make a zero vector with *some* combo of all of these?
 
 ---
 
