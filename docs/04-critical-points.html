@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="04-critical-points_files/header-attrs/header-attrs.js"></script>
+    <link href="04-critical-points_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="slides-menu.css" type="text/css" />
   </head>
@@ -32,6 +33,7 @@ class: center, middle, inverse, title-slide
 * Gradescope: grading underway -- should be all OK
 * Academic Integrity: workshop upcoming
 * MACSS Orientation 9/23 (expect notices re: scheduling, etc.)
+* JCLIP OH in classroom until 4pm Mon-Thurs!
 
 
 ---
@@ -217,6 +219,59 @@ Let's now consider the same function, but the derivative. We are expecting THE V
 
 &lt;img src="04-critical-points_files/figure-html/inflect-all-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
+```
+## $ncol
+## [1] 1
+## 
+## $nrow
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $byrow
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $widths
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $heights
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $guides
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $tag_level
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $axes
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $axis_titles
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## $design
+## list()
+## attr(,"class")
+## [1] "waiver"
+## 
+## attr(,"class")
+## [1] "plot_layout"
+```
+
 ---
 
 # Concavity
@@ -247,7 +302,7 @@ What does this mean?
 
 # Concavity
 
-* Where a function is twice differentiable and concave over some area, then the function is concave down where `\(f''(x) &lt; 0\)` and concave up where `\(f''(x) &gt; 0\)`
+* Where a function is twice differentiable and concave over some area, then the function is **concave down where `\(f''(x) &lt; 0\)`** and where `\(f''(x) &gt; 0\)` is **concave up**. Recall: `\(f(x)=(x^3 - 15 * x^2 + 60 * x + 30) / 15\)`.
 
 &lt;img src="04-critical-points_files/figure-html/concave-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
@@ -324,7 +379,11 @@ How would we evaluate the extreme values here?
 &lt;img src="04-critical-points_files/figure-html/endpoints-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 
---
+---
+# Types of extreme values: Examples
+
+How would we evaluate the extreme values here? 
+&lt;img src="04-critical-points_files/figure-html/endpoints2-1.png" alt="" width="25%" style="display: block; margin: auto;" /&gt;
 
 * Derivative of the function: `\(f'(x) = 1\)`
 * Set to zero and solve. (n/a)
@@ -440,7 +499,7 @@ $$
 * Log-likelihood
     * `\(f:\mathbb{R} \rightarrow (0, \infty)\)`
     * If `\(x_{0}\)` maximizes `\(f\)`, then `\(x_{0}\)` maximizes `\(\log(f(x))\)`
-* Maximize the log-likelihood instead
+* Maximize the log-likelihood instead (easier math!)
 
 ---
 
@@ -491,10 +550,10 @@ $$
 ---
 
 # Maximum likelihood estimation: MLE in life
-Logit and other limited-dependent variable models: what function creates a curve that best predicts our outcome variable? 
+Logit and other limited-dependent variable models: what parameter estimate makes the observed pattern most likely?
 
 * Simplest example: 0s and 1s as outcome
-* Trying to determine which function best predicts the outcome for parameter estimates
+* Trying to determine which value of `\(\beta\)` best predicts the outcomes observed
 
 ---
 
@@ -963,15 +1022,15 @@ Now, let's try this together -- work with a partner. Are these matrices linearly
 * **Step 1: write out**
 $$
 `\begin{aligned}
-4\alpha + 2\beta + 1\gamma &amp;= 0 \\
-3\alpha + 1\beta + 1\gamma &amp;= 0 \\
-3\alpha - 1\beta + 2\gamma &amp;= 0
+4\alpha + 2\beta + 1\gamma &amp;= 0 (h)\\
+3\alpha + 1\beta + 1\gamma &amp;= 0 (j)\\
+3\alpha - 1\beta + 2\gamma &amp;= 0 (k)
 \end{aligned}`
 $$
 
 --
 
-* **Step 2: manipulate**
+* **Step 2: manipulate (j-k)**
 $$
 `\begin{aligned}
 4\alpha + 2\beta + 1\gamma &amp;= 0 \\

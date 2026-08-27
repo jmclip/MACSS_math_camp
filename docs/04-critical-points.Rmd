@@ -3,7 +3,7 @@ title: "Critical points, optimization, and matrices"
 author: "[MACS 33000](https://jmclip.github.io/MACSS_math_camp/) <br /> University of Chicago"
 output:
   xaringan::moon_reader:
-    css: ["xaringan-themer.css", "slides-menu.css"]
+    css: ["default", "xaringan-themer.css", "slides-menu.css"]
     includes:
       after_body: [slides-menu.js]
     nature:
@@ -28,6 +28,7 @@ library(gganimate)
 * Gradescope: grading underway -- should be all OK
 * Academic Integrity: workshop upcoming
 * MACSS Orientation 9/23 (expect notices re: scheduling, etc.)
+* JCLIP OH in classroom until 4pm Mon-Thurs!
 
 
 ---
@@ -296,7 +297,7 @@ fx2 <- function_plot +
   coord_cartesian(xlim = c(0,10)) +
   theme_minimal()
 
-fx + fx1 + fx2 +
+fx + fx1 #+ fx2 +
   plot_layout(ncol = 1)
 ```
 
@@ -459,7 +460,27 @@ function_plot +
 ```
 
 
---
+---
+# Types of extreme values: Examples
+
+How would we evaluate the extreme values here? 
+```{r endpoints2, fig.width=8, fig.height=6, out.width="25%"}
+function_plot +
+  stat_function(fun = function(x) x, linewidth = .5) +
+  geom_point(
+    data = tibble(
+      x = c(0, 5),
+      y = x
+    ),
+    aes(x, y)
+  ) +
+  labs(
+    title = expression(f(x) == x),
+    x = expression(x),
+    y = expression(f(x))
+  ) +
+  coord_cartesian(xlim = c(0,5))
+```
 
 * Derivative of the function: $f'(x) = 1$
 * Set to zero and solve. (n/a)
@@ -649,7 +670,7 @@ $$
 * Log-likelihood
     * $f:\mathbb{R} \rightarrow (0, \infty)$
     * If $x_{0}$ maximizes $f$, then $x_{0}$ maximizes $\log(f(x))$
-* Maximize the log-likelihood instead
+* Maximize the log-likelihood instead (easier math!)
 
 ---
 
@@ -700,10 +721,10 @@ $$
 ---
 
 # Maximum likelihood estimation: MLE in life
-Logit and other limited-dependent variable models: what function creates a curve that best predicts our outcome variable? 
+Logit and other limited-dependent variable models: what parameter estimate makes the observed pattern most likely?
 
 * Simplest example: 0s and 1s as outcome
-* Trying to determine which function best predicts the outcome for parameter estimates
+* Trying to determine which value of $\beta$ best predicts the outcomes observed
 
 ---
 
