@@ -356,7 +356,7 @@ Transposing a matrix means *flipping* it in a sense -- swapping across the diago
 `$$\mathbf{X} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \ldots &amp; x_{1n} \\ x_{21} &amp; x_{22} &amp; \ldots &amp; x_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ x_{m1} &amp; x_{m2} &amp; \ldots &amp; x_{mn} \\ \end{pmatrix}$$` 
 
 `$$\mathbf{X}' = \begin{pmatrix}  x_{11} &amp; x_{21} &amp; \ldots &amp; x_{m1} \\ x_{12} &amp; x_{22} &amp; \ldots &amp; x_{m2} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ x_{1n} &amp; x_{2n} &amp; \ldots &amp; x_{mn}\end{pmatrix}\\$$`
-## Transpose has the prime or a small upper T
+* Transpose has the prime or a small upper T
 
 
 ---
@@ -411,6 +411,10 @@ To multiply, you go ACROSS the ROW of the first matrix and multiply pairwise DOW
 --
 &lt;span style = "color: red;"&gt;
 `$$\quad \mathbf{Y} = \begin{pmatrix} 5 &amp; 2 \\ 3 &amp; 4 \\ \end{pmatrix}$$`
+&lt;span style = "color: blue;"&gt;
+`$$\mathbf{X} = \begin{pmatrix} 1 \\ 10\end{pmatrix}$$`
+&lt;/span&gt;
+
 
 Similarly, we'll multiply the remaining row of our matrix Y by the column in X to produce the following:  &lt;span style = "color: red;"&gt; `\(3*\)` &lt;/span&gt; &lt;span style = "color: blue;"&gt; `\(1\)` &lt;/span&gt; + &lt;span style = "color: red;"&gt; `\(4*\)` &lt;/span&gt; `\(+\)` &lt;span style = "color: blue;"&gt; `\(10\)` &lt;/span&gt;. This will give us &lt;span style = "color: purple;"&gt; `\(3+ 40 = 43\)` &lt;/span&gt; as the second cell in our resulting matrix. 
 
@@ -623,7 +627,7 @@ Put those two pieces together with the inverse we just learned:
   
 ---
 
-class: center 
+class: center, middle
 
 # Uses of matrices: how you might see them in your life
 
@@ -637,8 +641,7 @@ class: center, middle, inverse
 
 # Everything is a tensor
 
-You will hear the word **tensor** constantly. It is
-not. A tensor is just an array of numbers, organized by how many axes it
+You will hear the word **tensor** constantly. A tensor is just an array of numbers, organized by how many axes it
 has:
 
 --
@@ -737,7 +740,6 @@ network layer is a regression, run many times, with a twist at the end.
 
 * Dimensionality matters
 * Diagonal from upper left to lower right matters 
-  * Sometimes the opposite diagonal is referred to by a name, but varies
 * Matrices referred to by their overall properties (elements) and/or behavior of the diagonal 
 * Special names for *special* matrices:
     * **Diagonal matrix** (only numbers on diagonal; zero elsewhere)
