@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="05-matrix-algebra_files/header-attrs/header-attrs.js"></script>
+    <link href="05-matrix-algebra_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="slides-menu.css" type="text/css" />
   </head>
@@ -29,7 +30,8 @@ class: center, middle, inverse, title-slide
 
 # Misc updates
 
-* Grading up
+* Grading up soon 
+  * PLEASE TAG ALL QUESTIONS
 * Check github for updates
 
 
@@ -74,7 +76,7 @@ $$
 # Calculating vector length
 The length of a vector, the vector norm, can be thought of as the distance of the vector from the origin.
 
-&lt;img src="05-matrix-algebra_files/figure-html/pythagorean-theorem-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="05-matrix-algebra_files/figure-html/pythagorean-theorem-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -266,7 +268,7 @@ We can see how the similarity of 0.65 has a larger `\(\theta\)` and a similarity
 ---
 class: center, middle, inverse
 # The Matrix, Part I
-&lt;img src="https://media.tenor.com/ang0VzOwbdAAAAAC/the-matrix-reloaded-matrix.gif" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://media.tenor.com/ang0VzOwbdAAAAAC/the-matrix-reloaded-matrix.gif" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 # Matricies
@@ -322,6 +324,7 @@ Consider the following:
 
 `$$\mathbf{Z} = \left[ \begin{array}{rrr}1 &amp; 2 &amp; 3 \\5 &amp; 1 &amp; 4 \\6 &amp; 1 &amp; 7\end{array} \right]$$`   
 
+
 ---
 
 # Matrix oparations: addition
@@ -353,7 +356,7 @@ Transposing a matrix means *flipping* it in a sense -- swapping across the diago
 `$$\mathbf{X} = \begin{pmatrix} x_{11} &amp; x_{12} &amp; \ldots &amp; x_{1n} \\ x_{21} &amp; x_{22} &amp; \ldots &amp; x_{2n} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ x_{m1} &amp; x_{m2} &amp; \ldots &amp; x_{mn} \\ \end{pmatrix}$$` 
 
 `$$\mathbf{X}' = \begin{pmatrix}  x_{11} &amp; x_{21} &amp; \ldots &amp; x_{m1} \\ x_{12} &amp; x_{22} &amp; \ldots &amp; x_{m2} \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ x_{1n} &amp; x_{2n} &amp; \ldots &amp; x_{mn}\end{pmatrix}\\$$`
-
+## Transpose has the prime or a small upper T
 
 
 ---
@@ -557,17 +560,135 @@ Suppose we have a `\(3 \times 4\)` matrix, **A** and a `\(4 \times 1\)` matrix *
 	24 &amp; 45 &amp; 34 &amp; 45 \end{pmatrix}  \\
 	\end{aligned}$$`
 	
+
+---
+
+# So why did we do all that?
+
+We just computed `\(\mathbf{A}\mathbf{A}'\)` and `\(\mathbf{A}'\mathbf{A}\)` and
+you were probably wondering why. 
+
+--
+
+In practice, our matrix is a **data matrix**. Call it `\(\mathbf{X}\)`:
+
+* Each **row** is an observation (a person, a document, a country-year)
+* Each **column** is a variable (a feature, a predictor)
+* So `\(\mathbf{X}\)` is `\(n \times p\)`: `\(n\)` observations, `\(p\)` variables
+
+--
+
+And `\(\mathbf{y}\)` is our outcome, one value per observation: `\(n \times 1\)`.
+
+---
+
+# Checking our dimensions
+
+`$$\underset{(p \times n)}{\mathbf{X}'} \; \underset{(n \times p)}{\mathbf{X}} \; = \; \underset{(p \times p)}{\mathbf{X}'\mathbf{X}}$$`
+
+Square! Symmetric! One row and column per variable. (Notice this is why we
+always write `\(\mathbf{X}'\mathbf{X}\)` and not `\(\mathbf{X}\mathbf{X}'\)` --
+the other order gives us `\(n \times n\)`, one row per *observation*, which is
+enormous and not what we want.)
+
+--
+
+`$$\underset{(p \times n)}{\mathbf{X}'} \; \underset{(n \times 1)}{\mathbf{y}} \; = \; \underset{(p \times 1)}{\mathbf{X}'\mathbf{y}}$$`
+
+One number per variable.
+
+---
+
+# Least squares
+
+Put those two pieces together with the inverse we just learned:
+
+`$$\boldsymbol{\hat\beta} = (\mathbf{X}'\mathbf{X})^{-1} \mathbf{X}'\mathbf{y}$$`
+
+--
+
+`$$\underset{(p \times p)}{(\mathbf{X}'\mathbf{X})^{-1}} \; \underset{(p \times 1)}{\mathbf{X}'\mathbf{y}} \; = \; \underset{(p \times 1)}{\boldsymbol{\hat\beta}}$$`
+
+**One coefficient per variable.** Exactly what a regression gives you.
+
+--
+
+* This is the formula behind `lm()` in R
+* Every single operation in it is something we did today: transpose,
+  multiply, invert
+* And when `\(\mathbf{X}'\mathbf{X}\)` is singular -- perfectly correlated
+  predictors, or more variables than observations (`\(p &gt; n\)`) -- there is
+  no inverse, and there is no unique answer. Your software will complain,
+  and now you know why.
+  
 ---
 
 class: center 
 
 # Uses of matrices: how you might see them in your life
 
+
+---
+class: center, middle, inverse
+
+# Machine learning
+
+---
+
+# Everything is a tensor
+
+You will hear the word **tensor** constantly. It is
+not. A tensor is just an array of numbers, organized by how many axes it
+has:
+
+--
+
+* **Scalar** -- a single number (0 axes)
+* **Vector** -- a list of numbers (1 axis)
+* **Matrix** -- rows and columns (2 axes)
+* **3D tensor and up** -- stack matrices together (3+ axes)
+
+--
+
+An image is a 3D tensor: height `\(\times\)` width `\(\times\)` color channel. A
+batch of images is 4D.
+
+--
+
+**If you can do it with a matrix, you can do it with a tensor.** Addition,
+multiplication, transposition -- all the rules generalize. You already
+know the hard part.
+
 ---
 
 # Neural networks
 
-&lt;img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Neural_network_example.svg" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Neural_network_example.svg" alt="" width="55%" style="display: block; margin: auto;" /&gt;
+---
+
+# What a neural network layer actually is
+
+`$$\mathbf{Y} = \text{activation}(\mathbf{W}\mathbf{X} + \mathbf{B})$$`
+
+--
+
+* `\(\mathbf{X}\)` -- your input data
+* `\(\mathbf{W}\)` -- a matrix of **weights** (this is what gets learned)
+* `\(\mathbf{B}\)` -- a vector of **biases** (added on, like an intercept)
+* `\(\mathbf{Y}\)` -- the output, which becomes the input to the next layer
+
+--
+
+That `\(\mathbf{W}\mathbf{X}\)` is our matrix multiplication -- each entry of
+the output is a **dot product** of one row of `\(\mathbf{W}\)` with
+`\(\mathbf{X}\)`. It's the same operation we used for cosine similarity, just
+stacked up and repeated.
+
+--
+
+Compare it to `\(\boldsymbol{\hat\beta}\)` from a few slides ago. A neural
+network layer is a regression, run many times, with a twist at the end.
+
 
 ---
 
@@ -583,7 +704,7 @@ class: center
 ---
 # Social networks
 
-&lt;img src="https://macs40700.netlify.app/slides/13-visualize-text-network/index_files/figure-html/unnamed-chunk-67-1.png" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://macs40700.netlify.app/slides/13-visualize-text-network/index_files/figure-html/unnamed-chunk-67-1.png" alt="" width="85%" style="display: block; margin: auto;" /&gt;
 ---
 
 # Uses for social networks
