@@ -113,11 +113,10 @@ Note: solutions posted after grades released
 | **Week 2** | | | |
 | M 31-Aug | Linear algebra  |  [Determinants and eigenvalues](https://jmclip.github.io/MACSS_math_camp/06-matrix-inversion-decomposition.html) | [Pset 4](problem_sets/04-linear-algebra.pdf) & [answer key](solutions/pset4_answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | T 1-Sep | Calculus |[Functions of several variables and optimization with several variables](https://jmclip.github.io/MACSS_math_camp/07-multivariable-differentiation.html)| [NO HOMEWORK!]
-| -- **updating assignments and content below this line!** -- |
-| Date | Topic | Subtopic/Slides | Assignment
-|-|-|-|-|
 | W  2-Sep | Calculus | [Integration and integral calculus](https://jmclip.github.io/MACSS_math_camp/08-integration.html) | [Pset 5 pdf](problem_sets/05-diff-integration.pdf),  [tex](problem_sets/05-diff-integration.tex) & [answer key](solutions/pset5__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | Th 3-Sep | Probability |  [Sample space and probability](https://jmclip.github.io/MACSS_math_camp/09-sample-space-probability.html)| [NO HOMEWORK!  ] [Survey](https://forms.gle/gE1BqDGNa8oEW5Xg7) 
+| -- **updating assignments and content below this line!** -- |
+| Date | Topic | Subtopic/Slides | Assignment
 | F 4-Sep | Probability | [Discrete random variables](https://jmclip.github.io/MACSS_math_camp/10-discrete-random-vars.html) | [Pset 6 pdf](problem_sets/06-discrete-random-variables.pdf), [tex](problem_sets/06-discrete-random-variables.tex) + & [answer key](solutions/pset6__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | **Week 3** | | | |
 | M 7-Sep | No class (Labor Day) |  | 
