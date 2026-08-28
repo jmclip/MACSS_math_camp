@@ -1,0 +1,150 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{bookmark}
+\hypersetup{
+  pdftitle={PSET 5: Functions of several variables and optimization with several variables},
+  hidelinks}
+
+\title{PSET 5: Functions of several variables and optimization with
+several variables}
+\author{}
+\date{\vspace{-2.5em}}
+ 
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
+
+\begin{document}
+\maketitle
+
+\input{assignment-qs}
+
+\problem{Find first partial derivatives}
+
+Find all of the first partial derivatives of each
+function.\footnote{Inspired by Grimmer HW6.3}
+
+\begin{enumerate}[label=\alph*.]
+\item $f(x,y) = \frac{1}{3}x^5 + 3x^3y^2 + 3xy^4$
+\item $g(x,y) = 4xe^{4y+1}$
+\item $k(x,y) = \dfrac{x-y}{x+y}$
+\end{enumerate}
+
+\problem{Find the gradient, Hessian and Jacobian}
+
+Find the gradient, Hessian $H$, and Jacobian, $J$, for the following functions.\footnote{Inspired by
+  Grimmer HW7.3} Evaluate the gradient at the given points.
+
+\begin{enumerate}[label=\alph*.]
+\item $g(x,y) = x^4+y^4-4xy+2$
+  \begin{enumerate}[label=\roman*.]
+  \item Gradient: (evaluate at: \quad $(x,y) = (1,1)$)
+  \item Jacobian:
+  \item Hessian:
+  \end{enumerate}
+\item $k(x,y) = (1+xy)(x+y)$
+  \begin{enumerate}[label=\roman*.]
+  \item Gradient: (evaluate at: \quad $(x,y) = (1,-1)$)
+  \item Jacobian:
+  \item Hessian:
+  \end{enumerate}
+\end{enumerate}
+
+\problem{Find the critical points}
+
+Find the local minimum values, local maximum values, and saddle point(s)
+of the function. Remember the process we discussed in class: calculate
+the gradient, set it equal to zero to solve the system of equations,
+calculate the Hessian, and assess the Hessian at critical values. Be sure
+to show your work on each of these steps.\footnote{Inspired by Grimmer
+  HW7.4}
+
+\begin{enumerate}[label=\alph*.]
+\item $h(x,y) = x^4+y^4$
+\item $g(x,y) = x^4+y^4-4xy+2$ (You can reuse your calculations from above)
+\item $k(x,y) = (1+xy)(x+y)$ (You can reuse your calculations from above)
+\end{enumerate}
+
+
+\problem{Definite and Indefinite integrals}
+
+The remaining problems cover integration. Solve the following integrals
+using the antiderivative method.\footnote{Inspired by Gill 5.10, Grimmer
+  HW4.1, Gill 5.13, and 5.14}
+
+For all these problems, the basic approach to compute the definite
+integral of $f(x)$ from $a$ to $b$ is by using the formula $F(b) - F(a)$,
+where $F(x)$ is the \textbf{antiderivative} of $f$.
+
+\begin{enumerate}[label=\alph*.]
+\item $\int_{-1}^{0} (3x^2 - 3) \,dx$
+\item $\int_2^4 e^{3y} \,dy$
+\item $\int_3^3 \sqrt{x^5 - 2} \,dx$
+\item $\int \left(x^2 - x^{-\frac{1}{2}}\right) \,dx$
+\end{enumerate}
+
+
+\problem{Substitution and integration by parts}
+\begin{enumerate}[label=\alph*.]
+\item $\int 2x(x^2+1)^4 \,dx$
+\item $\int \dfrac{3x^2}{x^3+5} \,dx$
+\item $\int x e^{2x} \,dx$
+
+\item Without solving, state whether you would use substitution or
+  integration by parts for each, and why:
+  \begin{enumerate}[label=\roman*.]
+  \item $\int 5x^4 \left(x^5 - 2\right)^{3} \,dx$
+  \item $\int x^2 \log(x) \,dx$
+  \end{enumerate}
+\end{enumerate}
+
+\problem{Improper and multiple integrals}
+
+For (a)--(c), determine whether the integral is convergent or divergent,
+and evaluate those that are convergent.\footnote{Inspired by Grimmer
+  HW4.3} For (d)--(e), evaluate the iterated integral. In each case,
+state whether the order of integration is forced, and why.
+
+\begin{enumerate}[label=\alph*.]
+\item $\int_1^{\infty} \left(\dfrac{1}{3x}\right)^2 \,dx$
+\item $\int_0^{\infty} e^{-x} \,dx$
+\item $\int_{-\infty}^0 x^3 \,dx$
+\item $\int_{0}^1 \int_{2}^{3} x^2y^3 \,dx \,dy$
+\item $\int_{0}^1 \int_0^{\sqrt{1-x^2}} 2x^3y \,dy \,dx$
+\end{enumerate}
+
+\problem{Interpretation}
+No new computation is required for this problem. Answer each part in two to
+four sentences of prose.
+
+\begin{enumerate}[label=\alph*.]
+\item \textbf{Reading a partial derivative.} Suppose we regress presidential
+  approval in month $i$ on the employment rate and the price of gas, and
+  obtain
+  \[
+    \text{Approval}_{i} = 0.8 + 0.5\,\text{Employ}_{i} - 0.25\,\text{Gas}_{i}.
+  \]
+  Write down $\dfrac{\partial\, \text{Approval}_{i}}{\partial\, \text{Employ}_{i}}$
+  and interpret it substantively. Your interpretation should make clear what
+  is happening to $\text{Gas}_{i}$ while employment changes, and why that
+  matters for the claim you are making.
+
+\item \textbf{Gradient versus Hessian.} Explain why the condition
+  $\nabla f(\mathbf{a}) = \mathbf{0}$ is \emph{necessary} but not
+  \emph{sufficient} for $\mathbf{a}$ to be a local extremum. Use your answers
+  to Problem 3 to illustrate: both $(0,0)$ and $(1,1)$ have zero gradient,
+  but they are different kinds of point. What does the Hessian tell you at
+  each that the gradient could not? Finally, explain what it means when the
+  determinant test returns $AC - B^2 = 0$, and why we cannot classify the
+  point in that case.
+
+\item \textbf{Integrals and probability.} A continuous probability density
+  $f$ must satisfy $\int_{-\infty}^{\infty} f(x) \,dx = 1$. Explain what this
+  requirement means, and what $\int_{a}^{b} f(x)\,dx$ represents for some
+  interval $[a,b]$.
+  \end{enumerate}
+
+\input{ai-statement}
+
+\end{document}
