@@ -12,7 +12,7 @@ several variables}
 \author{}
 \date{\vspace{-2.5em}}
 
-% Problems are numbered 1-8 across the document.
+
 \newcounter{problem}
 \newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
 
@@ -21,74 +21,109 @@ several variables}
 
 \input{assignment-qs}
 
-\problem{Find first partial derivatives}
+\problem{Evaluating multivariate functions}
 
-Find all of the first partial derivatives of each
+Recall the spatial model of policy from class. Policy is $N$-dimensional,
+$\mathbf{x} \in \mathbb{R}^{N}$, and legislator $i$'s utility
+$U:\mathbb{R}^{N} \rightarrow \mathbb{R}^{1}$ is
+\[
+  U(\mathbf{x}) = -\sum_{j=1}^{N} (x_{j} - \mu_{j})^{2},
+\]
+where $\boldsymbol{\mu} = (\mu_1, \ldots, \mu_N)$ is the legislator's ideal
+point. Suppose $N = 3$ and $\boldsymbol{\mu_1} = (0, 0, 0)$.
+
+\begin{enumerate}[label=\alph*.]
+\item (0.5 points) Evaluate $U(\mathbf{m})$ for the policy proposal
+  $\mathbf{m_1} = (1, 2, -1)$, and for the proposal
+  $\mathbf{m_2} = (0, 1, 0)$. Show your work.
+\item (0.5 points) Which proposal does the legislator prefer, and how do you
+  know from the values you just computed? 
+\item (0.5 points) (in words only) How could you identify the legislator's preferred policy computationally, if you hadn't been told $\mu$ in advance. Be specific using terms and concepts from class. 
+\end{enumerate}
+
+\problem{First and second partial derivatives}
+
+Find the requested partial derivatives of each
 function.\footnote{Inspired by Grimmer HW6.3}
 
 \begin{enumerate}[label=\alph*.]
-\item $f(x,y) = \frac{1}{3}x^5 - 3x^3y^2 + 3xy^4$
-\item $g(x,y) = xe^{4y}$
-\item $k(x,y) = \dfrac{x+y}{x-y}$
+\item (0.5 points) All first partial derivatives of $f(x,y) = \frac{1}{3}x^5 - 3x^3y^2 + 3xy^4$
+\item (0.5 points) All first partial derivatives of $g(x,y) = xe^{4y}$
+\item (0.5 points) All first partial derivatives of $k(x,y) = \dfrac{x+y}{x-y}$
+\item (0.5 points) Returning to $f$ from part (a), find the second partial
+  derivatives $\dfrac{\partial^2 f}{\partial x^2}$ and
+  $\dfrac{\partial^2 f}{\partial y^2}$, and both cross partials
+  $\dfrac{\partial^2 f}{\partial x \, \partial y}$ and
+  $\dfrac{\partial^2 f}{\partial y \, \partial x}$. What do you notice about
+  the two cross partials?
 \end{enumerate}
 
-\problem{Find the gradient, Hessian and Jacobian}
-
-Find the gradient, Hessian $H$, and Jacobian, $J$, for the following functions.\footnote{Inspired by
-  Grimmer HW7.3} Evaluate the gradient at the given points. 
+\problem{Gradients, Hessians, and Jacobians}
 
 \begin{enumerate}[label=\alph*.]
-\item $g(x,y) = x^4 - 3x^2 y^3$ 
-  \begin{enumerate}[label=\alph*.]
-  \item Gradient evaluate at: \quad $(x,y) = (1,1)$
-  \item Hessian: 
-  \item Jacobian:
+\item $g(x,y) = x^4 - 3x^2 y^3$
+  \begin{enumerate}[label=\roman*.]
+  \item (0.5 points) Find the gradient $\nabla g$ and evaluate it at
+    $(x,y) = (1,1)$.
+  \item (0.5 points) Find the Hessian $\mathbf{H}(g)$.
   \end{enumerate}
-\item $f(x,y) = \sqrt{x^2 + y^2}$ 
-  \item Gradient evaluate at: \quad $(x,y) = (3,4)$
-  \item Hessian: 
-  \item Jacobian:
+\item $f(x,y) = x^3y^4 - 3xy + 1$
+  \begin{enumerate}[label=\roman*.]
+  \item (0.5 points) Find the gradient $\nabla f$ and evaluate it at
+    $(x,y) = (0,0)$.
+  \item (0.5 points) Find the Hessian $\mathbf{H}(f)$.
+  \end{enumerate}
+\item (0.5 points) The gradient is the derivative of a \emph{scalar-valued}
+  function; the Jacobian is the matrix of derivatives of a
+  \emph{vector-valued} function. Consider
+  $\mathbf{F}: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ given by
+  \[
+    \mathbf{F}(x,y) = \left( x^2 y, \; x + y^3 \right).
+  \]
+  Find the Jacobian $\mathbf{J}(\mathbf{F})$. Then, in one sentence, explain
+  why it would not be meaningful to ask for the Jacobian of $g$ in part (a)
+  in the same sense.
 \end{enumerate}
 
 \problem{Find the critical points}
 
-Find the local minimum values, local maximum values, and saddle point(s)
-of the function. Remember the process we discussed in class: calculate
-the gradient, set it equal to zero to solve the system of equations,
-calculate the Hessian, and assess the Hessian at critical values. Be sure
-to show your work on each of these steps.\footnote{Inspired by Grimmer
-  HW7.4}
+(1.5 points) Find the local minimum values, local maximum values, and saddle
+point(s) of
+\[
+  f(x,y) = x^3 + y^3 - 3xy.
+\]
+Follow the process we discussed in class: calculate the gradient, set it
+equal to zero and solve the resulting system of equations, calculate the
+Hessian, and assess the Hessian at each critical value using the determinant
+test. Be sure to show your work on each of these steps, and state clearly
+what kind of point each critical value is.\footnote{Inspired by Grimmer HW7.4}
 
-\begin{enumerate}[label=\alph*.]
-\item $g(x,y) = x^4+y^4-4xy+2$ (You can reuse your calculations from above)
-\item $k(x,y) = (1+xy)(x+y)$
-\end{enumerate}
+\problem{Definite and indefinite integrals}
 
-\problem{Definite and Indefinite integrals}
-
-Solve the following definite integrals using the antiderivative
+Solve the following definite or indefinite integrals using the antiderivative
 method.\footnote{Inspired by Gill 5.10, Grimmer HW4.1, Gill 5.13, and 5.14}
 
-For all these problems, the basic approach to compute the definite
+Reminder: the basic approach to compute the definite
 integral of $f(x)$ from $a$ to $b$ is by using the formula $F(b) - F(a)$,
 where $F(x)$ is the \textbf{antiderivative} of $f$.
 
 \begin{enumerate}[label=\alph*.]
-\item $\int_{-1}^{0} (3x^2 - 1) \,dx$
-\item $\int_2^4 e^y \,dy$
-\item $\int_3^3 \sqrt{x^5 + 2} \,dx$
-\item $\int \left(x^2 - x^{-\frac{1}{2}}\right) \,dx$
-\item $\int 360t^6 \,dt$
+\item (0.5 points) $\int_{-1}^{0} (3x^2 - 1) \,dx$
+\item (0.5 points) $\int_2^4 e^y \,dy$
+\item (0.5 points) $\int_3^3 \sqrt{x^5 + 2} \,dx$
+\item (0.5 points) $\int \left(x^2 - x^{-\frac{1}{2}}\right) \,dx$
 \end{enumerate}
 
-
 \problem{Substitution and integration by parts}
-\begin{enumerate}[label=\alph*.]
-\item $\int 2x(x^2+1)^4 \,dx$
-\item $\int \dfrac{3x^2}{x^3+5} \,dx$
-\item $\int x e^{2x} \,dx$
 
-\item Without solving, state whether you would use substitution or
+\begin{enumerate}[label=\alph*.]
+\item (0.5 points) $\int 2x(x^2+1)^4 \,dx$
+\item (0.5 points) $\int \dfrac{3x^2}{x^3+5} \,dx$
+\item (0.5 points) $\int x e^{2x} \,dx$
+\item (0.5 points) $\int \log(x) \,dx$ \quad (\emph{Hint}: you may take
+  $dv = dx$.)
+
+\item (0.5 points) Without solving, state whether you would use substitution or
   integration by parts for each, and why:
   \begin{enumerate}[label=\roman*.]
   \item $\int 5x^4 \left(x^5 - 2\right)^{3} \,dx$
@@ -98,23 +133,54 @@ where $F(x)$ is the \textbf{antiderivative} of $f$.
 
 \problem{Improper and multiple integrals}
 
-Determine whether each integral is convergent or divergent. Evaluate
-those that are convergent.\footnote{Inspired by Grimmer HW4.3} For (a)--(c), determine whether the integral is convergent or divergent,
-and evaluate those that are convergent.\footnote{Inspired by Grimmer
-  HW4.3}. For (d)--(e), evaluate the iterated integral. In each case, state which
-variable you must integrate first and why.
+For (a)--(c), determine whether the integral is convergent or divergent, and
+evaluate those that are convergent.\footnote{Inspired by Grimmer HW4.3} Note
+that these are improper for different reasons --- say which in each case.
+For (d)--(e), evaluate the iterated integral.
 
 \begin{enumerate}[label=\alph*.]
-\item $\int_1^{\infty} \left(\dfrac{1}{3x}\right)^2 \,dx$
-\item $\int_0^{\infty} e^{-x} \,dx$
-\item $\int_{-\infty}^0 x^3 \,dx$
-\item $\int_{0}^1 \int_{2}^{3} x^2y^3 \,dx \,dy$
-\item $\int_{0}^1 \int_0^{\sqrt{1-x^2}} 2x^3y \,dy \,dx$
+\item (0.5 points) $\int_1^{\infty} \left(\dfrac{1}{3x}\right)^2 \,dx$
+\item (0.5 points) $\int_{-\infty}^0 x^3 \,dx$
+\item (0.5 points) $\int_{0}^{1} x^{-\frac{1}{2}} \,dx$
+\item (0.5 points) $\int_{0}^1 \int_{2}^{3} x^2y^3 \,dx \,dy$. Does the order
+  in which you integrate matter here? Explain why or why not.
+\item (0.5 points) $\int_{0}^1 \int_0^{\sqrt{1-x^2}} 2x^3y \,dy \,dx$. State
+  which variable you must integrate first and why --- contrast your answer
+  with part (d).
 \end{enumerate}
 
+
 \problem{Interpretation}
+
+No new computation is required for this problem. Answer each part in two to
+four sentences of prose.
+
 \begin{enumerate}[label=\alph*.]
-\item
+\item (1 point) \textbf{Reading a partial derivative.} Suppose we regress presidential
+  approval in month $i$ on the employment rate and the price of gas, and
+  obtain
+  \[
+    \text{Approval}_{i} = 0.8 - 0.5\,\text{Employ}_{i} - 0.25\,\text{Gas}_{i}.
+  \]
+  Write down $\dfrac{\partial\, \text{Approval}_{i}}{\partial\, \text{Employ}_{i}}$
+  and interpret it substantively. Your interpretation should make clear what
+  is happening to $\text{Gas}_{i}$ while employment changes, and why that
+  matters for the claim you are making.
+
+\item (1 point) \textbf{Gradient versus Hessian.} Explain why the condition
+  $\nabla f(\mathbf{a}) = \mathbf{0}$ is \emph{necessary} but not
+  \emph{sufficient} for $\mathbf{a}$ to be a local extremum. Use your answers
+  to Problem 4 to illustrate: both $(0,0)$ and $(1,1)$ have zero gradient,
+  but they are different kinds of point. What does the Hessian tell you at
+  each that the gradient could not? Finally, explain what it means when the
+  determinant test returns $AC - B^2 = 0$, and why we cannot classify the
+  point in that case.
+
+\item (0.5 points) \textbf{Integrals and probability.} A continuous probability density
+  $f$ must satisfy $\int_{-\infty}^{\infty} f(x) \,dx = 1$. Explain what this
+  requirement means, and what $\int_{a}^{b} f(x)\,dx$ represents for some
+  interval $[a,b]$.
+
 \end{enumerate}
 
 \input{ai-statement}

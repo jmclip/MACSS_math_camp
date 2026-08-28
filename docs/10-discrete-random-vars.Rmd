@@ -3,7 +3,7 @@ title: "Discrete random variables"
 author: "[MACS 33000](https://jmclip.github.io/MACSS_math_camp/) <br /> University of Chicago"
 output:
   xaringan::moon_reader:
-    css: ["xaringan-themer.css", "slides-menu.css"]
+    css: ["default", "xaringan-themer.css", "slides-menu.css"]
     math: katex
     includes:
       after_body: [slides-menu.js]

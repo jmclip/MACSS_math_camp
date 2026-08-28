@@ -1050,7 +1050,7 @@ Therefore,
 {
   function_plot +
     stat_function(fun = function(x) log(x), size = 0.5, n = 1000) +
-    coord_cartesian(xlim = c(0,3)) +
+    coord_cartesian(xlim = c(-2,3)) +
     labs(y = expression(f(x)))
 } + {
   function_plot +
