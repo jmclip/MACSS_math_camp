@@ -23,13 +23,13 @@
 ## Office Hours
 |  | In-person (in classroom) | Zoom
 |-|-|-|
-| Monday | 5-6 PM (Saaket) | |
+| Monday | 3:30-4:30 PM (Saaket) | |
 |  | 6-7 PM (Xulan) | |
 | Tuesday |  5-7 PM (Yanjing) | 7:30-8:30 PM (Xulan) [Zoom](https://uchicago.zoom.us/j/93478666739?pwd=aNbSHb29NppU8dRiMrszlI3BMImVJT.1) |
-| Wednesday | 5-6 PM (Saaket) |  |
+| Wednesday | 3:30-4:30 PM (Saaket) |  |
 |  | 6-7 PM (Xulan) | |
 | Thursday | 5-7 PM (Yanjing)| 7:30-8:30 PM (Xulan) [Zoom](https://uchicago.zoom.us/j/93478666739?pwd=aNbSHb29NppU8dRiMrszlI3BMImVJT.1) |
-| Friday | 5-6 PM (Saaket) | |
+| Friday | 3:30-4:30 PM (Saaket) | |
 | Saturday | | 12-1 PM (Saaket) [Zoom](https://uchicago.zoom.us/j/91589941027?pwd=SlhooMTlxXzzTjIv4h2I94zSfStpGv.1) |
 
 ## Course description
