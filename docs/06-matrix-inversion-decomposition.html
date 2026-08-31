@@ -600,6 +600,29 @@ Note: by hand, really a `\(3\times 3\)` matrix is the absolute limit for finding
 
 ---
 
+# Matrix Diagonal, Trace, Transpose
+
+Suppose we have a SQUARE matrix: `$$\mathbf{Z} = \left[ \begin{array}{rr} 1 &amp; 0 &amp; 2 \\6 &amp; 3 &amp; 2 \\1 &amp; 4 &amp; 8\end{array} \right]\\$$`
+* Transpose: (recall from before) you flip the matrix along the diagonal (diagonal stays the same): `$$\mathbf{Z}^T = \left[ \begin{array}{rrr} 1 &amp; 6 &amp; 1 \\ 0 &amp; 3 &amp; 4 \\ 2 &amp; 2 &amp; 8 \end{array} \right]$$`
+
+* Trace: the sum of all the entries on its main diagonal from the top-left to the bottom-right: `\(12\)`
+
+---
+
+# Rank of a matrix
+
+* Rank: remember when we found how many linearly independent vectors there were? That is the rank of our matrix! YAY!
+  * Rank of `\(Z\)` is 3, also known as FULL RANK
+  
+--
+
+## How to know the rank:
+
+* If square matrix: find the determinant -- if nonzero, linearly independent
+* If not square matrix: calculation necessary
+
+---
+
 # Application: Regression analysis
 In some methods/quantitative classes you learn about linear regression. For each `\(i\)` (individual) we observe covariates `\(x_{i1}, x_{i2}, \ldots, x_{ik}\)` and dependent variable `\(Y_{i}\)`. Then,
 
@@ -750,7 +773,7 @@ We can rearrange to find that `\(4v_2 = -2v_1\)`, simplifying to `\(v_1 =-2v_2\)
 
 --
 
-By a similar process, we can substitute to find that `\(2v_1 - 4v_2 = 0\)`, arriving at `\(v_1 = 2v_2\)`. Again, we suppose `\(v_2=1\)` (for simplicity), and find that `\(v_1=2\)`
+By a similar process, we can substitute to find that `\(-2v_1 - 4v_2 = 0\)`, arriving at `\(v_1 = 2v_2\)`. Again, we suppose `\(v_2=1\)` (for simplicity), and find that `\(v_1=-2\)`
 
 ---
 ## Eigenvalues and eigenvectors
@@ -878,7 +901,7 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 
 --
 
-* Not an efficient approach
+* Not always an efficient approach
 * Let's use SVD!
 
 ---
@@ -1098,7 +1121,7 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 
 # Different ranks
 
-&lt;img src="06-matrix-inversion-decomposition_files/figure-html/lions-rank-all-1.gif" alt="" style="display: block; margin: auto;" /&gt;
+&lt;img src="06-matrix-inversion-decomposition_files/figure-html/lions-rank-all-1.gif" alt="" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1117,8 +1140,7 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 
 ---
 # Determinants, minors and cofactors: `\(n \times n\)` matrix
-
-* `$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
+`$$\mid \mathbf{X} \mid = \sum_{j=1}^n (-1)^{i+j} x_{ij} \mid\mathbf{X}_{[ij]}\mid$$`
   * NOTE: we can add across any one row or column (just be consistent)
 * `\(ij\)`th **minor** of `\(\mathbf{X}\)` for `\(x_{ij}\)`
     * The **submatrix** `\(\mathbf{X}_{[ij]}\)` is what remains after deleting the
@@ -1128,6 +1150,9 @@ In either case, the goal is to reduce the dimensionality of the data by identify
 * **Cofactor** of `\(\mathbf{X}\)`
     * Minor signed as `\((-1)^{i+j}\mid\mathbf{X}_{[ij]}\mid\)`
 * Cycle recursively through columns
+
+---
+## Determinants:
 
 * Determinants (general form): `\(|\mathbf{A}|=a_{21}\mathbf{C_{21}}+ a_{22}\mathbf{C_{22}} + a_{23}\mathbf{C_{23}}\)`
   * `\(2\times2\)`: `\(a_{11}a_{22}-a_{12}a_{21}\)`
