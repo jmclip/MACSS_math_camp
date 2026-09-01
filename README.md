@@ -127,7 +127,11 @@ Note: solutions posted after grades released
 | **Final Exam** | | | |
 | M 14-Sep | Placement exam |  | Placement exam and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 
-Bonus Content!
+## Bonus Content!
 
 * [Quadratics, logarithms, sequences, and limits](https://jmclip.github.io/MACSS_math_camp/02-sequences-limits.html) 
 * [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)
+
+## Class recordings!
+(Need UChicago login to access)
+* [class recordings](https://uchicago.hosted.panopto.com/Panopto/Pages/Sessions/List.aspx?folderID=614c03e7-20f3-448b-9ab4-b4b800de0e19)
