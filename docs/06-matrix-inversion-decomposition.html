@@ -708,6 +708,12 @@ More formally, suppose we have a matrix `\(\mathbf{X}\)`. If we multiply that by
 
 
 ---
+# Eigenvalue process
+
+1. Find eigenvalues (lambdas)
+1. For each eigenvalue, find a possible eigenvector (there are usually many, many options -- can choose one to solve)
+
+---
 # Calculating eigenvalues
 
 An *eigenvector* of a matrix, `\(\mathbf{A}\)` is a nonzero vector `\(\mathbf{v}\)` where `\(\mathbf{A}\mathbf{v}= \lambda \mathbf{v}\)`, for some scalar `\(\lambda\)`. 
@@ -771,9 +777,16 @@ We can start with our eigenvalue (let's begin with `\(\lambda = -2\)`). We then 
 
 We can rearrange to find that `\(4v_2 = -2v_1\)`, simplifying to `\(v_1 =-2v_2\)`. Since these are going to have infinitely many solutions, we can choose an arbitrary value for one of our vectors, suppose `\(v_2\)` is 1 (start small and go from there!). Thus, we end up with `\(v_1=-2\)` and `\(v_2 = 1\)`.
 
---
+---
 
-By a similar process, we can substitute to find that `\(-2v_1 - 4v_2 = 0\)`, arriving at `\(v_1 = 2v_2\)`. Again, we suppose `\(v_2=1\)` (for simplicity), and find that `\(v_1=-2\)`
+# Eigenvalue: part two
+We now need to solve for our SECOND eigenvalue, `\(\lambda = 2\)`. 
+
+--
+`\(\begin{pmatrix}\lambda &amp; -4 \\ -1 &amp; \lambda\end{pmatrix}\begin{pmatrix}v_1 \\ v_2\end{pmatrix}= \begin{pmatrix}0\\ 0 \end{pmatrix}\)` becomes `\(2v_1 - 4v_2 =0\)` and
+`\(-v_1 + 2v_2 = 0\)`
+
+We can substitute to find that `\(2v_1 - 4v_2 = 0\)`, arriving at `\(v_1 = 2v_2\)`. Again, we suppose `\(v_2=1\)` (for simplicity), and find that `\(v_1=2\)`
 
 ---
 ## Eigenvalues and eigenvectors
