@@ -115,11 +115,11 @@ Note: solutions posted after grades released
 | T 1-Sep | Calculus |[Functions of several variables and optimization with several variables](https://jmclip.github.io/MACSS_math_camp/07-multivariable-differentiation.html)| [NO HOMEWORK!]
 | W  2-Sep | Calculus | [Integration and integral calculus](https://jmclip.github.io/MACSS_math_camp/08-integration.html) | [Pset 5 pdf](problem_sets/05-diff-integration.pdf),  [tex](problem_sets/05-diff-integration.tex) & [answer key](solutions/pset5__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | Th 3-Sep | Probability |  [Sample space and probability](https://jmclip.github.io/MACSS_math_camp/09-sample-space-probability.html)| [NO HOMEWORK!  ] [Survey](https://forms.gle/gE1BqDGNa8oEW5Xg7) 
-| -- **updating assignments and content below this line!** -- |
-| Date | Topic | Subtopic/Slides | Assignment
 | F 4-Sep | Probability | [Discrete random variables](https://jmclip.github.io/MACSS_math_camp/10-discrete-random-vars.html) | [Pset 6 pdf](problem_sets/06-discrete-random-variables.pdf), [tex](problem_sets/06-discrete-random-variables.tex) + & [answer key](solutions/pset6__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | **Week 3** | | | |
 | M 7-Sep | No class (Labor Day) |  | 
+| -- **updating assignments and content below this line!** -- |
+| Date | Topic | Subtopic/Slides | Assignment
 | T 8-Sep | Probability | [General random variables](https://jmclip.github.io/MACSS_math_camp/11-general-random-vars.html)| [Pset 7 pdf](problem_sets/07-general-random-variables.pdf), [text](problem_sets/07-general-random-variables.tex)  & [answer key](solutions/pset7__answerkey.pdf) & [Exam questions+Calc request](https://forms.gle/sskPerZjthPYPbVt7)
 | W 9-Sep | Probability | [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)  | [Pset 8 pdf](problem_sets/08-multivariate-pdf.pdf), [tex](problem_sets/08-multivariate-pdf.tex) & [answer key](solutions/pset8__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | Th 10-Sep | Statistical inference  | [Classical statistical inference](https://jmclip.github.io/MACSS_math_camp/13-frequentist-inference.html)| [Pset 9 pdf](problem_sets/09-frequentist-inference.pdf), [tex](problem_sets/09-frequentist-inference.tex) & [answer key](solutions/pset9__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
