@@ -12,7 +12,11 @@
 \author{}
 \date{\vspace{-2.5em}}
 
-% Problems are numbered 1-7 across the document.
+% Match the notation used in the lecture slides.
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+
+% Problems are numbered 1-8 across the document.
 \newcounter{problem}
 \newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
 
@@ -24,13 +28,15 @@
 \problem{Calculate probabilities in a sample space $S$}
 
 Events $A$ and $B$ are contained within a sample space $S$. Given that
-$\Pr(A) = 0.65$, $\Pr(B) = 0.3$, and $\Pr(A \cap B) = 0.1$,
+$\Pr(A) = 0.55$, $\Pr(B) = 0.3$, and $\Pr(A \cap B) = 0.15$,
 find:\footnote{Inspired by Grimmer HW8.4}
 
 \begin{enumerate}[label=\alph*.]
 \item $\Pr(A \cup B)$
 \item $\Pr(A \cap B^c)$
-\item $\Pr[(A \cap B^c) \cup (B \cap A^c)]$
+\item $\Pr\left[(A \cap B^c) \cup (B \cap A^c)\right]$
+\item Are $A$ and $B$ independent? Are they mutually exclusive? Explain
+  how these concepts differ.
 \end{enumerate}
 
 \problem{Random variables}
@@ -39,10 +45,11 @@ Provide the following explanations in your own words:
 
 \begin{enumerate}[label=\alph*.]
 \item What is a random variable?
-\item What is the difference between upper case and lower case $x$? How
-  (if at all) do they matter?
+\item What is the difference between upper case and lower case $x$?
+  How (if at all) do they matter?
 \item If I'm thinking about something like $p_X(x_0)$, what do all the
   parts/pieces mean?
+\item What is a discrete random variable?
 \end{enumerate}
 
 \problem{Survey says}
@@ -63,21 +70,56 @@ strongly.
 
 \problem{PMF vs.\ CMF}
 
-Consider the following function: $f(x) = \frac{1}{6}$. Find the pmf and
-cmf of the function and provide them in a table below.
+Consider the following function: $f(x) = \dfrac{1}{6}$.
+
+\begin{enumerate}[label=\alph*.]
+\item Find the pmf and cmf of the function and provide them in a table below.
+\textit{You may need to make some assumptions for this to work -- clearly state any assumptions you make}
+\item What is the variance of $X$?
+\item Now consider a different function, $p(x) = cx$ for
+  $x \in \{1, 2, 3, 4\}$ and $0$ otherwise. For what value of $c$ is
+  this a valid pmf? State which property of a pmf you used to find it.
+\item Using the value of $c$ you found, calculate $\E[X]$ and
+  $\Var(X)$.
+\end{enumerate}
+
+\problem{Building a distribution from scratch}
+
+Three countries are independently deciding whether to sign a treaty.
+Each country signs with probability $0.6$. Let $X$ be the number of
+countries that sign.
+
+\begin{enumerate}[label=\alph*.]
+\item Write out the sample space. How many outcomes does it contain?
+\item Construct the pmf of $X$. Show how you collected outcomes
+  together to obtain $p_X(x)$ for each value of $x$.
+\item Verify that your pmf satisfies the properties of a valid pmf.
+\item Construct the cmf of $X$ and present it in a table alongside the
+  pmf.
+\item Find $\E[X]$ and $\Var(X)$.
+\item Is $X$ a named distribution? If so, which one, and with what
+  parameters? Do your answers to (e) match the formulas for that
+  distribution's mean and variance?
+\end{enumerate}
 
 \problem{Getting a traffic ticket}
 
-You drive to work 5 days a week for a full year (50 weeks), and with
-probability $p = 0.04$ you get a traffic ticket on any given day,
+You drive to work 5 days a week for 10 weeks, and with
+probability $p = 0.06$ you get a traffic ticket on any given day,
 independent of other days. Let $X$ be the total number of tickets you
-get in the year.\footnote{Inspired by BT 2.41}
+get in this time.\footnote{Inspired by BT 2.41}
 
 \begin{enumerate}[label=\alph*.]
 \item What is the probability that the number of tickets you get is
   exactly equal to the expected value of $X$?
 \item Calculate approximately the probability in (a) using a Poisson
   approximation.
+\item Now suppose you are instead interested in how long you can go
+  before your first ticket. What is the probability that your first
+  ticket comes on the 10th day you drive?
+\item What is the expected number of days you drive until you get your
+  first ticket? Which distribution did you use here, and why is it a
+  different one from the distribution you used in (a)?
 \end{enumerate}
 
 \problem{Obtaining requests for information}
@@ -86,9 +128,9 @@ $X$ is a discrete random variable. It takes the value of the number of
 days required for a governmental agency to respond to a request for
 information. $X$ is distributed according to the following
 PMF:\footnote{Inspired by Grimmer HW10.2}
-\[
+$$
 f(x) = e^{-6} \dfrac{6^x}{x!} \quad \mbox{for} \ x \in \{0, 1, 2, \ldots\}
-\]
+$$
 
 \begin{enumerate}[label=\alph*.]
 \item Given this information, what is the probability of a response from
@@ -97,10 +139,16 @@ f(x) = e^{-6} \dfrac{6^x}{x!} \quad \mbox{for} \ x \in \{0, 1, 2, \ldots\}
   less than 13 days?
 \item What is the probability the agency response takes more than 5
   days?
-\item Suppose using $X$ you generate a new variable, \textbf{Responsive}.
-  \textbf{Responsive} equals 1 if an agency responds in 5 days or less
-  and 0 otherwise. What is the expected value of \textbf{Responsive}?
+\item Suppose using $X$ you generate a new variable,
+  \textbf{Responsive}. \textbf{Responsive} equals 1 if an agency
+  responds in 5 days or less and 0 otherwise. What is the expected value
+  of \textbf{Responsive}?
 \item What is the variance of \textbf{Responsive}?
+\item The agency charges a processing fee for each request: a flat
+  \$25.00, plus \$10.00 for every day it takes them to respond. Let
+  $C = 25 + 10X$ be the fee you are charged. Find $\E[C]$ and
+  $\Var(C)$. \textbf{Hint: you should not need to recompute anything
+    from scratch.}
 \end{enumerate}
 
 \problem{Modeling electoral outcomes}
@@ -109,17 +157,18 @@ Suppose we've developed a model predicting the outcome of the upcoming
 midterm elections in a state with 4 Congressional districts. In each
 district there are two candidates, a Republican and a Democrat. We have
 reason to believe the following PMF describes the distribution of
-potential election results, where $K \in \{0, 1, 2, 3, 4\}$ is the number
-of seats won by Republican candidates in the upcoming election.
-\[
+potential election results, where $K \in \{0, 1, 2, 3, 4\}$ is the
+number of seats won by Republican candidates in the upcoming election.
+$$
 \Pr(K = k \mid \theta) = \binom{4}{k} \theta^{k} (1-\theta)^{4-k}
-\]
+$$
 
-Based on polling information, we think the appropriate value for $\theta$
-is 0.423.\footnote{Inspired by Grimmer HW10.3. Data from
+Based on polling information, we think the appropriate value for
+$\theta$ is 0.423.\footnote{Inspired by Grimmer HW10.3. Data from
   \url{https://www.realclearpolling.com/polls/state-of-the-union/generic-congressional-vote}}
 
 \begin{enumerate}[label=\alph*.]
+\item How many distinct ways can Republicans win exactly 2 of the 4 seats?
 \item What's the expected number of seats Republicans will win in the
   upcoming election?
 \item Given this PMF, what's the probability that no Republican
