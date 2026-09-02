@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="08-integration_files/header-attrs/header-attrs.js"></script>
+    <link href="08-integration_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="slides-menu.css" type="text/css" />
   </head>
@@ -31,7 +32,7 @@ class: center, middle, inverse, title-slide
 
 * Gradescope!
 * HMWK due
-* Preceptor meetings
+* Preceptor meetings -- expect to get information next week
 * CAMP(S)!
 --
 
@@ -43,11 +44,11 @@ class: center, middle, inverse, title-slide
 * Exams:
   * US (math camp!)
   * US (boot camp!)
-  * **OPTIONAL**: [see MPCS website for more information](https://masters.cs.uchicago.edu/student-resources/placement-exams/) 
+  * **OPTIONAL**: Start with Jon Clindaniel first
       * MPCS: math [do not need]
       * MPCS: programming (re: 30121) 
       * MPCS: (advanced) programming (subsequent coursework)
-      * MACSS: (advanced) TBD but reach out to Jon Clindaniel
+      * MACSS: (advanced--multiple) TBD but reach out to Jon Clindaniel
 
 ---
 
@@ -125,7 +126,7 @@ F(x) = \int\limits f(x) \,dx = \frac{x^3}{3}-4x+c$$`
 1. Euler's `\(e\)` is still itself:  `\(\int e^x \,dx = e^x +c\)`
 --
 
-1. Recall the derivative of (natural) `\(\log(x)\)` is one over `\(x\)`, and so:   `\(\int \frac{1}{x} \,dx = \log \abs(x) + c\)`
+1. Recall the derivative of (natural) `\(\log(x)\)` is one over `\(x\)`, and so:   `\(\int \frac{1}{x} \,dx = \log\lvert x\rvert+ c\)`
 --
 
 1. Reverse chain-rule:  `\(\int e^{f(x)}f^\prime(x)\,dx = e^{f(x)}+c\)`
@@ -158,7 +159,7 @@ Answers:
 
 # Definite integral
 
-* Indefinite integral `\(\leadsto\)` definite integral
+* Indefinite integral can become definite integral if we add limits
 * Different objective: find the area under a function
 
 --
@@ -171,7 +172,7 @@ Answers:
 
     `$$A(R) \approx S(f,\Delta x)=\sum\limits_{i=1}^n f(x_i)\Delta x$$`
 
-* Riemann sum
+* Riemann sum (see bonus content for more on sums!!)
 
 ---
 
@@ -443,7 +444,7 @@ Our `\(u\)` in this instance would be the denominator: `\(x^3+3x\)`.
 
 --
 
-Then, we would expect `\(du=3x^2+3, \dx\)`. BUT! we have: `\({\displaystyle \int \frac{\frac{1}{3}du}{u}}\)`. 
+Then, we would expect `\(du=3x^2+3, dx\)`. BUT! we have: `\({\displaystyle \int \frac{\frac{1}{3}du}{u}}\)`. 
 
 --
 
@@ -461,7 +462,7 @@ Try: `\({\displaystyle{\int (20x^3+20)(x^4+4x)^{-0.5} \,dx}}\)`
 
 --
 
-`\(u= x^4+4x, du=4x^3+4, \dx\)` 
+`\(u= x^4+4x, du=4x^3+4, \mathrm{d}x\)` 
 
 `\(5{\displaystyle{\int u^{-0.5} \,du}}\)`
 
@@ -500,7 +501,7 @@ In some circumstances, you won't be able to separate things as easily. Basically
 
     where `\(du=u'(x)\,dx\)` and `\(dv=v'(x)\,dx\)`
 
-* Find expressions for `\(u\)` and `\(dv\)` that yield an expression that're more easily evaluated
+* Find expressions for `\(u\)` and `\(dv\)` that yield an expression that's more easily evaluated
 
 ---
 
@@ -525,7 +526,7 @@ We can transform this to:
 
 # Integration by parts: example
 
-`$$\int x \log(x) \,dx$$`
+`\(\int x \log(x) \,dx\)`
 
 --
 
@@ -561,7 +562,7 @@ We can look at this and see that it's not just taking the derivative of one thin
 
 --
 
-In our situation, suppose we start with `\(u=15x\)`. Then, `\(dv=(x+1)^{0.5}, \dx\)`, `\(du=15, \dx\)`, and `\(v=\frac{2}{3}(x+1)^{1.5}\)`. 
+In our situation, suppose we start with `\(u=15x\)`. Then, `\(dv=(x+1)^{0.5}\,dx\)`, `\(du=15\,dx\)`, and `\(v=\frac{2}{3}(x+1)^{1.5}\)`. 
 
 --
 
@@ -575,9 +576,6 @@ Simplifying, we get: `\((10x)((x+1)^{1.5})-10 \int (x+1)^{1.5} \, dx\)` `\(= (10
 --
 
 Reworking this, we get: `\(\mathbf{(10x)((x+1)^{1.5})-4(x+1)^{2.5}}+c\)`. If we wanted, we could keep simplifying 
-
---
-
 *(we don't want...)*. 
 
 
@@ -588,7 +586,7 @@ Reworking this, we get: `\(\mathbf{(10x)((x+1)^{1.5})-4(x+1)^{2.5}}+c\)`. If we 
 It really is a bit of an art to know. Basically, if it looks like you have (loosely) some function to a higher power with its own derivative mixed in there, then you are likely dealing with a situation where substitution would improve things. 
 
 
-If it looks to you like you have a two separate functions comingling, then it's probably time for integration by parts. 
+If it looks to you like you have two separate functions comingling, then it's probably time for integration by parts. 
 
 ---
 class: middle
@@ -603,7 +601,7 @@ class: middle
 
 `$$\begin{aligned}
 \int_1^X x^{-2} \,dx &amp;= -\frac{1}{x} |_1^X \\
-&amp;= -\frac{1}{X} &amp;= -\frac{1}{1} \\
+&amp;= -\frac{1}{X} - \left(-\frac{1}{1}\right) \\
 &amp;= -\frac{1}{X} + 1 \\
 &amp;= 1 - X^{-1}
 \end{aligned}$$`
@@ -622,7 +620,10 @@ As `\(X \rightarrow \infty, \frac{1}{X} \rightarrow 0\)`
 
 # Infinite integrals
 
-&lt;img src="08-integration_files/figure-html/int-x-2-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="08-integration_files/figure-html/int-x-2-1.png" alt="The area from 1 to 5 is 0.8; it approaches 1 as the upper limit grows" width="864" /&gt;
+&lt;p class="caption"&gt;The area from 1 to 5 is 0.8; it approaches 1 as the upper limit grows&lt;/p&gt;
+&lt;/div&gt;
 
 ---
 
@@ -658,7 +659,10 @@ As `\(X \rightarrow \infty, \frac{1}{X} \rightarrow 0\)`
 # Plotting
 Natural log: diverges
 
-&lt;img src="08-integration_files/figure-html/int-lnx-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="08-integration_files/figure-html/int-lnx-1.png" alt="The limit diverges" width="864" /&gt;
+&lt;p class="caption"&gt;The limit diverges&lt;/p&gt;
+&lt;/div&gt;
 
 ---
 
@@ -702,7 +706,7 @@ class: middle, center
 
 `$$A = \{x, y : x \in[0,1], y \in [0,1] \}$$`
 
-&lt;img src="08-integration_files/figure-html/a-2d-rect-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-integration_files/figure-html/a-2d-rect-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -710,15 +714,15 @@ class: middle, center
 
 `$$A = \{x, y: x^2 + y^2 \leq 1 \}$$`
 
-&lt;img src="08-integration_files/figure-html/a-2d-circle-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-integration_files/figure-html/a-2d-circle-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Multivariate integration
 
-`$$A = \{ x, y: x&lt; y, x, y \in (0,2) \}$$`
+`$$A = \{ x, y: y &gt;x, x, y \in (0,2) \}$$`
 
-&lt;img src="08-integration_files/figure-html/a-2d-triangle-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-integration_files/figure-html/a-2d-triangle-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -735,7 +739,7 @@ class: middle, center
 * Suppose `\(A = [a_{1}, b_{1}]  \times [a_{2}, b_{2} ] \times \ldots \times [a_{n}, b_{n}]\)`
 * `\(f:A \rightarrow \mathbb{R}\)` is integrable
 
-    `$$\int_{A} f(\boldsymbol{x_1,x_2}) d\boldsymbol{A} = \int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \ldots \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(\boldsymbol{x})\,dx_{1} \,dx_{2} \ldots \,dx_{n-1} \,dx_{n}$$`
+    `$$\int_{A} f(\boldsymbol{x}) \,d\boldsymbol{A} = \int_{a_{n}}^{b_{n}} \int_{a_{n-1}}^{b_{n-1}} \ldots \int_{a_{2}}^{b_{2}} \int_{a_{1}}^{b_{1}} f(\boldsymbol{x})\,dx_{1} \,dx_{2} \ldots \,dx_{n-1} \,dx_{n}$$`
 
 * Start with the inside integral `\(x_{1}\)` is the variable, everything else a constant
 * Work inside to out, iterating
@@ -746,7 +750,7 @@ class: middle, center
 # Multivariate uniform distribution
 
 * Suppose `\(f:[0,1] \times [0,1] \rightarrow \mathbb{R}\)` and `\(f(x_{1}, x_{2}) = 1\)` for all `\(x_{1}, x_{2} \in [0,1]\times[0,1]\)`
-* What is `\(\int_{0}^{1}\int_{0}^{1} f(x) \,dx_{1} \,dx_{2}\)`?
+* What is `\(\int_{0}^{1}\int_{0}^{1} f(x_{1}, x_{2}) \,dx_{1} \,dx_{2}\)`?
 
 --
 
@@ -770,7 +774,7 @@ class: middle, center
 
 # More complicated bounds of integration
 
-&lt;img src="08-integration_files/figure-html/a-2d-triangle-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="08-integration_files/figure-html/a-2d-triangle-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -784,14 +788,14 @@ class: middle, center
 
 --
 
-`$$\begin{aligned}\iint_{x_{1}&lt; x_{2}}  f(\boldsymbol{x}) &amp;= \int_{0}^{1} \int_{0}^{x_{2}} x_{1} + x_{2} \,dx_{1} \,dx_{2}  \\&amp;= \int_{0}^{1} x_{2} x_{1} |_{0}^{x_{2}} \,dx_{2}  + \int_{0}^{1} \frac{x_{1}^{2} }{2} |_{0}^{x_{2} }  \\&amp;= \int_{0}^{1} x_{2}^{2} \,dx_{2}  + \int_{0}^{1} \frac{x_{2}^2}{2}  \\&amp;= \frac{x_{2}^{3} }{3}|_{0}^{1} + \frac{x_{2}^{3}}{6}|_{0}^{1}  \\&amp;= \frac{1}{3}  + \frac{1}{6}  \\&amp;= \frac{3}{6} = \frac{1}{2}  \end{aligned}$$`
+`$$\begin{aligned}\iint_{x_{1}&lt; x_{2}}  f(\boldsymbol{x}) &amp;= \int_{0}^{1} \int_{0}^{x_{2}} x_{1} + x_{2} \,dx_{1} \,dx_{2}  \\&amp;= \int_{0}^{1} x_{2} x_{1} |_{0}^{x_{2}} \,dx_{2}  + \int_{0}^{1} \frac{x_{1}^{2} }{2} |_{0}^{x_{2} } \,dx_{2}  \\&amp;= \int_{0}^{1} x_{2}^{2} \,dx_{2}  + \int_{0}^{1} \frac{x_{2}^2}{2} \,dx_{2}  \\&amp;= \frac{x_{2}^{3} }{3}|_{0}^{1} + \frac{x_{2}^{3}}{6}|_{0}^{1}  \\&amp;= \frac{1}{3}  + \frac{1}{6}  \\&amp;= \frac{3}{6} = \frac{1}{2}  \end{aligned}$$`
 
 ---
 
 # Switch the bounds: start with `\(dx_2\)`
 --
 
-`$$\begin{aligned}\iint_{x_{1}&lt;x_{2}} f(\boldsymbol{x}) &amp;= \int_{0}^{1} \int_{x_{1}}^{1} x_{1} + x_{2} \,dx_{2} \,dx_{1} \\													&amp;= \int_{0}^{1} x_{1}x_{2}|_{x_{1}}^{1}  +  \int_{0}^{1} \frac{x_{2}^{2}}{2} |_{x_{1}}^{1}\,dx_{1}  \\													&amp;= \int_{0}^{1} x_{1} - x_{1}^2 + \int_{0}^{1} \frac{1}{2} - \frac{x_{1}^2}{2} \,dx_{1}  \\													&amp;=  \frac{x_{1}^2}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{3}|_{0}^{1}  + \frac{x_{1}}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{6}|_{0}^{1}  \\													&amp;= \frac{1}{2}  - \frac{1}{3}  + \frac{1}{2} - \frac{1}{6}  \\													&amp;= 1 - \frac{3}{6}  \\													&amp;= \frac{1}{2}  \end{aligned}$$`
+`$$\begin{aligned}\iint_{x_{1}&lt;x_{2}} f(\boldsymbol{x}) &amp;= \int_{0}^{1} \int_{x_{1}}^{1} x_{1} + x_{2} \,dx_{2} \,dx_{1} \\													&amp;= \int_{0}^{1} x_{1}x_{2}|_{x_{1}}^{1}  +  \int_{0}^{1} \frac{x_{2}^{2}}{2} |_{x_{1}}^{1}\,dx_{1}  \\													&amp;= \int_{0}^{1} \left(x_{1} - x_{1}^2\right) \,dx_{1} + \int_{0}^{1} \left(\frac{1}{2} - \frac{x_{1}^2}{2}\right) \,dx_{1}  \\													&amp;=  \frac{x_{1}^2}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{3}|_{0}^{1}  + \frac{x_{1}}{2}|_{0}^{1}  - \frac{x_{1}^{3}}{6}|_{0}^{1}  \\													&amp;= \frac{1}{2}  - \frac{1}{3}  + \frac{1}{2} - \frac{1}{6}  \\													&amp;= 1 - \frac{3}{6}  \\													&amp;= \frac{1}{2}  \end{aligned}$$`
 
 ---
 
