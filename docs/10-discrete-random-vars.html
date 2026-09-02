@@ -63,7 +63,7 @@ class: center, middle, inverse, title-slide
     * An indicator whether a country defaults on a loan (1 if a default, 0 otherwise)
     * Number of casualties in a war (rather than all possible outcomes)
     
-    `$$X:\text{Sample Space} \rightarrow \Re$$`
+    `$$X:\text{Sample Space} \rightarrow \mathbb{R}$$`
 
 ---
 
@@ -131,7 +131,7 @@ So, `\(P(X=x)\)` refers to the probability that our random variable takes on the
 
 # Probability mass function
 
-&lt;img src="10-discrete-random-vars_files/figure-html/pmf-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-discrete-random-vars_files/figure-html/pmf-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -231,7 +231,7 @@ PMF is to our original function as CMF is to an integral (ish)
 
 # PMFs and CMFs
 
-&lt;img src="10-discrete-random-vars_files/figure-html/cmf-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-discrete-random-vars_files/figure-html/cmf-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 * Similar to integration, but over a discrete set of values
 
@@ -239,7 +239,7 @@ PMF is to our original function as CMF is to an integral (ish)
 class: middle, center
 # Distributions and the functions we love
 
-&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbEyaYCtKvH69f_7DIShQ_Kc67Me-j5knH0A&amp;usqp=CAU" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbEyaYCtKvH69f_7DIShQ_Kc67Me-j5knH0A&amp;usqp=CAU" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 # Function &amp; Distribution overview
@@ -318,7 +318,7 @@ To say that a variable, `\(Y\)`, has or follows a binomial distribution we write
 
 # Binomial PMF: trials
 --
-&lt;img src="10-discrete-random-vars_files/figure-html/binomial-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-discrete-random-vars_files/figure-html/binomial-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -398,7 +398,7 @@ for `\(k \in \{0, 1, \ldots, \}\)` and `\(0\)` otherwise. (Here, `\(\lambda\)` i
 
 # Poisson PMF
 
-&lt;img src="10-discrete-random-vars_files/figure-html/poisson-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-discrete-random-vars_files/figure-html/poisson-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -418,16 +418,17 @@ for `\(k \in \{0, 1, \ldots, \}\)` and `\(0\)` otherwise. (Here, `\(\lambda\)` i
 Suppose we have an event which we believe follows a Poisson distribution. Perhaps this is the number of students who forget their calculator for the exam. If we observed that last year, about `\(5\%\)` of the time all students remembered their calculator. How could we figure out the likelihood that exactly one student forgets theirs in the upcoming exam?
 
 --
-
 `$$p_X(k) = e^{-\lambda} \frac{\lambda^{k}}{k!}$$`
 --
 `$$p_X(0) = e^{-\lambda} \frac{\lambda^{0}}{0!}=0.05= e^{-\lambda}$$`
 --
-`$$\log(0.05) = - \lambda \, \text{ therefore } \lambda \approx 3.0$$` -- `$$p_X(1) = e^{-3}\frac{3^{1}}{1!} \approx 0.149$$`
+`$$\log(0.05) = - \lambda \, \text{ therefore } \lambda \approx 3.0$$` 
+--
+`$$p_X(1) = e^{-3}\frac{3^{1}}{1!} \approx 0.149$$`
 ---
 # Poisson plot
 
-&lt;img src="10-discrete-random-vars_files/figure-html/poisson-student-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="10-discrete-random-vars_files/figure-html/poisson-student-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -609,7 +610,7 @@ For each value, measure distance from the center. Recall that `\(E[X]\)` is a SE
 
 ---
 
-Weighted average of these distances
+## Weighted average of these distances
     
 `$$\sum_{x:p_X(x)&gt;0} [\left(x^2 p_X(x)\right)- 2 \E[X] \left(x p_X(x)\right) + \E[X]^2  p_X(x)]$$`
 --
