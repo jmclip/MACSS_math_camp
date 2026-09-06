@@ -1,321 +1,254 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
+\documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{5}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{enumitem}
 \usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
 \hypersetup{
   pdftitle={PSET 7: General random variables},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+  hidelinks}
 
 \title{PSET 7: General random variables}
 \author{}
 \date{\vspace{-2.5em}}
 
+% Problems are numbered 1-9 across the document.
+\newcounter{problem}
+\newcommand{\problem}[1]{\stepcounter{problem}\section*{Problem \theproblem: #1}}
+
 \begin{document}
 \maketitle
 
-\textbf{Note: all homework uploads should be as a PDF \emph{and} have
-the questions identified}. We'll be giving zero credit for submissions
-that don't follow this protocol as it adds considerable time to grading.
-Thank you!
+\input{assignment-qs}
 
-\section{Background info (GRADED -- complete all this
-section)}\label{background-info-graded-complete-all-this-section}
+\noindent You will need a calculator (or R) for Problems 3, 4 and 5,
+and a standard normal table for Problem 5. Decimal answers rounded to
+three places are fine throughout; show the setup (the integral, the
+standardization step) in every case.
 
-\begin{itemize}
-\item
-  Name
-\item
-  How long did this problem set take you?
-\item
-  How difficult was this problem set? very easy 1 2 3 4 5 very
-  challenging
-\end{itemize}
+\problem{Spot the pdf/CDF}
 
-\section{Identifying the PDF}\label{identifying-the-pdf}
+For each function below, state whether it is a valid pdf, a valid CDF,
+or neither, and give the specific property that fails when your answer
+is ``neither.''
+
+\begin{enumerate}[label=\alph*.]
+\item $f(x) = \begin{cases}
+  3x^2 & 0 < x < 1 \\
+  0 & \text{otherwise}
+  \end{cases}$
+
+\item $F(x) = \begin{cases}
+  0 & x < 0 \\
+  x/6 & 0 \leq x < 6 \\
+  1 & x \geq 6
+  \end{cases}$
+
+\item $f(x) = \begin{cases}
+  x/2 & 0 < x < 3 \\
+  0 & \text{otherwise}
+  \end{cases}$
+
+\item $F(x) = \begin{cases}
+  0 & x < 0 \\
+  x^3 & 0 \leq x < 1 \\
+  1 & x \geq 1
+  \end{cases}$
+
+\item $f(x) = \begin{cases}
+  2 - x & 0 < x < 3 \\
+  0 & \text{otherwise}
+  \end{cases}$
+
+\item For each function you identified as a CDF, give the
+  corresponding pdf.
+
+\item Two of the five functions above are a pdf/CDF pair for the same
+  random variable. Which two, and how can you tell?
+\end{enumerate}
+
+\problem{Identifying the pdf}
 
 A recent college graduate is moving to Des Moines, Iowa to take a new
-job, and is looking to purchase a home. When searching for properties on
-the real estate websites, it is possible to select the price range of
-housing in which one is most interested. Suppose the potential buyer
-specifies a price range of \$150,000 to \$300,000, and the result of the
+job, and is looking to purchase a home. When searching for properties
+on the real estate websites, it is possible to select the price range
+of housing in which one is most interested. Suppose the potential
+buyer specifies a price range of \$160,000 to \$340,000, and the
 search returns a thousand homes with prices distributed uniformly
-throughout that range. Identify \(E[X]\) and \(\sigma\) of the
-probability density function associated with this random
-variable.\footnote{Inspired by Stinerock 6.1}
+throughout that range.\footnote{Inspired by Stinerock 6.1}
 
-\section{Moments}\label{moments}
-
-We discussed moments in class and the slides. Suppose someone were
-asking you about our class content. How would you explain the following
-in a non-technical way? Approx 2 sentences each.
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\tightlist
-\item
-  What is an expected value and how does it relate to a moment?
-\item
-  What is the first moment and why do we care about it?
-\item
-  What is the second moment and how does it add additional information
-  to the first moment?
+\begin{enumerate}[label=\alph*.]
+\item Write down $f(x)$, the probability density function associated
+  with this random variable.
+\item Identify $E[X]$ and $\sigma$.
 \end{enumerate}
 
-\section{Calculating ideal points}\label{calculating-ideal-points}
+\problem{Parliamentary elections}
 
-Suppose An is a voter living in the country of Freedonia, and suppose
-that in Freedonia, all sets of public policies can be thought of as
-representing points on a single axis (e.g.~a line running from more
-liberal to more conservative). An has a certain set of public policies
-that they want to see enacted. This is represented by point \(v\), which
-we will call An's \textbf{ideal point}. The utility, or happiness, that
-An receives from a set of policies at point \(l\) is \(U(l)=-(l-v)^2\).
-In other words, An is happiest if the policies enacted are the ones at
-their ideal point, and they get less and less happy as policies get
-farther away from this ideal point. When they vote, An will pick the
-candidate whose policies will make them happiest. However, An does not
-know exactly what policies each candidate will enact if elected -- they
-have some guesses, but can't be certain. Each candidate's future
-policies can therefore be represented by a continuous random variable
-\(L\) with expected value \(\mu_l\) and variance \(Var(L)\).\footnote{Inspired
-  by Grimmer HW11.2}
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Express \(E(U(L))\) as a function of \(\mu_l\), \(Var(L)\), and \(v\).
-  Why might we say that An is \textbf{risk averse} -- that is, that An
-  gets less happy as outcomes get more uncertain?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Suppose An is deciding whether to vote for one of two candidates:
-  Dwight Schrute or Leslie Knope Suppose An's ideal point is at 1,
-  Schrute's policies can be represented by a continuous random variable
-  \(L_S\) with expected value at 1 and variance equal to 6, and Knope's
-  policies can be represented by a continuous random variable \(L_K\)
-  with expected value at 3 and variance equal to 1. Which candidate
-  would An vote for and why? What (perhaps surprising) effect of risk
-  aversion on voting behavior does this example demonstrate?
-\end{enumerate}
-
-\section{Parliamentary elections}\label{parliamentary-elections}
-
-After an election in a parliamentary system, a government (consisting of
-a prime minister and a cabinet) is formed by gathering the support of a
-majority of newly elected members of parliament. Typically a government
-is allowed to remain in power for a certain number of years before new
-elections must be called. However, elections can be held earlier if the
-Parliament passes a vote of no confidence or the prime minster decides
-to dissolve the government. Suppose we are studying Country Z (which
-uses a parliamentary system) and we are interested in the duration of
-governments. In Country Z, governments must call elections at least
-every 5 years, but they could be called sooner if there is a vote of no
-confidence or the prime minister dissolves the government. Let the
-continuous random variable \(X\) denote the amount of time (measured in
-years) between the last election and the calling of the next election.
-\(X\) has support on all real numbers between 0 and 5. Suppose we know
-that \(X\) has the probability density function
-
-\[
+After an election in a parliamentary system, a government (consisting
+of a prime minister and a cabinet) is formed by gathering the support
+of a majority of newly elected members of parliament. Typically a
+government is allowed to remain in power for a certain number of years
+before new elections must be called. However, elections can be held
+earlier if the Parliament passes a vote of no confidence or the prime
+minister decides to dissolve the government. Suppose we are studying
+Country Z (which uses a parliamentary system) and we are interested in
+the duration of governments. In Country Z, governments must call
+elections at least every \textbf{4} years, but they could be called
+sooner if there is a vote of no confidence or the prime minister
+dissolves the government. Let the continuous random variable $X$
+denote the amount of time (measured in years) between the last
+election and the calling of the next election. $X$ has support on
+all real numbers between 0 and 4. Suppose we know that $X$ has the
+probability density function
+$$
 f(x) = \begin{cases}
 kx^4 &  0 < x < 4 \\
 0 & \text{otherwise}
 \end{cases}
-\]
+$$
+where $k$ is some constant.
 
-where \(k\) is some constant.
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Find \(k\).
-\item
-  Find the CDF of \(X\).
-\item
-  Find \(E(X)\) and \(Var(X)\).
-\item
-  Find the median of \(X\) (the value of \(x\) at which
-  \(\Pr(X \leq x) = \frac{1}{2}\)).
-\item
-  What is the probability that the government remains in power for
-  exactly 5 years? Why?
-\item
-  What is the probability that the government remains in power between 3
-  and 5 years?
-\item
-  What is the probability that the government remains in power for less
-  than 3 years or more than 5 years?
+\begin{enumerate}[label=\alph*.]
+\item Find $k$.
+\item Find the CDF of $X$.
+\item Find $E(X)$ and $Var(X)$.
+\item Find the median of $X$ (the value of $x$ at which
+  $\Pr(X \leq x) = \frac{1}{2}$).
+\item What is the probability that the government remains in power for
+  exactly 4 years? Why?
+\item What is the probability that the government remains in power
+  between 2 and 4 years? What is the probability that it remains in
+  power for less than 2 years or more than 4 years? How are your two
+  answers related, and why?
 \end{enumerate}
 
-\section{Calculating the CDF}\label{calculating-the-cdf}
+\problem{Calculating the CDF}
 
-Z is distributed according to the following PDF
-
-\[
+$Z$ is distributed according to the following pdf:
+$$
 f(z) = \begin{cases}
-\gamma \exp(-\gamma z) &  0 \le z \\
+\lambda \exp(-\lambda z) &  0 \le z \\
 0 & \text{otherwise}
 \end{cases}
-\]
+$$
+(You will sometimes see this written with $\lambda$ replaced by
+$1/\beta$.)
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  What is \(F(z)\), the CDF of this distribution?
-\item
-  Using your answer to the previous question, evaluate the CDF for the
-  interval from 7 to 12.
-\item
-  Suppose \(\gamma\) is 3. Given this, what is \(q\), the 10th
-  percentile value of Z?
-\item
-  We observe a single random draw from \(Z\), what is the probability
-  this observation is less than .5? Again suppose that \(\gamma\) = 3.
+\begin{enumerate}[label=\alph*.]
+\item What is $F(z)$, the CDF of this distribution? Show the
+  integral.
+\item Using your answer to the previous question, find
+  $\Pr(4 \leq Z \leq 9)$. Leave your answer in terms of $\lambda$.
+\item Suppose $\lambda = 2$. Given this, what is $q$, the 25th
+  percentile of $Z$?
+\item We observe a single random draw from $Z$; what is the
+  probability this observation is less than $0.75$? Again suppose
+  that $\lambda = 2$.
 \end{enumerate}
 
-\section{Working with normal random
-variables}\label{working-with-normal-random-variables}
+\problem{Working with normal random variables}
 
-Let \(X\) and \(Y\) be normal random variables with means 0 and 1,
-respectively, and variances 1 and 4, respectively.\footnote{Inspired by
-  BT 3.11}
+Let $X \sim \text{Normal}(0, 1)$ and
+$Y \sim \text{Normal}(2, 9)$.\footnote{Inspired by BT 3.11}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Find \(\Pr(X \leq 1.5)\) and \(\Pr(X \leq -1)\).
-\item
-  Find the pdf of \((Y - 1) / 2\).
+\begin{enumerate}[label=\alph*.]
+\item Find $\Pr(X \leq 1.28)$ and $\Pr(X \leq -0.84)$. State the
+  property of the normal distribution you used to handle the negative
+  value.
+\item Find $\Pr(Y \geq 6.5)$, showing the standardization step.
+\item Find the distribution of $(Y - 2)/3$, and write down its pdf.
 \end{enumerate}
 
-\section{Spot the CDF/pdf}\label{spot-the-cdfpdf}
+\problem{Relating the Gamma, exponential, and $\chi^2$}
 
-From the following, identify functions as either pdfs, CDFs, or neither.
-
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  \[
-  f(x) = \begin{cases}
-  x^2 &  0 < x < 4 \\
-  0 & \text{otherwise}
-  \end{cases}
-  \]
-\item
-  \[
-  f(x) = \begin{cases}
-  0.25 &  0 < x < 4 \\
-  0 & \text{otherwise}
-  \end{cases}
-  \]
-\item
-  \[
-  f(x) = \begin{cases}
-  0.25x &  0 < x < 4 \\
-  0 & \text{otherwise}
-  \end{cases}
-  \]
-\item
-  \[
-  f(x) = \begin{cases}
-  x^2 &  0 < x < 1 \\
-  0 & \text{otherwise}
-  \end{cases}
-  \]
+\begin{enumerate}[label=\alph*.]
+\item Starting from the Gamma pdf
+  $f(x \mid \alpha, \beta) = \frac{\beta^{\alpha}}{\Gamma(\alpha)}
+  x^{\alpha - 1} e^{-\beta x}$, show that
+  $\text{Gamma}(1, \lambda)$ is the $\text{Exponential}(\lambda)$
+  distribution. (Recall $\Gamma(1) = 1$.)
+\item Suppose $X \sim \chi^2(6)$. State $E[X]$ and $Var(X)$, and
+  explain in one or two sentences where those values come from, using
+  the fact that $X = \sum_{i=1}^{n} Z_i^2$ for independent standard
+  normal $Z_i$.
+\item Suppose $Y_1 \sim \text{Gamma}(2, 3)$ and
+  $Y_2 \sim \text{Gamma}(5, 3)$ are independent. What is the
+  distribution of $Y_1 + Y_2$? Give its expected value and variance.
 \end{enumerate}
 
-\section{Functions}\label{functions}
+\problem{Calculating ideal points}
 
-We discussed the following functions in class: Uniform Exponential,
-Gamma, Normal, \(\chi^2\), Student's t
+Suppose An is a voter living in the country of Freedonia, and suppose
+that in Freedonia, all sets of public policies can be thought of as
+representing points on a single axis (e.g.\ a line running from more
+liberal to more conservative).\footnote{Inspired by Grimmer HW11.2} An
+has a certain set of public policies that they want to see enacted.
+This is represented by point $v$, which we will call An's
+\textbf{ideal point}. The utility, or happiness, that An receives from
+a set of policies at point $l$ is $U(l) = -(l - v)^2$. In other
+words, An is happiest if the policies enacted are the ones at their
+ideal point, and they get less and less happy as policies get farther
+away from this ideal point. When they vote, An will pick the candidate
+whose policies will make them happiest. However, An does not know
+exactly what policies each candidate will enact if elected---they have
+some guesses, but can't be certain. Each candidate's future policies
+can therefore be represented by a continuous random variable $L$ with
+expected value $\mu_l$ and variance $Var(L)$.
 
-Provide a one-sentence summary of the general shape and expected value
-of:
+\begin{enumerate}[label=\alph*.]
+\item Express $E(U(L))$ as a function of $\mu_l$, $Var(L)$, and
+  $v$. \emph{Hint: expand $(L - v)^2$ and apply the expected value
+  rule term by term. You may use $E[L^2] = Var(L) + \mu_l^2$.}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\tightlist
-\item
-  Exponential
-\item
-  Normal
-\item
-  Student's t
+  \vspace{1.5in}
+
+\item Using your answer to (a), explain why we say An is
+  \textbf{risk averse}---that is, why An gets less happy as outcomes
+  get more uncertain, holding $\mu_l$ fixed.
+
+\item Suppose An is deciding whether to vote for one of two
+  candidates: Dwight Schrute or Leslie Knope. An's ideal point is at
+  2. Schrute's policies can be represented by a continuous random
+  variable $L_S$ with expected value 2 and variance 8, and Knope's
+  policies can be represented by a continuous random variable $L_K$
+  with expected value 4 and variance 3. Which candidate would An vote
+  for, and why? What (perhaps surprising) effect of risk aversion on
+  voting behavior does this example demonstrate?
 \end{enumerate}
 
-\section{AI and Resources statement}\label{ai-and-resources-statement}
+\problem{Moments}
 
-Please list (in detail) all resources you used for this assignment. If
-you worked with people, list them here as well. It is not enough to say
-that you used a resource for help, you need to be specific on the link
-and \emph{how} it was helpful. W/R/T gen AI tools (including GPT, etc. )
-you cannot use them to do work on your behalf -- you cannot put in any
-of the questions, etc. You can ask for help on logic / sample problems.
-If you do use GPT or other AI tools, you need to provide a link to your
-chat transcript. Any suspected academic integrity violations will be
-immediately reported.
+We discussed moments in class and in the slides. Suppose someone were
+asking you about our class content. How would you explain the
+following in a non-technical way? Approximately 2 sentences each.
+
+\begin{enumerate}[label=\alph*.]
+\item What is an expected value, and how does it relate to a moment?
+\item What is the first moment, and why do we care about it?
+\item What is the second moment, and how does it add additional
+  information to the first moment?
+\item What do the third and fourth moments describe, and what do they
+  tell us that the first two do not?
+\end{enumerate}
+
+\problem{Functions}
+
+We discussed the following functions in class: Uniform, Exponential,
+Gamma, Normal, $\chi^2$, Student's t.
+
+Provide a one-sentence summary of the general shape and the expected
+value of each:
+
+\begin{enumerate}[label=\alph*.]
+\item Uniform
+\item Exponential
+\item Gamma
+\item Normal
+\item $\chi^2$
+\item Student's t
+\end{enumerate}
+
+\input{ai-statement}
 
 \end{document}
