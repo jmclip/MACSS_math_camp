@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="11-general-random-vars_files/header-attrs/header-attrs.js"></script>
+    <link href="11-general-random-vars_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="slides-menu.css" type="text/css" />
   </head>
@@ -31,7 +32,7 @@ class: center, middle, inverse, title-slide
 # Misc
 
 * Assigned rooms for final exam (two locations -- other is on other side of the quad)
-* Calculators: 5 left! 
+* Calculators: request still open!
 * Will be drafting exam questions today and tomorrow -- submit your questions!
 
 
@@ -81,7 +82,7 @@ Overall course is going well. Wide range of thoughts on pacing from "it's great!
 
 # Probability density function
 
-&lt;img src="11-general-random-vars_files/figure-html/pdf-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/pdf-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -139,7 +140,7 @@ Compare discrete and continuous variables. Suppose we have a probability functio
 
 # Uniform random variable: plot
 
-&lt;img src="11-general-random-vars_files/figure-html/unif-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/unif-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -155,7 +156,7 @@ Compare discrete and continuous variables. Suppose we have a probability functio
 
 `$$\begin{aligned}
 \Pr(X \in [0.5, 0.5]) &amp; = \int_{0.5}^{0.5} 1\,dx \\
-&amp; = X|^{0.5}_{0.5} = 0.5 - 0.5 \\
+&amp; = x|^{0.5}_{0.5} = 0.5 - 0.5 \\
 &amp; = 0 
 \end{aligned}$$`
 
@@ -298,7 +299,7 @@ So, we can just plug these values into our formula:
 
 # Exponential random variable
 
-&lt;img src="11-general-random-vars_files/figure-html/exp-rv-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/exp-rv-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -322,7 +323,7 @@ Suppose `\(X \sim \text{Uniform}(0,1)\)`
 
 --
 
-&lt;img src="11-general-random-vars_files/figure-html/unif-rv-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/unif-rv-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -334,6 +335,33 @@ Suppose `\(X \sim \text{Uniform}(0,1)\)`
 * If `\(X\)` is continuous, the PDF and CDF can be obtained from each other by integration or differentiation
 
     `$$F_X(x) = \int_{-\infty}^x f_X(t) \,dt, \quad f_X(x) = \frac{dF_X}{dx} (x)$$`
+
+---
+
+# Running the CDF backwards: quantiles
+
+So far we've asked: *given a value, what's the probability?* `\(\rightarrow F(x)\)`
+
+--
+
+Now the reverse: *given a probability, what's the value?*
+
+--
+
+The **$p$th quantile** (or `\(100p\)`th **percentile**) of `\(X\)` is the value `\(q_p\)` with
+
+`$$F(q_p) = p \quad \Longleftrightarrow \quad q_p = F^{-1}(p)$$`
+
+--
+
+* The **median** is `\(q_{0.5}\)`: the value with half the probability below it
+* `\(q_{0.25}, q_{0.75}\)` are the first and third **quartiles**
+* Recipe: **write down `\(F(x)\)`, set it equal to `\(p\)`, solve for `\(x\)`**
+
+--
+
+Note the median is *not* generally `\(\E[X]\)` --- they agree only when the
+distribution is symmetric.
 
 ---
 
@@ -351,7 +379,43 @@ Suppose `\(X\)` is a random variable with `\(X \in \Re\)`
 
 # Normal distribution
 
-&lt;img src="11-general-random-vars_files/figure-html/norm-rv-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/norm-rv-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+
+# From pdf to CDF: the exponential
+
+
+`$$f_X(x) = \lambda e^{-\lambda x}, \quad x \geq 0$$`
+
+--
+
+`$$F_X(x) = \Pr(X \leq x) = \int_{0}^{x} \lambda e^{-\lambda t} \,dt$$`
+
+--
+
+`$$= \lambda \left[ \frac{e^{-\lambda t}}{-\lambda} \right]_0^x = -e^{-\lambda t}\Big|_0^x$$`
+
+--
+
+`$$= -e^{-\lambda x} - (-e^{0}) = 1 - e^{-\lambda x}$$`
+
+--
+
+* Check it: `\(F(0) = 0\)`, and `\(F(x) \rightarrow 1\)` as `\(x \rightarrow \infty\)` &amp;#10004;
+* And going back the other way: `\(\frac{d}{dx}\left(1 - e^{-\lambda x}\right) = \lambda e^{-\lambda x} = f_X(x)\)`
+
+---
+
+# Exponential: pdf and CDF
+
+&lt;img src="11-general-random-vars_files/figure-html/exp-cdf-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+--
+
+Interval probabilities are then just subtraction:
+`\(\Pr(c \leq X \leq d) = F(d) - F(c) = e^{-\lambda c} - e^{-\lambda d}\)`
+
 
 ---
 
@@ -374,7 +438,7 @@ Suppose `\(Z \sim \text{Normal}(0,1)\)`
 * `\(Y = 2Z + 6\)`
 * `\(Y \sim \text{Normal}(6, 4)\)`
 
-    &lt;img src="11-general-random-vars_files/figure-html/z-norm-1.png" width="864" style="display: block; margin: auto;" /&gt;
+    &lt;img src="11-general-random-vars_files/figure-html/z-norm-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -456,6 +520,55 @@ $$
 --
 
 `$$\begin{aligned} \Pr(Y \geq 0.49)  &amp; = 1 - \Pr(Y \leq 0.49 ) \\&amp; = 1 - \Pr\left(Z \leq \frac{0.49-0.44 }{0.05} \right) \\&amp; = 1 - \frac{1}{\sqrt{2\pi} } \int_{-\infty}^{1} \exp(-z^2/2) \,dz \\&amp; = 1 - F_{Z} (1 ) \\&amp; = 0.159\end{aligned}$$`
+
+---
+
+# Using the standard normal table
+
+There is no closed form for `\(\int \exp(-z^2/2)\,dz\)` --- so we look it up.
+
+The table gives `\(\Phi(z) = \Pr(Z \leq z)\)` for `\(Z \sim \text{Normal}(0,1)\)`:
+
+| `\(z\)` | 0.00 | 0.50 | 0.84 | 1.00 | 1.25 | 1.28 | 1.50 | 1.645 | 1.75 | 1.96 | 2.00 |
+|-----|------|------|------|------|------|------|------|-------|------|------|------|
+| `\(\Phi(z)\)` | .5000 | .6915 | .7995 | .8413 | .8944 | .8997 | .9332 | .9500 | .9599 | .9750 | .9772 |
+
+--
+
+Most tables print **only positive `\(z\)`**. For negatives, use symmetry:
+
+`$$\Phi(-z) = 1 - \Phi(z)$$`
+
+--
+
+Three moves cover essentially everything:
+
+* `\(\Pr(Z \geq z) = 1 - \Phi(z)\)`
+* `\(\Pr(Z \leq -z) = 1 - \Phi(z)\)`
+* `\(\Pr(c \leq Z \leq d) = \Phi(d) - \Phi(c)\)`
+
+---
+
+# Standard normal: worked example
+
+What is `\(\Pr(-1.25 \leq Z \leq 1.75)\)`?
+
+--
+
+`$$\begin{aligned}
+\Pr(-1.25 \leq Z \leq 1.75) &amp; = \Phi(1.75) - \Phi(-1.25) \\
+&amp; = \Phi(1.75) - [1 - \Phi(1.25)] \\
+&amp; = 0.9599 - (1 - 0.8944) \\
+&amp; = 0.9599 - 0.1056 \\
+&amp; = 0.8543
+\end{aligned}$$`
+
+&lt;img src="11-general-random-vars_files/figure-html/normal-shade-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+--
+
+**And if `\(X\)` isn't standard?** Standardize first:
+`\(\Pr(X \leq x) = \Phi\!\left(\frac{x - \mu}{\sigma}\right)\)`
 
 ---
 # Gamma distribution: def
@@ -565,13 +678,13 @@ Then
 
 # Gamma distribution v Exponential: plot
 
-&lt;img src="11-general-random-vars_files/figure-html/gamma-3-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/gamma-3-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Gamma distribution
 
-&lt;img src="11-general-random-vars_files/figure-html/gamma-5-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="11-general-random-vars_files/figure-html/gamma-5-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -623,6 +736,38 @@ If `\(X = \sum_{i=1}^{n} Z_{i}^2\)`, `\(X \sim \text{Gamma}(n/2, 1/2)\)`
 
 ---
 
+# Quantiles: two worked examples
+
+### Our parliamentary example: `\(F(x) = \frac{x^4}{625}\)` on `\((0,5)\)`
+
+--
+
+`$$\frac{x^4}{625} = 0.5 \; \Rightarrow \; x^4 = 312.5 \; \Rightarrow \; x = 5(0.5)^{1/4} \approx 4.20 \text{ years}$$`
+
+--
+
+`$$\text{25th percentile:} \quad x = 5(0.25)^{1/4} \approx 3.54 \text{ years}$$`
+
+Note `\(\E[X] = 4\)`, but the median is `\(4.20\)` --- the left skew pulls the mean below the median.
+
+--
+
+### The exponential: `\(F(z) = 1 - e^{-\lambda z}\)`
+
+`$$1 - e^{-\lambda q} = p \; \Rightarrow \; e^{-\lambda q} = 1-p \; \Rightarrow \; q = \frac{-\log(1-p)}{\lambda}$$`
+
+--
+
+With `\(\lambda = 1\)`, the median is `\(\frac{-\log(0.5)}{1} \approx 0.69\)` --- well below the mean of `\(1\)`.
+
+---
+
+# Quantiles: ex
+
+&lt;img src="11-general-random-vars_files/figure-html/quantile-plot-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
+
+---
+
 # `\(\chi^2\)` distribution
 
 Suppose `\(X\)` is a continuous random variable with `\(X\geq 0\)`, with PDF 
@@ -639,7 +784,10 @@ Suppose `\(X\)` is a continuous random variable with `\(X\geq 0\)`, with PDF
 
 # `\(\chi^2\)` distribution: plot
 
-&lt;img src="11-general-random-vars_files/figure-html/chi-sq-1.gif" width="90%" style="display: block; margin: auto;" /&gt;
+
+```
+## NULL
+```
 
 ---
 
@@ -698,7 +846,10 @@ If `\(Z\)` and `\(U\)` are independent then `\(Y \sim t(n)\)`, with PDF
 
 # Differences from the Normal distribution: plot
 
-&lt;img src="11-general-random-vars_files/figure-html/t-dist-1.gif" width="90%" style="display: block; margin: auto;" /&gt;
+
+```
+## NULL
+```
 
 ---
 # HOW DO I DO THIS?!!!
