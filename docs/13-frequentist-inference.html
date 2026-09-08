@@ -307,7 +307,87 @@ and
 `\(\hat{\pi}_n\)` is a consistent estimator of `\(\pi\)`
 
 ---
+# We showed an unbiased estimator. What does a biased one look like?
 
+`\(\hat{\pi}_n = \frac{S}{n}\)` was unbiased. Not every estimator is.
+
+--
+
+Consider the "add one to each column" estimator:
+
+`$$\tilde{\pi}_n = \frac{S + 1}{n + 2}$$`
+
+--
+
+`$$\E(\tilde{\pi}_n) = \frac{\E(S) + 1}{n+2} = \frac{n\pi + 1}{n + 2}$$`
+
+--
+
+`$$\text{bias}(\tilde{\pi}_n) = \frac{n\pi + 1}{n+2} - \pi = \frac{1 - 2\pi}{n + 2}$$`
+
+--
+
+Not zero. So `\(\tilde{\pi}_n\)` is **biased**.
+
+---
+
+# Biased is not the same as bad
+
+`$$\text{bias}(\tilde{\pi}_n) = \frac{1 - 2\pi}{n + 2}$$`
+
+--
+
+Look at what the bias does:
+
+* It is **positive** when `\(\pi &lt; 1/2\)` and **negative** when `\(\pi &gt; 1/2\)` ---
+  the estimator pulls your guess toward `\(1/2\)`
+* It **shrinks to 0 as `\(n\)` grows**, so `\(\tilde{\pi}_n\)` is still **consistent**
+
+--
+
+With `\(n = 20\)` and `\(S = 12\)`: MLE gives `\(0.600\)`, add-one gives `\(0.591\)`. Barely a difference.
+
+--
+
+With `\(n = 20\)` and `\(S = 0\)`: MLE gives `\(\hat{\pi} = 0\)` --- "this event is
+impossible." Add-one gives `\(0.045\)`.
+
+--
+
+Which one would you rather report? **Biased, consistent, and sensible at the
+edges can beat unbiased.**
+
+---
+
+# Bias of a rescaled estimator
+
+Suppose `\(\hat{\theta}\)` is unbiased for `\(\theta\)`, and you multiply it by a constant `\(c\)`:
+
+--
+
+`$$\E(c\hat{\theta}) = c\,\theta \quad \Rightarrow \quad \text{bias} = (c - 1)\theta$$`
+
+--
+
+`$$\se(c\hat{\theta}) = |c| \cdot \se(\hat{\theta}) \quad \Rightarrow \quad \Var(c\hat{\theta}) = c^2 \Var(\hat{\theta})$$`
+
+--
+
+`$$\text{MSE} = \underbrace{(c-1)^2\theta^2}_{\text{bias}^2} + \underbrace{c^2\Var(\hat{\theta})}_{\text{variance}}$$`
+
+--
+
+Two things to notice:
+
+* `\(c = 1\)` is the only choice that is unbiased
+* The bias term has **no `\(n\)` in it**. The variance term shrinks as `\(n\)` grows;
+  the bias does not. This is a bias you cannot sample your way out of.
+
+--
+
+**KEY for homework:** this is the pattern behind every estimator of the form
+`\(c\bar{X}_n\)`.
+---
 ## Estimators: recap
 
 * Estimators are WHAT/HOW we come to have a best guess of our thing we care about
@@ -429,6 +509,76 @@ CI level | `\(\frac{\alpha}{2}\)` | z
 90% | 0.05 | 1.645
 95% | 0.025 | 1.96
 99% | 0.005 | 2.58
+
+---
+
+# Margin of error
+
+Polls rarely report a standard error. They report a **margin of error**:
+
+`$$\text{MoE} = z_{\frac{\alpha}{2}} \times \widehat{\se}$$`
+
+--
+
+which is just the half-width of the confidence interval:
+
+`$$C_n = \text{point estimate} \pm \text{MoE}$$`
+
+--
+
+So "46%, plus or minus 3 points" *is* a confidence interval --- (43%, 49%) ---
+written the way a newspaper writes it.
+
+--
+
+Two things drive it, and they pull in opposite directions:
+
+* **Confidence level** `\(\uparrow\)` `\(\Rightarrow\)` `\(z_{\alpha/2}\)` `\(\uparrow\)` `\(\Rightarrow\)` MoE `\(\uparrow\)` (wider)
+* **Sample size** `\(\uparrow\)` `\(\Rightarrow\)` `\(\widehat{\se}\)` `\(\downarrow\)` `\(\Rightarrow\)` MoE `\(\downarrow\)` (narrower)
+
+---
+
+# Margin of error: example
+
+A poll finds 58% support among `\(n = 900\)` respondents.
+
+`$$\widehat{\se} = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}} = \sqrt{\frac{0.58 \times 0.42}{900}} = 0.0165$$`
+
+--
+
+| level | `\(z_{\alpha/2}\)` | MoE | interval |
+|-------|------|------|----------|
+| 90% | 1.645 | 2.7% | (55.3%, 60.7%) |
+| 95% | 1.96 | 3.2% | (54.8%, 61.2%) |
+| 99% | 2.576 | 4.2% | (53.8%, 62.2%) |
+
+--
+
+**More confidence costs you precision.** This is the same accuracy/precision
+tradeoff from the previous slide, in the units a poll actually reports.
+
+---
+
+# Margin of error: the `\(\sqrt{n}\)` problem
+
+`$$\text{MoE} \propto \frac{1}{\sqrt{n}}$$`
+
+--
+
+To **halve** the margin of error, you need **four times** the sample.
+
+--
+
+Our poll: `\(n = 900\)` gives MoE of 3.2%.
+
+To get to 1.6%, you need `\(n = 3600\)` --- three thousand more interviews to buy
+back 1.6 percentage points.
+
+--
+
+This is why national polls cluster around `\(n \approx 1000\)` and a 3% margin of
+error. It is the point where the next increment of precision stops being worth
+what it costs.
 
 ---
 # CI: when to use
@@ -740,6 +890,7 @@ Suppose the true value of `\(\theta\)` is `\(\theta_* \neq \theta_0\)`. The powe
 * The power is large if the sample size is large
 
 ---
+
 class: center, middle, inverse
 
 ## Details: hypothesis testing
@@ -775,6 +926,141 @@ The size `\(\alpha\)` Wald test rejects `\(H_0\)` when `\(|W| &gt; z_{\alpha / 2
 ```
 ## NULL
 ```
+---
+
+# When do we need `\(t\)` instead of `\(z\)`?
+
+So far we have used `\(z\)`, which assumes we know `\(\sigma\)`.
+
+--
+
+We almost never know `\(\sigma\)`. We estimate it with `\(s\)`:
+
+`$$s^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar{X})^2$$`
+
+--
+
+That estimate carries its own uncertainty, so the test statistic
+
+`$$T = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$$`
+
+is **not** standard Normal. It follows a `\(t\)` distribution.
+
+--
+
+* Same shape as the Normal: symmetric, centered at 0
+* **Heavier tails** --- extreme values are more likely, because `\(s\)` might be off
+* Indexed by **degrees of freedom**: `\(df = n - 1\)`
+
+---
+
+# Degrees of freedom: `\(n - 1\)`
+
+Why `\(n-1\)` and not `\(n\)`?
+
+--
+
+Once you know `\(\bar{x}\)` and any `\(n-1\)` of the observations, the last one is
+determined --- it is not free to vary.
+
+--
+
+* Small `\(n\)` `\(\rightarrow\)` few df `\(\rightarrow\)` fatter tails `\(\rightarrow\)` **bigger** critical values
+* Large `\(n\)` `\(\rightarrow\)` many df `\(\rightarrow\)` `\(t\)` converges to the Normal
+
+--
+
+At `\(df = \infty\)`, the two-tailed 5% critical value is 1.96 --- exactly our `\(z\)` cutoff.
+
+**Rule of thumb:** use `\(t\)` whenever you estimated `\(\sigma\)` from the data. With
+`\(n\)` above roughly 100 the difference stops mattering.
+
+---
+
+# Reading a `\(t\)`-table
+
+Different layout from the `\(z\)`-table --- do not read it the same way!
+
+--
+
+* **$z$-table:** you look up a `\(z\)` value and read off an *area*
+* **$t$-table:** you pick an *area* (your `\(\alpha\)`) and read off the *critical value*
+
+--
+
+* **Rows** are degrees of freedom
+* **Columns** are tail area --- check whether your table is labeled one-tailed or two-tailed
+* The cell is `\(t^*\)`, the cutoff
+
+--
+
+Because the table only lists a few `\(\alpha\)` levels, you usually **bound** the
+p-value between two columns rather than reading it exactly.
+
+---
+
+# Common `\(t\)` values
+
+Two-tailed `\(\alpha\)`:
+
+| `\(df\)` | 0.10 | 0.05 | 0.02 | 0.01 |
+|------|-------|-------|-------|-------|
+| 10 | 1.812 | 2.228 | 2.764 | 3.169 |
+| 15 | 1.753 | 2.131 | 2.602 | 2.947 |
+| 20 | 1.725 | 2.086 | 2.528 | 2.845 |
+| 24 | 1.711 | 2.064 | 2.492 | 2.797 |
+| 30 | 1.697 | 2.042 | 2.457 | 2.750 |
+| 40 | 1.684 | 2.021 | 2.423 | 2.704 |
+| 60 | 1.671 | 2.000 | 2.390 | 2.660 |
+| `\(\infty\)` | 1.645 | 1.960 | 2.326 | 2.576 |
+
+--
+
+Read down the last row: that is the `\(z\)`-table you already know.
+
+---
+
+# `\(t\)` test: worked example
+
+A study of 16 students reports an average of 4.96 hours of weekly study time,
+with `\(s = 0.8\)`. The university claims the average is 4.5 hours. Test at
+`\(\alpha = 0.05\)`, two-sided.
+
+--
+
+**Step 1 --- standard error**
+
+`$$\se = \frac{s}{\sqrt{n}} = \frac{0.8}{\sqrt{16}} = 0.20$$`
+
+--
+
+**Step 2 --- test statistic and df**
+
+`$$T = \frac{4.96 - 4.5}{0.20} = 2.30, \qquad df = 16 - 1 = 15$$`
+
+---
+
+# `\(t\)` test: worked example, cont'd
+
+**Step 3 --- bound the p-value**
+
+Row `\(df = 15\)`: `\(\quad 2.131 \; (\alpha = 0.05) \; &lt; \; 2.30 \; &lt; \; 2.602 \; (\alpha = 0.02)\)`
+
+--
+
+So `\(0.02 &lt; p &lt; 0.05\)`. (Exact value: `\(p = 0.036\)`.)
+
+--
+
+**Step 4 --- decide**
+
+`\(p &lt; 0.05\)`, so we reject `\(H_0\)`. The data provide strong evidence that average
+study time differs from 4.5 hours.
+
+--
+
+Note what the bound is good for: we never needed the exact p-value to make the
+decision. We only needed to know which side of 0.05 it fell on.
 
 ---
 
