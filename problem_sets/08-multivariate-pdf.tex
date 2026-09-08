@@ -1,397 +1,138 @@
-% Options for packages loaded elsewhere
-\PassOptionsToPackage{unicode}{hyperref}
-\PassOptionsToPackage{hyphens}{url}
-\documentclass[
-]{article}
-\usepackage{xcolor}
+\documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb}
-\setcounter{secnumdepth}{5}
-\usepackage{iftex}
-\ifPDFTeX
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provide euro and other symbols
-\else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
-  \defaultfontfeatures{Scale=MatchLowercase}
-  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
-\fi
-% Use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-\IfFileExists{microtype.sty}{% use microtype if available
-  \usepackage[]{microtype}
-  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\makeatletter
-\@ifundefined{KOMAClassName}{% if non-KOMA class
-  \IfFileExists{parskip.sty}{%
-    \usepackage{parskip}
-  }{% else
-    \setlength{\parindent}{0pt}
-    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
-}{% if KOMA class
-  \KOMAoptions{parskip=half}}
-\makeatother
-\usepackage{graphicx}
-\makeatletter
-\newsavebox\pandoc@box
-\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
-  \sbox\pandoc@box{#1}%
-  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
-  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
-  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
-  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
-  \else\usebox{\pandoc@box}%
-  \fi%
-}
-% Set default figure placement to htbp
-\def\fps@figure{htbp}
-\makeatother
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{enumitem}
 \usepackage{bookmark}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
 \hypersetup{
   pdftitle={PSET 8: Multivariate distributions},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
+  hidelinks}
 
 \title{PSET 8: Multivariate distributions}
 \author{}
 \date{\vspace{-2.5em}}
 
+% Problems are numbered 1-5 across the document.
+\newcounter{problem}
+\newcommand{\problem}[1]{\refstepcounter{problem}\section*{Problem \theproblem: #1}}
+
 \begin{document}
 \maketitle
 
-\textbf{Note: all homework uploads should be as a PDF or image
-\emph{and} have the questions identified}. We'll be giving zero credit
-for submissions that don't follow this protocol as it adds considerable
-time to grading. Thank you!
+\input{assignment-qs}
 
-\section{Background info (GRADED -- complete all this
-section)}\label{background-info-graded-complete-all-this-section}
-
-\begin{itemize}
-\item
-  Name
-\item
-  How long did this problem set take you?
-\item
-  How difficult was this problem set? very easy 1 2 3 4 5 very
-  challenging
-\end{itemize}
-
-\section{Calculating conditional PDF}\label{calculating-conditional-pdf}
-
-Let \(f(x,y) = 5x^2y^2\) for \(0 \leq x \leq y \leq 1\). Find
-\(f(x|y)\).\footnote{Inspired by Grimmer HW12.4}
-
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-
-\section{Properties of a joint PDF}\label{properties-of-a-joint-pdf}
+\problem{Properties of a joint PDF}\label{prob:jointpdf}
 
 Continuous random variables \(X\) and \(Y\) have the following joint
 probability density function (PDF):\footnote{Inspired by Grimmer HW12.1}
-
 \[
 \begin{aligned}
 f_{XY} (x, y) &= \begin{cases}
-k x^3 y^2 & \text{where} \; 0 < x, y < 6 \\
-0 & \text{otherwise}
+k x^3 y^2 & \mbox{where} \ 0 < x, y < 6 \\
+0 & \mbox{otherwise}
 \end{cases}
 \end{aligned}
 \]
 
-\begin{quote}
-Note: \(0 < x,y <6\) means that both \(x\) and \(y\) are between 0 and
+Note: \(0 < x,y < 6\) means that both \(x\) and \(y\) are between 0 and
 6; it does not mean that \(x\) is greater than 0 and \(y\) is less than
 6.
-\end{quote}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  Find \(k\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find the marginal PDF of \(X\), \(f_X (x)\).
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Find the marginal PDF of \(Y\), \(f_Y (y)\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find E\([X]\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find E\([Y]\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find \(Var(X)\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find \(Var(Y)\).
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Find \(Cov(X, Y)\).
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Are \(X\) and \(Y\) independent? Explain your reasoning using
-  mathematical concepts from the course.
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is the PDF of \(X\) conditional on \(Y, f_{X|Y} (x|y)\)?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is the PDF of \(Y\) conditional on \(X, f_{Y|X} (y|x)\)?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
+\begin{enumerate}[label=\alph*.]
+\item Find \(k\).
+\item Find the marginal PDF of \(X\), \(f_X (x)\).
+\item Find the marginal PDF of \(Y\), \(f_Y (y)\).
+\item Find \(\Pr(X < 2, \ Y > 4)\).
 \end{enumerate}
 
-\section[Properties of joint random
-variables]{\texorpdfstring{Properties of joint random
-variables\footnote{Inspired by Grimmer HW12.3}}{Properties of joint random variables}}\label{properties-of-joint-random-variables}
+\problem{Calculating conditional PDF}\label{prob:condpdf}
 
-Suppose the following:
+Let \(f(x,y) = 18x^2y^2\) for \(0 \leq x \leq y \leq
+1\).\footnote{Inspired by Grimmer HW12.4}
 
-\begin{itemize}
-\tightlist
-\item
-  \(E[D] = 8\)
-\item
-  \(E[F] = 4\)
-\item
-  \(E[DF] = 10\)
-\item
-  \(Var(D) = 30\)
-\item
-  \(Var(F) = 60\)
+\begin{enumerate}[label=\alph*.]
+\item Sketch the region on which \(f(x,y)\) is positive.
+\item Find \(f(x|y)\).
+\item Are \(X\) and \(Y\) independent? Explain your reasoning, paying
+  attention to the region on which \(f(x,y)\) is defined.
+\end{enumerate}
+
+\problem{Moments and independence}
+
+Continuous random variables \(W\) and \(Z\) have the following joint
+probability density function (PDF):\footnote{Inspired by Grimmer HW12.1}
+\[
+\begin{aligned}
+f_{WZ} (w, z) &= \begin{cases}
+k w^2 z^3 & \mbox{where} \ 0 < w, z < 2 \\
+0 & \mbox{otherwise}
+\end{cases}
+\end{aligned}
+\]
+
+\begin{enumerate}[label=\alph*.]
+\item Find \(k\).
+\item Find E\([W]\).
+\item Find \(Var(W)\).
+\item Find \(Cov(W, Z)\).
+\item Are \(W\) and \(Z\) independent? Explain your reasoning using
+  mathematical concepts from the course.
+\item What is the PDF of \(W\) conditional on \(Z\), \(f_{W|Z} (w|z)\)?
+\end{enumerate}
+
+\problem{Properties of joint random variables}
+
+Suppose the following:\footnote{Inspired by Grimmer HW12.3}
+
+\begin{itemize}[nosep]
+\item \(E[D] = 8\)
+\item \(E[F] = 4\)
+\item \(E[DF] = 10\)
+\item \(Var(D) = 30\)
+\item \(Var(F) = 60\)
 \end{itemize}
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi}.}
-\item
-  What is \(Cov(D,F)\)?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is the correlation between \(D\) and \(F\)?
-
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-  \strut \\
-\item
-  Suppose you multiplied \(F\) by 2 to generate a new variable, \(H\).
-  What is \(Cov(D,H)\)?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  What is \(Cor(D,H)\)? How does this compare to your answer to Part (b)
-  of this question?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-\item
-  Suppose instead that \(Var(D) = 40\). How would this change
+\begin{enumerate}[label=\alph*.]
+\item What is \(Cov(D,F)\)?
+\item What is the correlation between \(D\) and \(F\)?
+\item What is \(Var(D + F)\)?
+\item What is \(Var(D - F)\)?
+\item Suppose you multiplied \(F\) by 2 to generate a new variable,
+  \(H\). What is \(Cov(D,H)\)?
+\item What is \(Cor(D,H)\)? How does this compare to your answer to
+  part (b) of this question?
+\item Suppose instead that \(Var(D) = 40\). How would this change
   \(Cor(D,F)\)?
-
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
-  \hfill\break
 \end{enumerate}
 
-\section{Continuous Bayes' theorem}\label{continuous-bayes-theorem}
+\problem{Continuous Bayes' theorem}
 
 Previously, we used Bayes' theorem to link the conditional probability
 of discrete events \(A\) given \(B\) to the probability of \(B\) given
-\(A\). There is an analogous Bayes' theorem that relates the conditional
-densities of random variables \(X\) and \(\theta\) (below) Prove the
-continuous Bayes' theorem.\footnote{Inspired by Grimmer HW12.5}
+\(A\). There is an analogous Bayes' theorem that relates the
+conditional densities of random variables \(X\) and
+\(\theta\):\footnote{Inspired by Grimmer HW12.5}
+\[
+f(\theta \mid X) = \dfrac{f(X \mid \theta) f(\theta)}{\int f(X \mid \theta) f(\theta) \, d\theta}
+\]
 
-\[f(\theta \mid X) = \frac{f(X \mid \theta) f(\theta)}{\int f(X \mid \theta) f(\theta)d\theta}\]
+\begin{enumerate}[label=\alph*.]
+\item Return to the joint PDF from Problem~\ref{prob:condpdf}. Using
+  the conditional density \(f(x|y)\) and the marginal \(f_Y(y)\) you
+  worked with there, apply Bayes' theorem to find \(f(y|x)\). Here
+  \(y\) plays the role of \(\theta\) and \(x\) plays the role of the
+  observed data \(X\). Be careful with the limits of integration in
+  the denominator. 
+\item Now compute \(f(y|x)\) directly as \(f(x,y) / f_X(x)\) and
+  confirm that it matches your answer to part (a). What familiar
+  quantity does the denominator of Bayes' theorem turn out to be here?
+\end{enumerate}
 
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
-\hfill\break
+\input{ai-statement}
 
-\section{AI and Resources statement}\label{ai-and-resources-statement}
-
-\begin{itemize}
-\tightlist
-\item
-  Please list (in detail) all resources you used for this assignment. If
-  you worked with people, list them here as well. It is not enough to
-  say that you used a resource for help, you need to be specific on the
-  link and \emph{how} it was helpful. W/R/T gen AI tools (including GPT,
-  etc. ) you cannot use them to do work on your behalf -- you cannot put
-  in any of the questions, etc. You can ask for help on logic / sample
-  problems. If you do use GPT or other AI tools, you need to provide a
-  link to your chat transcript. Any suspected academic integrity
-  violations will be immediately reported.
-\end{itemize}
-
-\subsection{(Optional -- complete elsewhere) Submission of practice
-questions}\label{optional-complete-elsewhere-submission-of-practice-questions}
+\section*{(Optional --- complete elsewhere) Submission of practice questions}
 
 Submit practice questions for the final exam here:
-\url{https://forms.gle/CPo9FMQgQRPePDfN7} Note that we need at least 10
+\url{https://forms.gle/sskPerZjthPYPbVt7} Note that we need at least 10
 people to submit before there's enough to circulate!
 
 \end{document}
