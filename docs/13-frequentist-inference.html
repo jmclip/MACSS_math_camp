@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="MACS 33000   University of Chicago" />
     <script src="13-frequentist-inference_files/header-attrs/header-attrs.js"></script>
+    <link href="13-frequentist-inference_files/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="slides-menu.css" type="text/css" />
   </head>
@@ -138,7 +139,7 @@ Let `\(X_1, \ldots, X_n\)` be `\(n\)` IID data points from some distribution `\(
 
 # Properties of point estimators
 
-&lt;img src="https://www.bluey.tv/wp-content/themes/bbc-bluey/assets/images/characters/bluey-star@2x.png" width="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://www.bluey.tv/wp-content/themes/bbc-bluey/assets/images/characters/bluey-star@2x.png" alt="" width="300px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -268,7 +269,7 @@ The standard error is
 
 `$$\se = \sqrt{\Var (\hat{\pi}_n)}$$`
 --
-We can think of this as: `\(\frac{Var(\pi_n)}{n}\)`
+We can think of this as: `\(\frac{Var(X_i)}{n}\)`
 
 HOW?? Recall `\(\hat{\pi}_n = \frac{1}{n} \sum_{i=1}^n X_i\)`, so `\(Var(\hat{\pi_n})=Var(\frac{1}{n} \sum (X_i))\)`. Then, `\(Var(\hat{\pi_n})=(\frac{1}{n})^2 \text{ }Var( \sum (X_i))\)`.
 
@@ -315,7 +316,7 @@ and
 * We need a way to think about / evaluate if they are good or not
 --
 
-Let `\(X_1, \ldots, X_n \s* For OLS specifically, that standard is **BLUE**: Best Linear Unbiased Estimatorim \text{Bernoulli}(\pi)\)`
+* For OLS specifically, that standard is **BLUE**: Best Linear Unbiased Estimator
 --
 
 * Using this is how we decided to use the sample mean as the best guess of the population mean (and other similar decisions)
@@ -398,7 +399,7 @@ Thus, we have a rejection region of size `\(\alpha\)` and a confidence interval 
 ### Confidence interval formula
 
 `$$C_n = (\hat{\theta}_n - z_{\frac{\alpha}{2}} \widehat{\se}, \hat{\theta}_n + z_{\frac{\alpha}{2}} \widehat{\se})$$`
-`$$C_n = (\bar x - z_{\frac{\alpha}{2}} \widehat{\se}, \bar x_n + z_{\frac{\alpha}{2}} \widehat{\se})$$`
+`$$C_n = (\bar x_n - z_{\frac{\alpha}{2}} \widehat{\se}, \bar x_n + z_{\frac{\alpha}{2}} \widehat{\se})$$`
 or
 
 `$$(\bar x \pm z_{\frac{\alpha}{2}} \widehat{\se})$$`
@@ -417,7 +418,7 @@ where `\(z_{\frac{\alpha}{2}}\)` is our cutoff point from a z-table
 
 # Z tables: Example
 
-&lt;img src="https://www.ztable.net/wp-content/uploads/2018/11/negativeztable.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://www.ztable.net/wp-content/uploads/2018/11/negativeztable.png" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -550,7 +551,7 @@ Truth / Decision | Reject | Fail to Reject
 
 # Types of errors: visual
 
-&lt;img src="img/typei_ii.jpg" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="img/typei_ii.jpg" alt="" width="95%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -731,7 +732,7 @@ The size `\(\alpha\)` Wald test is: reject `\(H_0\)` when `\(|W| &gt; z_{\alpha 
 
 Suppose the true value of `\(\theta\)` is `\(\theta_* \neq \theta_0\)`. The power `\(\beta(\theta_*)\)` is given (approximately) by
 
-`$$1 - \Phi \left( \frac{\hat{\theta} - \theta_0}{\widehat{\se}} + z_{\alpha/2} \right) + \Phi \left( \frac{\hat{\theta} - \theta_0}{\widehat{\se}} - z_{\alpha/2} \right)$$`
+`$$1 - \Phi \left( \frac{\theta_0 - \theta_*}{\widehat{\se}} + z_{\alpha/2} \right) + \Phi \left( \frac{\theta_0 - \theta_*}{\widehat{\se}} - z_{\alpha/2} \right)$$`
 
 --
 
@@ -770,13 +771,16 @@ The size `\(\alpha\)` Wald test rejects `\(H_0\)` when `\(|W| &gt; z_{\alpha / 2
 
 # Illustration: the `\(t\)` distribution vs the Normal
 
-&lt;img src="13-frequentist-inference_files/figure-html/t-dist-1.gif" alt="" width="90%" style="display: block; margin: auto;" /&gt;
+
+```
+## NULL
+```
 
 ---
 
 # Statistical vs. scientific significance
 
-&lt;img src="http://www.azquotes.com/picture-quotes/quote-the-absence-of-evidence-is-not-the-evidence-of-absence-carl-sagan-43-51-12.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="http://www.azquotes.com/picture-quotes/quote-the-absence-of-evidence-is-not-the-evidence-of-absence-carl-sagan-43-51-12.jpg" alt="" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -803,7 +807,7 @@ The smaller the `\(p\)`-value, the stronger the evidence against `\(H_0\)`
 
 
 --
-&lt;img src="https://imgs.xkcd.com/comics/p_values_2x.png" width="220px" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://imgs.xkcd.com/comics/p_values_2x.png" alt="" width="220px" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -835,7 +839,7 @@ Let
 
 denote the observed value of the Wald statistic `\(W\)`. The `\(p\)`-value is given by
 
-`$$\text{p-value} = \Pr_{\theta_0} (|W| &gt; |w|) \approx \Pr (|Z| &gt; |w| = 2 \Phi(-|w|)$$`
+`$$\text{p-value} = \Pr_{\theta_0} (|W| &gt; |w|) \approx \Pr (|Z| &gt; |w|) = 2 \Phi(-|w|)$$`
 
 where `\(Z \sim N(0,1)\)`
 
@@ -843,7 +847,7 @@ where `\(Z \sim N(0,1)\)`
 
 # `\(p\)` -value for Wald test
 
-&lt;img src="13-frequentist-inference_files/figure-html/wald-p-val-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="13-frequentist-inference_files/figure-html/wald-p-val-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 # Working some examples (time permitting!)
@@ -966,7 +970,7 @@ A polling organization is comparing support for a new policy between **Urban** a
 - Power is the probability that `\(z\)` would exceed the critical value in the correct direction  
 
 - Critical `\(z\)` for `\(\alpha = 0.05\)` (two-tailed) is `\(z_{0.975} = 1.96\)`  
-- With this sample size, even small differences like `\(\delta = 0.03\)` give high `\(z\)` values → **high power**
+- Power at `\(|\delta| = 0.03\)`: `\(1 - \Phi\!\left(1.96 - \tfrac{0.03}{0.0078}\right) + \Phi\!\left(-1.96 - \tfrac{0.03}{0.0078}\right) \approx 0.98\)` → **high power**
 
 
 ---
@@ -1037,7 +1041,7 @@ The **maximum likelihood estimator** `\(\hat{\theta}_n\)` is the value of `\(\th
 
 `$$f(x_i; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(x_i - \mu)^2}{2\sigma^2}\right]$$`
 
-&lt;img src="13-frequentist-inference_files/figure-html/plot-normal-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="13-frequentist-inference_files/figure-html/plot-normal-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1047,7 +1051,7 @@ $$
 `\begin{align}
 \lagr_n(\mu, \sigma^2 | X) &amp;= \log \prod_{i = 1}^{N}{\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(X_i - \mu)^2}{2\sigma^2}\right]} \\
 &amp;= \sum_{i=1}^{N}{\log\left(\frac{1}{\sqrt{2\pi\sigma^2}} \exp \left[-\frac{(X_i - \mu)^2}{2\sigma^2}\right]\right)} \\
-&amp;= -\frac{N}{2} \log(2\pi) - \left[ \sum_{i = 1}^{N} \log{\sigma^2 - \frac{1}{2\sigma^2}} (X_i - \mu)^2 \right]
+&amp;= -\frac{N}{2} \log(2\pi) - \frac{N}{2}\log \sigma^2 - \frac{1}{2\sigma^2} \sum_{i = 1}^{N} (X_i - \mu)^2
 \end{align}`
 $$
 
@@ -1093,7 +1097,7 @@ $$
 
 # MLE of the mean of the Normal variable
 
-&lt;img src="13-frequentist-inference_files/figure-html/loglik-normal-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="13-frequentist-inference_files/figure-html/loglik-normal-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 ---
 class: center, middle, inverse
 
@@ -1185,12 +1189,12 @@ We can continue simplifying to get:
 
 # Bernoulli random variable: plot
 
-&lt;img src="13-frequentist-inference_files/figure-html/loglik-bern-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="13-frequentist-inference_files/figure-html/loglik-bern-1.png" alt="" width="95%" style="display: block; margin: auto;" /&gt;
 
 ---
 # Log-likelihood close-up
 
-&lt;img src="13-frequentist-inference_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;" /&gt;
+&lt;img src="13-frequentist-inference_files/figure-html/unnamed-chunk-5-1.png" alt="" width="864" style="display: block; margin: auto;" /&gt;
 ---
 
 # Properties of maximum likelihood estimators
@@ -1225,7 +1229,7 @@ If `\(\hat{\theta}_n\)` is the MLE of `\(\theta\)`, then `\(g(\hat{\theta}_n)\)`
 
 ##### Asymptotic normality
 
-Let `\(\se = \sqrt{\Var (\hat{\sigma}_n)}\)`
+Let `\(\se = \sqrt{\Var (\hat{\theta}_n)}\)`
 
 `$$\frac{\hat{\theta}_n - \theta_*}{\se} \leadsto N(0,1)$$`
 
@@ -1239,7 +1243,7 @@ Let `\(\se = \sqrt{\Var (\hat{\sigma}_n)}\)`
 
 ##### Optimality
 
-Suppose that `\(X_1, \ldots, X_n \sim N(\theta, \sigma^2)\)`. The MLE is `\(\hat{\sigma}_n = \bar{X}_n\)`
+Suppose that `\(X_1, \ldots, X_n \sim N(\theta, \sigma^2)\)`. The MLE is `\(\hat{\theta}_n = \bar{X}_n\)`
 
 --
 
@@ -1255,8 +1259,7 @@ Median satisfies
 
 --
 
-* The MLE has the smallest (asymptotic) variance
-* Among *regular* estimators, none has smaller asymptotic variance
+* Among *regular* estimators, the MLE has the smallest asymptotic variance
 
 
     </textarea>
