@@ -3,7 +3,7 @@ title: "Multivariate distributions"
 author: "[MACS 33000](https://jmclip.github.io/MACSS_math_camp/) <br /> University of Chicago"
 output:
   xaringan::moon_reader:
-    css: ["xaringan-themer.css", "slides-menu.css"]
+    css: ["default","xaringan-themer.css", "slides-menu.css"]
     math: katex
     includes:
       after_body: [slides-menu.js]
@@ -23,6 +23,20 @@ library(patchwork)
 library(here)
 library(gganimate)
 library(plotly)
+
+# create default plot template for drawing functions
+function_plot <- ggplot2::ggplot(
+  data = tibble::tibble(x = 0),
+  mapping = ggplot2::aes(x = x)
+) +
+  ggplot2::geom_hline(yintercept = 0, linetype = 2, alpha = .5) +
+  ggplot2::geom_vline(xintercept = 0, linetype = 2, alpha = .5) +
+  ggplot2::xlim(-4, 4) +
+  ggplot2::labs(
+    x = expression(x),
+    y = expression(y)
+  )
+
 ```
 
 $$\newcommand{\E}{\mathrm{E}} \newcommand{\Var}{\mathrm{Var}} \newcommand{\Cov}{\mathrm{Cov}} \newcommand{\Cor}{\mathrm{Cor}}$$
@@ -30,7 +44,7 @@ $$\newcommand{\E}{\mathrm{E}} \newcommand{\Var}{\mathrm{Var}} \newcommand{\Cov}{
 
 # Misc
 
-* Calcs spoken for
+* Calcs updates
 * Link for practice questions open on github / pset
 * Exam rooms assigned: messaged you yesterday re: your placement
 * Meetings with preceptors: Should be hearing soon re: timing
@@ -66,7 +80,7 @@ $$\newcommand{\E}{\mathrm{E}} \newcommand{\Var}{\mathrm{Var}} \newcommand{\Cov}{
 
 # Multivariate distribution
 
-$X$ and $Y$ are **jointly continuous** if there exists a function $f(x,y)$ such that, for every set $C \subset \Re^{2}$,
+$X$ and $Y$ are **jointly continuous** if there exists a function $f(x,y)$ such that, for every set $C \subset \mathbb{R}^{2}$,
 
 $$\Pr\{(X, Y) \in C \}  = \iint_{(x,y)\in C} f(x,y)\, dx\, dy$$
 
@@ -138,7 +152,7 @@ C &= \{ x, y: x \in A, y \in B \} \\
 
 # Examples of joint pdfs
 
-Consider a function $f:\Re \times \Re \rightarrow \Re$:
+Consider a function $f:\mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}$:
 
 * Input: an $x$ value and a $y$ value.
 * Output: a number from the real line
@@ -241,7 +255,7 @@ ggplot(data = z, mapping = aes(x = x1, y = x2)) +
 
 # Examples of joint pdfs: exponential
 
-$f(x,y) = \frac{2 \exp(-2x)}{\sqrt{2\pi}}\exp\left(-\frac{(y)^2}{2}\right)$ if $x \in [0,\infty), y \in \Re$, $f(x,y) = 0$ otherwise
+$f(x,y) = \frac{2 \exp(-2x)}{\sqrt{2\pi}}\exp\left(-\frac{(y)^2}{2}\right)$ if $x \in [0,\infty), y \in \mathbb{R}$, $f(x,y) = 0$ otherwise
 
 ```{r joint-pdf-exp}
 x1 <- seq(from = 0, to = 3, length.out = 101)
@@ -268,7 +282,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z_mat) %>%
 
 # Examples of joint pdfs
 
-$f(x,y) = \frac{2 \exp(-2x)}{\sqrt{2\pi}}\exp\left(-\frac{(y)^2}{2}\right)$ if $x \in [0,\infty), y \in \Re$, $f(x,y) = 0$ otherwise
+$f(x,y) = \frac{2 \exp(-2x)}{\sqrt{2\pi}}\exp\left(-\frac{(y)^2}{2}\right)$ if $x \in [0,\infty), y \in \mathbb{R}$, $f(x,y) = 0$ otherwise
 
 ```{r joint-pdf-exp-2d, dependson = "joint-pdf-exp"}
 ggplot(data = z, mapping = aes(x = x1, y = x2)) +
@@ -288,9 +302,8 @@ ggplot(data = z, mapping = aes(x = x1, y = x2)) +
 $f(x,y) = x + y$, if $x \in [0,1], y \in [0,1]$
 
 ```{r joint-pdf-plus}
-x1 <- seq(from = 0, to = 3, length.out = 101)
-x2 <- seq(from = 0, to = 3, length.out = 101)
-
+x1 <- seq(from = 0, to = 1, length.out = 101)
+x2 <- seq(from = 0, to = 1, length.out = 101)
 z <- expand_grid(
   x1 = x1,
   x2 = x2
@@ -362,9 +375,11 @@ multi_cdf <- ggplot(data = z, mapping = aes(x = x1, y = x2)) +
   labs(
     x = expression(x),
     y = expression(y),
-    fill = expression(f(x, y))
+    fill = "surface height"
   )
 multi_cdf
+
+
 ```
 
 ---
@@ -472,7 +487,7 @@ $$f(x|y) = \frac{f(x, y) }{f_{Y}(y) }$$
 ---
 
 # Marginalization in action
-$f(x,y) = -x^2 - y^2$, if $x \in [-2,2], y \in [-2,2]$
+$f(x,y) = \phi(x)\,\phi(y)$, the product of two standard normal densities
 
 ```{r joint-pdf-EXmar}
 x1 <- seq(from = -2, to = 2, length.out = 101)
@@ -499,8 +514,7 @@ plot_ly(x = ~x1, y = ~x2, z = ~z_mat) %>%
 
 # Marginalization
 
-$$f(x, y) = -x^2 - y^2$$
-
+$$f(x, y) = \phi(x)\,\phi(y) \quad \text{(independent standard normals)}$$
 .pull-left[
 
 ```{r conditional-pdf, fig.width = 6}
@@ -543,11 +557,11 @@ z <- expand_grid(
 function_plot +
   geom_line(
     data = z,
-    mapping = aes(x = x1, y = y, color = y), linewidth = 6
+    mapping = aes(x = x1, y = y, color = y), linewidth = 1.5
   ) +
   scale_color_viridis_c() +
   labs(
-    title = expression(f(x, y) == -x^2 - y^2),
+    title = expression(f(x, y) == phi(x) * phi(y)),
     subtitle = "y = {closest_state}",
     x = expression(x),
     y = expression(z)
@@ -700,7 +714,7 @@ ggplot(data = z, mapping = aes(x = x1, y = x2)) +
 
 # A simple(-ish) example
 
-We want $f_{X}(x)$. We can find this one of two ways: by either taking the derivative of the original function with respect to y OR by using independence. 
+We want $f_{X}(x)$. We can find this one of two ways: by integrating the joint density over $y$, OR by averaging the conditional densities, $f_{X}(x) = \int f(x|y) f_{Y}(y)\,dy$. 
 
 Option 1: $\int_0^1f(x,y) dy = \int_0^1 (x+ y) dy = xy + \frac{y^2}{2} |_0^1 = x + 1/2$
 
@@ -865,7 +879,7 @@ $$\begin{aligned}f_{X|Y} (x|y) & = \frac{f(x,y)}{f_{Y}(y)} \\& = \frac{f_{X}(x)f
 
 Suppose $X$ and $Y$ are jointly continuous and that
 
-$$\begin{aligned}f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \\& = & 0 \text{ , otherwise }  \end{eqnarray}$$
+$$\begin{aligned}f(x,y) &  = & x + y \text{ , if  } x \in [0,1], y \in [0,1] \\& = & 0 \text{ , otherwise }  \end{aligned}$$
 
 --
 
@@ -882,11 +896,11 @@ $$xy  + \frac{y^2}{2} |^{1}_{0} = x + \frac{1}{2}$$
 --
 $$f_{Y}(y) = \int_{0}^{1} \left(x + y \right) \, dx =  \frac{x^2}{2} + xy  |^{1}_{0} = \frac{1}{2} + y$$
 --
-$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
+$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{aligned}$$
 ---
 # Dependence: deep thoughts
 
-$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{eqnarray}$$
+$$\begin{aligned}f_{X}(x) f_{Y}(y) & = & (\frac{1}{2} + x) (\frac{1}{2} + y) \\& = & \frac{1}{4} + \frac{x + y}{2} + xy \neq (x+y)\end{aligned}$$
 
 We can think about this as getting additional INFORMATION from y when we know x and vice versa. 
 
@@ -912,7 +926,7 @@ $$E[XY] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f(x,y) \, dx\, dy$
 
 --
 
-Suppose $g:\Re^{2} \rightarrow \Re$. Then
+Suppose $g:\mathbb{R}^{2} \rightarrow \mathbb{R}$. Then
 
 $$\E[g(X, Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x, y) f(x,y) \, dx\, dy$$
 ---
@@ -1026,7 +1040,7 @@ $$\begin{align}F(x,y) &= \int_{1}^{2} \int_{0}^{0.5} (x^2 - \frac{8y}{3}+\frac{1
 &= 1
 \end{align}$$
 --
-PHEW! It's a pdf (also need to verify we don't have negative values for f(x)) (it is: the minimum over $x \in [1,2], y \in [0,0.5]$ is at $(1, 0.5)$, where $f = 1 - \frac{4}{3} + \frac{1}{3} = 0$.)
+PHEW! It's a pdf. And it is non-negative on the region: the minimum over $x \in [1,2], y \in [0,0.5]$ is at $(1, 0.5)$, where $f = 1 - \frac{4}{3} + \frac{1}{3} = 0$.
 
 
 ---
@@ -1064,7 +1078,8 @@ $$=E[XY] - 2E[X]E[Y] + E[E[X]E[Y]]$$
 --
 $$=E[XY] - E[X]E[Y]$$
 
---
+---
+## Covariance def
 
 Define the correlation of $X$ and $Y$ as,
 
@@ -1074,7 +1089,7 @@ $$\Cor(X,Y) =  \frac{\Cov(X,Y) }{\sqrt{\Var(X) \Var(Y) } }$$
 
 # Variance is covariance with itself
 
-$$\begin{aligned}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{eqnarray}$$
+$$\begin{aligned}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{aligned}$$
 
 ---
 
@@ -1082,13 +1097,13 @@ $$\begin{aligned}\Cov(X,X) & = & E[X X] - E[X]E[X] \\& = & E[X^2] - E[X]^2\end{e
 Like covariance, bigger is more, but now we're standardizing relative to variance. 
 Suppose $X = Y$:
 
-$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& = & \frac{\Var(X)}{\Var(X)} \\& = & 1\end{eqnarray}$$
+$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& = & \frac{\Var(X)}{\Var(X)} \\& = & 1\end{aligned}$$
 
 --
 
 Suppose $X = -Y$:
 
-$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& =  & \frac{- \Var(X)}{\Var(X)} \\& = & -1 \end{eqnarray}$$
+$$\begin{aligned}\Cor(X,Y) & = & \frac{\Cov(X,Y)}{\sqrt{\Var(X)\Var(Y)} } \\& =  & \frac{- \Var(X)}{\Var(X)} \\& = & -1 \end{aligned}$$
 
 ---
 
@@ -1132,11 +1147,11 @@ $$\E[\sum_{i=1}^{N} X_{i} ] = \sum_{i=1}^{N} \E[X_{i} ]$$
 
 $$
 \begin{aligned}
-\E[\sum_{i=1}^{N} X_{i} ] & = &  \E[X_{1} + X_{2} + \ldots + X_{N}] \\
-& = & \int_{-\infty}^{\infty} \cdot \cdot \cdot \iint_{-\infty}^{\infty} (x_{1} + x_{2} + \ldots + x_{N}) f(x_{1}, x_{2}, \ldots, x_{N}) \, dx_{1}\, dx_{2}\ldots \, dx_{N} \\
-& = & \int_{-\infty}^{\infty}x_{1} f_{X_{1}}(x_{1}) \, dx_{1}  + \int_{-\infty}^{\infty}x_{2} f_{X_{2}}(x_{2}) \, dx_{2} + \ldots + \int_{-\infty}^{\infty}x_{N} f_{X_{N}}(x_{N}) \, dx_{N}  \\
-& = & \E[X_{1} ] + \E[X_{2}] + \ldots + \E[X_{N}] 
-\end{eqnarray}
+\E[\sum_{i=1}^{N} X_{i} ] & =   \E[X_{1} + X_{2} + \ldots + X_{N}] \\
+& =  \int_{-\infty}^{\infty} \cdot \cdot \cdot \iint_{-\infty}^{\infty} (x_{1} + x_{2} + \ldots + x_{N}) f(x_{1}, x_{2}, \ldots, x_{N}) \, dx_{1}\, dx_{2}\ldots \, dx_{N} \\
+& =  \int_{-\infty}^{\infty}x_{1} f_{X_{1}}(x_{1}) \, dx_{1}  + \int_{-\infty}^{\infty}x_{2} f_{X_{2}}(x_{2}) \, dx_{2} + \ldots + \int_{-\infty}^{\infty}x_{N} f_{X_{N}}(x_{N}) \, dx_{N}  \\
+& =  \E[X_{1} ] + \E[X_{2}] + \ldots + \E[X_{N}] 
+\end{aligned}
 $$
 
 ---
@@ -1148,7 +1163,7 @@ Suppose $X_{i}$ is a sequence of random variables.  Then
 $$
 \begin{aligned}
 \Var(\sum_{i=1}^{N} X_{i} ) & = & \sum_{i=1}^{N} \Var(X_{i} )  + 2 \sum_{i<j} \Cov(X_{i}, X_{j} ) 
-\end{eqnarray}
+\end{aligned}
 $$
 
 --
@@ -1159,12 +1174,33 @@ $$
 \begin{aligned}
 \Var(X_{1} + X_{2} ) & = & \E[(X_{1} + X_{2})^2] - \left(\E[X_{1}] + \E[X_{2}] \right)^2 \\ 
 & = & \E[X_{1}^2]  + 2 \E[X_{1}X_{2}]  + \E[X_{2}^2]  \\
-&& - (\E[X_{1}])^2 - 2 \E[X_{1}] \E[X_{2}]  - 2 \E[X_{2}]^2 \\
+&& - (\E[X_{1}])^2 - 2 \E[X_{1}] \E[X_{2}]  - \E[X_{2}]^2 \\
 & = & \underbrace{\E[X_{1}^2] - (\E[X_{1}])^2}_{\Var(X_{1}) }   + \underbrace{\E[X_{2}^2] - \E[X_{2}]^{2}}_{\Var(X_{2})} \\
 &&  + 2 \underbrace{(\E[X_{1} X_{2} ]  - \E[X_{1}] \E[X_{2} ] )}_{\Cov(X_{1}, X_{2} ) } \\
 & = & \Var(X_{1} ) + \Var(X_{2} ) + 2 \Cov(X_{1}, X_{2})
-\end{eqnarray}
+\end{aligned}
 $$
+
+---
+# Independence, matrices, covariance: why might we care?
+We can keep going with the dimensions!
+* we are looking for information
+* duplication/dependence in variables can be problematic for predicting relationships (recall: determinants and eigenvalues)
+
+
+
+---
+# Recap!
+
+* Joint pdf: same concept, integrate over variables
+* Condition pdfs on other random variables and marginal probability
+* Covariance and correlation: linear relationship
+* Matrices: can keep going with many dimensions!
+
+---
+class: center, middle, inverse
+## Let’s get to know each other a bit more – Name, pronouns, subfield/research area, where you are currently, something fun/interesting about you and/or your hobbies
+
 
 ---
 class: middle
@@ -1208,7 +1244,7 @@ $$\boldsymbol{\Sigma} = \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}$$
 
 --
 
-$$\begin{aligned}f(x_{1}, x_{2} ) & = & (2\pi)^{-2/2} 1^{-1/2} \exp\left(-\frac{1}{2}\left( (\boldsymbol{x}  - \boldsymbol{0} ) ^{'} \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}(\boldsymbol{x}  - \boldsymbol{0} ) \right) \right) \\& = & \frac{1}{2\pi} \exp\left(-\frac{1}{2} (x_{1}^{2} + x_{2} ^ 2 )     \right) \\& = & \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{1}^{2}}{2}  \right) \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{2}^{2}}{2}  \right)\end{eqnarray}$$
+$$\begin{aligned}f(x_{1}, x_{2} ) & = & (2\pi)^{-2/2} 1^{-1/2} \exp\left(-\frac{1}{2}\left( (\boldsymbol{x}  - \boldsymbol{0} ) ^{'} \begin{pmatrix} 1 & 0 \\0 & 1 \\\end{pmatrix}(\boldsymbol{x}  - \boldsymbol{0} ) \right) \right) \\& = & \frac{1}{2\pi} \exp\left(-\frac{1}{2} (x_{1}^{2} + x_{2} ^ 2 )     \right) \\& = & \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{1}^{2}}{2}  \right) \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{x_{2}^{2}}{2}  \right)\end{aligned}$$
 
 --
 
@@ -1234,7 +1270,7 @@ $$
 \begin{aligned}
 \E[\boldsymbol{X} ] & = &  \boldsymbol{\mu} \\
 \Cov(\boldsymbol{X} ) & = & \boldsymbol{\Sigma} 
-\end{eqnarray}
+\end{aligned}
 $$
 
 So that, 
@@ -1247,7 +1283,7 @@ $$
 \vdots & \vdots & \ddots & \vdots \\
 \Cov(X_{N}, X_{1} ) & \Cov(X_{N}, X_{2} ) & \ldots & \Var(X_{N} ) \\
 \end{pmatrix} 
-\end{eqnarray}
+\end{aligned}
 $$
 
 ---
@@ -1271,7 +1307,7 @@ $$
 & =& \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x y f_{X}(x) f_{Y}(y)\, dx\, dy \\
 & = & \int_{-\infty}^{\infty} x f_{X}(x) \, dx \int_{-\infty}^{\infty} y f_{Y}(y) \, dy \\
 & = & \E[X] \E[Y]
-\end{eqnarray}
+\end{aligned}
 $$
 
 --
@@ -1300,7 +1336,7 @@ $$
   & = &  0.25 - 0.25 = 0  \\
 \E[X] & = &  0 \\
 \E[Y] & = & 0 
-\end{eqnarray}
+\end{aligned}
 $$
 --
 
@@ -1314,14 +1350,3 @@ But $Y$ is completely determined by $X$: knowing $X = -1$ tells you $Y = 0$ with
 * duplication/dependence in variables can be problematic for predicting relationships (recall: determinants and eigenvalues)
 
 
----
-# Recap!
-
-* Joint pdf: same concept, integrate over variables
-* Condition pdfs on other random variables and marginal probability
-* Covariance and correlation: linear relationship
-* Matrices: can keep going with many dimensions!
-
----
-class: center, middle, inverse
-## Let’s get to know each other a bit more – Name, pronouns, subfield/research area, where you are currently, something fun/interesting about you and/or your hobbies
