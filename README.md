@@ -121,7 +121,7 @@ Note: solutions posted after grades released
 | T 8-Sep | Probability | [General random variables](https://jmclip.github.io/MACSS_math_camp/11-general-random-vars.html)| [Pset 7 pdf](problem_sets/07-general-random-variables.pdf), [.tex file](problem_sets/07-general-random-variables.tex)  & [answer key](solutions/pset7__answerkey.pdf) & [Exam questions+Calc request](https://forms.gle/sskPerZjthPYPbVt7)
 | W 9-Sep | Probability | [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)  | [Pset 8 pdf](problem_sets/08-multivariate-pdf.pdf), [.tex file](problem_sets/08-multivariate-pdf.tex) & [answer key](solutions/pset8__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | Th 10-Sep | Statistical inference  | [Classical statistical inference](https://jmclip.github.io/MACSS_math_camp/13-frequentist-inference.html)| [Pset 9 pdf](problem_sets/09-frequentist-inference.pdf), [tex](problem_sets/09-frequentist-inference.tex) & [answer key](solutions/pset9__answerkey.pdf) and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
-| F 11-Sep | Statistical inference | [Applied Classical Stats and intro to Bayesian statistical inference](https://jmclip.github.io/MACSS_math_camp/14-classical-applied.html) | [Review questions (student submissions)](https://docs.google.com/spreadsheets/d/1GB8BQoK4pZgne3_kgWOgYHYH_ScUGQ4awsMSUsIPO3k/edit?usp=sharing)  and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
+| F 11-Sep | Open OH! | OH ONLY| [Review questions (student submissions)](https://docs.google.com/spreadsheets/d/1GB8BQoK4pZgne3_kgWOgYHYH_ScUGQ4awsMSUsIPO3k/edit?usp=sharing)  and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 | **Final Exam** | | | |
 | M 14-Sep | Placement exam |  | Placement exam, [pretest](problem_sets/pre_test.pdf), and [practice quizzes](https://jmclip.github.io/MACSS_math_camp/quiz.html)
 
@@ -129,6 +129,7 @@ Note: solutions posted after grades released
 
 * [Quadratics, logarithms, sequences, and limits](https://jmclip.github.io/MACSS_math_camp/02-sequences-limits.html) 
 * [Multivariate distributions](https://jmclip.github.io/MACSS_math_camp/12-multivariate-pdf.html)
+* [Applied Classical Stats and intro to Bayesian statistical inference](https://jmclip.github.io/MACSS_math_camp/14-classical-applied.html) 
 
 ## Class recordings!
 (Need UChicago login to access)
